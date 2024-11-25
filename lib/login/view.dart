@@ -15,9 +15,9 @@ class LoginPage extends GetView<LoginController> {
           const HelloWidget(),
           ElevatedButton(
             onPressed: () {
-              controller.onTap(DateTime.now().microsecondsSinceEpoch);
+              Get.toNamed("/splash");
             },
-            child: const Text("Click"),
+            child: const Text("Go to splash"),
           ),
         ],
       ),
