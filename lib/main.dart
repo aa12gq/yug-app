@@ -26,9 +26,16 @@ class MyApp extends StatelessWidget {
       ),
 
       // route
-      initialRoute: RouteNames.systemSplash,
+      initialRoute: RouteNames.stylesStylesIndex,
       getPages: RoutePages.list,
       navigatorObservers: [RoutePages.observer],
+
+      // i18n
+      translations: Translation(), // dictionary
+      localizationsDelegates: Translation.localizationsDelegates, // delegates
+      supportedLocales: Translation.supportedLocales, // supported locales
+      locale: ConfigService.to.locale, // current locale
+      fallbackLocale: Translation.fallbackLocale, // fallback locale
     );
   }
 }

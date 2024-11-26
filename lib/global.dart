@@ -16,7 +16,7 @@ class Global {
     // initialize queue
     await Future.wait([
       // configuration service
-      Get.putAsync<ConfigService>(() async => await ConfigService().init()),
+      Get.putAsync<ConfigService>(() async => await ConfigService()),
     ]).whenComplete(() {});
   }
 }

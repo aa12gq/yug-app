@@ -1,5 +1,8 @@
-/// 常量
+/// constants
 class Constants {
-  // 服务 api
+  // service api
   static const apiUrl = 'https://api.example.com';
+
+  // storage language code
+  static const storageLanguageCode = 'language_code';
 }
