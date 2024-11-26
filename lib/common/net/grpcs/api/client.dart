@@ -17,7 +17,7 @@ typedef VGrpcClientCreator<T> = T Function(
 /// gRPC 客户端工具类
 class GrpcClientUtil {
   /// 创建 gRPC 客户端
-  /// 
+  ///
   /// [creator] - 客户端创建器函数
   /// [channel] - 可选的通道名称，默认使用 [ChannelNames.cDefault]
   /// 返回创建的客户端实例
@@ -28,19 +28,19 @@ class GrpcClientUtil {
     ConfigManager config = ConfigManager.instance;
     channel ??= ChannelNames.cDefault;
     final token = await Storage().getString(Constants.keyAuthToken);
-    
+
     return creator(
       config.channel(channel),
       interceptors: [ResponseL10n()],
       options: $grpc.CallOptions(
-        metadata: {"yug-x-authorization": token ?? ""},
+        metadata: {"yug-x-authorization": token},
         timeout: const Duration(milliseconds: 5000),
       ),
     );
   }
 
   /// 替换本次请求的 JWT token
-  /// 
+  ///
   /// [token] - 新的 token
   /// [originOptions] - 原始的调用选项
   /// 返回更新后的调用选项
