@@ -5,4 +5,7 @@ class Constants {
 
   // storage language code
   static const storageLanguageCode = 'language_code';
+
+  // storage auth token
+  static const keyAuthToken = 'auth_token';
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.vtyug.yug.system.grpc.v1;
+
+option go_package = "proto/system/v1;v1";
+
+message UserInfo {
+    uint64 user_id = 1;
+    string username = 2;
+    string nickname = 3;
+}
+
+message GetUserInfoRequest {
+    uint64 user_id = 1;
+}
+
+message GetUserInfoResponse {
+    UserInfo user_info = 1;
+}

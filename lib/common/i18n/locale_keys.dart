@@ -14,4 +14,11 @@ class LocaleKeys {
 
   // style
   static const stylesTitle = 'styles_title';
+
+  // network errors
+  static const networkErrorTimeout = 'network_error_timeout';
+  static const networkErrorCancelled = 'network_error_cancelled';
+  static const networkErrorAborted = 'network_error_aborted';
+  static const networkErrorUnknown = 'network_error_unknown';
+  static const networkErrorInternal = 'network_error_internal';
 }

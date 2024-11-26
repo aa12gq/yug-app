@@ -1,0 +1,19 @@
+import 'package:grpc/grpc.dart';
+
+enum ChannelNames {
+  cDefault
+}
+abstract class ChannelConfig {
+  Object get host;
+  int get port;
+  Duration get connTimeout;
+  Duration get idleTimeout;
+  ChannelCredentials? get credentials;
+}
+class ConfigDefault implements ChannelConfig{
+   get host => "127.0.0.1";
+   get port => 9000;
+  get connTimeout => const Duration(seconds: 6);
+  get idleTimeout => const Duration(minutes: 1);
+  get credentials => ChannelCredentials.insecure();
+}

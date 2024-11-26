@@ -1,6 +1,5 @@
 library common;
 
-export 'api/index.dart';
 export 'components/index.dart';
 export 'extension/index.dart';
 export 'i18n/index.dart';

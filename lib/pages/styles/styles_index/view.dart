@@ -10,14 +10,51 @@ class StylesIndexPage extends GetView<StylesIndexController> {
 
   // main view
   Widget _buildView() {
-    return Column(children: [
-      ListTile(
-        onTap: controller.onLanguageSelected,
-        title: Text(
-          "语言 : ${ConfigService.to.locale.toLanguageTag()}",
+    return Column(
+      children: [
+        ListTile(
+          onTap: controller.onLanguageSelected,
+          title: Text(
+            "语言 : ${ConfigService.to.locale.toLanguageTag()}",
+          ),
         ),
-      ),
-    ]);
+
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed:
+                    controller.isLoading.value ? null : controller.getUserInfo,
+                child: Obx(() => controller.isLoading.value
+                    ? const CircularProgressIndicator()
+                    : const Text("测试 gRPC 通信")),
+              ),
+
+              Obx(() => controller.errorMessage.value.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        controller.errorMessage.value,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    )
+                  : const SizedBox.shrink()),
+
+              Obx(() => controller.userInfo.value.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        '用户信息: ${controller.userInfo.value}',
+                        style: const TextStyle(color: Colors.green),
+                      ),
+                    )
+                  : const SizedBox.shrink()),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -27,7 +64,6 @@ class StylesIndexPage extends GetView<StylesIndexController> {
       id: "styles_index",
       builder: (_) {
         return Scaffold(
-          // appBar: AppBar(title: const Text("styles_index")),
           appBar: AppBar(title: Text(LocaleKeys.stylesTitle.tr)),
           body: SafeArea(
             child: _buildView(),

@@ -16,4 +16,11 @@ Map<String, String> localeEn = {
 
   // style
   LocaleKeys.stylesTitle: 'Sytles && Function',
+
+  // network errors
+  LocaleKeys.networkErrorTimeout: 'Request timeout',
+  LocaleKeys.networkErrorCancelled: 'Request cancelled',
+  LocaleKeys.networkErrorAborted: 'Request aborted',
+  LocaleKeys.networkErrorUnknown: 'Unknown error',
+  LocaleKeys.networkErrorInternal: 'Internal server error',
 };

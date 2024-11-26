@@ -16,5 +16,12 @@ Map<String, String> localeZh = {
 
   // style
   LocaleKeys.stylesTitle: '样式 && 功能 && 调试',
+
+  // network errors
+  LocaleKeys.networkErrorTimeout: '请求超时',
+  LocaleKeys.networkErrorCancelled: '请求已取消',
+  LocaleKeys.networkErrorAborted: '请求被终止',
+  LocaleKeys.networkErrorUnknown: '未知错误',
+  LocaleKeys.networkErrorInternal: '服务器内部错误',
 };
 
