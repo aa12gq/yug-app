@@ -1,31 +1,52 @@
-# YUG App
+<p align="center">
+    <a href="https://github.com/vtyug/yug-app" target="_blank">
+        <img src="././lib/docs/images/yug.png?raw=true" width="200" height="auto">
+    </a>
+</p>
 
-基于 Flutter 和 gRPC 的移动应用开发框架。
+<p align="center">
+    <a href="https://pkg.go.dev/github.com/vtyug/yug-app">
+        <img src="https://img.shields.io/badge/GoDoc-Reference-blue" alt="GoDoc">
+    </a>
+    <a href="https://goreportcard.com/report/github.com/vtyug/yug-app">
+        <img src="https://img.shields.io/badge/Go%20Report%20Card-Grade-blue" alt="Go Report Card">
+    </a>
+    <a href="https://github.com/vtyug/yug-app/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/vtyug/yug-app" alt="License">
+    </a>
+    <a href="https://github.com/vtyug/yug-app/issues">
+        <img src="https://img.shields.io/github/issues/vtyug/yug-app" alt="Issues">
+    </a>
+</p>
 
-## 项目简介
+##### Translate to: [简体中文](./README-CN.md)
 
-YUG App 是一个使用 Flutter 和 gRPC 技术栈构建的移动应用开发框架，旨在提供高效的网络通信、优雅的用户界面及高质量的开发体验。
+A mobile application development framework based on Flutter and gRPC.
 
-## 快速开始
+## Introduction
 
-### 环境准备
+YUG App is a mobile application development framework built with Flutter and gRPC technology stack, designed to provide efficient network communication, elegant user interface, and high-quality development experience.
 
-1. **安装 protoc 编译器**
+## Quick Start
 
-   - MacOS: 执行命令 `brew install protobuf`
-   - Linux: 执行命令 `apt-get install protobuf-compiler`
+### Environment Setup
 
-2. **安装 Dart protoc 插件**
+1. **Install protoc compiler**
 
-   执行命令 `dart pub global activate protoc_plugin`
+   - MacOS: Run `brew install protobuf`
+   - Linux: Run `apt-get install protobuf-compiler`
 
-3. **安装 Flutter 依赖**
+2. **Install Dart protoc plugin**
 
-   执行命令 `flutter pub get`
+   Run `dart pub global activate protoc_plugin`
 
-### 编译 proto 文件
+3. **Install Flutter dependencies**
 
-在项目根目录下执行以下命令：
+   Run `flutter pub get`
+
+### Compile proto files
+
+Execute the following command in the project root directory:
 
 ```bash
 protoc --dart_out=grpc:lib/common/net/grpcs/proto \
@@ -33,57 +54,46 @@ protoc --dart_out=grpc:lib/common/net/grpcs/proto \
   protos/*.proto
 ```
 
-## 目录结构说明
+Make sure you execute this command in the project root directory, not in the `lib/common/net/grpcs/proto` directory.
+
+## Directory Structure
 
 ```
-lib/
-├── common/       # 公共代码
-│   ├── net/      # 网络相关
-│   │   └── grpcs/ # gRPC 实现
-│   ├── i18n/     # 国际化
-│   └── values/   # 常量定义
-└── pages/        # 页面代码
+.
+├── common                  # Common modules containing frequently used components and utilities
+│   ├── components          # UI components
+│   ├── extension           # Dart extension methods
+│   ├── i18n                # Internationalization support
+│   ├── index.dart          # Index file for common modules
+│   ├── models              # Data models
+│   ├── net                 # Network-related code
+│   ├── routers             # Routing configuration
+│   ├── services            # Service classes handling business logic
+│   ├── style               # Style files
+│   ├── utils               # Utility classes and methods
+│   ├── values              # Constants and enums
+│   └── widgets             # Custom widgets
+├── config                  # Configuration files
+│   ├── grpc_channels.dart  # gRPC channel configuration
+│   └── grpc_channels.dart.example # Example gRPC channel configuration
+├── docs                    # Documentation
+│   ├── dev                 # Development documentation
+│   └── images              # Image resources
+├── global.dart             # Global configurations and variables
+├── main.dart               # Application entry point
+└── pages                   # Page modules
+    ├── index.dart          # Page index
+    ├── my                  # "My" page module
+    ├── search              # Search page module
+    ├── styles              # Style-related pages
+    └── system              # System-related pages
 ```
 
-## 开发指南
+## Documentation Links
 
-### 示例代码
+- [Flutter Official Documentation](https://flutter.dev/docs)
+- [gRPC Official Documentation](https://grpc.io/docs)
 
-```dart
-// 1. 创建客户端
-final client = await GrpcClientUtil.createClient(UserFrontendClient.new);
+## More Information
 
-// 2. 调用接口
-try {
-    final response = await client.getUserInfo(
-        GetUserInfoRequest(userId: Int64(1))
-    );
-    print("调用成功: $response");
-} catch (e) {
-    print("调用失败: $e");
-}
-```
-
-## 错误处理说明
-
-在调用 gRPC 接口时，建议使用 `try-catch` 结构来捕获和处理可能的异常。
-
-## 开发规范
-
-- 遵循 SOLID 原则
-- 使用设计模式解决常见问题
-
-## 调试工具推荐
-
-- Flutter DevTools
-- gRPCurl
-
-## 常见问题解答
-
-- **如何解决依赖冲突？** 请确保 `pubspec.yaml` 中的依赖版本与项目需求一致。
-- **如何调试 gRPC 请求？** 使用 gRPCurl 工具来测试和调试 gRPC 服务。
-
-## 参考文档链接
-
-- [Flutter 官方文档](https://flutter.dev/docs)
-- [gRPC 官方文档](https://grpc.io/docs/)
+For development guidelines and detailed development specifications, please refer to the [Development Guide](docs/DEVELOPMENT_GUIDE.md).
