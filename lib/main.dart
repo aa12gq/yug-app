@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/global.dart';
 
 import 'common/index.dart';
+import 'common/style/theme.dart';
 
 Future<void> main() async {
-  // initialize global
+  // 确保Flutter框架初始化
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 初始化全局设置
   await Global.init();
   runApp(const MyApp());
 }
@@ -15,27 +20,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      // title
-      title: '语光 APP',
+    return AdaptiveTheme(
+      // 样式
+      light: AppTheme.light, // 亮色主题
+      dark: AppTheme.dark, // 暗色主题
+      initial: ConfigService.to.themeMode, // 初始主题
+      debugShowFloatingThemeButton: true, // 显示主题按钮
+      // 构建
+      builder: (theme, darkTheme) => GetMaterialApp(
+        // title
+        title: '语光 APP',
 
-      // theme
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: false,
+        // theme
+        theme: theme,
+        darkTheme: darkTheme,
+
+        // route
+        initialRoute: RouteNames.stylesStylesIndex,
+        getPages: RoutePages.list,
+        navigatorObservers: [RoutePages.observer],
+
+        // i18n
+        translations: Translation(), // dictionary
+        localizationsDelegates: Translation.localizationsDelegates, // delegates
+        supportedLocales: Translation.supportedLocales, // supported locales
+        locale: ConfigService.to.locale, // current locale
+        fallbackLocale: Translation.fallbackLocale, // fallback locale
       ),
-
-      // route
-      initialRoute: RouteNames.stylesStylesIndex,
-      getPages: RoutePages.list,
-      navigatorObservers: [RoutePages.observer],
-
-      // i18n
-      translations: Translation(), // dictionary
-      localizationsDelegates: Translation.localizationsDelegates, // delegates
-      supportedLocales: Translation.supportedLocales, // supported locales
-      locale: ConfigService.to.locale, // current locale
-      fallbackLocale: Translation.fallbackLocale, // fallback locale
     );
   }
 }

@@ -45,3 +45,6 @@ app.*.map.json
 # Config files
 lib/config/*
 !lib/config/*.example
+
+# iOS build related
+ios/build/

@@ -19,6 +19,20 @@ class StylesIndexPage extends GetView<StylesIndexController> {
           ),
         ),
 
+        // 主题
+        ListTile(
+          onTap: () => controller.onThemeSelected("light"),
+          title: Text("亮色 : ${ConfigService.to.themeMode}"),
+        ),
+        ListTile(
+          onTap: () => controller.onThemeSelected("dark"),
+          title: Text("暗色 : ${ConfigService.to.themeMode}"),
+        ),
+        ListTile(
+          onTap: () => controller.onThemeSelected("system"),
+          title: Text("系统 : ${ConfigService.to.themeMode}"),
+        ),
+
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -30,7 +44,6 @@ class StylesIndexPage extends GetView<StylesIndexController> {
                     ? const CircularProgressIndicator()
                     : const Text("测试 gRPC 通信")),
               ),
-
               Obx(() => controller.errorMessage.value.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(top: 16.0),
@@ -40,7 +53,6 @@ class StylesIndexPage extends GetView<StylesIndexController> {
                       ),
                     )
                   : const SizedBox.shrink()),
-
               Obx(() => controller.userInfo.value.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(top: 16.0),
