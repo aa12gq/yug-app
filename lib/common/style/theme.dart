@@ -60,6 +60,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: false,
       colorScheme: scheme,
+      fontFamily: "Montserrat",
     );
   }
 }
