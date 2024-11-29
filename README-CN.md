@@ -19,17 +19,17 @@
     </a>
 </p>
 
-##### Translate to: [简体中文](./README-CN.md)
+##### 🌐 Translate to: [English](./README.md)
 
 基于 Flutter 和 gRPC 的移动应用开发框架。
 
-## 项目简介
+## 📱 项目简介
 
 YUG App 是一个使用 Flutter 和 gRPC 技术栈构建的移动应用开发框架，旨在提供高效的网络通信、优雅的用户界面及高质量的开发体验。
 
-## 快速开始
+## 🚀 快速开始
 
-### 环境准备
+### 🛠️ 环境准备
 
 1. **安装 protoc 编译器**
 
@@ -44,7 +44,7 @@ YUG App 是一个使用 Flutter 和 gRPC 技术栈构建的移动应用开发框
 
    执行命令 `flutter pub get`
 
-### 编译 proto 文件
+### 💻 编译 proto 文件
 
 在项目根目录下执行以下命令：
 
@@ -56,7 +56,7 @@ protoc --dart_out=grpc:lib/common/net/grpcs/proto \
 
 确保你在项目的根目录下执行此命令，而不是进入 `lib/common/net/grpcs/proto` 目录。
 
-## 目录结构说明
+## 📂 目录结构说明
 
 ```
 .
@@ -70,30 +70,30 @@ protoc --dart_out=grpc:lib/common/net/grpcs/proto \
 │   ├── routers             # 路由配置
 │   ├── services            # 服务类，处理业务逻辑
 │   ├── style               # 样式文件
-│   ├── utils               # 工具类和方法
-│   ├── values              # 常量和枚举
-│   └── widgets             # 自定义小部件
-├── config                  # 配置文件
-│   ├── grpc_channels.dart  # gRPC通道配置
+│   ├── utils              # 工具类和方法
+│   ├── values             # 常量和枚举
+│   └── widgets            # 自定义小部件
+├── config                 # 配置文件
+│   ├── grpc_channels.dart # gRPC通道配置
 │   └── grpc_channels.dart.example # gRPC通道配置示例
-├── docs                    # 文档
-│   ├── dev                 # 开发文档
-│   └── images              # 图片资源
-├── global.dart             # 全局配置和变量
-├── main.dart               # 应用程序入口
-└── pages                   # 页面模块
-    ├── index.dart          # 页面索引
-    ├── my                  # "我的"页面模块
-    ├── search              # 搜索页面模块
-    ├── styles              # 样式相关页面
-    └── system              # 系统相关页面
+├── docs                   # 文档
+│   ├── dev               # 开发文档
+│   └── images            # 图片资源
+├── global.dart           # 全局配置和变量
+├── main.dart            # 应用程序入口
+└── pages               # 页面模块
+    ├── index.dart      # 页面索引
+    ├── my             # "我的"页面模块
+    ├── search         # 搜索页面模块
+    ├── styles         # 样式相关页面
+    └── system         # 系统相关页面
 ```
 
-## 参考文档链接
+## 📚 参考文档链接
 
 - [Flutter 官方文档](https://flutter.dev/docs)
 - [gRPC 官方文档](https://grpc.io/docs)
 
-## 更多信息
+## ℹ️ 更多信息
 
 有关开发指南和详细的开发规范，请参阅 [开发指南](docs/DEVELOPMENT_GUIDE.md)。

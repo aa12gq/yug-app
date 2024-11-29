@@ -19,17 +19,17 @@
     </a>
 </p>
 
-##### Translate to: [简体中文](./README-CN.md)
+##### 🌐 Translate to: [简体中文](./README-CN.md)
 
 A mobile application development framework based on Flutter and gRPC.
 
-## Introduction
+## 📱 Introduction
 
 YUG App is a mobile application development framework built with Flutter and gRPC technology stack, designed to provide efficient network communication, elegant user interface, and high-quality development experience.
 
-## Quick Start
+## 🚀 Quick Start
 
-### Environment Setup
+### 🛠️ Environment Setup
 
 1. **Install protoc compiler**
 
@@ -44,7 +44,7 @@ YUG App is a mobile application development framework built with Flutter and gRP
 
    Run `flutter pub get`
 
-### Compile proto files
+### 💻 Compile proto files
 
 Execute the following command in the project root directory:
 
@@ -56,7 +56,7 @@ protoc --dart_out=grpc:lib/common/net/grpcs/proto \
 
 Make sure you execute this command in the project root directory, not in the `lib/common/net/grpcs/proto` directory.
 
-## Directory Structure
+## 📂 Directory Structure
 
 ```
 .
@@ -70,30 +70,30 @@ Make sure you execute this command in the project root directory, not in the `li
 │   ├── routers             # Routing configuration
 │   ├── services            # Service classes handling business logic
 │   ├── style               # Style files
-│   ├── utils               # Utility classes and methods
-│   ├── values              # Constants and enums
-│   └── widgets             # Custom widgets
-├── config                  # Configuration files
-│   ├── grpc_channels.dart  # gRPC channel configuration
+│   ├── utils              # Utility classes and methods
+│   ├── values             # Constants and enums
+│   └── widgets            # Custom widgets
+├── config                 # Configuration files
+│   ├── grpc_channels.dart # gRPC channel configuration
 │   └── grpc_channels.dart.example # Example gRPC channel configuration
-├── docs                    # Documentation
-│   ├── dev                 # Development documentation
-│   └── images              # Image resources
-├── global.dart             # Global configurations and variables
-├── main.dart               # Application entry point
-└── pages                   # Page modules
-    ├── index.dart          # Page index
-    ├── my                  # "My" page module
-    ├── search              # Search page module
-    ├── styles              # Style-related pages
-    └── system              # System-related pages
+├── docs                   # Documentation
+│   ├── dev               # Development documentation
+│   └── images            # Image resources
+├── global.dart           # Global configurations and variables
+├── main.dart            # Application entry point
+└── pages               # Page modules
+    ├── index.dart      # Page index
+    ├── my             # "My" page module
+    ├── search         # Search page module
+    ├── styles         # Style-related pages
+    └── system         # System-related pages
 ```
 
-## Documentation Links
+## 📚 Documentation Links
 
 - [Flutter Official Documentation](https://flutter.dev/docs)
 - [gRPC Official Documentation](https://grpc.io/docs)
 
-## More Information
+## ℹ️ More Information
 
 For development guidelines and detailed development specifications, please refer to the [Development Guide](docs/DEVELOPMENT_GUIDE.md).
