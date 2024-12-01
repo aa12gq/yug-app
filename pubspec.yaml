@@ -20,6 +20,7 @@ dependencies:
   package_info_plus: ^8.1.1
   shared_preferences: ^2.3.3
   adaptive_theme: ^3.6.0
+  ducafe_ui_core: ^1.0.4
 
 dev_dependencies:
   flutter_test:

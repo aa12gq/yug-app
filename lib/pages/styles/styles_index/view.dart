@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/i18n/index.dart';
+import 'package:yug_app/common/routers/name.dart';
 import 'package:yug_app/common/services/index.dart';
 
 import 'index.dart';
@@ -31,6 +32,11 @@ class StylesIndexPage extends GetView<StylesIndexController> {
         ListTile(
           onTap: () => controller.onThemeSelected("system"),
           title: Text("系统 : ${ConfigService.to.themeMode}"),
+        ),
+        // 文本
+        ListTile(
+          onTap: () => Get.toNamed(RouteNames.stylesText),
+          title: const Text("Text 文本"),
         ),
 
         Padding(
