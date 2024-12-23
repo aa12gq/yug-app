@@ -1,9 +1,9 @@
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
-import 'package:yug_app/common/widgets/widgets/text.dart';
+import 'package:yug_app/common/widgets/text.dart';
 
-import '../../index.dart';
 import '../index.dart';
+import 'index.dart';
 
 /// 按钮样式
 enum ButtonWidgetVariant {

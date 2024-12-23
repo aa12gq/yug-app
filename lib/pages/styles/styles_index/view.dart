@@ -38,6 +38,11 @@ class StylesIndexPage extends GetView<StylesIndexController> {
           onTap: () => Get.toNamed(RouteNames.stylesText),
           title: const Text("Text 文本"),
         ),
+        // Input 输入框
+        ListTile(
+          onTap: () => Get.toNamed(RouteNames.stylesInputs),
+          title: const Text("Input 输入框"),
+        ),
 
         Padding(
           padding: const EdgeInsets.all(16.0),

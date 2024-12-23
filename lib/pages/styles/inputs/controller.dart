@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InputsController extends GetxController {
   InputsController();
+
+  TextEditingController emailController = TextEditingController();
 
   _initData() {
     update(["inputs"]);

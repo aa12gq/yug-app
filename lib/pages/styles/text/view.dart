@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/style/scale.dart';
 import 'package:yug_app/common/style/space.dart';
-import 'package:yug_app/common/widgets/widgets/text.dart';
+import 'package:yug_app/common/widgets/text.dart';
 
 import 'index.dart';
 
