@@ -46,6 +46,19 @@ class MyApp extends StatelessWidget {
         supportedLocales: Translation.supportedLocales, // supported locales
         locale: ConfigService.to.locale, // current locale
         fallbackLocale: Translation.fallbackLocale, // fallback locale
+
+        // builder
+        builder: (context, widget) {
+          // 不随系统字体缩放比例
+          return MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: const TextScaler.linear(1.0)),
+            child: widget!,
+          );
+        },
+
+        // 隐藏 debug 标志
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

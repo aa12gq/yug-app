@@ -133,10 +133,10 @@ packages:
     dependency: "direct main"
     description:
       name: ducafe_ui_core
-      sha256: b4efba76e95785f92186e8420a99def66f35cbe5ea6e7a2bd4d629a5a36d5338
+      sha256: "92ff9b05654e1b5ae2adbeac7227c669655da73f134bede75ad9aa1c505af904"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.6"
   fake_async:
     dependency: transitive
     description:
