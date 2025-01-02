@@ -30,6 +30,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   flutter_launcher_icons_maker: ^0.10.2
+  # 启动图
+  flutter_native_splash: ^2.2.16
 
 # app 图标
 flutter_icons:
@@ -39,6 +41,16 @@ flutter_icons:
   # image_path_ios: "assets/icons/launcher_ios.png"
   image_path_android: "assets/icons/launcher_android.png"
   adaptive_icon_background: "#ffffff"
+
+# 启动图适配 android 11 及以下, 12 以上，IOS
+flutter_native_splash:
+  web: false
+  color_android: "#8C9EFF"
+  background_image_android: "assets/launcher/background.png"
+  background_image_ios: "assets/launcher/background.png"
+  android_12:
+    image: "assets/launcher/android12.png"
+    color: "#8C9EFF"
 
 flutter:
   uses-material-design: true
