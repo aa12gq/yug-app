@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/components/slider_indicator.dart';
 import 'package:yug_app/common/components/welcome_slider.dart';
+import 'package:yug_app/common/index.dart';
 import 'package:yug_app/common/style/space.dart';
 
 import 'index.dart';
@@ -16,15 +17,34 @@ class WelcomePage extends GetView<WelcomeController> {
       id: "bar",
       init: controller,
       builder: (controller) {
-        return <Widget>[
-          // 指示标
-          SliderIndicatorWidget(
-            length: 3,
-            currentIndex: controller.currentIndex,
-          ),
-        ].toRow(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-        );
+        return controller.isShowStart
+            ?
+            // 开始
+            ButtonWidget.primary(
+                LocaleKeys.welcomeStart.tr,
+                onTap: controller.onToMain,
+              ).tight(
+                width: double.infinity,
+              )
+            : <Widget>[
+                // 跳过
+                ButtonWidget.ghost(
+                  LocaleKeys.welcomeSkip.tr,
+                  onTap: controller.onToMain,
+                ),
+                // 指示标
+                SliderIndicatorWidget(
+                  length: 3,
+                  currentIndex: controller.currentIndex,
+                ),
+                // 下一页
+                ButtonWidget.ghost(
+                  LocaleKeys.welcomeNext.tr,
+                  onTap: controller.onNext,
+                ),
+              ].toRow(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              );
       },
     );
   }
@@ -39,6 +59,7 @@ class WelcomePage extends GetView<WelcomeController> {
           : WelcomeSliderWidget(
               controller.items!,
               onPageChanged: controller.onPageChanged,
+              carouselController: controller.carouselController,
             ),
     );
   }
