@@ -23,5 +23,15 @@ Map<String, String> localeZh = {
   LocaleKeys.networkErrorAborted: '请求被终止',
   LocaleKeys.networkErrorUnknown: '未知错误',
   LocaleKeys.networkErrorInternal: '服务器内部错误',
-};
 
+  // welcome 欢迎
+  LocaleKeys.welcomeOneTitle: '随时分享生活点滴',
+  LocaleKeys.welcomeOneDesc: '在语光，记录并分享你的每一个精彩瞬间',
+  LocaleKeys.welcomeTwoTitle: '发现志同道合的朋友',
+  LocaleKeys.welcomeTwoDesc: '加入语乐岛，在有趣的互动中结识新朋友',
+  LocaleKeys.welcomeThreeTitle: '创意无限 精彩无限',
+  LocaleKeys.welcomeThreeDesc: '探索创意工作坊，让你的想法绽放光彩',
+  LocaleKeys.welcomeSkip: '跳过',
+  LocaleKeys.welcomeNext: '下一页',
+  LocaleKeys.welcomeStart: '开启语光之旅',
+};

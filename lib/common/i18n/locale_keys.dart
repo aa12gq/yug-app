@@ -21,4 +21,15 @@ class LocaleKeys {
   static const networkErrorAborted = 'network_error_aborted';
   static const networkErrorUnknown = 'network_error_unknown';
   static const networkErrorInternal = 'network_error_internal';
+
+  // 欢迎页
+  static const welcomeOneTitle = 'welcome_one_title';
+  static const welcomeOneDesc = 'welcome_one_desc';
+  static const welcomeTwoTitle = 'welcome_two_title';
+  static const welcomeTwoDesc = 'welcome_two_desc';
+  static const welcomeThreeTitle = 'welcome_three_title';
+  static const welcomeThreeDesc = 'welcome_three_desc';
+  static const welcomeSkip = 'welcome_skip';
+  static const welcomeNext = 'welcome_next';
+  static const welcomeStart = 'welcome_start';
 }

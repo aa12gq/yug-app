@@ -23,4 +23,18 @@ Map<String, String> localeEn = {
   LocaleKeys.networkErrorAborted: 'Request aborted',
   LocaleKeys.networkErrorUnknown: 'Unknown error',
   LocaleKeys.networkErrorInternal: 'Internal server error',
+
+  // welcome 欢迎
+  LocaleKeys.welcomeOneTitle: 'Share Your Moments',
+  LocaleKeys.welcomeOneDesc:
+      'Capture and share your wonderful moments in YuGuang',
+  LocaleKeys.welcomeTwoTitle: 'Connect with Like-minded Friends',
+  LocaleKeys.welcomeTwoDesc:
+      'Join YuLe Island, make new friends through fun interactions',
+  LocaleKeys.welcomeThreeTitle: 'Unlimited Creativity',
+  LocaleKeys.welcomeThreeDesc:
+      'Explore the creative workshop and let your ideas shine',
+  LocaleKeys.welcomeSkip: 'Skip',
+  LocaleKeys.welcomeNext: 'Next',
+  LocaleKeys.welcomeStart: 'Start YuGuang Journey',
 };

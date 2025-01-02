@@ -1,0 +1,12 @@
+plugins {
+    id "com.android.library"
+}
+
+android {
+    namespace "net.jonhanson.flutter_native_splash"
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 16
+    }
+} 

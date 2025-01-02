@@ -24,14 +24,14 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_svg: ^2.0.16
   badges: ^3.1.2
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  flutter_launcher_icons_maker: ^0.10.2
-  # 启动图
-  flutter_native_splash: ^2.2.16
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.4
 
 # app 图标
 flutter_icons:
@@ -48,9 +48,8 @@ flutter_native_splash:
   color_android: "#8C9EFF"
   background_image_android: "assets/launcher/background.png"
   background_image_ios: "assets/launcher/background.png"
-  android_12:
-    image: "assets/launcher/android12.png"
-    color: "#8C9EFF"
+  image: "assets/launcher/background.png"
+  color: "#8C9EFF"
 
 flutter:
   uses-material-design: true
@@ -86,3 +85,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/launcher/

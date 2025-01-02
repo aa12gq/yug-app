@@ -7,7 +7,7 @@ class SplashController extends GetxController {
   _initData() {
     Future.delayed(
       const Duration(seconds: 2),
-      () => Get.offAllNamed(RouteNames.systemMain),
+      () => Get.offAllNamed(RouteNames.systemWelcome),
     );
     update(["splash"]);
   }
