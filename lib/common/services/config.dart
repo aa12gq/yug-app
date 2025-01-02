@@ -16,6 +16,9 @@ class ConfigService extends GetxService {
 
   Locale locale = PlatformDispatcher.instance.locale;
 
+  // 是否首次打开
+  bool get isAlreadyOpen => Storage().getBool(Constants.storageAlreadyOpen);
+
   // 主题
   AdaptiveThemeMode themeMode = AdaptiveThemeMode.light;
 
@@ -67,5 +70,10 @@ class ConfigService extends GetxService {
         AdaptiveTheme.of(Get.context!).setSystem();
         break;
     }
+  }
+
+  // 标记已打开app
+  void setAlreadyOpen() {
+    Storage().setBool(Constants.storageAlreadyOpen, true);
   }
 }

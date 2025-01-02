@@ -10,6 +10,10 @@ class RoutePages {
 
   static List<GetPage> list = [
     GetPage(
+      name: RouteNames.systemMain,
+      page: () => const MainPage(),
+    ),
+    GetPage(
       name: RouteNames.myAddress,
       page: () => const MyAddressPage(),
     ),

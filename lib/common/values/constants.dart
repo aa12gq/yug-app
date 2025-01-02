@@ -8,4 +8,6 @@ class Constants {
 
   // storage auth token
   static const keyAuthToken = 'auth_token';
+
+  static const storageAlreadyOpen = 'already_open'; // 首次打开
 }

@@ -1,28 +1,33 @@
 import 'package:get/get.dart';
 import 'package:yug_app/common/routers/name.dart';
+import 'package:yug_app/common/services/config.dart';
 
 class SplashController extends GetxController {
   SplashController();
 
-  _initData() {
-    Future.delayed(
-      const Duration(seconds: 2),
-      () => Get.offAllNamed(RouteNames.systemWelcome),
-    );
-    update(["splash"]);
+  /// 跳转页面
+  _jumpToPage() {
+    // 延迟1秒
+    Future.delayed(const Duration(seconds: 1)).then((_) {
+      // 是否已打开
+      if (ConfigService.to.isAlreadyOpen) {
+        // 跳转首页
+        Get.offAllNamed(RouteNames.systemMain);
+      } else {
+        // 跳转欢迎页
+        Get.offAllNamed(RouteNames.systemWelcome);
+      }
+    });
   }
 
-  void onTap() {}
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
+  // _initData() {
+  //   update(["splash"]);
   // }
 
   @override
   void onReady() {
     super.onReady();
-    _initData();
+    _jumpToPage(); // 跳转界面
   }
 
   // @override
