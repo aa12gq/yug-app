@@ -6,12 +6,14 @@ class WelcomeController extends GetxController {
   WelcomeController();
 
   List<WelcomeModel>? items;
-  int currentPage = 0;
 
-  /// 当前页码发生变化
+  /// 当前位置
+  int currentIndex = 0;
+
+  /// 当前位置发生改变
   void onPageChanged(int index) {
-    currentPage = index;
-    update(["slider"]);
+    currentIndex = index;
+    update(['slider', 'bar']);
   }
 
   /// 初始化数据
@@ -34,7 +36,7 @@ class WelcomeController extends GetxController {
       ),
     ];
 
-    update(["slider"]);
+    update(["slider", 'bar']);
   }
 
   void onTap() {}

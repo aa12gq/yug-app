@@ -2,8 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:yug_app/common/models/welcome_model.dart';
-import 'package:yug_app/common/widgets/image.dart';
-import 'package:yug_app/common/widgets/text.dart';
 
 import '../index.dart';
 
@@ -33,19 +31,20 @@ class WelcomeSliderWidget extends StatelessWidget {
             // 图
             if (item.image != null)
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.w),
+                padding: EdgeInsets.symmetric(vertical: 20.w),
                 child: ImageWidget.img(
                   item.image!,
-                  fit: BoxFit.contain,
-                  height: MediaQuery.of(context).size.height * 0.55,
+                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  width: MediaQuery.of(context).size.width,
                 ),
               ),
 
             // 标题
             if (item.title != null)
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 8.w),
-                child: TextWidget.h3(
+                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.w),
+                child: TextWidget.h2(
                   item.title ?? "",
                   maxLines: 2,
                   softWrap: true,
@@ -56,26 +55,20 @@ class WelcomeSliderWidget extends StatelessWidget {
             // 描述
             if (item.desc != null)
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 8.w),
-                child: TextWidget.text(
+                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.w),
+                child: TextWidget.label(
                   item.desc ?? "",
                   maxLines: 3,
                   softWrap: true,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Colors.grey[600],
-                  ),
                 ),
               ),
           ]
               .toColumn(
                 mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
               )
-              .width(MediaQuery.of(context).size.width)
-              .paddingVertical(10.w),
+              .width(MediaQuery.of(context).size.width),
         );
       },
     );
@@ -83,19 +76,22 @@ class WelcomeSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      carouselController: carouselController,
-      options: CarouselOptions(
-        height: MediaQuery.of(context).size.height * 0.8,
-        viewportFraction: 1,
-        enlargeCenterPage: false,
-        enableInfiniteScroll: false,
-        autoPlay: false,
-        onPageChanged: (index, reason) => onPageChanged(index),
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      child: CarouselSlider(
+        carouselController: carouselController,
+        options: CarouselOptions(
+          height: MediaQuery.of(context).size.height * 0.7,
+          viewportFraction: 1,
+          enlargeCenterPage: false,
+          enableInfiniteScroll: false,
+          autoPlay: false,
+          onPageChanged: (index, reason) => onPageChanged(index),
+        ),
+        items: <Widget>[
+          for (var item in items) sliderItem(item),
+        ].toList(),
       ),
-      items: <Widget>[
-        for (var item in items) sliderItem(item),
-      ].toList(),
     );
   }
 }
