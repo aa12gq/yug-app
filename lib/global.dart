@@ -13,6 +13,8 @@ class Global {
     // initialize storage
     await Storage().init();
 
+    Loading();
+
     // initialize queue
     await Future.wait([
       // configuration service
