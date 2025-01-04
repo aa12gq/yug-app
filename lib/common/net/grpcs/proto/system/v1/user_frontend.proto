@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package com.vtyug.yug.system.grpc.v1;
 
-import "../../../../../../net/grpcs/proto/system/v1/google/api/annotations.proto";
-import "../../../../../../net/grpcs/proto/system/v1/protoc-gen-openapiv2/options/annotations.proto";
-import "../../../../../../net/grpcs/proto/system/v1/system/v1/user_bo.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "system/v1/user_bo.proto";
 
 option go_package = "proto/system/v1;v1";
 
@@ -25,7 +25,7 @@ option (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service UserFrontend {
-    rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {
+    rpc GetUserInfo(com.vtyug.yug.system.grpc.v1.GetUserInfoRequest) returns (com.vtyug.yug.system.grpc.v1.GetUserInfoResponse) {
         option (google.api.http) = {
             get: "/v1/user/info"
         };

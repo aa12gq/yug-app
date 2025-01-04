@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package com.vtyug.yug.shared.v1;
+
+option go_package = "github.com/vtyug/yug-server/proto/user/shared/v1;v1";
+
+enum Gender {
+    GENDER_UNKNOWN = 0;
+    GENDER_MALE = 1;
+    GENDER_FEMALE = 2;
+}
+
+message UserInfo {
+    uint64 user_id = 1;
+    string username = 2;
+    string nickname = 3;
+    string email = 4;
+    string phone = 5;
+    string avatar = 6;
+    string bio = 7;
+    Gender gender = 8;
+    string birthday = 9;
+}
+
+message GetUserInfoRequest {
+    uint64 user_id = 1;
+}
+
+message GetUserInfoResponse {
+    UserInfo user_info = 1;
+}
+
+message RegisterRequest {
+    oneof register_strategy {
+        UsernamePasswordRegister username_password = 1;
+        PhoneRegister phone = 2;
+        EmailRegister email = 3;
+        string app_id = 4;
+    }
+
+    message UsernamePasswordRegister {
+        string username = 1;
+        string password = 2;
+        string app_id = 3;
+    }
+
+    message PhoneRegister {
+        string phone = 1;
+        string password = 2;
+        string phone_verification_code = 3;
+        string app_id = 4;
+    }
+
+    message EmailRegister {
+        string email = 1;
+        string password = 2;
+        string email_verification_code = 3;
+        string app_id = 4;
+    }
+}
+
+message RegisterResponse {
+    UserInfo user_info = 1;
+    string access_token = 2;
+}
+
+message LoginRequest {
+    oneof login_strategy {
+        UsernamePasswordLogin username_password = 1;
+        PhoneLogin phone = 2;
+        EmailLogin email = 3;
+        GithubLogin github = 4;
+        GiteeLogin gitee = 5;
+        string app_id = 6;
+    }
+
+    message UsernamePasswordLogin {
+        string username = 1;
+        string password = 2;
+        string app_id = 3;
+    }
+
+    message PhoneLogin {
+        string phone = 1;
+        string password = 2;
+        string app_id = 3;
+    }
+
+    message EmailLogin {
+        string email = 1;
+        string password = 2;
+        string app_id = 3;
+    }
+
+    message GithubLogin {
+        string github_code = 1;
+        string app_id = 2;
+    }
+
+    message GiteeLogin {
+        string gitee_code = 1;
+        string app_id = 2;
+    }
+}
+
+message LoginResponse {
+    uint64 user_id = 1;
+    string accessToken = 2;
+}
+
+message UpdateAvatarRequest {
+    string fso_id = 1;
+    string path = 2;
+}
+
+message UpdateNicknameRequest {
+    string nickname = 1;
+}
+
+message UpdateGenderRequest {
+    Gender gender = 1;
+} 

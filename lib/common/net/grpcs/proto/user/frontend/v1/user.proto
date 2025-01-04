@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package com.vtyug.yug.user.frontend.grpc.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "user/shared/v1/user.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/vtyug/yug-server/proto/user/frontend/v1;v1";
+
+option (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "YUG user Service";
+        version: "1.0.0";
+        description: "YUG user Service";
+        contact: {
+            name: "与光科技";
+            url: "https://dev.yuguang.com";
+            email: "tech@yuguang.com";
+        };
+    };
+    schemes: [HTTP, HTTPS];
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service User {
+    rpc GetUserInfo(com.vtyug.yug.shared.v1.GetUserInfoRequest) returns (com.vtyug.yug.shared.v1.GetUserInfoResponse) {
+        option (google.api.http).get = "/v1/user/info";
+    }
+    
+    rpc UpdateAvatar(com.vtyug.yug.shared.v1.UpdateAvatarRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/v1/user/update/avatar",
+            body: "*"
+        };
+    }
+    rpc UpdateNickname(com.vtyug.yug.shared.v1.UpdateNicknameRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/v1/user/update/nickname",
+            body: "*"
+        };
+    }
+    rpc UpdateGender(com.vtyug.yug.shared.v1.UpdateGenderRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/v1/user/update/gender",
+            body: "*"
+        };
+    }
+}
