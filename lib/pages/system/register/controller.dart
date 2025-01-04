@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/routers/name.dart';
+import 'package:yug_app/common/utils/loading.dart';
+import 'package:yug_app/common/api/api_service.dart';
 
 class RegisterController extends GetxController {
   RegisterController();
@@ -28,15 +30,29 @@ class RegisterController extends GetxController {
       TextEditingController(text: "12345678");
 
   // 注册
-  void onSignUp() {
+  void onSignUp() async {
     if ((formKey.currentState as FormState).validate()) {
-      // 验证通过提交数据
+      // 保存注册信息到Get
+      Get.put<Map<String, String>>(
+        {
+          'username': userNameController.text,
+          'email': emailController.text,
+          'firstName': firstNameController.text,
+          'lastName': lastNameController.text,
+          'password': passwordController.text,
+        },
+        tag: 'register_data',
+      );
+
+      // 进入PIN码验证页面
       Get.toNamed(RouteNames.systemRegisterPin);
     }
   }
 
-// 登录
-  void onSignIn() {}
+  // 登录
+  void onSignIn() {
+    Get.back(); // 返回登录页
+  }
 
   _initData() {
     update(["register"]);

@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/i18n/locale_keys.dart';
+import 'package:yug_app/common/utils/loading.dart';
+import 'package:yug_app/common/api/api_service.dart';
+import 'package:yug_app/common/routers/name.dart';
+import 'package:yug_app/common/net/grpcs/proto/user/shared/v1/user.pb.dart';
 
 class RegisterPinController extends GetxController {
   RegisterPinController();
@@ -22,12 +26,54 @@ class RegisterPinController extends GetxController {
   }
 
   // pin 触发提交
-  void onPinSubmit(String val) {
+  void onPinSubmit(String val) async {
     debugPrint("onPinSubmit: $val");
+    if (val == pinCheckValue) {
+      await _doRegister();
+    } else {
+      Loading.error('PIN码错误');
+    }
   }
 
   // 按钮提交
-  void onBtnSubmit() {}
+  void onBtnSubmit() async {
+    if ((formKey.currentState as FormState).validate()) {
+      await _doRegister();
+    }
+  }
+
+  // 执行注册
+  Future<void> _doRegister() async {
+    Loading.show();
+    try {
+      // 获取注册数据
+      final registerData = Get.find<Map<String, String>>(tag: 'register_data');
+
+      // 构建注册请求
+      final request = RegisterRequest(
+        email: RegisterRequest_EmailRegister(
+          email: registerData['email']!,
+          password: registerData['password']!,
+          emailVerificationCode: pinController.text, // 使用PIN码作为验证码
+          appId: 'yug_app',
+        ),
+      );
+
+      // 调用注册API
+      final response = await AuthApiService.to.register(request);
+
+      // 注册成功，清理数据
+      Get.delete<Map<String, String>>(tag: 'register_data');
+
+      Loading.success('注册成功');
+
+      // 延迟跳转到登录页
+      await Future.delayed(const Duration(seconds: 1));
+      Get.until((route) => Get.currentRoute == RouteNames.systemLogin);
+    } catch (e) {
+      Loading.error('注册失败：${e.toString()}');
+    }
+  }
 
   // 按钮返回
   void onBtnBackup() {
@@ -40,11 +86,6 @@ class RegisterPinController extends GetxController {
 
   void onTap() {}
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
-
   @override
   void onReady() {
     super.onReady();
@@ -55,5 +96,6 @@ class RegisterPinController extends GetxController {
   void onClose() {
     super.onClose();
     pinController.dispose();
+    Get.delete<Map<String, String>>(tag: 'register_data', force: true);
   }
 }

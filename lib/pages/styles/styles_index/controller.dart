@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:yug_app/common/net/grpcs/proto/system/v1/user_frontend.pbgrpc.dart';
-import 'package:yug_app/common/net/grpcs/api/client.dart';
-import 'package:yug_app/common/net/grpcs/proto/system/v1/user_bo.pb.dart';
+import 'package:yug_app/common/api/api_service.dart';
 
 class StylesIndexController extends GetxController {
   StylesIndexController();
@@ -20,17 +18,11 @@ class StylesIndexController extends GetxController {
     userInfo.value = '';
 
     try {
-      final client = await GrpcClientUtil.createClient(UserFrontendClient.new);
-
-      print("正在连接gRPC服务器...");
-      print("Channel options: ${client}");
-      final response =
-          await client.getUserInfo(GetUserInfoRequest(userId: Int64(1)));
-      print("RPC调用成功: $response");
+      final response = await UserApiService.to.getUserInfo(Int64(1));
       userInfo.value = response.toString();
       print("用户信息: ${userInfo.value}");
     } catch (e) {
-      print("RPC调用失败: $e");
+      print("获取用户信息失败: $e");
       errorMessage.value = e.toString();
     } finally {
       isLoading.value = false;
