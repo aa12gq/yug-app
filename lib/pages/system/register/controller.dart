@@ -27,9 +27,13 @@ class RegisterController extends GetxController {
       TextEditingController(text: "12345678");
 
   // 注册
-  void onSignUp() {}
+  void onSignUp() {
+    if ((formKey.currentState as FormState).validate()) {
+      // 验证通过提交数据
+    }
+  }
 
-  // 登录
+// 登录
   void onSignIn() {}
 
   _initData() {
