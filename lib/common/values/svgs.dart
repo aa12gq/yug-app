@@ -8,4 +8,5 @@ class AssetsSvgs {
   static const navIslandSvg = 'assets/svgs/nav-island.svg';
   static const navMomentsSvg = 'assets/svgs/nav-moments.svg';
   static const navProfileSvg = 'assets/svgs/nav-profile.svg';
+  static const navNotesSvg = 'assets/svgs/nav-notes.svg';
 }

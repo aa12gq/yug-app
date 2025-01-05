@@ -83,4 +83,5 @@ Map<String, String> localeEn = {
   LocaleKeys.tabBarIsland: 'Island',
   LocaleKeys.tabBarMoments: 'Moments',
   LocaleKeys.tabBarProfile: 'Profile',
+  LocaleKeys.tabBarNotes: 'Notes',
 };

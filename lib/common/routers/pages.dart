@@ -149,5 +149,12 @@ class RoutePages {
       name: RouteNames.msgMsgIndex,
       page: () => const MsgIndexPage(),
     ),
+    //////////////////////////////
+    // 随心记
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.notesNotes,
+      page: () => const NotesPage(),
+    ),
   ];
 }

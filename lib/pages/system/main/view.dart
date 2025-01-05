@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/pages/index.dart';
@@ -45,47 +44,77 @@ class _MainViewGetX extends GetView<MainController> {
       child: Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
+        floatingActionButton: Container(
+          height: 56,
+          width: 56,
+          child: FloatingActionButton(
+            backgroundColor: const Color(0xFF5C78FF),
+            elevation: 2,
+            shape: const CircleBorder(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  AssetsSvgs.navNotesSvg,
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                const Text(
+                  "随心记",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () => controller.onJumpToPage(2),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: GetBuilder<MainController>(
           id: 'navigation',
           builder: (controller) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, -5),
+            return BottomAppBar(
+              height: 56,
+              padding: EdgeInsets.zero,
+              notchMargin: 8,
+              shape: const CircularNotchedRectangle(),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem(
+                    icon: AssetsSvgs.navIslandSvg,
+                    label: LocaleKeys.tabBarIsland.tr,
+                    isSelected: controller.currentIndex == 0,
+                    onTap: () => controller.onJumpToPage(0),
+                  ),
+                  _buildNavItem(
+                    icon: AssetsSvgs.navSocialSvg,
+                    label: LocaleKeys.tabBarSocial.tr,
+                    isSelected: controller.currentIndex == 1,
+                    onTap: () => controller.onJumpToPage(1),
+                  ),
+                  const SizedBox(width: 80),
+                  _buildNavItem(
+                    icon: AssetsSvgs.navMomentsSvg,
+                    label: LocaleKeys.tabBarMoments.tr,
+                    isSelected: controller.currentIndex == 3,
+                    onTap: () => controller.onJumpToPage(3),
+                  ),
+                  _buildNavItem(
+                    icon: AssetsSvgs.navProfileSvg,
+                    label: LocaleKeys.tabBarProfile.tr,
+                    isSelected: controller.currentIndex == 4,
+                    onTap: () => controller.onJumpToPage(4),
                   ),
                 ],
-              ),
-              child: SafeArea(
-                child: SalomonBottomBar(
-                  currentIndex: controller.currentIndex,
-                  onTap: controller.onJumpToPage,
-                  items: [
-                    _buildNavItem(
-                      icon: AssetsSvgs.navHomeSvg,
-                      title: LocaleKeys.tabBarHome.tr,
-                    ),
-                    _buildNavItem(
-                      icon: AssetsSvgs.navSocialSvg,
-                      title: LocaleKeys.tabBarSocial.tr,
-                    ),
-                    _buildNavItem(
-                      icon: AssetsSvgs.navIslandSvg,
-                      title: LocaleKeys.tabBarIsland.tr,
-                    ),
-                    _buildNavItem(
-                      icon: AssetsSvgs.navMomentsSvg,
-                      title: LocaleKeys.tabBarMoments.tr,
-                    ),
-                    _buildNavItem(
-                      icon: AssetsSvgs.navProfileSvg,
-                      title: LocaleKeys.tabBarProfile.tr,
-                    ),
-                  ],
-                ),
               ),
             );
           },
@@ -95,9 +124,9 @@ class _MainViewGetX extends GetView<MainController> {
           controller: controller.pageController,
           onPageChanged: controller.onIndexChanged,
           children: const [
-            HomePage(),
-            SocialPage(),
             IslandPage(),
+            SocialPage(),
+            NotesPage(),
             MomentsPage(),
             MyIndexPage(),
           ],
@@ -106,32 +135,39 @@ class _MainViewGetX extends GetView<MainController> {
     );
   }
 
-  SalomonBottomBarItem _buildNavItem({
+  Widget _buildNavItem({
     required String icon,
-    required String title,
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
   }) {
-    return SalomonBottomBarItem(
-      icon: SvgPicture.asset(
-        icon,
-        width: 24,
-        height: 24,
-        colorFilter: const ColorFilter.mode(
-          Colors.grey,
-          BlendMode.srcIn,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: 24,
+              height: 24,
+              colorFilter: ColorFilter.mode(
+                isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                color: isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+              ),
+            ),
+          ],
         ),
       ),
-      activeIcon: SvgPicture.asset(
-        icon,
-        width: 24,
-        height: 24,
-        colorFilter: const ColorFilter.mode(
-          Color(0xFF5C78FF),
-          BlendMode.srcIn,
-        ),
-      ),
-      title: Text(title),
-      selectedColor: const Color(0xFF5C78FF),
-      unselectedColor: Colors.grey,
     );
   }
 

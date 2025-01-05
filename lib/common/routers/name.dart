@@ -46,4 +46,7 @@ class RouteNames {
 
   // 消息
   static const msgMsgIndex = '/msg_msg_index';
+
+  // 随心记
+  static const notesNotes = '/notes_notes';
 }

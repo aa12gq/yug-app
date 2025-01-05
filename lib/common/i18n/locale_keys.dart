@@ -78,4 +78,5 @@ class LocaleKeys {
   static const tabBarIsland = 'tab_bar_island';
   static const tabBarMoments = 'tab_bar_moments';
   static const tabBarProfile = 'tab_bar_profile';
+  static const tabBarNotes = 'tab_bar_notes';
 }

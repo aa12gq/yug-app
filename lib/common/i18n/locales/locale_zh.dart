@@ -80,4 +80,5 @@ Map<String, String> localeZh = {
   LocaleKeys.tabBarIsland: '语乐岛',
   LocaleKeys.tabBarMoments: '动态',
   LocaleKeys.tabBarProfile: '我的',
+  LocaleKeys.tabBarNotes: '随心记',
 };
