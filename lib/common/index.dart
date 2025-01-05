@@ -10,3 +10,4 @@ export 'style/index.dart';
 export 'utils/index.dart';
 export 'values/index.dart';
 export 'widgets/index.dart';
+export 'values/colors.dart';

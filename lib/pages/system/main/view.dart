@@ -78,7 +78,7 @@ class _MainViewGetX extends GetView<MainController> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: GetBuilder<MainController>(
-          id: 'navigation',
+          id: "navigation",
           builder: (controller) {
             return BottomAppBar(
               height: 49,
@@ -91,26 +91,26 @@ class _MainViewGetX extends GetView<MainController> {
                 children: [
                   _buildNavItem(
                     icon: AssetsSvgs.navIslandSvg,
-                    label: LocaleKeys.tabBarIsland.tr,
+                    label: '语乐岛',
                     isSelected: controller.currentIndex == 0,
                     onTap: () => controller.onJumpToPage(0),
                   ),
                   _buildNavItem(
-                    icon: AssetsSvgs.navSocialSvg,
-                    label: LocaleKeys.tabBarSocial.tr,
+                    icon: AssetsSvgs.navMomentsSvg,
+                    label: '动态',
                     isSelected: controller.currentIndex == 1,
                     onTap: () => controller.onJumpToPage(1),
                   ),
                   const SizedBox(width: 80),
                   _buildNavItem(
-                    icon: AssetsSvgs.navMomentsSvg,
-                    label: LocaleKeys.tabBarMoments.tr,
+                    icon: AssetsSvgs.navSocialSvg,
+                    label: '社交',
                     isSelected: controller.currentIndex == 3,
                     onTap: () => controller.onJumpToPage(3),
                   ),
                   _buildNavItem(
                     icon: AssetsSvgs.navProfileSvg,
-                    label: LocaleKeys.tabBarProfile.tr,
+                    label: '我的',
                     isSelected: controller.currentIndex == 4,
                     onTap: () => controller.onJumpToPage(4),
                   ),
@@ -125,9 +125,9 @@ class _MainViewGetX extends GetView<MainController> {
           onPageChanged: controller.onIndexChanged,
           children: const [
             IslandPage(),
-            SocialPage(),
-            NotesPage(),
             MomentsPage(),
+            NotesPage(),
+            SocialPage(),
             MyIndexPage(),
           ],
         ),

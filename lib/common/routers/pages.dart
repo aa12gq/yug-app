@@ -156,5 +156,64 @@ class RoutePages {
       name: RouteNames.notesNotes,
       page: () => const NotesPage(),
     ),
+    //////////////////////////////
+    // 语乐岛
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.islandMain,
+      page: () => const IslandPage(),
+      binding: IslandBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: RouteNames.islandSearch,
+      page: () => const IslandSearchPage(),
+      binding: IslandSearchBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandNotifications,
+      page: () => const IslandNotificationsPage(),
+      binding: IslandNotificationsBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandEmotionMap,
+      page: () => const IslandEmotionMapPage(),
+      binding: IslandEmotionMapBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandMoodWeather,
+      page: () => const IslandMoodWeatherPage(),
+      binding: IslandMoodWeatherBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandCreativeIsland,
+      page: () => const IslandCreativeIslandPage(),
+      binding: IslandCreativeIslandBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandThemeSpace,
+      page: () => const IslandThemeSpacePage(),
+      binding: IslandThemeSpaceBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandInteractiveGames,
+      page: () => const IslandInteractiveGamesPage(),
+      binding: IslandInteractiveGamesBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandCreativeShowcase,
+      page: () => const IslandCreativeShowcasePage(),
+      binding: IslandCreativeShowcaseBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandActivities,
+      page: () => const IslandActivitiesPage(),
+      binding: IslandActivitiesBinding(),
+    ),
+    GetPage(
+      name: RouteNames.islandCoCreation,
+      page: () => const IslandCoCreationPage(),
+      binding: IslandCoCreationBinding(),
+    ),
   ];
 }
