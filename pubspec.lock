@@ -9,6 +9,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.6.0"
+  animated_button_bars:
+    dependency: "direct main"
+    description:
+      name: animated_button_bars
+      sha256: "057fde6b3be772252c2474d3fc076b280d480dd8ac2bf00ed3c86a03acc17b03"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1+1"
   ansicolor:
     dependency: transitive
     description:
@@ -834,6 +842,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "14.2.5"
+  wave_transition:
+    dependency: "direct main"
+    description:
+      name: wave_transition
+      sha256: b120159990e44f36d6f5e10fd357f9c22f7966b06e2d50ac9f79736ee0ad7016
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.6"
   web:
     dependency: transitive
     description:

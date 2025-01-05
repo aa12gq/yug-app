@@ -81,9 +81,9 @@ class _MainViewGetX extends GetView<MainController> {
           id: 'navigation',
           builder: (controller) {
             return BottomAppBar(
-              height: 56,
+              height: 49,
               padding: EdgeInsets.zero,
-              notchMargin: 8,
+              notchMargin: 5,
               shape: const CircularNotchedRectangle(),
               color: Colors.white,
               child: Row(
@@ -141,31 +141,37 @@ class _MainViewGetX extends GetView<MainController> {
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              icon,
-              width: 24,
-              height: 24,
-              colorFilter: ColorFilter.mode(
-                isSelected ? const Color(0xFF5C78FF) : Colors.grey,
-                BlendMode.srcIn,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        customBorder: const CircleBorder(),
+        splashColor: const Color(0xFF5C78FF).withOpacity(0.2),
+        highlightColor: const Color(0xFF5C78FF).withOpacity(0.1),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                icon,
+                width: 20,
+                height: 20,
+                colorFilter: ColorFilter.mode(
+                  isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+                  BlendMode.srcIn,
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                color: isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+              const SizedBox(height: 2),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
