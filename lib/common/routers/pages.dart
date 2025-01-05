@@ -9,10 +9,41 @@ class RoutePages {
   static List<String> history = [];
 
   static List<GetPage> list = [
+    //////////////////////////////
+    // 系统
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.systemLogin,
+      page: () => const LoginPage(),
+    ),
     GetPage(
       name: RouteNames.systemMain,
       page: () => const MainPage(),
+      binding: MainBinding(),
     ),
+    GetPage(
+      name: RouteNames.systemRegister,
+      page: () => const RegisterPage(),
+    ),
+    GetPage(
+      name: RouteNames.systemRegisterPin,
+      page: () => const RegisterPinPage(),
+    ),
+    GetPage(
+      name: RouteNames.systemSplash,
+      page: () => const SplashPage(),
+    ),
+    GetPage(
+      name: RouteNames.systemUserAgreement,
+      page: () => const UserAgreementPage(),
+    ),
+    GetPage(
+      name: RouteNames.systemWelcome,
+      page: () => const WelcomePage(),
+    ),
+    //////////////////////////////
+    // 我的
+    //////////////////////////////
     GetPage(
       name: RouteNames.myAddress,
       page: () => const MyAddressPage(),
@@ -24,14 +55,6 @@ class RoutePages {
     GetPage(
       name: RouteNames.myMyIndex,
       page: () => const MyIndexPage(),
-    ),
-    GetPage(
-      name: RouteNames.myOrderDetails,
-      page: () => const OrderDetailsPage(),
-    ),
-    GetPage(
-      name: RouteNames.myOrderList,
-      page: () => const OrderListPage(),
     ),
     GetPage(
       name: RouteNames.myProfileEdit,
@@ -49,6 +72,9 @@ class RoutePages {
       name: RouteNames.searchSearchIndex,
       page: () => const SearchIndexPage(),
     ),
+    //////////////////////////////
+    // 样式
+    //////////////////////////////
     GetPage(
       name: RouteNames.stylesBottomSheet,
       page: () => const BottomSheetPage(),
@@ -97,33 +123,31 @@ class RoutePages {
       name: RouteNames.stylesImage,
       page: () => const ImagePage(),
     ),
+    //////////////////////////////
+    // 首页
+    //////////////////////////////
     GetPage(
-      name: RouteNames.systemLogin,
-      page: () => const LoginPage(),
+      name: RouteNames.homeHome,
+      page: () => const HomePage(),
     ),
     GetPage(
-      name: RouteNames.systemMain,
-      page: () => const MainPage(),
+      name: RouteNames.socialSocial,
+      page: () => const SocialPage(),
     ),
     GetPage(
-      name: RouteNames.systemRegister,
-      page: () => const RegisterPage(),
+      name: RouteNames.islandIsland,
+      page: () => const IslandPage(),
     ),
     GetPage(
-      name: RouteNames.systemRegisterPin,
-      page: () => const RegisterPinPage(),
+      name: RouteNames.momentsMoments,
+      page: () => const MomentsPage(),
     ),
+    //////////////////////////////
+    // 消息
+    //////////////////////////////
     GetPage(
-      name: RouteNames.systemSplash,
-      page: () => const SplashPage(),
-    ),
-    GetPage(
-      name: RouteNames.systemUserAgreement,
-      page: () => const UserAgreementPage(),
-    ),
-    GetPage(
-      name: RouteNames.systemWelcome,
-      page: () => const WelcomePage(),
+      name: RouteNames.msgMsgIndex,
+      page: () => const MsgIndexPage(),
     ),
   ];
 }

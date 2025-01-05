@@ -3,24 +3,24 @@ import 'package:get/get.dart';
 
 import 'index.dart';
 
-class OrderListPage extends GetView<OrderListController> {
-  const OrderListPage({super.key});
+class IslandPage extends GetView<IslandController> {
+  const IslandPage({Key? key}) : super(key: key);
 
   // 主视图
   Widget _buildView() {
     return const Center(
-      child: Text("OrderListPage"),
+      child: Text("Island"),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<OrderListController>(
-      init: OrderListController(),
-      id: "order_list",
+    return GetBuilder<IslandController>(
+      init: IslandController(),
+      id: "island",
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(title: const Text("order_list")),
+          appBar: AppBar(title: const Text("语乐岛")),
           body: SafeArea(
             child: _buildView(),
           ),

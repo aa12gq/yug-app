@@ -37,4 +37,13 @@ class RouteNames {
   static const systemSplash = '/system_splash';
   static const systemUserAgreement = '/system_user_agreement';
   static const systemWelcome = '/system_welcome';
+
+  // 首页
+  static const homeHome = '/home_home';
+  static const socialSocial = '/social_social';
+  static const islandIsland = '/island_island';
+  static const momentsMoments = '/moments_moments';
+
+  // 消息
+  static const msgMsgIndex = '/msg_msg_index';
 }
