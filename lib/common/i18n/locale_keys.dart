@@ -46,9 +46,12 @@ class LocaleKeys {
   static const registerFormEmail = 'register_form_email';
   static const registerFormPhoneNumber = 'register_form_phone_number';
   static const registerFormPassword = 'register_form_password';
-  static const registerFormFirstName = 'register_form_first_name';
-  static const registerFormLastName = 'register_form_last_name';
+  static const registerFormVerifyCode = 'register_form_verify_code';
   static const registerHaveAccount = 'register_have_account';
+  static const registerTypeUsername = 'register_type_username';
+  static const registerTypePhone = 'register_type_phone';
+  static const registerTypeEmail = 'register_type_email';
+  static const registerGetVerifyCode = 'register_get_verify_code';
 
   // 验证提示
   static const validatorRequired = 'validator_required';
@@ -62,4 +65,10 @@ class LocaleKeys {
   static const registerPinDesc = 'register_pin_desc';
   static const registerPinFormTip = 'register_pin_form_tip';
   static const registerPinButton = 'register_pin_button';
+
+  // 登录 - back login
+  static const loginBackTitle = 'login_back_title';
+  static const loginBackDesc = 'login_back_desc';
+  static const loginBackFieldEmail = 'login_back_field_email';
+  static const loginBackFieldPassword = 'login_back_field_password';
 }

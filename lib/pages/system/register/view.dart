@@ -37,97 +37,125 @@ class RegisterPage extends GetView<RegisterController> {
   }
 
   // 表单页
-  Widget _buildForm() {
+  Widget _buildForm(BuildContext context) {
     return Form(
-      key: controller.formKey, // 设置globalKey，用于后面获取FormState
+      key: controller.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: <Widget>[
-        // username
-        InputFormFieldWidget(
-          autofocus: true,
-          controller: controller.userNameController,
-          labelText: LocaleKeys.registerFormName.tr,
-          prefix: const Icon(Icons.person),
-          // suffix: const Icon(Icons.done),
-          validator: Validatorless.multiple([
-            Validatorless.required(LocaleKeys.validatorRequired.tr),
-            Validatorless.min(
-                3, LocaleKeys.validatorMin.trParams({"size": "3"})),
-            Validatorless.max(
-                20, LocaleKeys.validatorMax.trParams({"size": "20"})),
-          ]),
-        ).paddingBottom(AppSpace.listRow.w),
+        // 注册类型选择
+        <Widget>[
+          Obx(() => ButtonWidget.text(
+                LocaleKeys.registerTypeUsername.tr,
+                onTap: () => controller.switchRegisterType('username'),
+                textColor: controller.registerType.value == 'username'
+                    ? context.theme.primaryColor
+                    : null,
+              )),
+          Obx(() => ButtonWidget.text(
+                LocaleKeys.registerTypePhone.tr,
+                onTap: () => controller.switchRegisterType('phone'),
+                textColor: controller.registerType.value == 'phone'
+                    ? context.theme.primaryColor
+                    : null,
+              )),
+          Obx(() => ButtonWidget.text(
+                LocaleKeys.registerTypeEmail.tr,
+                onTap: () => controller.switchRegisterType('email'),
+                textColor: controller.registerType.value == 'email'
+                    ? context.theme.primaryColor
+                    : null,
+              )),
+        ]
+            .toRow(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            )
+            .paddingBottom(AppSpace.listRow),
 
-        // email
-        InputFormFieldWidget(
-          controller: controller.emailController,
-          labelText: LocaleKeys.registerFormEmail.tr,
-          keyboardType: TextInputType.emailAddress,
-          prefix: const Icon(Icons.email),
-          // suffix: const Icon(Icons.done),
-          validator: Validatorless.multiple([
-            Validatorless.required(LocaleKeys.validatorRequired.tr),
-            Validatorless.email(LocaleKeys.validatorEmail.tr),
-          ]),
-        ).paddingBottom(AppSpace.listRow.w),
+        // 用户名输入框 (仅用户名密码注册时显示)
+        if (controller.registerType.value == 'username')
+          InputFormFieldWidget(
+            controller: controller.userNameController,
+            labelText: LocaleKeys.registerFormName.tr,
+            validator: Validatorless.multiple([
+              Validatorless.required(LocaleKeys.validatorRequired.tr),
+              Validatorless.min(
+                  3, LocaleKeys.validatorMin.trParams({"size": "3"})),
+              Validatorless.max(
+                  20, LocaleKeys.validatorMax.trParams({"size": "20"})),
+            ]),
+          ).paddingBottom(AppSpace.listRow),
 
-        // first name
-        InputFormFieldWidget(
-          controller: controller.firstNameController,
-          labelText: LocaleKeys.registerFormFirstName.tr,
-          prefix: const Icon(Icons.person),
-          // suffix: const Icon(Icons.done),
-          validator: Validatorless.multiple([
-            Validatorless.required(LocaleKeys.validatorRequired.tr),
-            Validatorless.min(
-                3, LocaleKeys.validatorMin.trParams({"size": "3"})),
-            Validatorless.max(
-                20, LocaleKeys.validatorMax.trParams({"size": "20"})),
-          ]),
-        ).paddingBottom(AppSpace.listRow.w),
+        // 手机号输入框 (仅手机号注册时显示)
+        if (controller.registerType.value == 'phone')
+          InputFormFieldWidget(
+            controller: controller.phoneController,
+            labelText: LocaleKeys.registerFormPhoneNumber.tr,
+            keyboardType: TextInputType.phone,
+            validator: Validatorless.multiple([
+              Validatorless.required(LocaleKeys.validatorRequired.tr),
+              // TODO: 添加手机号验证
+            ]),
+          ).paddingBottom(AppSpace.listRow),
 
-        // last name
-        InputFormFieldWidget(
-          controller: controller.lastNameController,
-          labelText: LocaleKeys.registerFormLastName.tr,
-          prefix: const Icon(Icons.person),
-          // suffix: const Icon(Icons.done),
-          validator: Validatorless.multiple([
-            Validatorless.required(LocaleKeys.validatorRequired.tr),
-            Validatorless.min(
-                3, LocaleKeys.validatorMin.trParams({"size": "3"})),
-            Validatorless.max(
-                20, LocaleKeys.validatorMax.trParams({"size": "20"})),
-          ]),
-        ).paddingBottom(AppSpace.listRow.w),
+        // 邮箱输入框 (仅邮箱注册时显示)
+        if (controller.registerType.value == 'email')
+          InputFormFieldWidget(
+            controller: controller.emailController,
+            labelText: LocaleKeys.registerFormEmail.tr,
+            keyboardType: TextInputType.emailAddress,
+            validator: Validatorless.multiple([
+              Validatorless.required(LocaleKeys.validatorRequired.tr),
+              Validatorless.email(LocaleKeys.validatorEmail.tr),
+            ]),
+          ).paddingBottom(AppSpace.listRow),
 
-        // password
+        // 密码输入框 (始终显示)
         InputFormFieldWidget(
           controller: controller.passwordController,
           labelText: LocaleKeys.registerFormPassword.tr,
-          prefix: const Icon(Icons.password),
           obscureText: true,
-          // suffix: const Icon(Icons.done),
           validator: Validatorless.multiple([
             Validatorless.required(LocaleKeys.validatorRequired.tr),
             Validators.password(
-              8,
+              6,
               18,
-              LocaleKeys.validatorPassword.trParams(
-                {"min": "8", "max": "18"},
-              ),
+              LocaleKeys.validatorPassword.trParams({"min": "6", "max": "18"}),
             ),
           ]),
-        ).paddingBottom(AppSpace.listRow.w * 2),
+        ).paddingBottom(AppSpace.listRow),
+
+        // 验证码输入框 (仅手机号和邮箱注册时显示)
+        if (controller.registerType.value != 'username')
+          <Widget>[
+            InputFormFieldWidget(
+              controller: controller.verifyCodeController,
+              labelText: LocaleKeys.registerFormVerifyCode.tr,
+              keyboardType: TextInputType.number,
+              validator: Validatorless.multiple([
+                Validatorless.required(LocaleKeys.validatorRequired.tr),
+                // TODO: 添加验证码验证
+              ]),
+            ).expanded(),
+            ButtonWidget.text(
+              LocaleKeys.registerGetVerifyCode.tr,
+              onTap: controller.getVerifyCode,
+            ).paddingLeft(AppSpace.listItem),
+          ].toRow().paddingBottom(AppSpace.listRow),
 
         // 注册按钮
-        _buildBtnSignUp(),
+        ButtonWidget.primary(
+          LocaleKeys.loginSignUp.tr,
+          onTap: controller.onSignUp,
+        ).paddingBottom(AppSpace.listRow),
 
-        // 提示文字
-        _buildTips(),
+        // 登录文字
+        TextWidget(
+          text: LocaleKeys.registerHaveAccount.tr,
+          type: TextWidgetType.body,
+        ).alignCenter().onTap(controller.onSignIn),
 
-        //
-      ].toColumn().paddingVertical(10),
+        // end
+      ].toColumn(),
     ).paddingAll(AppSpace.card);
   }
 
@@ -142,7 +170,7 @@ class RegisterPage extends GetView<RegisterController> {
         ).paddingTop(50.w),
 
         // 表单
-        _buildForm().card(
+        _buildForm(context).card(
           color: context.colors.scheme.surface,
           margin: EdgeInsets.zero,
         ),
@@ -165,7 +193,7 @@ class RegisterPage extends GetView<RegisterController> {
         return Scaffold(
           appBar: AppBar(),
           body: SafeArea(
-            child: _buildView(context),
+            child: Obx(() => _buildView(context)),
           ),
         );
       },

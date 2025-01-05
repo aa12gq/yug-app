@@ -1,41 +1,49 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "yug_app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "yug_app (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "yug_app (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "yug_app (Flutter iPhone 14 Pro)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
-            "deviceId": "iphone_14_pro",
-            "program": "lib/main.dart"
-        },
-        {
-            "name": "yug_app (Flutter Android Device)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
-            "deviceId": "android_device",
-            "program": "lib/main.dart"
-        }
-    ]
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "yug_app",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "yug_app (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "yug_app (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "yug_app (Flutter iPhone 14 Pro)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "iphone_14_pro",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "yug_app (Flutter Android Device)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "android_device",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "yug_app (Flutter MI 8 Lite)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "ab6e89e",
+      "program": "lib/main.dart"
+    }
+  ]
 }

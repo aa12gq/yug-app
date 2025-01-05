@@ -46,13 +46,16 @@ Map<String, String> localeEn = {
   // 注册 - new user
   LocaleKeys.registerTitle: 'Register',
   LocaleKeys.registerDesc: 'Sign up to continue',
-  LocaleKeys.registerFormName: 'User Name',
+  LocaleKeys.registerFormName: 'Username',
   LocaleKeys.registerFormEmail: 'Email',
-  LocaleKeys.registerFormPhoneNumber: 'Phone number',
+  LocaleKeys.registerFormPhoneNumber: 'Phone Number',
   LocaleKeys.registerFormPassword: 'Password',
-  LocaleKeys.registerFormFirstName: 'First name',
-  LocaleKeys.registerFormLastName: 'Last name',
+  LocaleKeys.registerFormVerifyCode: 'Verification Code',
   LocaleKeys.registerHaveAccount: 'Already have an account?',
+  LocaleKeys.registerTypeUsername: 'Username Password',
+  LocaleKeys.registerTypePhone: 'Phone Number',
+  LocaleKeys.registerTypeEmail: 'Email',
+  LocaleKeys.registerGetVerifyCode: 'Get Code',
 
   // 验证提示
   LocaleKeys.validatorRequired: 'The field is obligatory',
@@ -67,4 +70,10 @@ Map<String, String> localeEn = {
   LocaleKeys.registerPinDesc: 'we will send you a Pin to continue your account',
   LocaleKeys.registerPinFormTip: 'Pin',
   LocaleKeys.registerPinButton: 'Submit',
+
+  // 登录 - back login
+  LocaleKeys.loginBackTitle: 'Welcome login!',
+  LocaleKeys.loginBackDesc: 'Sign in to continue',
+  LocaleKeys.loginBackFieldEmail: 'Name',
+  LocaleKeys.loginBackFieldPassword: 'Password',
 };

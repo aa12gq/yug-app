@@ -25,5 +25,6 @@ class Global {
     // 初始化API服务
     Get.put<UserApiService>(UserApiService());
     Get.put<AuthApiService>(AuthApiService());
+    Get.put<UserService>(UserService()); // 用户
   }
 }

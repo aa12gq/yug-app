@@ -29,6 +29,10 @@ service User {
     rpc GetUserInfo(com.vtyug.yug.shared.v1.GetUserInfoRequest) returns (com.vtyug.yug.shared.v1.GetUserInfoResponse) {
         option (google.api.http).get = "/v1/user/info";
     }
+
+    rpc GetMyProfile(com.vtyug.yug.shared.v1.GetMyProfileRequest) returns (com.vtyug.yug.shared.v1.GetMyProfileResponse) {
+        option (google.api.http).get = "/v1/user/my/profile";
+    }
     
     rpc UpdateAvatar(com.vtyug.yug.shared.v1.UpdateAvatarRequest) returns (google.protobuf.Empty) {
         option (google.api.http) = {

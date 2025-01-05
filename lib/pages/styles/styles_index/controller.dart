@@ -6,7 +6,6 @@ import 'package:yug_app/common/api/api_service.dart';
 class StylesIndexController extends GetxController {
   StylesIndexController();
 
-  // 添加状态变量
   final isLoading = false.obs;
   final errorMessage = ''.obs;
   final userInfo = ''.obs;

@@ -50,14 +50,33 @@ class RegisterPinController extends GetxController {
       final registerData = Get.find<Map<String, String>>(tag: 'register_data');
 
       // 构建注册请求
-      final request = RegisterRequest(
-        email: RegisterRequest_EmailRegister(
-          email: registerData['email']!,
-          password: registerData['password']!,
-          emailVerificationCode: pinController.text, // 使用PIN码作为验证码
-          appId: 'yug_app',
-        ),
-      );
+      final request = RegisterRequest();
+
+      switch (registerData['type']) {
+        case 'username':
+          request.usernamePassword = RegisterRequest_UsernamePasswordRegister(
+            username: registerData['username']!,
+            password: registerData['password']!,
+            appId: 'yug_app',
+          );
+          break;
+        case 'phone':
+          request.phone = RegisterRequest_PhoneRegister(
+            phone: registerData['phone']!,
+            password: registerData['password']!,
+            phoneVerificationCode: registerData['verify_code']!,
+            appId: 'yug_app',
+          );
+          break;
+        case 'email':
+          request.email = RegisterRequest_EmailRegister(
+            email: registerData['email']!,
+            password: registerData['password']!,
+            emailVerificationCode: registerData['verify_code']!,
+            appId: 'yug_app',
+          );
+          break;
+      }
 
       // 调用注册API
       final response = await AuthApiService.to.register(request);
@@ -69,9 +88,9 @@ class RegisterPinController extends GetxController {
 
       // 延迟跳转到登录页
       await Future.delayed(const Duration(seconds: 1));
-      Get.until((route) => Get.currentRoute == RouteNames.systemLogin);
+      Get.offAllNamed(RouteNames.systemLogin);
     } catch (e) {
-      Loading.error('注册失败：${e.toString()}');
+      Loading.error(e.toString());
     }
   }
 

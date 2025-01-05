@@ -44,13 +44,16 @@ Map<String, String> localeZh = {
   // 注册 - register user
   LocaleKeys.registerTitle: '欢迎',
   LocaleKeys.registerDesc: '注册新账号',
-  LocaleKeys.registerFormName: '登录账号',
-  LocaleKeys.registerFormEmail: '电子邮件',
-  LocaleKeys.registerFormPhoneNumber: '电话号码',
+  LocaleKeys.registerFormName: '用户名',
+  LocaleKeys.registerFormEmail: '邮箱',
+  LocaleKeys.registerFormPhoneNumber: '手机号',
   LocaleKeys.registerFormPassword: '密码',
-  LocaleKeys.registerFormFirstName: '姓',
-  LocaleKeys.registerFormLastName: '名',
-  LocaleKeys.registerHaveAccount: '你有现成账号?',
+  LocaleKeys.registerFormVerifyCode: '验证码',
+  LocaleKeys.registerHaveAccount: '已有账号?',
+  LocaleKeys.registerTypeUsername: '用户名密码',
+  LocaleKeys.registerTypePhone: '手机号',
+  LocaleKeys.registerTypeEmail: '邮箱',
+  LocaleKeys.registerGetVerifyCode: '获取验证码',
 
   // 验证提示
   LocaleKeys.validatorRequired: '字段不能为空',
@@ -64,4 +67,10 @@ Map<String, String> localeZh = {
   LocaleKeys.registerPinDesc: '我们将向您发送PIN码以继续您的帐户',
   LocaleKeys.registerPinFormTip: 'Pin',
   LocaleKeys.registerPinButton: '提交',
+
+  // 登录 - back login
+  LocaleKeys.loginBackTitle: '欢迎登陆!',
+  LocaleKeys.loginBackDesc: '登陆后继续',
+  LocaleKeys.loginBackFieldEmail: '账号',
+  LocaleKeys.loginBackFieldPassword: '登陆密码',
 };

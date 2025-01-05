@@ -10,39 +10,59 @@ class RegisterController extends GetxController {
   // 表单key
   GlobalKey formKey = GlobalKey<FormState>();
 
+  // 注册类型
+  final registerType = 'username'.obs;
+
   // 用户名
-  TextEditingController userNameController =
-      TextEditingController(text: "aa12gq");
+  TextEditingController userNameController = TextEditingController();
 
-  // 邮件
-  TextEditingController emailController =
-      TextEditingController(text: "aa12gq@gmail.com");
+  // 邮箱
+  TextEditingController emailController = TextEditingController();
 
-  // 姓
-  TextEditingController firstNameController =
-      TextEditingController(text: "aa12");
-
-  // 名
-  TextEditingController lastNameController = TextEditingController(text: "12");
+  // 手机号
+  TextEditingController phoneController = TextEditingController();
 
   // 密码
-  TextEditingController passwordController =
-      TextEditingController(text: "12345678");
+  TextEditingController passwordController = TextEditingController();
+
+  // 验证码
+  TextEditingController verifyCodeController = TextEditingController();
+
+  // 切换注册类型
+  void switchRegisterType(String type) {
+    registerType.value = type;
+    update(["register"]);
+  }
+
+  // 获取验证码
+  void getVerifyCode() {
+    // TODO: 实现获取验证码逻辑
+  }
 
   // 注册
   void onSignUp() async {
     if ((formKey.currentState as FormState).validate()) {
       // 保存注册信息到Get
-      Get.put<Map<String, String>>(
-        {
-          'username': userNameController.text,
-          'email': emailController.text,
-          'firstName': firstNameController.text,
-          'lastName': lastNameController.text,
-          'password': passwordController.text,
-        },
-        tag: 'register_data',
-      );
+      final registerData = <String, String>{
+        'type': registerType.value,
+        'password': passwordController.text,
+      };
+
+      switch (registerType.value) {
+        case 'username':
+          registerData['username'] = userNameController.text;
+          break;
+        case 'email':
+          registerData['email'] = emailController.text;
+          registerData['verify_code'] = verifyCodeController.text;
+          break;
+        case 'phone':
+          registerData['phone'] = phoneController.text;
+          registerData['verify_code'] = verifyCodeController.text;
+          break;
+      }
+
+      Get.put<Map<String, String>>(registerData, tag: 'register_data');
 
       // 进入PIN码验证页面
       Get.toNamed(RouteNames.systemRegisterPin);
@@ -51,7 +71,7 @@ class RegisterController extends GetxController {
 
   // 登录
   void onSignIn() {
-    Get.back(); // 返回登录页
+    Get.offNamed(RouteNames.systemLogin);
   }
 
   _initData() {
@@ -69,8 +89,8 @@ class RegisterController extends GetxController {
     super.onClose();
     userNameController.dispose();
     emailController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
+    phoneController.dispose();
     passwordController.dispose();
+    verifyCodeController.dispose();
   }
 }

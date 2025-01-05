@@ -27,7 +27,7 @@ class GrpcClientUtil {
   }) async {
     ConfigManager config = ConfigManager.instance;
     channel ??= ChannelNames.cDefault;
-    final token = await Storage().getString(Constants.keyAuthToken);
+    final token = Storage().getString(Constants.storageToken);
 
     return creator(
       config.channel(channel),

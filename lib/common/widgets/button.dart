@@ -290,6 +290,31 @@ class ButtonWidget extends StatefulWidget {
   })  : _width = width,
         variant = ButtonWidgetVariant.icon;
 
+  // text
+  const ButtonWidget.text(
+    String text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    double? width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })  : text = text,
+        _width = width,
+        variant = ButtonWidgetVariant.ghost;
+
   @override
   State<ButtonWidget> createState() => _ButtonWidgetState();
 }

@@ -30,6 +30,13 @@ message GetUserInfoResponse {
     UserInfo user_info = 1;
 }
 
+message GetMyProfileRequest {
+}
+
+message GetMyProfileResponse {
+    UserInfo user_info = 1;
+}
+
 message RegisterRequest {
     oneof register_strategy {
         UsernamePasswordRegister username_password = 1;
