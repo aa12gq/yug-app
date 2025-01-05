@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yug_app/common/components/navigation.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/pages/index.dart';
 
@@ -32,58 +33,63 @@ class _MainViewGetX extends GetView<MainController> {
   // 主视图
   Widget _buildView(BuildContext context) {
     return PopScope(
-      // 允许返回
       canPop: false,
-
-      // 防止连续点击两次退出
       onPopInvokedWithResult: (bool didPop, dynamic result) {
-        // 如果返回，则不执行退出请求
         if (didPop) {
           return;
         }
-
-        // 退出请求
         if (controller.closeOnConfirm(context)) {
-          SystemNavigator.pop(); // 系统级别导航栈 退出程序
+          SystemNavigator.pop();
         }
       },
-
       child: Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
-        // 导航栏
         bottomNavigationBar: GetBuilder<MainController>(
           id: 'navigation',
           builder: (controller) {
-            return BuildNavigation(
-              currentIndex: controller.currentIndex,
-              items: [
-                NavigationItemModel(
-                  label: LocaleKeys.tabBarHome.tr,
-                  icon: AssetsSvgs.navHomeSvg,
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    offset: const Offset(0, -5),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: SalomonBottomBar(
+                  currentIndex: controller.currentIndex,
+                  onTap: controller.onJumpToPage,
+                  items: [
+                    _buildNavItem(
+                      icon: AssetsSvgs.navHomeSvg,
+                      title: LocaleKeys.tabBarHome.tr,
+                    ),
+                    _buildNavItem(
+                      icon: AssetsSvgs.navSocialSvg,
+                      title: LocaleKeys.tabBarSocial.tr,
+                    ),
+                    _buildNavItem(
+                      icon: AssetsSvgs.navIslandSvg,
+                      title: LocaleKeys.tabBarIsland.tr,
+                    ),
+                    _buildNavItem(
+                      icon: AssetsSvgs.navMomentsSvg,
+                      title: LocaleKeys.tabBarMoments.tr,
+                    ),
+                    _buildNavItem(
+                      icon: AssetsSvgs.navProfileSvg,
+                      title: LocaleKeys.tabBarProfile.tr,
+                    ),
+                  ],
                 ),
-                NavigationItemModel(
-                  label: LocaleKeys.tabBarSocial.tr,
-                  icon: AssetsSvgs.navSocialSvg,
-                ),
-                NavigationItemModel(
-                  label: LocaleKeys.tabBarIsland.tr,
-                  icon: AssetsSvgs.navIslandSvg,
-                ),
-                NavigationItemModel(
-                  label: LocaleKeys.tabBarMoments.tr,
-                  icon: AssetsSvgs.navMomentsSvg,
-                ),
-                NavigationItemModel(
-                  label: LocaleKeys.tabBarProfile.tr,
-                  icon: AssetsSvgs.navProfileSvg,
-                ),
-              ],
-              onTap: controller.onJumpToPage,
+              ),
             );
           },
         ),
-        // 内容页
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: controller.pageController,
@@ -100,14 +106,41 @@ class _MainViewGetX extends GetView<MainController> {
     );
   }
 
+  SalomonBottomBarItem _buildNavItem({
+    required String icon,
+    required String title,
+  }) {
+    return SalomonBottomBarItem(
+      icon: SvgPicture.asset(
+        icon,
+        width: 24,
+        height: 24,
+        colorFilter: const ColorFilter.mode(
+          Colors.grey,
+          BlendMode.srcIn,
+        ),
+      ),
+      activeIcon: SvgPicture.asset(
+        icon,
+        width: 24,
+        height: 24,
+        colorFilter: const ColorFilter.mode(
+          Color(0xFF5C78FF),
+          BlendMode.srcIn,
+        ),
+      ),
+      title: Text(title),
+      selectedColor: const Color(0xFF5C78FF),
+      unselectedColor: Colors.grey,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MainController>(
       id: "main",
       builder: (_) {
-        return Scaffold(
-          body: _buildView(context),
-        );
+        return _buildView(context);
       },
     );
   }

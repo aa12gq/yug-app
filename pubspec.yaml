@@ -29,6 +29,7 @@ dependencies:
   pinput: ^5.0.0
   flutter_easyloading: ^3.0.5
   fixnum: ^1.1.1
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:
