@@ -13,41 +13,240 @@ class IslandPage extends GetView<IslandController> {
     ScreenUtil.init(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FF),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(52.h),
-        child: _buildAppBar(),
-      ),
-      body: SafeArea(
-        child: _buildBody(),
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          _buildAppBar(),
+          _buildDailyMood(),
+          _buildFeatureGrid(),
+          _buildTrendingTopics(),
+          _buildRecommendedActivities(),
+          _buildCommunityHighlights(),
+          SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+        ],
       ),
     );
   }
 
   Widget _buildAppBar() {
-    return AppBar(
+    return SliverAppBar(
+      expandedHeight: 180.h,
+      floating: false,
+      pinned: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      centerTitle: true,
-      title: Text(
-        '语乐岛',
-        style: TextStyle(
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w600,
-          color: AppColors.primaryText,
-          letterSpacing: 0.5,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                const Color(0xFF6B8EFF),
+                const Color(0xFF5C78FF).withOpacity(0.8),
+              ],
+            ),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                right: -30.w,
+                top: -30.h,
+                child: Container(
+                  width: 150.w,
+                  height: 150.w,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 20.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '语乐岛',
+                          style: TextStyle(
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.search,
+                                  color: Colors.white, size: 24.w),
+                              onPressed: () => controller.onSearch(),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.notifications_outlined,
+                                  color: Colors.white, size: 24.w),
+                              onPressed: () => controller.onNotification(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      '探索你的情绪世界，创造独特的心灵空间',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.white.withOpacity(0.9),
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.search, color: AppColors.primaryText, size: 22.w),
-          onPressed: () => controller.onSearch(),
+    );
+  }
+
+  Widget _buildDailyMood() {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
+        padding: EdgeInsets.all(15.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20.r),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF6B8EFF).withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        IconButton(
-          icon: Icon(Icons.notifications_outlined,
-              color: AppColors.primaryText, size: 22.w),
-          onPressed: () => controller.onNotification(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '今日心情',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryText,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => controller.onEmotionMap(),
+                  child: Text(
+                    '查看更多',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: const Color(0xFF6B8EFF),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildMoodItem('开心', Icons.sentiment_very_satisfied,
+                    const Color(0xFF4CD080)),
+                _buildMoodItem(
+                    '平静', Icons.sentiment_neutral, const Color(0xFF6B8EFF)),
+                _buildMoodItem('疲惫', Icons.sentiment_dissatisfied,
+                    const Color(0xFFFF7E65)),
+                _buildMoodItem(
+                    '焦虑', Icons.sentiment_very_dissatisfied, Colors.grey),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildMoodItem(String label, IconData icon, Color color) {
+    return GestureDetector(
+      onTap: () => controller.onMoodWeather(),
+      child: Column(
+        children: [
+          Container(
+            width: 50.w,
+            height: 50.w,
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              color: color,
+              size: 30.w,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: AppColors.secondaryText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeatureGrid() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      sliver: SliverGrid(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 15.h,
+          crossAxisSpacing: 15.w,
+          childAspectRatio: 1.1,
+        ),
+        delegate: SliverChildListDelegate([
+          _buildFeatureItem(
+            '创意岛屿',
+            '展现你的创意天地',
+            Icons.palette,
+            const Color(0xFF9B6DFF),
+            () => controller.onCreativeIsland(),
+          ),
+          _buildFeatureItem(
+            '主题空间',
+            '发现精彩主题活动',
+            Icons.category,
+            const Color(0xFF4CD080),
+            () => controller.onThemeSpace(),
+          ),
+          _buildFeatureItem(
+            '互动游戏',
+            '趣味情绪互动',
+            Icons.games,
+            const Color(0xFFFF6B8E),
+            () => controller.onInteractiveGames(),
+          ),
+          _buildFeatureItem(
+            '创意展示',
+            '展示你的才艺',
+            Icons.star,
+            const Color(0xFFFFB347),
+            () => controller.onCreativeShowcase(),
+          ),
+        ]),
+      ),
     );
   }
 
@@ -75,11 +274,11 @@ class IslandPage extends GetView<IslandController> {
         child: Stack(
           children: [
             Positioned(
-              right: -10.w,
-              top: -10.h,
+              right: -20.w,
+              top: -20.h,
               child: Container(
-                width: 60.w,
-                height: 60.w,
+                width: 80.w,
+                height: 80.w,
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   shape: BoxShape.circle,
@@ -87,10 +286,9 @@ class IslandPage extends GetView<IslandController> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(16.w),
+              padding: EdgeInsets.all(15.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     width: 45.w,
@@ -105,28 +303,24 @@ class IslandPage extends GetView<IslandController> {
                       size: 24.w,
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primaryText,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                      SizedBox(height: 4.h),
-                      Text(
-                        subtitle,
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppColors.secondaryText,
-                          letterSpacing: 0.2,
-                        ),
-                      ),
-                    ],
+                  const Spacer(),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primaryText,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: AppColors.secondaryText,
+                      letterSpacing: 0.2,
+                    ),
                   ),
                 ],
               ),
@@ -137,166 +331,328 @@ class IslandPage extends GetView<IslandController> {
     );
   }
 
-  Widget _buildSectionTitle(String title, String subtitle) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 15.h),
-      child: Row(
+  Widget _buildTrendingTopics() {
+    return SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 4.w,
-            height: 20.h,
-            decoration: BoxDecoration(
-              color: const Color(0xFF6B8EFF),
-              borderRadius: BorderRadius.circular(2.r),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '热门话题',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryText,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    '更多',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: const Color(0xFF6B8EFF),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(width: 8.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primaryText,
-                  letterSpacing: 0.3,
-                ),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: AppColors.secondaryText,
-                  letterSpacing: 0.2,
-                ),
-              ),
-            ],
+          SizedBox(
+            height: 120.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 200.w,
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        right: -20.w,
+                        bottom: -20.h,
+                        child: Container(
+                          width: 100.w,
+                          height: 100.w,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF6B8EFF).withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(15.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '#今日心情#',
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: const Color(0xFF6B8EFF),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              '分享你的每日心情，发现更多同频好友',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                color: AppColors.secondaryText,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              '1.2k 参与',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                color: AppColors.secondaryText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBody() {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
+  Widget _buildRecommendedActivities() {
+    return SliverToBoxAdapter(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle('今日心情', '探索和分享你的情绪世界'),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 15.h,
-              crossAxisSpacing: 15.w,
-              childAspectRatio: 0.85,
+            padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildFeatureItem(
-                  '情绪地图',
-                  '探索你的情绪世界',
-                  Icons.mood,
-                  const Color(0xFF5B7FFF),
-                  () => controller.onEmotionMap(),
+                Text(
+                  '推荐活动',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryText,
+                  ),
                 ),
-                _buildFeatureItem(
-                  '心情天气',
-                  '分享此刻的感受',
-                  Icons.cloud,
-                  const Color(0xFFFF7E65),
-                  () => controller.onMoodWeather(),
+                TextButton(
+                  onPressed: () => controller.onIslandActivities(),
+                  child: Text(
+                    '更多',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: const Color(0xFF6B8EFF),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          _buildSectionTitle('创意空间', '展现你的独特创意'),
+          SizedBox(
+            height: 180.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 280.w,
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 100.h,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF6B8EFF).withOpacity(0.1),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15.r),
+                            topRight: Radius.circular(15.r),
+                          ),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.image,
+                            size: 40.w,
+                            color: const Color(0xFF6B8EFF),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(15.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '情绪艺术创作工作坊',
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.primaryText,
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            Text(
+                              '通过艺术创作表达内心情感',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                color: AppColors.secondaryText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCommunityHighlights() {
+    return SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 15.h,
-              crossAxisSpacing: 15.w,
-              childAspectRatio: 0.85,
+            padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildFeatureItem(
-                  '创意岛屿',
-                  '展现你的创意天地',
-                  Icons.palette,
-                  const Color(0xFF9B6DFF),
-                  () => controller.onCreativeIsland(),
+                Text(
+                  '社区精选',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryText,
+                  ),
                 ),
-                _buildFeatureItem(
-                  '主题空间',
-                  '发现精彩主题活动',
-                  Icons.category,
-                  const Color(0xFF4CD080),
-                  () => controller.onThemeSpace(),
+                TextButton(
+                  onPressed: () => controller.onIslandCoCreation(),
+                  child: Text(
+                    '更多',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: const Color(0xFF6B8EFF),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          _buildSectionTitle('互动天地', '趣味互动，展示才艺'),
-          Padding(
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 15.h,
-              crossAxisSpacing: 15.w,
-              childAspectRatio: 0.85,
-              children: [
-                _buildFeatureItem(
-                  '互动游戏',
-                  '趣味情绪互动',
-                  Icons.games,
-                  const Color(0xFFFF6B8E),
-                  () => controller.onInteractiveGames(),
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(bottom: 15.h),
+                padding: EdgeInsets.all(15.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-                _buildFeatureItem(
-                  '创意展示',
-                  '展示你的才艺',
-                  Icons.star,
-                  const Color(0xFFFFB347),
-                  () => controller.onCreativeShowcase(),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50.w,
+                      height: 50.w,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF6B8EFF),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'YL',
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '语乐岛用户',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primaryText,
+                            ),
+                          ),
+                          SizedBox(height: 5.h),
+                          Text(
+                            '分享了一篇关于情绪管理的心得...',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: AppColors.secondaryText,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
-          _buildSectionTitle('岛民社区', '共建美好社区'),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 15.h,
-              crossAxisSpacing: 15.w,
-              childAspectRatio: 0.85,
-              children: [
-                _buildFeatureItem(
-                  '岛民活动',
-                  '参与精彩社区活动',
-                  Icons.people,
-                  const Color(0xFF3ECBB0),
-                  () => controller.onIslandActivities(),
-                ),
-                _buildFeatureItem(
-                  '岛屿共创',
-                  '共建美好社区',
-                  Icons.handshake,
-                  const Color(0xFF5B7FFF),
-                  () => controller.onIslandCoCreation(),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20.h),
         ],
       ),
     );
