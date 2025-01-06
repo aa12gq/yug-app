@@ -8,12 +8,12 @@ class AppTheme {
   /// 自定义颜色
   /////////////////////////////////////////////////
 
-  static const primary = Color(0xFF5F84FF); // 主色
-  static const secondary = Color(0xFFFF6969); // 辅助色
+  static const primary = Color(0xFF88C9C9); // 主色
+  static const secondary = Color(0xFF88D4D4); // 辅助色
   static const success = Color(0xFF23A757); // 成功色
   static const warning = Color(0xFFFF1843); // 警告色
   static const error = Color(0xFFDA1414); // 错误色
-  static const info = Color(0xFF2E5AAC); // 信息色
+  static const info = Color(0xFF7BAFAF); // 信息色
 
   /////////////////////////////////////////////////
   /// 主题
@@ -30,7 +30,7 @@ class AppTheme {
       onSurface: const Color(0xFF333333),
       error: error,
       onError: Colors.white,
-      //   tertiary: const Color(0xFFF4F6F9),
+      tertiary: const Color(0xFFF8FBFB),
       //   outline: const Color(0xFFF4F6F9),
       //   shadow: const Color(0xFF5A6CEA).withOpacity(0.08),
     );
@@ -61,6 +61,17 @@ class AppTheme {
       useMaterial3: false,
       colorScheme: scheme,
       fontFamily: "Montserrat",
+      // 配置AppBar主题
+      appBarTheme: AppBarTheme(
+        backgroundColor: const Color(0xFF88C9C9),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }

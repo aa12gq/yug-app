@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
 
         // 构建
         builder: (theme, darkTheme) => GetMaterialApp(
-          title: 'Flutter Demo',
+          title: '语光',
 
           // 主题
           theme: theme,
