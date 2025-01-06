@@ -20,6 +20,12 @@ class _MainPageState extends State<MainPage>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+    Get.put(MainController());
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return const _MainViewGetX();
@@ -48,7 +54,7 @@ class _MainViewGetX extends GetView<MainController> {
           height: 56,
           width: 56,
           child: FloatingActionButton(
-            backgroundColor: const Color(0xFF5C78FF),
+            backgroundColor: const Color(0xFF88C9C9),
             elevation: 2,
             shape: const CircleBorder(),
             child: Column(
@@ -146,8 +152,8 @@ class _MainViewGetX extends GetView<MainController> {
       child: InkWell(
         onTap: onTap,
         customBorder: const CircleBorder(),
-        splashColor: const Color(0xFF5C78FF).withOpacity(0.2),
-        highlightColor: const Color(0xFF5C78FF).withOpacity(0.1),
+        splashColor: const Color(0xFF88C9C9).withOpacity(0.2),
+        highlightColor: const Color(0xFF88C9C9).withOpacity(0.1),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Column(
@@ -158,7 +164,9 @@ class _MainViewGetX extends GetView<MainController> {
                 width: 20,
                 height: 20,
                 colorFilter: ColorFilter.mode(
-                  isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+                  isSelected
+                      ? const Color(0xFF88C9C9)
+                      : const Color(0xFFB8DADA),
                   BlendMode.srcIn,
                 ),
               ),
@@ -167,7 +175,9 @@ class _MainViewGetX extends GetView<MainController> {
                 label,
                 style: TextStyle(
                   fontSize: 10,
-                  color: isSelected ? const Color(0xFF5C78FF) : Colors.grey,
+                  color: isSelected
+                      ? const Color(0xFF88C9C9)
+                      : const Color(0xFFB8DADA),
                 ),
               ),
             ],

@@ -16,9 +16,11 @@ lib/common/net/grpcs/proto/**/*.swagger.json
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
