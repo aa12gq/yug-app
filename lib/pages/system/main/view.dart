@@ -110,7 +110,7 @@ class _MainViewGetX extends GetView<MainController> {
                   const SizedBox(width: 80),
                   _buildNavItem(
                     icon: AssetsSvgs.navSocialSvg,
-                    label: '社交',
+                    label: '聊天',
                     isSelected: controller.currentIndex == 3,
                     onTap: () => controller.onJumpToPage(3),
                   ),
