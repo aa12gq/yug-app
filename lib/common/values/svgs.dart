@@ -3,6 +3,8 @@ class AssetsSvgs {
   static const facebookSvg = 'assets/svgs/facebook.svg';
   static const googleSvg = 'assets/svgs/google.svg';
   static const githubSvg = 'assets/svgs/github.svg';
+  static const wechatSvg = 'assets/svgs/wechat.svg';
+  static const qqSvg = 'assets/svgs/qq.svg';
   static const navHomeSvg = 'assets/svgs/nav-home.svg';
   static const navSocialSvg = 'assets/svgs/nav-social.svg';
   static const navIslandSvg = 'assets/svgs/nav-island.svg';

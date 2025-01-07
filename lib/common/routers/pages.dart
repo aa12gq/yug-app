@@ -15,6 +15,7 @@ class RoutePages {
     GetPage(
       name: RouteNames.systemLogin,
       page: () => const LoginPage(),
+      binding: LoginBinding(),
     ),
     GetPage(
       name: RouteNames.systemMain,

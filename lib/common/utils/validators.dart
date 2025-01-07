@@ -2,12 +2,39 @@ import 'package:flutter/material.dart';
 
 /// 表单验证
 class Validators {
-  /// Validatorless.password(6, 20, 'password must have between 6 and 20 digits')
-  static FormFieldValidator<String> password(int min, int max, String m) =>
-      (v) {
-        if (v?.isEmpty ?? true) return null;
-        if ((v?.length ?? 0) < min) return m;
-        if ((v?.length ?? 0) > max) return m;
+  /// 密码验证
+  static FormFieldValidator<String> password(int min, int max, String message) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
         return null;
-      };
+      }
+
+      final passwordRegExp = RegExp(r'^[a-zA-Z0-9!@#\$&*~]{6,18}$');
+      if (!passwordRegExp.hasMatch(value)) {
+        return message;
+      }
+
+      if (value.length < min || value.length > max) {
+        return message;
+      }
+
+      return null;
+    };
+  }
+
+  /// 手机号验证
+  static FormFieldValidator<String> phone(String message) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
+        return null;
+      }
+
+      final phoneRegExp = RegExp(r'^1[3-9]\d{9}$');
+      if (!phoneRegExp.hasMatch(value)) {
+        return message;
+      }
+
+      return null;
+    };
+  }
 }

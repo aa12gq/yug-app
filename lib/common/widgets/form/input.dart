@@ -1,5 +1,6 @@
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../index.dart';
 
@@ -34,34 +35,83 @@ class InputFormFieldWidget extends FormField<String> {
               onChanged?.call(value);
             }
 
+            final theme = Theme.of(field.context);
+
             return <Widget>[
               // 字段说明
-              TextWidget.label(
+              Text(
                 labelText,
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ).paddingLeft(AppSpace.card),
 
               // 输入框
-              InputWidget(
-                placeholder: placeholder,
-                prefix: prefix,
-                suffix: suffix,
+              TextFormField(
                 controller: controller,
                 obscureText: obscureText ?? false,
-                cleanable: cleanable ?? true,
+                keyboardType: keyboardType,
+                autofocus: autofocus ?? false,
                 onChanged: onChangedHandler,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: theme.colorScheme.surface,
+                  hintText: placeholder,
+                  prefixIcon: prefix,
+                  suffixIcon: suffix,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: theme.primaryColor.withOpacity(0.1),
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: theme.primaryColor.withOpacity(0.1),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: theme.colorScheme.error,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: theme.colorScheme.error,
+                    ),
+                  ),
+                ),
               ),
 
               // 提示词
               if (tipText != null)
-                TextWidget.muted(
+                Text(
                   tipText,
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    fontSize: 12.sp,
+                  ),
                 ).paddingLeft(AppSpace.card),
 
               // 错误提示
               if (field.errorText != null)
-                TextWidget.muted(
+                Text(
                   field.errorText!,
-                  color: field.context.colors.scheme.error,
+                  style: TextStyle(
+                    color: theme.colorScheme.error,
+                    fontSize: 12.sp,
+                  ),
                 ).paddingLeft(AppSpace.card),
             ].toColumnSpace(
               crossAxisAlignment: CrossAxisAlignment.start,
