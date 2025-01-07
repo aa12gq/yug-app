@@ -13,29 +13,13 @@ all: proto
 
 # 生成所有 proto 文件
 .PHONY: proto
-proto: proto-user-frontend proto-user-shared proto-system
-	@echo "$(GREEN)All proto files generated successfully!$(RESET)"
-
-# 生成 user/frontend proto 文件
-.PHONY: proto-user-frontend
-proto-user-frontend:
-	@echo "$(YELLOW)Generating user frontend protos...$(RESET)"
-	@cd $(PROTO_DIR) && protoc --dart_out=grpc:. --proto_path=. user/frontend/v1/*.proto
-	@echo "$(GREEN)✓ User frontend protos generated$(RESET)"
-
-# 生成 user/shared proto 文件
-.PHONY: proto-user-shared
-proto-user-shared:
-	@echo "$(YELLOW)Generating user shared protos...$(RESET)"
-	@cd $(PROTO_DIR) && protoc --dart_out=grpc:. --proto_path=. user/shared/v1/*.proto
-	@echo "$(GREEN)✓ User shared protos generated$(RESET)"
-
-# 生成 system proto 文件
-.PHONY: proto-system
-proto-system:
-	@echo "$(YELLOW)Generating system protos...$(RESET)"
-	@cd $(PROTO_DIR) && protoc --dart_out=grpc:. --proto_path=. system/v1/*.proto
-	@echo "$(GREEN)✓ System protos generated$(RESET)"
+proto:
+	@echo "$(YELLOW)Generating all proto files...$(RESET)"
+	@cd $(PROTO_DIR) && find . -name "*.proto" -exec protoc \
+		--dart_out=grpc:. \
+		--proto_path=. \
+		{} \;
+	@echo "$(GREEN)✓ All proto files generated successfully!$(RESET)"
 
 # 清理生成的文件
 .PHONY: clean-proto

@@ -14,7 +14,7 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../google/protobuf/struct.pb.dart' as $6;
+import '../../google/protobuf/struct.pb.dart' as $0;
 import 'openapiv2.pbenum.dart';
 
 export 'openapiv2.pbenum.dart';
@@ -37,7 +37,7 @@ export 'openapiv2.pbenum.dart';
 ///       };
 ///       license: {
 ///         name: "BSD 3-Clause License";
-///         url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+///         url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
 ///       };
 ///     };
 ///     schemes: HTTPS;
@@ -56,8 +56,9 @@ class Swagger extends $pb.GeneratedMessage {
     $core.Map<$core.String, Response>? responses,
     SecurityDefinitions? securityDefinitions,
     $core.Iterable<SecurityRequirement>? security,
+    $core.Iterable<Tag>? tags,
     ExternalDocumentation? externalDocs,
-    $core.Map<$core.String, $6.Value>? extensions,
+    $core.Map<$core.String, $0.Value>? extensions,
   }) {
     final $result = create();
     if (swagger != null) {
@@ -90,6 +91,9 @@ class Swagger extends $pb.GeneratedMessage {
     if (security != null) {
       $result.security.addAll(security);
     }
+    if (tags != null) {
+      $result.tags.addAll(tags);
+    }
     if (externalDocs != null) {
       $result.externalDocs = externalDocs;
     }
@@ -113,8 +117,9 @@ class Swagger extends $pb.GeneratedMessage {
     ..m<$core.String, Response>(10, _omitFieldNames ? '' : 'responses', entryClassName: 'Swagger.ResponsesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: Response.create, valueDefaultOrMaker: Response.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..aOM<SecurityDefinitions>(11, _omitFieldNames ? '' : 'securityDefinitions', subBuilder: SecurityDefinitions.create)
     ..pc<SecurityRequirement>(12, _omitFieldNames ? '' : 'security', $pb.PbFieldType.PM, subBuilder: SecurityRequirement.create)
+    ..pc<Tag>(13, _omitFieldNames ? '' : 'tags', $pb.PbFieldType.PM, subBuilder: Tag.create)
     ..aOM<ExternalDocumentation>(14, _omitFieldNames ? '' : 'externalDocs', subBuilder: ExternalDocumentation.create)
-    ..m<$core.String, $6.Value>(15, _omitFieldNames ? '' : 'extensions', entryClassName: 'Swagger.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $6.Value.create, valueDefaultOrMaker: $6.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..m<$core.String, $0.Value>(15, _omitFieldNames ? '' : 'extensions', entryClassName: 'Swagger.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..hasRequiredFields = false
   ;
 
@@ -237,20 +242,28 @@ class Swagger extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.List<SecurityRequirement> get security => $_getList(9);
 
+  /// A list of tags for API documentation control. Tags can be used for logical
+  /// grouping of operations by resources or any other qualifier.
+  @$pb.TagNumber(13)
+  $core.List<Tag> get tags => $_getList(10);
+
   /// Additional external documentation.
   @$pb.TagNumber(14)
-  ExternalDocumentation get externalDocs => $_getN(10);
+  ExternalDocumentation get externalDocs => $_getN(11);
   @$pb.TagNumber(14)
   set externalDocs(ExternalDocumentation v) { setField(14, v); }
   @$pb.TagNumber(14)
-  $core.bool hasExternalDocs() => $_has(10);
+  $core.bool hasExternalDocs() => $_has(11);
   @$pb.TagNumber(14)
   void clearExternalDocs() => clearField(14);
   @$pb.TagNumber(14)
-  ExternalDocumentation ensureExternalDocs() => $_ensure(10);
+  ExternalDocumentation ensureExternalDocs() => $_ensure(11);
 
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
   @$pb.TagNumber(15)
-  $core.Map<$core.String, $6.Value> get extensions => $_getMap(11);
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(12);
 }
 
 ///  `Operation` is a representation of OpenAPI v2 specification's Operation object.
@@ -291,7 +304,8 @@ class Operation extends $pb.GeneratedMessage {
     $core.Iterable<Scheme>? schemes,
     $core.bool? deprecated,
     $core.Iterable<SecurityRequirement>? security,
-    $core.Map<$core.String, $6.Value>? extensions,
+    $core.Map<$core.String, $0.Value>? extensions,
+    Parameters? parameters,
   }) {
     final $result = create();
     if (tags != null) {
@@ -330,6 +344,9 @@ class Operation extends $pb.GeneratedMessage {
     if (extensions != null) {
       $result.extensions.addAll(extensions);
     }
+    if (parameters != null) {
+      $result.parameters = parameters;
+    }
     return $result;
   }
   Operation._() : super();
@@ -348,7 +365,8 @@ class Operation extends $pb.GeneratedMessage {
     ..pc<Scheme>(10, _omitFieldNames ? '' : 'schemes', $pb.PbFieldType.KE, valueOf: Scheme.valueOf, enumValues: Scheme.values, defaultEnumValue: Scheme.UNKNOWN)
     ..aOB(11, _omitFieldNames ? '' : 'deprecated')
     ..pc<SecurityRequirement>(12, _omitFieldNames ? '' : 'security', $pb.PbFieldType.PM, subBuilder: SecurityRequirement.create)
-    ..m<$core.String, $6.Value>(13, _omitFieldNames ? '' : 'extensions', entryClassName: 'Operation.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $6.Value.create, valueDefaultOrMaker: $6.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..m<$core.String, $0.Value>(13, _omitFieldNames ? '' : 'extensions', entryClassName: 'Operation.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..aOM<Parameters>(14, _omitFieldNames ? '' : 'parameters', subBuilder: Parameters.create)
     ..hasRequiredFields = false
   ;
 
@@ -467,8 +485,190 @@ class Operation extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.List<SecurityRequirement> get security => $_getList(10);
 
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
   @$pb.TagNumber(13)
-  $core.Map<$core.String, $6.Value> get extensions => $_getMap(11);
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(11);
+
+  /// Custom parameters such as HTTP request headers.
+  /// See: https://swagger.io/docs/specification/2-0/describing-parameters/
+  /// and https://swagger.io/specification/v2/#parameter-object.
+  @$pb.TagNumber(14)
+  Parameters get parameters => $_getN(12);
+  @$pb.TagNumber(14)
+  set parameters(Parameters v) { setField(14, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasParameters() => $_has(12);
+  @$pb.TagNumber(14)
+  void clearParameters() => clearField(14);
+  @$pb.TagNumber(14)
+  Parameters ensureParameters() => $_ensure(12);
+}
+
+/// `Parameters` is a representation of OpenAPI v2 specification's parameters object.
+/// Note: This technically breaks compatibility with the OpenAPI 2 definition structure as we only
+/// allow header parameters to be set here since we do not want users specifying custom non-header
+/// parameters beyond those inferred from the Protobuf schema.
+/// See: https://swagger.io/specification/v2/#parameter-object
+class Parameters extends $pb.GeneratedMessage {
+  factory Parameters({
+    $core.Iterable<HeaderParameter>? headers,
+  }) {
+    final $result = create();
+    if (headers != null) {
+      $result.headers.addAll(headers);
+    }
+    return $result;
+  }
+  Parameters._() : super();
+  factory Parameters.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Parameters.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Parameters', package: const $pb.PackageName(_omitMessageNames ? '' : 'grpc.gateway.protoc_gen_openapiv2.options'), createEmptyInstance: create)
+    ..pc<HeaderParameter>(1, _omitFieldNames ? '' : 'headers', $pb.PbFieldType.PM, subBuilder: HeaderParameter.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Parameters clone() => Parameters()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Parameters copyWith(void Function(Parameters) updates) => super.copyWith((message) => updates(message as Parameters)) as Parameters;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Parameters create() => Parameters._();
+  Parameters createEmptyInstance() => create();
+  static $pb.PbList<Parameters> createRepeated() => $pb.PbList<Parameters>();
+  @$core.pragma('dart2js:noInline')
+  static Parameters getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Parameters>(create);
+  static Parameters? _defaultInstance;
+
+  /// `Headers` is one or more HTTP header parameter.
+  /// See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+  @$pb.TagNumber(1)
+  $core.List<HeaderParameter> get headers => $_getList(0);
+}
+
+/// `HeaderParameter` a HTTP header parameter.
+/// See: https://swagger.io/specification/v2/#parameter-object
+class HeaderParameter extends $pb.GeneratedMessage {
+  factory HeaderParameter({
+    $core.String? name,
+    $core.String? description,
+    HeaderParameter_Type? type,
+    $core.String? format,
+    $core.bool? required,
+  }) {
+    final $result = create();
+    if (name != null) {
+      $result.name = name;
+    }
+    if (description != null) {
+      $result.description = description;
+    }
+    if (type != null) {
+      $result.type = type;
+    }
+    if (format != null) {
+      $result.format = format;
+    }
+    if (required != null) {
+      $result.required = required;
+    }
+    return $result;
+  }
+  HeaderParameter._() : super();
+  factory HeaderParameter.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory HeaderParameter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'HeaderParameter', package: const $pb.PackageName(_omitMessageNames ? '' : 'grpc.gateway.protoc_gen_openapiv2.options'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOS(2, _omitFieldNames ? '' : 'description')
+    ..e<HeaderParameter_Type>(3, _omitFieldNames ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: HeaderParameter_Type.UNKNOWN, valueOf: HeaderParameter_Type.valueOf, enumValues: HeaderParameter_Type.values)
+    ..aOS(4, _omitFieldNames ? '' : 'format')
+    ..aOB(5, _omitFieldNames ? '' : 'required')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  HeaderParameter clone() => HeaderParameter()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  HeaderParameter copyWith(void Function(HeaderParameter) updates) => super.copyWith((message) => updates(message as HeaderParameter)) as HeaderParameter;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static HeaderParameter create() => HeaderParameter._();
+  HeaderParameter createEmptyInstance() => create();
+  static $pb.PbList<HeaderParameter> createRepeated() => $pb.PbList<HeaderParameter>();
+  @$core.pragma('dart2js:noInline')
+  static HeaderParameter getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<HeaderParameter>(create);
+  static HeaderParameter? _defaultInstance;
+
+  /// `Name` is the header name.
+  @$pb.TagNumber(1)
+  $core.String get name => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set name($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => clearField(1);
+
+  /// `Description` is a short description of the header.
+  @$pb.TagNumber(2)
+  $core.String get description => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set description($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasDescription() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDescription() => clearField(2);
+
+  /// `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+  /// See: https://swagger.io/specification/v2/#parameterType.
+  @$pb.TagNumber(3)
+  HeaderParameter_Type get type => $_getN(2);
+  @$pb.TagNumber(3)
+  set type(HeaderParameter_Type v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasType() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearType() => clearField(3);
+
+  /// `Format` The extending format for the previously mentioned type.
+  @$pb.TagNumber(4)
+  $core.String get format => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set format($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFormat() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFormat() => clearField(4);
+
+  /// `Required` indicates if the header is optional
+  @$pb.TagNumber(5)
+  $core.bool get required => $_getBF(4);
+  @$pb.TagNumber(5)
+  set required($core.bool v) { $_setBool(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasRequired() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearRequired() => clearField(5);
 }
 
 ///  `Header` is a representation of OpenAPI v2 specification's Header object.
@@ -596,7 +796,7 @@ class Response extends $pb.GeneratedMessage {
     Schema? schema,
     $core.Map<$core.String, Header>? headers,
     $core.Map<$core.String, $core.String>? examples,
-    $core.Map<$core.String, $6.Value>? extensions,
+    $core.Map<$core.String, $0.Value>? extensions,
   }) {
     final $result = create();
     if (description != null) {
@@ -625,7 +825,7 @@ class Response extends $pb.GeneratedMessage {
     ..aOM<Schema>(2, _omitFieldNames ? '' : 'schema', subBuilder: Schema.create)
     ..m<$core.String, Header>(3, _omitFieldNames ? '' : 'headers', entryClassName: 'Response.HeadersEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: Header.create, valueDefaultOrMaker: Header.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..m<$core.String, $core.String>(4, _omitFieldNames ? '' : 'examples', entryClassName: 'Response.ExamplesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
-    ..m<$core.String, $6.Value>(5, _omitFieldNames ? '' : 'extensions', entryClassName: 'Response.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $6.Value.create, valueDefaultOrMaker: $6.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..m<$core.String, $0.Value>(5, _omitFieldNames ? '' : 'extensions', entryClassName: 'Response.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..hasRequiredFields = false
   ;
 
@@ -685,8 +885,11 @@ class Response extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.Map<$core.String, $core.String> get examples => $_getMap(3);
 
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
   @$pb.TagNumber(5)
-  $core.Map<$core.String, $6.Value> get extensions => $_getMap(4);
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(4);
 }
 
 ///  `Info` is a representation of OpenAPI v2 specification's Info object.
@@ -707,7 +910,7 @@ class Response extends $pb.GeneratedMessage {
 ///       };
 ///       license: {
 ///         name: "BSD 3-Clause License";
-///         url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+///         url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
 ///       };
 ///     };
 ///     ...
@@ -720,7 +923,7 @@ class Info extends $pb.GeneratedMessage {
     Contact? contact,
     License? license,
     $core.String? version,
-    $core.Map<$core.String, $6.Value>? extensions,
+    $core.Map<$core.String, $0.Value>? extensions,
   }) {
     final $result = create();
     if (title != null) {
@@ -757,7 +960,7 @@ class Info extends $pb.GeneratedMessage {
     ..aOM<Contact>(4, _omitFieldNames ? '' : 'contact', subBuilder: Contact.create)
     ..aOM<License>(5, _omitFieldNames ? '' : 'license', subBuilder: License.create)
     ..aOS(6, _omitFieldNames ? '' : 'version')
-    ..m<$core.String, $6.Value>(7, _omitFieldNames ? '' : 'extensions', entryClassName: 'Info.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $6.Value.create, valueDefaultOrMaker: $6.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..m<$core.String, $0.Value>(7, _omitFieldNames ? '' : 'extensions', entryClassName: 'Info.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..hasRequiredFields = false
   ;
 
@@ -848,8 +1051,11 @@ class Info extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   void clearVersion() => clearField(6);
 
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
   @$pb.TagNumber(7)
-  $core.Map<$core.String, $6.Value> get extensions => $_getMap(6);
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(6);
 }
 
 ///  `Contact` is a representation of OpenAPI v2 specification's Contact object.
@@ -964,7 +1170,7 @@ class Contact extends $pb.GeneratedMessage {
 ///       ...
 ///       license: {
 ///         name: "BSD 3-Clause License";
-///         url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+///         url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
 ///       };
 ///       ...
 ///     };
@@ -1245,6 +1451,190 @@ class Schema extends $pb.GeneratedMessage {
   void clearExample() => clearField(6);
 }
 
+///  `EnumSchema` is subset of fields from the OpenAPI v2 specification's Schema object.
+///  Only fields that are applicable to Enums are included
+///  See: https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/2.0.md#schemaObject
+///
+///  Example:
+///
+///   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_enum) = {
+///     ...
+///     title: "MyEnum";
+///     description:"This is my nice enum";
+///     example: "ZERO";
+///     required: true;
+///     ...
+///   };
+class EnumSchema extends $pb.GeneratedMessage {
+  factory EnumSchema({
+    $core.String? description,
+    $core.String? default_2,
+    $core.String? title,
+    $core.bool? required,
+    $core.bool? readOnly,
+    ExternalDocumentation? externalDocs,
+    $core.String? example,
+    $core.String? ref,
+    $core.Map<$core.String, $0.Value>? extensions,
+  }) {
+    final $result = create();
+    if (description != null) {
+      $result.description = description;
+    }
+    if (default_2 != null) {
+      $result.default_2 = default_2;
+    }
+    if (title != null) {
+      $result.title = title;
+    }
+    if (required != null) {
+      $result.required = required;
+    }
+    if (readOnly != null) {
+      $result.readOnly = readOnly;
+    }
+    if (externalDocs != null) {
+      $result.externalDocs = externalDocs;
+    }
+    if (example != null) {
+      $result.example = example;
+    }
+    if (ref != null) {
+      $result.ref = ref;
+    }
+    if (extensions != null) {
+      $result.extensions.addAll(extensions);
+    }
+    return $result;
+  }
+  EnumSchema._() : super();
+  factory EnumSchema.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EnumSchema.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EnumSchema', package: const $pb.PackageName(_omitMessageNames ? '' : 'grpc.gateway.protoc_gen_openapiv2.options'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'description')
+    ..aOS(2, _omitFieldNames ? '' : 'default')
+    ..aOS(3, _omitFieldNames ? '' : 'title')
+    ..aOB(4, _omitFieldNames ? '' : 'required')
+    ..aOB(5, _omitFieldNames ? '' : 'readOnly')
+    ..aOM<ExternalDocumentation>(6, _omitFieldNames ? '' : 'externalDocs', subBuilder: ExternalDocumentation.create)
+    ..aOS(7, _omitFieldNames ? '' : 'example')
+    ..aOS(8, _omitFieldNames ? '' : 'ref')
+    ..m<$core.String, $0.Value>(9, _omitFieldNames ? '' : 'extensions', entryClassName: 'EnumSchema.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  EnumSchema clone() => EnumSchema()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  EnumSchema copyWith(void Function(EnumSchema) updates) => super.copyWith((message) => updates(message as EnumSchema)) as EnumSchema;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static EnumSchema create() => EnumSchema._();
+  EnumSchema createEmptyInstance() => create();
+  static $pb.PbList<EnumSchema> createRepeated() => $pb.PbList<EnumSchema>();
+  @$core.pragma('dart2js:noInline')
+  static EnumSchema getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EnumSchema>(create);
+  static EnumSchema? _defaultInstance;
+
+  /// A short description of the schema.
+  @$pb.TagNumber(1)
+  $core.String get description => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set description($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasDescription() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDescription() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get default_2 => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set default_2($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasDefault_2() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDefault_2() => clearField(2);
+
+  /// The title of the schema.
+  @$pb.TagNumber(3)
+  $core.String get title => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set title($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTitle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTitle() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.bool get required => $_getBF(3);
+  @$pb.TagNumber(4)
+  set required($core.bool v) { $_setBool(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasRequired() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRequired() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.bool get readOnly => $_getBF(4);
+  @$pb.TagNumber(5)
+  set readOnly($core.bool v) { $_setBool(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasReadOnly() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearReadOnly() => clearField(5);
+
+  /// Additional external documentation for this schema.
+  @$pb.TagNumber(6)
+  ExternalDocumentation get externalDocs => $_getN(5);
+  @$pb.TagNumber(6)
+  set externalDocs(ExternalDocumentation v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasExternalDocs() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearExternalDocs() => clearField(6);
+  @$pb.TagNumber(6)
+  ExternalDocumentation ensureExternalDocs() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.String get example => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set example($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasExample() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearExample() => clearField(7);
+
+  /// Ref is used to define an external reference to include in the message.
+  /// This could be a fully qualified proto message reference, and that type must
+  /// be imported into the protofile. If no message is identified, the Ref will
+  /// be used verbatim in the output.
+  /// For example:
+  ///  `ref: ".google.protobuf.Timestamp"`.
+  @$pb.TagNumber(8)
+  $core.String get ref => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set ref($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasRef() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearRef() => clearField(8);
+
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+  @$pb.TagNumber(9)
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(8);
+}
+
 /// 'FieldConfiguration' provides additional field level properties used when generating the OpenAPI v2 file.
 /// These properties are not defined by OpenAPIv2, but they are used to control the generation.
 class JSONSchema_FieldConfiguration extends $pb.GeneratedMessage {
@@ -1354,7 +1744,7 @@ class JSONSchema extends $pb.GeneratedMessage {
     $core.Iterable<JSONSchema_JSONSchemaSimpleTypes>? type,
     $core.String? format,
     $core.Iterable<$core.String>? enum_46,
-    $core.Map<$core.String, $6.Value>? extensions,
+    $core.Map<$core.String, $0.Value>? extensions,
     JSONSchema_FieldConfiguration? fieldConfiguration,
   }) {
     final $result = create();
@@ -1467,7 +1857,7 @@ class JSONSchema extends $pb.GeneratedMessage {
     ..pc<JSONSchema_JSONSchemaSimpleTypes>(35, _omitFieldNames ? '' : 'type', $pb.PbFieldType.KE, valueOf: JSONSchema_JSONSchemaSimpleTypes.valueOf, enumValues: JSONSchema_JSONSchemaSimpleTypes.values, defaultEnumValue: JSONSchema_JSONSchemaSimpleTypes.UNKNOWN)
     ..aOS(36, _omitFieldNames ? '' : 'format')
     ..pPS(46, _omitFieldNames ? '' : 'enum')
-    ..m<$core.String, $6.Value>(48, _omitFieldNames ? '' : 'extensions', entryClassName: 'JSONSchema.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $6.Value.create, valueDefaultOrMaker: $6.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..m<$core.String, $0.Value>(48, _omitFieldNames ? '' : 'extensions', entryClassName: 'JSONSchema.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..aOM<JSONSchema_FieldConfiguration>(1001, _omitFieldNames ? '' : 'fieldConfiguration', subBuilder: JSONSchema_FieldConfiguration.create)
     ..hasRequiredFields = false
   ;
@@ -1703,8 +2093,11 @@ class JSONSchema extends $pb.GeneratedMessage {
   @$pb.TagNumber(46)
   $core.List<$core.String> get enum_46 => $_getList(23);
 
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
   @$pb.TagNumber(48)
-  $core.Map<$core.String, $6.Value> get extensions => $_getMap(24);
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(24);
 
   /// Additional field level properties used when generating the OpenAPI v2 file.
   @$pb.TagNumber(1001)
@@ -1724,15 +2117,23 @@ class JSONSchema extends $pb.GeneratedMessage {
 ///  See: https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/2.0.md#tagObject
 class Tag extends $pb.GeneratedMessage {
   factory Tag({
+    $core.String? name,
     $core.String? description,
     ExternalDocumentation? externalDocs,
+    $core.Map<$core.String, $0.Value>? extensions,
   }) {
     final $result = create();
+    if (name != null) {
+      $result.name = name;
+    }
     if (description != null) {
       $result.description = description;
     }
     if (externalDocs != null) {
       $result.externalDocs = externalDocs;
+    }
+    if (extensions != null) {
+      $result.extensions.addAll(extensions);
     }
     return $result;
   }
@@ -1741,8 +2142,10 @@ class Tag extends $pb.GeneratedMessage {
   factory Tag.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Tag', package: const $pb.PackageName(_omitMessageNames ? '' : 'grpc.gateway.protoc_gen_openapiv2.options'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
     ..aOS(2, _omitFieldNames ? '' : 'description')
     ..aOM<ExternalDocumentation>(3, _omitFieldNames ? '' : 'externalDocs', subBuilder: ExternalDocumentation.create)
+    ..m<$core.String, $0.Value>(4, _omitFieldNames ? '' : 'extensions', entryClassName: 'Tag.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..hasRequiredFields = false
   ;
 
@@ -1767,28 +2170,46 @@ class Tag extends $pb.GeneratedMessage {
   static Tag getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Tag>(create);
   static Tag? _defaultInstance;
 
+  /// The name of the tag. Use it to allow override of the name of a
+  /// global Tag object, then use that name to reference the tag throughout the
+  /// OpenAPI file.
+  @$pb.TagNumber(1)
+  $core.String get name => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set name($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => clearField(1);
+
   /// A short description for the tag. GFM syntax can be used for rich text
   /// representation.
   @$pb.TagNumber(2)
-  $core.String get description => $_getSZ(0);
+  $core.String get description => $_getSZ(1);
   @$pb.TagNumber(2)
-  set description($core.String v) { $_setString(0, v); }
+  set description($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasDescription() => $_has(0);
+  $core.bool hasDescription() => $_has(1);
   @$pb.TagNumber(2)
   void clearDescription() => clearField(2);
 
   /// Additional external documentation for this tag.
   @$pb.TagNumber(3)
-  ExternalDocumentation get externalDocs => $_getN(1);
+  ExternalDocumentation get externalDocs => $_getN(2);
   @$pb.TagNumber(3)
   set externalDocs(ExternalDocumentation v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasExternalDocs() => $_has(1);
+  $core.bool hasExternalDocs() => $_has(2);
   @$pb.TagNumber(3)
   void clearExternalDocs() => clearField(3);
   @$pb.TagNumber(3)
-  ExternalDocumentation ensureExternalDocs() => $_ensure(1);
+  ExternalDocumentation ensureExternalDocs() => $_ensure(2);
+
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+  @$pb.TagNumber(4)
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(3);
 }
 
 ///  `SecurityDefinitions` is a representation of OpenAPI v2 specification's
@@ -1864,7 +2285,7 @@ class SecurityScheme extends $pb.GeneratedMessage {
     $core.String? authorizationUrl,
     $core.String? tokenUrl,
     Scopes? scopes,
-    $core.Map<$core.String, $6.Value>? extensions,
+    $core.Map<$core.String, $0.Value>? extensions,
   }) {
     final $result = create();
     if (type != null) {
@@ -1909,7 +2330,7 @@ class SecurityScheme extends $pb.GeneratedMessage {
     ..aOS(6, _omitFieldNames ? '' : 'authorizationUrl')
     ..aOS(7, _omitFieldNames ? '' : 'tokenUrl')
     ..aOM<Scopes>(8, _omitFieldNames ? '' : 'scopes', subBuilder: Scopes.create)
-    ..m<$core.String, $6.Value>(9, _omitFieldNames ? '' : 'extensions', entryClassName: 'SecurityScheme.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $6.Value.create, valueDefaultOrMaker: $6.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
+    ..m<$core.String, $0.Value>(9, _omitFieldNames ? '' : 'extensions', entryClassName: 'SecurityScheme.ExtensionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Value.create, valueDefaultOrMaker: $0.Value.getDefault, packageName: const $pb.PackageName('grpc.gateway.protoc_gen_openapiv2.options'))
     ..hasRequiredFields = false
   ;
 
@@ -2027,8 +2448,11 @@ class SecurityScheme extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   Scopes ensureScopes() => $_ensure(7);
 
+  /// Custom properties that start with "x-" such as "x-foo" used to describe
+  /// extra functionality that is not covered by the standard OpenAPI Specification.
+  /// See: https://swagger.io/docs/specification/2-0/swagger-extensions/
   @$pb.TagNumber(9)
-  $core.Map<$core.String, $6.Value> get extensions => $_getMap(8);
+  $core.Map<$core.String, $0.Value> get extensions => $_getMap(8);
 }
 
 /// If the security scheme is of type "oauth2", then the value is a list of

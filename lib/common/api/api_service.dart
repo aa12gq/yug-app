@@ -34,6 +34,25 @@ class AuthApiService extends GetxService {
       throw e.toString();
     }
   }
+
+  Future<CheckVerificationConditionResponse> checkVerificationCondition(
+      String identity, VerificationContext context) async {
+    try {
+      final client = await GrpcClientUtil.createClient(AuthClient.new);
+      final response = await client.checkVerificationCondition(
+        CheckVerificationConditionRequest(
+          identity: identity,
+          context: context,
+        ),
+      );
+      return response;
+    } catch (e) {
+      if (e is GrpcError) {
+        throw e.message ?? '未知错误';
+      }
+      throw e.toString();
+    }
+  }
 }
 
 class UserApiService extends GetxService {

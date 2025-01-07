@@ -36,6 +36,29 @@ class Scheme extends $pb.ProtobufEnum {
   const Scheme._($core.int v, $core.String n) : super(v, n);
 }
 
+/// `Type` is a supported HTTP header type.
+/// See https://swagger.io/specification/v2/#parameterType.
+class HeaderParameter_Type extends $pb.ProtobufEnum {
+  static const HeaderParameter_Type UNKNOWN = HeaderParameter_Type._(0, _omitEnumNames ? '' : 'UNKNOWN');
+  static const HeaderParameter_Type STRING = HeaderParameter_Type._(1, _omitEnumNames ? '' : 'STRING');
+  static const HeaderParameter_Type NUMBER = HeaderParameter_Type._(2, _omitEnumNames ? '' : 'NUMBER');
+  static const HeaderParameter_Type INTEGER = HeaderParameter_Type._(3, _omitEnumNames ? '' : 'INTEGER');
+  static const HeaderParameter_Type BOOLEAN = HeaderParameter_Type._(4, _omitEnumNames ? '' : 'BOOLEAN');
+
+  static const $core.List<HeaderParameter_Type> values = <HeaderParameter_Type> [
+    UNKNOWN,
+    STRING,
+    NUMBER,
+    INTEGER,
+    BOOLEAN,
+  ];
+
+  static final $core.Map<$core.int, HeaderParameter_Type> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static HeaderParameter_Type? valueOf($core.int value) => _byValue[value];
+
+  const HeaderParameter_Type._($core.int v, $core.String n) : super(v, n);
+}
+
 class JSONSchema_JSONSchemaSimpleTypes extends $pb.ProtobufEnum {
   static const JSONSchema_JSONSchemaSimpleTypes UNKNOWN = JSONSchema_JSONSchemaSimpleTypes._(0, _omitEnumNames ? '' : 'UNKNOWN');
   static const JSONSchema_JSONSchemaSimpleTypes ARRAY = JSONSchema_JSONSchemaSimpleTypes._(1, _omitEnumNames ? '' : 'ARRAY');

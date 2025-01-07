@@ -38,11 +38,11 @@ message GetMyProfileResponse {
 }
 
 message RegisterRequest {
+    string identity = 1; // 身份标识，可以是设备码，ip地址等
     oneof register_strategy {
-        UsernamePasswordRegister username_password = 1;
-        PhoneRegister phone = 2;
-        EmailRegister email = 3;
-        string app_id = 4;
+        UsernamePasswordRegister username_password = 2;
+        PhoneRegister phone = 3;
+        EmailRegister email = 4;
     }
 
     message UsernamePasswordRegister {
@@ -72,36 +72,33 @@ message RegisterResponse {
 }
 
 message LoginRequest {
+    string identity = 1; // 身份标识，可以是设备码，ip地址等
+    string app_id = 2;
     oneof login_strategy {
-        UsernamePasswordLogin username_password = 1;
-        PhoneLogin phone = 2;
-        EmailLogin email = 3;
-        GithubLogin github = 4;
-        GiteeLogin gitee = 5;
-        string app_id = 6;
+        UsernamePasswordLogin username_password = 3;
+        PhoneLogin phone = 4;
+        EmailLogin email = 5;
+        GithubLogin github = 6;
+        GiteeLogin gitee = 7;
     }
 
     message UsernamePasswordLogin {
         string username = 1;
         string password = 2;
-        string app_id = 3;
     }
 
     message PhoneLogin {
         string phone = 1;
         string password = 2;
-        string app_id = 3;
     }
 
     message EmailLogin {
         string email = 1;
         string password = 2;
-        string app_id = 3;
     }
 
     message GithubLogin {
         string github_code = 1;
-        string app_id = 2;
     }
 
     message GiteeLogin {
@@ -113,6 +110,30 @@ message LoginRequest {
 message LoginResponse {
     uint64 user_id = 1;
     string accessToken = 2;
+}
+
+message CheckVerificationConditionRequest {
+    string identity = 1; // 身份标识，可以是设备码，ip地址等
+    VerificationContext context = 2; // 验证上下文
+}
+
+enum VerificationContext {
+    CONTEXT_UNSPECIFIED = 0; // 未指定
+    LOGIN_ATTEMPT = 1; // 登录尝试
+    PASSWORD_RESET = 2; // 密码重置
+    ACCOUNT_RECOVERY = 3; // 账户恢复
+}
+
+message CheckVerificationConditionResponse {
+    repeated VerificationMethod methods = 1; 
+}
+
+enum VerificationMethod {
+    VERIFICATION_METHOD_UNSPECIFIED = 0; // 未指定
+    CAPTCHA_IMAGE = 1; // 图片验证码
+    SMS_CODE = 2; // 短信验证码
+    EMAIL_CODE = 3; // 邮件验证码
+    TEMP_JWT = 4; // 临时授权
 }
 
 message UpdateAvatarRequest {

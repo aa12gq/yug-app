@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:fixnum/fixnum.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:uuid/uuid.dart';
 import 'package:yug_app/common/net/grpcs/proto/user/shared/v1/user.pb.dart';
 import 'package:yug_app/common/net/grpcs/proto/user/frontend/v1/user.pb.dart';
 import 'package:yug_app/common/api/api_service.dart';
@@ -17,6 +19,9 @@ class UserService extends GetxService {
   // 用户令牌
   String token = '';
 
+  // 设备码
+  String _deviceId = '';
+
   // 用户的资料
   final _profile = UserInfo().obs;
 
@@ -31,6 +36,46 @@ class UserService extends GetxService {
 
   /// 是否有令牌 token
   bool get hasToken => token.isNotEmpty;
+
+  /// 获取设备码
+  String get deviceId => _deviceId;
+
+  /// 检查验证条件
+  Future<CheckVerificationConditionResponse> checkVerificationCondition(
+      VerificationContext context) async {
+    if (_deviceId.isEmpty) {
+      await _initDeviceId();
+    }
+    return await AuthApiService.to
+        .checkVerificationCondition(_deviceId, context);
+  }
+
+  /// 初始化设备码
+  Future<void> _initDeviceId() async {
+    // 先从本地存储获取
+    _deviceId = Storage().getString(Constants.storageDeviceId);
+    if (_deviceId.isNotEmpty) return;
+
+    // 如果本地没有，则生成新的设备码
+    final deviceInfo = DeviceInfoPlugin();
+    String deviceIdentifier = '';
+
+    if (GetPlatform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceIdentifier = iosInfo.identifierForVendor ?? '';
+    } else if (GetPlatform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      deviceIdentifier = androidInfo.id;
+    }
+
+    // 如果无法获取设备标识符，则生成一个UUID
+    if (deviceIdentifier.isEmpty) {
+      deviceIdentifier = const Uuid().v4();
+    }
+
+    _deviceId = deviceIdentifier;
+    await Storage().setString(Constants.storageDeviceId, _deviceId);
+  }
 
   @override
   void onInit() {

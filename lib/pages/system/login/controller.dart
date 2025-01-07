@@ -412,8 +412,8 @@ class LoginController extends GetxController {
             usernamePassword: LoginRequest_UsernamePasswordLogin(
               username: userNameController.text,
               password: passwordController.text,
-              appId: 'yug_app',
             ),
+            appId: "com.vtyug.yugapp"
           );
           break;
 

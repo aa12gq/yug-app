@@ -37,4 +37,10 @@ service Auth {
             body: "*"
         };
     }
+    rpc CheckVerificationCondition(com.vtyug.yug.shared.v1.CheckVerificationConditionRequest) returns (com.vtyug.yug.shared.v1.CheckVerificationConditionResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/check-verification-condition",
+            body: "*"
+        };
+    }
 }

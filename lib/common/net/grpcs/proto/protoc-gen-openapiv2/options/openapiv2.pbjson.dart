@@ -44,6 +44,7 @@ const Swagger$json = {
     {'1': 'responses', '3': 10, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.Swagger.ResponsesEntry', '10': 'responses'},
     {'1': 'security_definitions', '3': 11, '4': 1, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.SecurityDefinitions', '10': 'securityDefinitions'},
     {'1': 'security', '3': 12, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.SecurityRequirement', '10': 'security'},
+    {'1': 'tags', '3': 13, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.Tag', '10': 'tags'},
     {'1': 'external_docs', '3': 14, '4': 1, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.ExternalDocumentation', '10': 'externalDocs'},
     {'1': 'extensions', '3': 15, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.Swagger.ExtensionsEntry', '10': 'extensions'},
   ],
@@ -51,7 +52,6 @@ const Swagger$json = {
   '9': [
     {'1': 8, '2': 9},
     {'1': 9, '2': 10},
-    {'1': 13, '2': 14},
   ],
 };
 
@@ -87,15 +87,16 @@ final $typed_data.Uint8List swaggerDescriptor = $convert.base64Decode(
     'VjdXJpdHlfZGVmaW5pdGlvbnMYCyABKAsyPi5ncnBjLmdhdGV3YXkucHJvdG9jX2dlbl9vcGVu'
     'YXBpdjIub3B0aW9ucy5TZWN1cml0eURlZmluaXRpb25zUhNzZWN1cml0eURlZmluaXRpb25zEl'
     'oKCHNlY3VyaXR5GAwgAygLMj4uZ3JwYy5nYXRld2F5LnByb3RvY19nZW5fb3BlbmFwaXYyLm9w'
-    'dGlvbnMuU2VjdXJpdHlSZXF1aXJlbWVudFIIc2VjdXJpdHkSZQoNZXh0ZXJuYWxfZG9jcxgOIA'
-    'EoCzJALmdycGMuZ2F0ZXdheS5wcm90b2NfZ2VuX29wZW5hcGl2Mi5vcHRpb25zLkV4dGVybmFs'
-    'RG9jdW1lbnRhdGlvblIMZXh0ZXJuYWxEb2NzEmIKCmV4dGVuc2lvbnMYDyADKAsyQi5ncnBjLm'
-    'dhdGV3YXkucHJvdG9jX2dlbl9vcGVuYXBpdjIub3B0aW9ucy5Td2FnZ2VyLkV4dGVuc2lvbnNF'
-    'bnRyeVIKZXh0ZW5zaW9ucxpxCg5SZXNwb25zZXNFbnRyeRIQCgNrZXkYASABKAlSA2tleRJJCg'
-    'V2YWx1ZRgCIAEoCzIzLmdycGMuZ2F0ZXdheS5wcm90b2NfZ2VuX29wZW5hcGl2Mi5vcHRpb25z'
-    'LlJlc3BvbnNlUgV2YWx1ZToCOAEaVQoPRXh0ZW5zaW9uc0VudHJ5EhAKA2tleRgBIAEoCVIDa2'
-    'V5EiwKBXZhbHVlGAIgASgLMhYuZ29vZ2xlLnByb3RvYnVmLlZhbHVlUgV2YWx1ZToCOAFKBAgI'
-    'EAlKBAgJEApKBAgNEA4=');
+    'dGlvbnMuU2VjdXJpdHlSZXF1aXJlbWVudFIIc2VjdXJpdHkSQgoEdGFncxgNIAMoCzIuLmdycG'
+    'MuZ2F0ZXdheS5wcm90b2NfZ2VuX29wZW5hcGl2Mi5vcHRpb25zLlRhZ1IEdGFncxJlCg1leHRl'
+    'cm5hbF9kb2NzGA4gASgLMkAuZ3JwYy5nYXRld2F5LnByb3RvY19nZW5fb3BlbmFwaXYyLm9wdG'
+    'lvbnMuRXh0ZXJuYWxEb2N1bWVudGF0aW9uUgxleHRlcm5hbERvY3MSYgoKZXh0ZW5zaW9ucxgP'
+    'IAMoCzJCLmdycGMuZ2F0ZXdheS5wcm90b2NfZ2VuX29wZW5hcGl2Mi5vcHRpb25zLlN3YWdnZX'
+    'IuRXh0ZW5zaW9uc0VudHJ5UgpleHRlbnNpb25zGnEKDlJlc3BvbnNlc0VudHJ5EhAKA2tleRgB'
+    'IAEoCVIDa2V5EkkKBXZhbHVlGAIgASgLMjMuZ3JwYy5nYXRld2F5LnByb3RvY19nZW5fb3Blbm'
+    'FwaXYyLm9wdGlvbnMuUmVzcG9uc2VSBXZhbHVlOgI4ARpVCg9FeHRlbnNpb25zRW50cnkSEAoD'
+    'a2V5GAEgASgJUgNrZXkSLAoFdmFsdWUYAiABKAsyFi5nb29nbGUucHJvdG9idWYuVmFsdWVSBX'
+    'ZhbHVlOgI4AUoECAgQCUoECAkQCg==');
 
 @$core.Deprecated('Use operationDescriptor instead')
 const Operation$json = {
@@ -113,6 +114,7 @@ const Operation$json = {
     {'1': 'deprecated', '3': 11, '4': 1, '5': 8, '10': 'deprecated'},
     {'1': 'security', '3': 12, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.SecurityRequirement', '10': 'security'},
     {'1': 'extensions', '3': 13, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.Operation.ExtensionsEntry', '10': 'extensions'},
+    {'1': 'parameters', '3': 14, '4': 1, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.Parameters', '10': 'parameters'},
   ],
   '3': [Operation_ResponsesEntry$json, Operation_ExtensionsEntry$json],
   '9': [
@@ -154,11 +156,63 @@ final $typed_data.Uint8List operationDescriptor = $convert.base64Decode(
     'N1cml0eRgMIAMoCzI+LmdycGMuZ2F0ZXdheS5wcm90b2NfZ2VuX29wZW5hcGl2Mi5vcHRpb25z'
     'LlNlY3VyaXR5UmVxdWlyZW1lbnRSCHNlY3VyaXR5EmQKCmV4dGVuc2lvbnMYDSADKAsyRC5ncn'
     'BjLmdhdGV3YXkucHJvdG9jX2dlbl9vcGVuYXBpdjIub3B0aW9ucy5PcGVyYXRpb24uRXh0ZW5z'
-    'aW9uc0VudHJ5UgpleHRlbnNpb25zGnEKDlJlc3BvbnNlc0VudHJ5EhAKA2tleRgBIAEoCVIDa2'
-    'V5EkkKBXZhbHVlGAIgASgLMjMuZ3JwYy5nYXRld2F5LnByb3RvY19nZW5fb3BlbmFwaXYyLm9w'
-    'dGlvbnMuUmVzcG9uc2VSBXZhbHVlOgI4ARpVCg9FeHRlbnNpb25zRW50cnkSEAoDa2V5GAEgAS'
-    'gJUgNrZXkSLAoFdmFsdWUYAiABKAsyFi5nb29nbGUucHJvdG9idWYuVmFsdWVSBXZhbHVlOgI4'
-    'AUoECAgQCQ==');
+    'aW9uc0VudHJ5UgpleHRlbnNpb25zElUKCnBhcmFtZXRlcnMYDiABKAsyNS5ncnBjLmdhdGV3YX'
+    'kucHJvdG9jX2dlbl9vcGVuYXBpdjIub3B0aW9ucy5QYXJhbWV0ZXJzUgpwYXJhbWV0ZXJzGnEK'
+    'DlJlc3BvbnNlc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EkkKBXZhbHVlGAIgASgLMjMuZ3JwYy'
+    '5nYXRld2F5LnByb3RvY19nZW5fb3BlbmFwaXYyLm9wdGlvbnMuUmVzcG9uc2VSBXZhbHVlOgI4'
+    'ARpVCg9FeHRlbnNpb25zRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSLAoFdmFsdWUYAiABKAsyFi'
+    '5nb29nbGUucHJvdG9idWYuVmFsdWVSBXZhbHVlOgI4AUoECAgQCQ==');
+
+@$core.Deprecated('Use parametersDescriptor instead')
+const Parameters$json = {
+  '1': 'Parameters',
+  '2': [
+    {'1': 'headers', '3': 1, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter', '10': 'headers'},
+  ],
+};
+
+/// Descriptor for `Parameters`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List parametersDescriptor = $convert.base64Decode(
+    'CgpQYXJhbWV0ZXJzElQKB2hlYWRlcnMYASADKAsyOi5ncnBjLmdhdGV3YXkucHJvdG9jX2dlbl'
+    '9vcGVuYXBpdjIub3B0aW9ucy5IZWFkZXJQYXJhbWV0ZXJSB2hlYWRlcnM=');
+
+@$core.Deprecated('Use headerParameterDescriptor instead')
+const HeaderParameter$json = {
+  '1': 'HeaderParameter',
+  '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'description', '3': 2, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'type', '3': 3, '4': 1, '5': 14, '6': '.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type', '10': 'type'},
+    {'1': 'format', '3': 4, '4': 1, '5': 9, '10': 'format'},
+    {'1': 'required', '3': 5, '4': 1, '5': 8, '10': 'required'},
+  ],
+  '4': [HeaderParameter_Type$json],
+  '9': [
+    {'1': 6, '2': 7},
+    {'1': 7, '2': 8},
+  ],
+};
+
+@$core.Deprecated('Use headerParameterDescriptor instead')
+const HeaderParameter_Type$json = {
+  '1': 'Type',
+  '2': [
+    {'1': 'UNKNOWN', '2': 0},
+    {'1': 'STRING', '2': 1},
+    {'1': 'NUMBER', '2': 2},
+    {'1': 'INTEGER', '2': 3},
+    {'1': 'BOOLEAN', '2': 4},
+  ],
+};
+
+/// Descriptor for `HeaderParameter`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List headerParameterDescriptor = $convert.base64Decode(
+    'Cg9IZWFkZXJQYXJhbWV0ZXISEgoEbmFtZRgBIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgCIA'
+    'EoCVILZGVzY3JpcHRpb24SUwoEdHlwZRgDIAEoDjI/LmdycGMuZ2F0ZXdheS5wcm90b2NfZ2Vu'
+    'X29wZW5hcGl2Mi5vcHRpb25zLkhlYWRlclBhcmFtZXRlci5UeXBlUgR0eXBlEhYKBmZvcm1hdB'
+    'gEIAEoCVIGZm9ybWF0EhoKCHJlcXVpcmVkGAUgASgIUghyZXF1aXJlZCJFCgRUeXBlEgsKB1VO'
+    'S05PV04QABIKCgZTVFJJTkcQARIKCgZOVU1CRVIQAhILCgdJTlRFR0VSEAMSCwoHQk9PTEVBTh'
+    'AESgQIBhAHSgQIBxAI');
 
 @$core.Deprecated('Use headerDescriptor instead')
 const Header$json = {
@@ -355,6 +409,45 @@ final $typed_data.Uint8List schemaDescriptor = $convert.base64Decode(
     'Lm9wdGlvbnMuRXh0ZXJuYWxEb2N1bWVudGF0aW9uUgxleHRlcm5hbERvY3MSGAoHZXhhbXBsZR'
     'gGIAEoCVIHZXhhbXBsZUoECAQQBQ==');
 
+@$core.Deprecated('Use enumSchemaDescriptor instead')
+const EnumSchema$json = {
+  '1': 'EnumSchema',
+  '2': [
+    {'1': 'description', '3': 1, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'default', '3': 2, '4': 1, '5': 9, '10': 'default'},
+    {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
+    {'1': 'required', '3': 4, '4': 1, '5': 8, '10': 'required'},
+    {'1': 'read_only', '3': 5, '4': 1, '5': 8, '10': 'readOnly'},
+    {'1': 'external_docs', '3': 6, '4': 1, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.ExternalDocumentation', '10': 'externalDocs'},
+    {'1': 'example', '3': 7, '4': 1, '5': 9, '10': 'example'},
+    {'1': 'ref', '3': 8, '4': 1, '5': 9, '10': 'ref'},
+    {'1': 'extensions', '3': 9, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.EnumSchema.ExtensionsEntry', '10': 'extensions'},
+  ],
+  '3': [EnumSchema_ExtensionsEntry$json],
+};
+
+@$core.Deprecated('Use enumSchemaDescriptor instead')
+const EnumSchema_ExtensionsEntry$json = {
+  '1': 'ExtensionsEntry',
+  '2': [
+    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Value', '10': 'value'},
+  ],
+  '7': {'7': true},
+};
+
+/// Descriptor for `EnumSchema`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List enumSchemaDescriptor = $convert.base64Decode(
+    'CgpFbnVtU2NoZW1hEiAKC2Rlc2NyaXB0aW9uGAEgASgJUgtkZXNjcmlwdGlvbhIYCgdkZWZhdW'
+    'x0GAIgASgJUgdkZWZhdWx0EhQKBXRpdGxlGAMgASgJUgV0aXRsZRIaCghyZXF1aXJlZBgEIAEo'
+    'CFIIcmVxdWlyZWQSGwoJcmVhZF9vbmx5GAUgASgIUghyZWFkT25seRJlCg1leHRlcm5hbF9kb2'
+    'NzGAYgASgLMkAuZ3JwYy5nYXRld2F5LnByb3RvY19nZW5fb3BlbmFwaXYyLm9wdGlvbnMuRXh0'
+    'ZXJuYWxEb2N1bWVudGF0aW9uUgxleHRlcm5hbERvY3MSGAoHZXhhbXBsZRgHIAEoCVIHZXhhbX'
+    'BsZRIQCgNyZWYYCCABKAlSA3JlZhJlCgpleHRlbnNpb25zGAkgAygLMkUuZ3JwYy5nYXRld2F5'
+    'LnByb3RvY19nZW5fb3BlbmFwaXYyLm9wdGlvbnMuRW51bVNjaGVtYS5FeHRlbnNpb25zRW50cn'
+    'lSCmV4dGVuc2lvbnMaVQoPRXh0ZW5zaW9uc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EiwKBXZh'
+    'bHVlGAIgASgLMhYuZ29vZ2xlLnByb3RvYnVmLlZhbHVlUgV2YWx1ZToCOAE=');
+
 @$core.Deprecated('Use jSONSchemaDescriptor instead')
 const JSONSchema$json = {
   '1': 'JSONSchema',
@@ -470,19 +563,33 @@ final $typed_data.Uint8List jSONSchemaDescriptor = $convert.base64Decode(
 const Tag$json = {
   '1': 'Tag',
   '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
     {'1': 'description', '3': 2, '4': 1, '5': 9, '10': 'description'},
     {'1': 'external_docs', '3': 3, '4': 1, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.ExternalDocumentation', '10': 'externalDocs'},
+    {'1': 'extensions', '3': 4, '4': 3, '5': 11, '6': '.grpc.gateway.protoc_gen_openapiv2.options.Tag.ExtensionsEntry', '10': 'extensions'},
   ],
-  '9': [
-    {'1': 1, '2': 2},
+  '3': [Tag_ExtensionsEntry$json],
+};
+
+@$core.Deprecated('Use tagDescriptor instead')
+const Tag_ExtensionsEntry$json = {
+  '1': 'ExtensionsEntry',
+  '2': [
+    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Value', '10': 'value'},
   ],
+  '7': {'7': true},
 };
 
 /// Descriptor for `Tag`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List tagDescriptor = $convert.base64Decode(
-    'CgNUYWcSIAoLZGVzY3JpcHRpb24YAiABKAlSC2Rlc2NyaXB0aW9uEmUKDWV4dGVybmFsX2RvY3'
-    'MYAyABKAsyQC5ncnBjLmdhdGV3YXkucHJvdG9jX2dlbl9vcGVuYXBpdjIub3B0aW9ucy5FeHRl'
-    'cm5hbERvY3VtZW50YXRpb25SDGV4dGVybmFsRG9jc0oECAEQAg==');
+    'CgNUYWcSEgoEbmFtZRgBIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgCIAEoCVILZGVzY3JpcH'
+    'Rpb24SZQoNZXh0ZXJuYWxfZG9jcxgDIAEoCzJALmdycGMuZ2F0ZXdheS5wcm90b2NfZ2VuX29w'
+    'ZW5hcGl2Mi5vcHRpb25zLkV4dGVybmFsRG9jdW1lbnRhdGlvblIMZXh0ZXJuYWxEb2NzEl4KCm'
+    'V4dGVuc2lvbnMYBCADKAsyPi5ncnBjLmdhdGV3YXkucHJvdG9jX2dlbl9vcGVuYXBpdjIub3B0'
+    'aW9ucy5UYWcuRXh0ZW5zaW9uc0VudHJ5UgpleHRlbnNpb25zGlUKD0V4dGVuc2lvbnNFbnRyeR'
+    'IQCgNrZXkYASABKAlSA2tleRIsCgV2YWx1ZRgCIAEoCzIWLmdvb2dsZS5wcm90b2J1Zi5WYWx1'
+    'ZVIFdmFsdWU6AjgB');
 
 @$core.Deprecated('Use securityDefinitionsDescriptor instead')
 const SecurityDefinitions$json = {

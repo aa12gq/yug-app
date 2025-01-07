@@ -1,0 +1,159 @@
+syntax = "proto3";
+
+package com.vtyug.yug.captcha.grpc.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "proto/captcha/v1;v1";
+
+option (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "YUG Captcha Service";
+        version: "1.0.0";
+        description: "The YUG Captcha Service provides a set of APIs to generate and validate CAPTCHA challenges. "
+                     "It supports both image-based and slide-based CAPTCHA types, allowing for flexible integration "
+                     "into various authentication workflows. The service ensures that CAPTCHA challenges are robust "
+                     "and user-friendly, enhancing security while maintaining a smooth user experience. "
+                     "As a foundational infrastructure service, it is publicly accessible and can be utilized by "
+                     "other services to perform secondary validation, thereby enhancing overall security.";
+        contact: {
+            name: "与光科技";
+            url: "https://dev.yuguang.com";
+            email: "tech@yuguang.com";
+        };
+    };
+    schemes: [HTTP, HTTPS];
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service Captcha {
+    // Fetches an image-based CAPTCHA challenge for the user.
+    // This method returns an image that the user must interpret and solve.
+    rpc FetchImageCaptcha(FetchImageCaptchaRequest) returns (FetchImageCaptchaResponse) {
+        option (google.api.http) = {
+            get: "/v1/captcha/image"
+        };
+    }
+
+    // Fetches a slide-based CAPTCHA challenge for the user.
+    // This method provides a sliding puzzle that the user must complete.
+    rpc FetchSlideCaptcha(FetchSlideCaptchaRequest) returns (FetchSlideCaptchaResponse) {
+        option (google.api.http) = {
+            get: "/v1/captcha/slide"
+        };
+    }
+
+    // Validates the image CAPTCHA and removes it upon successful validation.
+    rpc ValidateImageCaptcha(ValidateImageCaptchaRequest) returns (ValidateImageCaptchaResponse) {
+        option (google.api.http) = {
+            post: "/v1/captcha/image/verify"
+            body: "*"
+        };
+    }
+
+    // Validates the slide CAPTCHA and removes it upon successful validation.
+    rpc ValidateSlideCaptcha(ValidateSlideCaptchaRequest) returns (ValidateSlideCaptchaResponse) {
+        option (google.api.http) = {
+            post: "/v1/captcha/slide/verify"
+            body: "*"
+        };
+    }
+
+    // Clears the CAPTCHA trace for the given identity key.
+    rpc ClearCaptchaIdentityTrace(ClearCaptchaIdentityTraceRequest) returns (ClearCaptchaIdentityTraceResponse) {
+        option (google.api.http) = {
+            post: "/v1/captcha/identity/clear"
+            body: "*"
+        };
+    }
+}
+
+enum ImageCaptchaType {
+    // Pure digit CAPTCHA
+    DIGIT = 0;
+    // Alphanumeric CAPTCHA
+    STRING = 1;
+    // Chinese character CAPTCHA
+    CHINESE = 2;
+    // Math operation CAPTCHA
+    MATH = 3;
+}
+
+message FetchImageCaptchaRequest {
+    // Refer to the documentation for details on the identity_key usage.
+    string identity_key = 1;
+    // The type of CAPTCHA to be generated.
+    ImageCaptchaType captcha_type = 2;
+    // The business scenario for which the CAPTCHA is being requested.
+    string business_scenario = 3;
+}
+
+message FetchImageCaptchaResponse {
+    // The base64 encoded image.
+    string base64_image = 1;
+    // The expiration time of the CAPTCHA.
+    google.protobuf.Timestamp expiration_time = 2;
+}
+
+message FetchSlideCaptchaRequest {
+    // Refer to the documentation for details on the identity_key usage.
+    string identity_key = 1;
+    // The business scenario for which the CAPTCHA is being requested.
+    string business_scenario = 2;
+}
+
+message FetchSlideCaptchaResponse {
+    // The base64 encoded master image.
+    string master_image_base64 = 1;
+    // The base64 encoded tile image.
+    string tile_image_base64 = 2;
+    // The x coordinate of the tile image.
+    int32 tile_x = 3;
+    // The y coordinate of the tile image.
+    int32 tile_y = 4;
+    // The width of the tile image.
+    int32 tile_width = 5;
+    // The height of the tile image.
+    int32 tile_height = 6;
+}
+
+message ValidateImageCaptchaRequest {
+    // Refer to the documentation for details on the identity_key usage.
+    string identity_key = 1;
+    // The type of CAPTCHA that was generated.
+    ImageCaptchaType captcha_type = 2;
+    // The answer provided by the user for the image CAPTCHA.
+    string answer = 3;
+}
+
+message ValidateImageCaptchaResponse {
+    // The result of the CAPTCHA validation.
+    bool is_valid = 1;
+}
+
+message ValidateSlideCaptchaRequest {
+    // Refer to the documentation for details on the identity_key usage.
+    string identity_key = 1;
+    // The y coordinate of the tile image.
+    int32 tile_y = 2;
+}
+
+message ValidateSlideCaptchaResponse {
+    // The result of the CAPTCHA validation.
+    bool is_valid = 1;
+}
+
+message ClearCaptchaIdentityTraceRequest {
+    // Refer to the documentation for details on the identity_key usage.
+    string identity_key = 1;
+    // The business scenario for which the CAPTCHA is being requested.
+    string business_scenario = 2;
+}
+
+message ClearCaptchaIdentityTraceResponse {
+    // The result of the CAPTCHA trace clearing.
+    bool is_cleared = 1;
+}

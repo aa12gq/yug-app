@@ -16,4 +16,7 @@ class Constants {
 
   // storage profile
   static const storageProfile = 'profile';
+
+  // 存储 - 设备码
+  static const String storageDeviceId = 'device_id';
 }

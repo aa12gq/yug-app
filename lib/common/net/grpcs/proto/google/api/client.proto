@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package google.api;
 
-import "../../../../../../net/grpcs/proto/google/api/google/protobuf/descriptor.proto";
+import "google/protobuf/descriptor.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/api/annotations;annotations";
 option java_multiple_files = true;
