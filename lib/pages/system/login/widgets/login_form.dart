@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
+import 'package:yug_app/pages/system/login/widgets/agreement_checkbox.dart';
 import 'package:yug_app/pages/system/login/widgets/login_button.dart';
 import 'package:yug_app/pages/system/login/widgets/login_form_fields.dart';
 import 'package:yug_app/pages/system/login/widgets/login_type_switcher.dart';
@@ -142,6 +143,10 @@ class LoginForm extends GetView<LoginController> {
 
                     // 登录表单
                     const LoginFormFields(),
+
+                    // 用户协议勾选框
+                    const AgreementCheckbox(),
+                    SizedBox(height: 16.h),
 
                     // 登录按钮
                     const LoginButton(),
