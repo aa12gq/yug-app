@@ -50,6 +50,9 @@ class RouteNames {
   // 随心记
   static const notesNotes = '/notes_notes';
 
+  // 小语
+  static const chatChat = '/ai_chat';
+
   // 语乐岛路由
   static const String islandMain = '/island';
   static const String islandSearch = '/island/search';

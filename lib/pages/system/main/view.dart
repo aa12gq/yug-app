@@ -60,18 +60,34 @@ class _MainViewGetX extends GetView<MainController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  AssetsSvgs.navNotesSvg,
+                Container(
                   width: 24,
                   height: 24,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF88C9C9),
+                        Color(0xFF6BAFAF),
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "语",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 2),
                 const Text(
-                  "随心记",
+                  "小语",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 10,
@@ -79,7 +95,7 @@ class _MainViewGetX extends GetView<MainController> {
                 ),
               ],
             ),
-            onPressed: () => controller.onJumpToPage(2),
+            onPressed: () => controller.onOpenAIChat(),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

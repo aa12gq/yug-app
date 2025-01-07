@@ -157,6 +157,17 @@ class RoutePages {
       page: () => const NotesPage(),
     ),
     //////////////////////////////
+    // 小语
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.chatChat,
+      page: () => const AIChatPage(),
+      binding: AIChatBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+      preventDuplicates: true,
+    ),
+    //////////////////////////////
     // 语乐岛
     //////////////////////////////
     GetPage(

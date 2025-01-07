@@ -31,6 +31,15 @@ class MainController extends GetxController {
     }
   }
 
+  // 打开AI聊天界面
+  void onOpenAIChat() {
+    if (!UserService.to.isLogin) {
+      Get.toNamed(RouteNames.systemLogin);
+    } else {
+      Get.toNamed(RouteNames.chatChat);
+    }
+  }
+
   // 返回键退出
   bool closeOnConfirm(BuildContext context) {
     DateTime now = DateTime.now();
@@ -62,11 +71,6 @@ class MainController extends GetxController {
   }
 
   void onTap() {}
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
 
   @override
   void onReady() {

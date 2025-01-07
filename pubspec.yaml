@@ -17,7 +17,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   get: ^4.6.6
-  package_info_plus: ^8.1.1
+  package_info_plus: ^4.0.0
   shared_preferences: ^2.3.3
   adaptive_theme: ^3.6.0
   ducafe_ui_core: ^1.0.6
@@ -34,13 +34,16 @@ dependencies:
   wave_transition: ^0.0.6
   animated_button_bars: ^0.0.1+1
   flutter_screenutil: ^5.9.3
+  record: ^3.0.4
+  permission_handler: ^10.2.0
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.4.4
+  flutter_native_splash: ^2.3.0
 
 # app 图标
 flutter_icons:
