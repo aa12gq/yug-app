@@ -70,6 +70,10 @@ class RoutePages {
       page: () => const SearchFilterPage(),
     ),
     GetPage(
+      name: RouteNames.mySettings,
+      page: () => const SettingsPage(),
+    ),
+    GetPage(
       name: RouteNames.searchSearchIndex,
       page: () => const SearchIndexPage(),
     ),

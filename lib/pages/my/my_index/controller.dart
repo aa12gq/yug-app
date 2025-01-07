@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:yug_app/common/services/user.dart';
+import 'package:yug_app/common/utils/loading.dart';
+import 'package:yug_app/common/routers/name.dart';
 
 class MyIndexController extends GetxController {
   MyIndexController();
@@ -11,6 +14,11 @@ class MyIndexController extends GetxController {
   void onReady() {
     super.onReady();
     _initData();
+  }
+
+  // 进入设置页面
+  void onSettings() {
+    Get.toNamed(RouteNames.mySettings);
   }
 
   // 编辑个人资料
@@ -71,5 +79,15 @@ class MyIndexController extends GetxController {
   // 查看所有活动
   void onViewAllActivities() {
     Get.toNamed('/my/activities');
+  }
+
+  // 退出登录
+  void onLogout() async {
+    try {
+      await UserService.to.logout();
+      Get.offAllNamed(RouteNames.systemLogin);
+    } catch (e) {
+      Loading.error('退出失败：${e.toString()}');
+    }
   }
 }

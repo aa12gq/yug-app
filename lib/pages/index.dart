@@ -4,6 +4,7 @@ export 'my/language/index.dart';
 export 'my/my_address/index.dart';
 export 'my/my_index/index.dart';
 export 'my/profile_edit/index.dart';
+export 'my/settings/index.dart';
 export 'my/theme/index.dart';
 export 'search/search_filter/index.dart';
 export 'search/search_index/index.dart';

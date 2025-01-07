@@ -15,6 +15,7 @@ class RouteNames {
   static const myOrderDetails = '/my_order_details';
   static const myOrderList = '/my_order_list';
   static const myProfileEdit = '/my_profile_edit';
+  static const mySettings = '/my_settings';
   static const myTheme = '/my_theme';
   static const searchSearchFilter = '/search_search_filter';
   static const searchSearchIndex = '/search_search_index';
@@ -65,5 +66,4 @@ class RouteNames {
   static const String islandCreativeShowcase = '/island/creative-showcase';
   static const String islandActivities = '/island/activities';
   static const String islandCoCreation = '/island/co-creation';
- 
 }

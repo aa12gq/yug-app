@@ -432,10 +432,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                     width: 1,
                   ),
                 ),
-                child: Icon(
-                  Icons.settings_outlined,
-                  color: Colors.white,
-                  size: 18.w,
+                child: GestureDetector(
+                  onTap: () => controller.onSettings(),
+                  child: Icon(
+                    Icons.settings_outlined,
+                    color: Colors.white,
+                    size: 18.w,
+                  ),
                 ),
               ),
             ],
