@@ -1,4 +1,4 @@
-package com.vtyug.yug_app
+package com.vtyug.yugapp
 
 import io.flutter.embedding.android.FlutterActivity
 

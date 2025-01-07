@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace "com.vtyug.yug_app"
+    namespace "com.vtyug.yugapp"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -23,8 +23,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.vtyug.yug_app"
-        minSdkVersion flutter.minSdkVersion
+        applicationId "com.vtyug.yugapp"
+        minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode 1
         versionName "1.0"

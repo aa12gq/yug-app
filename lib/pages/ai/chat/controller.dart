@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:record/record.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -27,7 +27,7 @@ class AIChatController extends GetxController {
   AIChatController();
 
   // 录音器实例
-  final _audioRecorder = Record();
+  final FlutterSoundRecorder _audioRecorder = FlutterSoundRecorder();
   String? _recordPath;
 
   // 录音时长计时器
@@ -70,6 +70,7 @@ class AIChatController extends GetxController {
   // 初始化录音器
   Future<void> _initRecorder() async {
     try {
+      await _audioRecorder.openRecorder();
       // 请求麦克风权限
       final status = await Permission.microphone.request();
       if (status != PermissionStatus.granted) {
@@ -82,12 +83,6 @@ class AIChatController extends GetxController {
           margin: const EdgeInsets.all(20),
           duration: const Duration(seconds: 2),
         );
-        return;
-      }
-
-      // 检查录音器是否已经初始化
-      if (!await _audioRecorder.hasPermission()) {
-        throw Exception("没有录音权限");
       }
     } catch (e) {
       print("初始化录音器失败: $e");
@@ -112,7 +107,6 @@ class AIChatController extends GetxController {
   // 开始录音
   Future<void> startRecording() async {
     try {
-      // 检查权限
       if (!await Permission.microphone.isGranted) {
         final status = await Permission.microphone.request();
         if (status != PermissionStatus.granted) {
@@ -129,20 +123,15 @@ class AIChatController extends GetxController {
         }
       }
 
-      // 检查录音器状态
-      if (!await _audioRecorder.isRecording()) {
-        _recordPath = await _getRecordPath();
-        await _audioRecorder.start(
-          encoder: AudioEncoder.AAC,
-          bitRate: 128000,
-          samplingRate: 44100,
-          path: _recordPath,
-        );
-        isRecording = true;
-        _recordDuration = 0;
-        _startTimer();
-        update(["ai_chat"]);
-      }
+      _recordPath = await _getRecordPath();
+      await _audioRecorder.startRecorder(
+        toFile: _recordPath,
+        codec: Codec.aacADTS,
+      );
+      isRecording = true;
+      _recordDuration = 0;
+      _startTimer();
+      update(["ai_chat"]);
     } catch (e) {
       print("开始录音失败: $e");
       Get.snackbar(
@@ -172,13 +161,11 @@ class AIChatController extends GetxController {
       if (!isRecording) return;
 
       _recordTimer?.cancel();
-      final path = await _audioRecorder.stop();
+      final path = await _audioRecorder.stopRecorder();
       isRecording = false;
       update(["ai_chat"]);
 
       if (path != null) {
-        // TODO: 这里添加语音识别逻辑
-        // 临时模拟发送语音消息
         messages.insert(
           0,
           ChatMessage(
@@ -189,7 +176,6 @@ class AIChatController extends GetxController {
         );
         update(["messages"]);
 
-        // 模拟AI回复
         Future.delayed(const Duration(seconds: 1), () {
           messages.insert(
             0,
@@ -221,7 +207,7 @@ class AIChatController extends GetxController {
       if (!isRecording) return;
 
       _recordTimer?.cancel();
-      await _audioRecorder.stop();
+      await _audioRecorder.stopRecorder();
       if (_recordPath != null) {
         final file = File(_recordPath!);
         if (await file.exists()) {
@@ -238,7 +224,7 @@ class AIChatController extends GetxController {
   @override
   void onClose() {
     _recordTimer?.cancel();
-    _audioRecorder.dispose();
+    _audioRecorder.closeRecorder();
     textController.dispose();
     super.onClose();
   }
@@ -380,7 +366,7 @@ class AIChatController extends GetxController {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [ 
+          children: [
             ListTile(
               leading: const Icon(Icons.refresh_rounded),
               title: const Text("重新开始"),
