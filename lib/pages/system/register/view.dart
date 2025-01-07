@@ -6,6 +6,7 @@ import 'package:yug_app/common/components/page_title.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/common/utils/validators.dart';
 import 'package:yug_app/common/widgets/form/input.dart';
+import 'package:yug_app/common/widgets/wave_underline.dart';
 
 import 'index.dart';
 import 'wave_painter.dart';
@@ -15,37 +16,109 @@ class RegisterPage extends GetView<RegisterController> {
 
   // 注册类型选择按钮
   Widget _buildRegisterTypeButton(
-    BuildContext context,
-    String type,
-    String text,
-    String currentType,
-    Function() onTap,
-  ) {
-    final isSelected = type == currentType;
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: isSelected ? context.theme.primaryColor : Colors.transparent,
-            width: 2,
+      BuildContext context, Map<String, dynamic> item, bool isSelected) {
+    return Expanded(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => controller.switchRegisterType(item['type'] as String),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 12.w),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? context.theme.primaryColor.withOpacity(0.08)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(12.w),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  item['icon'] as IconData,
+                  size: 24.w,
+                  color: isSelected ? context.theme.primaryColor : Colors.grey,
+                ),
+                SizedBox(height: 4.w),
+                Text(
+                  item['text'] as String,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    color:
+                        isSelected ? context.theme.primaryColor : Colors.grey,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      child: TextButton(
-        onPressed: onTap,
-        style: TextButton.styleFrom(
-          foregroundColor: isSelected
-              ? context.theme.primaryColor
-              : context.theme.colorScheme.onSurface.withOpacity(0.6),
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
-          textStyle: TextStyle(
-            fontSize: 15.sp,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-          ),
-        ),
-        child: Text(text),
       ),
     );
+  }
+
+  // 注册类型选择按钮
+  void _handleSwipe(DragEndDetails details) {
+    final items = [
+      'username',
+      'phone',
+      'email',
+    ];
+    final currentIndex = items.indexOf(controller.registerType.value);
+    if (details.primaryVelocity! < 0 && currentIndex < items.length - 1) {
+      // 向左滑动，切换到下一个
+      controller.switchRegisterType(items[currentIndex + 1]);
+    } else if (details.primaryVelocity! > 0 && currentIndex > 0) {
+      // 向右滑动，切换到上一个
+      controller.switchRegisterType(items[currentIndex - 1]);
+    }
+  }
+
+  // 注册类型切换器
+  Widget _buildRegisterTypeSwitcher(BuildContext context) {
+    final items = [
+      {
+        'type': 'username',
+        'text': LocaleKeys.registerTypeUsername.tr,
+        'icon': Icons.person_outline_rounded,
+      },
+      {
+        'type': 'phone',
+        'text': LocaleKeys.registerTypePhone.tr,
+        'icon': Icons.phone_android_rounded,
+      },
+      {
+        'type': 'email',
+        'text': LocaleKeys.registerTypeEmail.tr,
+        'icon': Icons.email_outlined,
+      },
+    ];
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.w),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Obx(() {
+        final currentType = controller.registerType.value;
+
+        return GestureDetector(
+          onHorizontalDragEnd: _handleSwipe,
+          child: Row(
+            children: items.map((item) {
+              final isSelected = item['type'] == currentType;
+              return _buildRegisterTypeButton(context, item, isSelected);
+            }).toList(),
+          ),
+        );
+      }),
+    ).paddingBottom(AppSpace.listRow);
   }
 
   // 表单页
@@ -106,48 +179,7 @@ class RegisterPage extends GetView<RegisterController> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: <Widget>[
               // 注册类型选择
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
-                decoration: BoxDecoration(
-                  color: context.theme.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(20.w),
-                  border: Border.all(
-                    color: context.theme.primaryColor.withOpacity(0.1),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.02),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: <Widget>[
-                  Obx(() => _buildRegisterTypeButton(
-                        context,
-                        'username',
-                        LocaleKeys.registerTypeUsername.tr,
-                        controller.registerType.value,
-                        () => controller.switchRegisterType('username'),
-                      )),
-                  Obx(() => _buildRegisterTypeButton(
-                        context,
-                        'phone',
-                        LocaleKeys.registerTypePhone.tr,
-                        controller.registerType.value,
-                        () => controller.switchRegisterType('phone'),
-                      )),
-                  Obx(() => _buildRegisterTypeButton(
-                        context,
-                        'email',
-                        LocaleKeys.registerTypeEmail.tr,
-                        controller.registerType.value,
-                        () => controller.switchRegisterType('email'),
-                      )),
-                ].toRow(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                ),
-              ).paddingBottom(AppSpace.listRow * 2),
+              _buildRegisterTypeSwitcher(context),
 
               // 用户名输入框 (仅用户名密码注册时显示)
               if (controller.registerType.value == 'username')
@@ -422,8 +454,57 @@ class RegisterPage extends GetView<RegisterController> {
             ),
           ),
           backgroundColor: context.theme.colorScheme.background,
-          body: SafeArea(
-            child: _buildView(context),
+          body: GestureDetector(
+            onHorizontalDragEnd: _handleSwipe,
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  // 背景渐变
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          context.theme.primaryColor.withOpacity(0.05),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  CustomPaint(
+                    painter: WavePainter(
+                      color: context.theme.primaryColor.withOpacity(0.08),
+                      waveHeight: 100,
+                    ),
+                    size: Size(Get.width, Get.height),
+                  ),
+
+                  SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(), // 防止滚动与手势冲突
+                    child: <Widget>[
+                      // 头部标题
+                      Hero(
+                        tag: 'page_title',
+                        child: AuthPageTitle(
+                          title: "Get Started",
+                          subtitle: "Create your account to continue",
+                          showBackButton: true,
+                        ),
+                      ),
+
+                      // 表单
+                      _buildForm(context),
+                    ]
+                        .toColumn(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        )
+                        .paddingHorizontal(AppSpace.page),
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },

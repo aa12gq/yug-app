@@ -7,32 +7,52 @@ import 'package:yug_app/pages/system/login/controller.dart';
 class LoginTypeSwitcher extends GetView<LoginController> {
   const LoginTypeSwitcher({super.key});
 
+  void _handleSwipe(DragEndDetails details, List<Map<String, dynamic>> items,
+      String currentType) {
+    final currentIndex =
+        items.indexWhere((item) => item['type'] == currentType);
+    if (details.primaryVelocity! < 0 && currentIndex < items.length - 1) {
+      // 向左滑动，切换到下一个
+      controller.switchLoginType(items[currentIndex + 1]['type'] as String);
+    } else if (details.primaryVelocity! > 0 && currentIndex > 0) {
+      // 向右滑动，切换到上一个
+      controller.switchLoginType(items[currentIndex - 1]['type'] as String);
+    }
+  }
+
   Widget _buildLoginTypeButton(
-    BuildContext context,
-    String type,
-    String text,
-    String currentType,
-    VoidCallback onTap,
-  ) {
-    final isSelected = currentType == type;
+      BuildContext context, Map<String, dynamic> item, bool isSelected) {
     return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 8.w),
-          decoration: BoxDecoration(
-            color: isSelected ? context.theme.primaryColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(16.w),
-          ),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14.sp,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => controller.switchLoginType(item['type'] as String),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 12.w),
+            decoration: BoxDecoration(
               color: isSelected
-                  ? Colors.white
-                  : context.theme.colorScheme.onSurface.withOpacity(0.6),
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                  ? context.theme.primaryColor.withOpacity(0.08)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(12.w),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  item['icon'] as IconData,
+                  size: 24.w,
+                  color: isSelected ? context.theme.primaryColor : Colors.grey,
+                ),
+                SizedBox(height: 4.w),
+                Text(
+                  item['text'] as String,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    color:
+                        isSelected ? context.theme.primaryColor : Colors.grey,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -42,49 +62,51 @@ class LoginTypeSwitcher extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final items = [
+      {
+        'type': 'username',
+        'text': '账号密码',
+        'icon': Icons.person_outline_rounded,
+      },
+      {
+        'type': 'phone',
+        'text': '手机号',
+        'icon': Icons.phone_android_rounded,
+      },
+      {
+        'type': 'email',
+        'text': '邮箱',
+        'icon': Icons.email_outlined,
+      },
+    ];
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
+      margin: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        color: context.theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(20.w),
-        border: Border.all(
-          color: context.theme.primaryColor.withOpacity(0.1),
-        ),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.w),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Obx(
-        () => <Widget>[
-          _buildLoginTypeButton(
-            context,
-            'username',
-            '用户名密码',
-            controller.loginType.value,
-            () => controller.switchLoginType('username'),
+      child: Obx(() {
+        final currentType = controller.loginType.value;
+
+        return GestureDetector(
+          onHorizontalDragEnd: (details) =>
+              _handleSwipe(details, items, currentType),
+          child: Row(
+            children: items.map((item) {
+              final isSelected = item['type'] == currentType;
+              return _buildLoginTypeButton(context, item, isSelected);
+            }).toList(),
           ),
-          _buildLoginTypeButton(
-            context,
-            'phone',
-            '手机号',
-            controller.loginType.value,
-            () => controller.switchLoginType('phone'),
-          ),
-          _buildLoginTypeButton(
-            context,
-            'email',
-            '邮箱',
-            controller.loginType.value,
-            () => controller.switchLoginType('email'),
-          ),
-        ].toRow(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-        ),
-      ),
-    ).paddingBottom(AppSpace.listRow * 2);
+        );
+      }),
+    ).paddingBottom(AppSpace.listRow);
   }
 }
