@@ -41,9 +41,9 @@ class MyIndexController extends GetxController {
     Get.toNamed('/my/works');
   }
 
-  // 主题设置
-  void onTheme() {
-    Get.toNamed('/my/theme');
+  // 帮助反馈
+  void onHelpAndFeedback() {
+    Get.toNamed(RouteNames.myHelp);
   }
 
   // 语言设置

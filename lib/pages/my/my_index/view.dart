@@ -172,12 +172,6 @@ class MyIndexPage extends GetView<MyIndexController> {
             onTap: () => controller.onViewAllActivities(),
           ),
           _buildMenuItem(
-            icon: Icons.palette_outlined,
-            label: "主题设置",
-            color: const Color(0xFF6C5CE7),
-            onTap: () => controller.onTheme(),
-          ),
-          _buildMenuItem(
             icon: Icons.language_outlined,
             label: "语言设置",
             color: const Color(0xFF00B894),
@@ -188,6 +182,12 @@ class MyIndexPage extends GetView<MyIndexController> {
             label: "消息通知",
             color: const Color(0xFFFF7675),
             onTap: () => controller.onNotifications(),
+          ),
+          _buildMenuItem(
+            icon: Icons.help_outline,
+            label: "帮助与反馈",
+            color: const Color(0xFF74B9FF),
+            onTap: () => controller.onHelpAndFeedback(),
           ),
           _buildMenuItem(
             icon: Icons.security_outlined,

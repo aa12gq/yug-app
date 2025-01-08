@@ -39,6 +39,7 @@ dependencies:
   path_provider: ^2.0.15
   device_info_plus: ^9.1.1
   uuid: ^4.2.1
+  flutter_markdown: ^0.7.5
 
 dev_dependencies:
   flutter_test:

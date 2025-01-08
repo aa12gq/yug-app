@@ -17,6 +17,9 @@ class RouteNames {
   static const myProfileEdit = '/my_profile_edit';
   static const mySettings = '/my_settings';
   static const myTheme = '/my_theme';
+  static const myHelp = '/my/help';
+  static const myHelpDetail = '/my/help/detail';
+  static const myFeedback = '/my/feedback';
   static const searchSearchFilter = '/search_search_filter';
   static const searchSearchIndex = '/search_search_index';
   static const stylesBottomSheet = '/styles_bottom_sheet';

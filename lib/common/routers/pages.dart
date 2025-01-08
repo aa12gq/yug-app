@@ -231,5 +231,23 @@ class RoutePages {
       page: () => const IslandCoCreationPage(),
       binding: IslandCoCreationBinding(),
     ),
+    //////////////////////////////
+    // 帮助与反馈
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.myFeedback,
+      page: () => const FeedbackPage(),
+      binding: FeedbackBinding(),
+    ),
+    GetPage(
+      name: RouteNames.myHelp,
+      page: () => const HelpPage(),
+      binding: HelpBinding(),
+    ),
+    GetPage(
+      name: RouteNames.myHelpDetail,
+      page: () => const HelpDetailPage(),
+      binding: HelpDetailBinding(),
+    ),
   ];
 }
