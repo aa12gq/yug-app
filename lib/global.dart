@@ -28,5 +28,12 @@ class Global {
 
     // 初始化核心业务服务
     Get.put<UserService>(UserService()); // 用户服务（核心服务，需要全局初始化）
+
+    // 初始化语言
+    String? languageCode =
+        await Storage().getString(Constants.storageLanguageCode);
+    if (languageCode != null) {
+      Get.updateLocale(Locale(languageCode));
+    }
   }
 }

@@ -52,6 +52,7 @@ class RoutePages {
     GetPage(
       name: RouteNames.myLanguage,
       page: () => const LanguagePage(),
+      binding: LanguageBinding(),
     ),
     GetPage(
       name: RouteNames.myMyIndex,

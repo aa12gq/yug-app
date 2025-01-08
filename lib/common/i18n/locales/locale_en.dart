@@ -84,4 +84,14 @@ Map<String, String> localeEn = {
   LocaleKeys.tabBarMoments: 'Moments',
   LocaleKeys.tabBarProfile: 'Profile',
   LocaleKeys.tabBarNotes: 'Notes',
+
+  // Language Settings
+  LocaleKeys.settingsLanguage: 'Language',
+  LocaleKeys.settingsLanguageSelect: 'Select your preferred language',
+  LocaleKeys.settingsLanguageZh: '简体中文',
+  LocaleKeys.settingsLanguageZhSub: 'Chinese',
+  LocaleKeys.settingsLanguageEn: 'English',
+  LocaleKeys.settingsLanguageEnSub: 'English',
+  LocaleKeys.settingsLanguageTip:
+      'You can change the language at any time in settings',
 };

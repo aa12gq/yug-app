@@ -81,4 +81,13 @@ Map<String, String> localeZh = {
   LocaleKeys.tabBarMoments: '动态',
   LocaleKeys.tabBarProfile: '我的',
   LocaleKeys.tabBarNotes: '随心记',
+
+  // 语言设置
+  LocaleKeys.settingsLanguage: '语言设置',
+  LocaleKeys.settingsLanguageSelect: '选择您的首选语言',
+  LocaleKeys.settingsLanguageZh: '简体中文',
+  LocaleKeys.settingsLanguageZhSub: 'Chinese',
+  LocaleKeys.settingsLanguageEn: 'English',
+  LocaleKeys.settingsLanguageEnSub: '英语',
+  LocaleKeys.settingsLanguageTip: '您可以随时在设置中更改语言',
 };

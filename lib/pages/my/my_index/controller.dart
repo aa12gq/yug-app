@@ -48,7 +48,7 @@ class MyIndexController extends GetxController {
 
   // 语言设置
   void onLanguage() {
-    Get.toNamed('/my/language');
+    Get.toNamed(RouteNames.myLanguage);
   }
 
   // 消息通知

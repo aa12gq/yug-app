@@ -79,4 +79,13 @@ class LocaleKeys {
   static const tabBarMoments = 'tab_bar_moments';
   static const tabBarProfile = 'tab_bar_profile';
   static const tabBarNotes = 'tab_bar_notes';
+
+  // 语言设置
+  static const settingsLanguage = 'settings_language';
+  static const settingsLanguageSelect = 'settings_language_select';
+  static const settingsLanguageZh = 'settings_language_zh';
+  static const settingsLanguageZhSub = 'settings_language_zh_sub';
+  static const settingsLanguageEn = 'settings_language_en';
+  static const settingsLanguageEnSub = 'settings_language_en_sub';
+  static const settingsLanguageTip = 'settings_language_tip';
 }
