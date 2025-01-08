@@ -123,4 +123,20 @@ class LocaleKeys {
   static const myAboutUs = 'my_about_us';
   static const myTerms = 'my_terms';
   static const myPrivacyPolicy = 'my_privacy_policy';
+
+  // 设置页面
+  static const settingsTitle = 'settings_title';
+  static const settingsAccountSecurity = 'settings_account_security';
+  static const settingsAccountSecurityTitle = 'settings_account_security_title';
+  static const settingsAccountSecurityDesc = 'settings_account_security_desc';
+  static const settingsPrivacy = 'settings_privacy';
+  static const settingsPrivacyDesc = 'settings_privacy_desc';
+
+  static const settingsNotificationCache = 'settings_notification_cache';
+  static const settingsNotification = 'settings_notification';
+  static const settingsNotificationDesc = 'settings_notification_desc';
+  static const settingsClearCache = 'settings_clear_cache';
+  static const settingsClearCacheDesc = 'settings_clear_cache_desc';
+
+  static const settingsLogout = 'settings_logout';
 }

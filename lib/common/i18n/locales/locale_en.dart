@@ -129,4 +129,20 @@ Map<String, String> localeEn = {
   LocaleKeys.myAboutUs: 'About Us',
   LocaleKeys.myTerms: 'Terms of Service',
   LocaleKeys.myPrivacyPolicy: 'Privacy Policy',
+
+  // Settings
+  LocaleKeys.settingsTitle: 'Settings',
+  LocaleKeys.settingsAccountSecurity: 'Account & Security',
+  LocaleKeys.settingsAccountSecurityTitle: 'Account Security',
+  LocaleKeys.settingsAccountSecurityDesc: 'Password, Phone Binding',
+  LocaleKeys.settingsPrivacy: 'Privacy',
+  LocaleKeys.settingsPrivacyDesc: 'Personal Information Protection',
+
+  LocaleKeys.settingsNotificationCache: 'Notification & Cache',
+  LocaleKeys.settingsNotification: 'Notifications',
+  LocaleKeys.settingsNotificationDesc: 'Message Alerts, Sound Settings',
+  LocaleKeys.settingsClearCache: 'Clear Cache',
+  LocaleKeys.settingsClearCacheDesc: 'Free Up Storage Space',
+
+  LocaleKeys.settingsLogout: 'Log Out',
 };

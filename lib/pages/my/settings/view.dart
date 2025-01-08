@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yug_app/common/index.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 
 import 'index.dart';
 
@@ -151,7 +152,7 @@ class SettingsPage extends GetView<SettingsController> {
           backgroundColor: const Color(0xFFF8F9FA),
           appBar: AppBar(
             title: Text(
-              "设置",
+              LocaleKeys.settingsTitle.tr,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -167,18 +168,18 @@ class SettingsPage extends GetView<SettingsController> {
               children: [
                 // 账号与安全
                 _buildSettingGroup(
-                  title: "账号与安全",
+                  title: LocaleKeys.settingsAccountSecurity.tr,
                   children: [
                     _buildSettingItem(
-                      title: "账号安全",
-                      subtitle: "密码修改、手机绑定",
+                      title: LocaleKeys.settingsAccountSecurityTitle.tr,
+                      subtitle: LocaleKeys.settingsAccountSecurityDesc.tr,
                       icon: Icons.security_outlined,
                       iconColor: const Color(0xFF6C5CE7),
                       onTap: () => controller.onAccountSecurity(),
                     ),
                     _buildSettingItem(
-                      title: "隐私设置",
-                      subtitle: "个人信息保护",
+                      title: LocaleKeys.settingsPrivacy.tr,
+                      subtitle: LocaleKeys.settingsPrivacyDesc.tr,
                       icon: Icons.lock_outline,
                       iconColor: const Color(0xFF74B9FF),
                       onTap: () => controller.onPrivacy(),
@@ -188,18 +189,18 @@ class SettingsPage extends GetView<SettingsController> {
                 ),
                 // 通知与缓存
                 _buildSettingGroup(
-                  title: "通知与缓存",
+                  title: LocaleKeys.settingsNotificationCache.tr,
                   children: [
                     _buildSettingItem(
-                      title: "通知设置",
-                      subtitle: "消息提醒、声音设置",
+                      title: LocaleKeys.settingsNotification.tr,
+                      subtitle: LocaleKeys.settingsNotificationDesc.tr,
                       icon: Icons.notifications_outlined,
                       iconColor: const Color(0xFFFF7675),
                       onTap: () => controller.onNotifications(),
                     ),
                     _buildSettingItem(
-                      title: "清除缓存",
-                      subtitle: "释放存储空间",
+                      title: LocaleKeys.settingsClearCache.tr,
+                      subtitle: LocaleKeys.settingsClearCacheDesc.tr,
                       icon: Icons.delete_outline,
                       iconColor: const Color(0xFF00B894),
                       trailing: Container(
@@ -241,7 +242,7 @@ class SettingsPage extends GetView<SettingsController> {
                     ],
                   ),
                   child: _buildSettingItem(
-                    title: "退出登录",
+                    title: LocaleKeys.settingsLogout.tr,
                     icon: Icons.logout,
                     iconColor: Colors.red,
                     showDivider: false,

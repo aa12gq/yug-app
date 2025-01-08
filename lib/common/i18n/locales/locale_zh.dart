@@ -125,4 +125,20 @@ Map<String, String> localeZh = {
   LocaleKeys.myAboutUs: '关于我们',
   LocaleKeys.myTerms: '用户协议',
   LocaleKeys.myPrivacyPolicy: '隐私政策',
+
+  // 设置页面
+  LocaleKeys.settingsTitle: '设置',
+  LocaleKeys.settingsAccountSecurity: '账号与安全',
+  LocaleKeys.settingsAccountSecurityTitle: '账号安全',
+  LocaleKeys.settingsAccountSecurityDesc: '密码修改、手机绑定',
+  LocaleKeys.settingsPrivacy: '隐私设置',
+  LocaleKeys.settingsPrivacyDesc: '个人信息保护',
+
+  LocaleKeys.settingsNotificationCache: '通知与缓存',
+  LocaleKeys.settingsNotification: '通知设置',
+  LocaleKeys.settingsNotificationDesc: '消息提醒、声音设置',
+  LocaleKeys.settingsClearCache: '清除缓存',
+  LocaleKeys.settingsClearCacheDesc: '释放存储空间',
+
+  LocaleKeys.settingsLogout: '退出登录',
 };
