@@ -21,7 +21,7 @@ class LoginForm extends GetView<LoginController> {
     return Container(
       decoration: BoxDecoration(
         color: context.theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -30,20 +30,20 @@ class LoginForm extends GetView<LoginController> {
             Color.lerp(
               context.theme.colorScheme.surface,
               context.theme.primaryColor,
-              0.05,
+              0.03,
             )!,
           ],
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
           BoxShadow(
-            color: context.theme.primaryColor.withOpacity(0.03),
-            blurRadius: 40,
-            offset: const Offset(0, -10),
+            color: context.theme.primaryColor.withOpacity(0.02),
+            blurRadius: 30,
+            offset: const Offset(0, -8),
           ),
         ],
       ),
@@ -51,11 +51,11 @@ class LoginForm extends GetView<LoginController> {
         children: [
           // 装饰背景
           Positioned(
-            right: -80.w,
-            bottom: -80.w,
+            right: -60.w,
+            bottom: -60.w,
             child: Container(
-              width: 300.w,
-              height: 300.w,
+              width: 240.w,
+              height: 240.w,
               decoration: BoxDecoration(
                 gradient: SweepGradient(
                   center: Alignment.center,
@@ -69,16 +69,16 @@ class LoginForm extends GetView<LoginController> {
                     context.theme.primaryColor.withOpacity(0.1),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(150.w),
+                borderRadius: BorderRadius.circular(120.w),
               ),
             ),
           ),
           Positioned(
-            left: -50.w,
-            top: -50.w,
+            left: -40.w,
+            top: -40.w,
             child: Container(
-              width: 200.w,
-              height: 200.w,
+              width: 160.w,
+              height: 160.w,
               decoration: BoxDecoration(
                 gradient: SweepGradient(
                   center: Alignment.center,
@@ -92,16 +92,16 @@ class LoginForm extends GetView<LoginController> {
                     context.theme.colorScheme.secondary.withOpacity(0.1),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(100.w),
+                borderRadius: BorderRadius.circular(80.w),
               ),
             ),
           ),
           Positioned(
-            right: 30.w,
+            right: 20.w,
             top: 0,
             child: Container(
-              width: 120.w,
-              height: 120.w,
+              width: 100.w,
+              height: 100.w,
               decoration: BoxDecoration(
                 gradient: SweepGradient(
                   center: Alignment.center,
@@ -115,59 +115,70 @@ class LoginForm extends GetView<LoginController> {
                     context.theme.colorScheme.tertiary.withOpacity(0.1),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(60.w),
+                borderRadius: BorderRadius.circular(50.w),
               ),
             ),
           ),
 
           // 表单内容
           ClipRRect(
-            borderRadius: BorderRadius.circular(32),
+            borderRadius: BorderRadius.circular(24),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
               child: Container(
                 decoration: BoxDecoration(
-                  color: context.theme.colorScheme.surface.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(32),
+                  color: context.theme.colorScheme.surface.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.1),
-                    width: 1,
+                    color: Colors.white.withOpacity(0.08),
+                    width: 0.5,
                   ),
                 ),
                 child: Form(
                   key: controller.formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: <Widget>[
-                    // 登录类型选择
-                    const LoginTypeSwitcher(),
+                  child: SingleChildScrollView(
+                    physics: const ClampingScrollPhysics(),
+                    child: <Widget>[
+                      // 登录类型选择
+                      const LoginTypeSwitcher(),
+                      SizedBox(height: 6.h),
 
-                    // 登录表单
-                    const LoginFormFields(),
+                      // 登录表单
+                      const LoginFormFields(),
+                      SizedBox(height: 6.h),
 
-                    // 用户协议勾选框
-                    const AgreementCheckbox(),
-                    SizedBox(height: 16.h),
+                      // 用户协议勾选框
+                      const AgreementCheckbox(),
+                      SizedBox(height: 6.h),
 
-                    // 登录按钮
-                    const LoginButton(),
+                      // 登录按钮
+                      const LoginButton(),
+                      SizedBox(height: 8.h),
 
-                    // OR
-                    const OrDivider(),
+                      // OR
+                      const OrDivider(),
+                      SizedBox(height: 8.h),
 
-                    // 社交登录按钮
-                    const SocialLoginButtons(),
+                      // 社交登录按钮
+                      const SocialLoginButtons(),
+                      SizedBox(height: 8.h),
 
-                    // 注册入口
-                    const RegisterLink(),
+                      // 注册入口
+                      const RegisterLink(),
 
-                    // end
-                  ].toColumn().paddingAll(AppSpace.card),
+                      // end
+                    ].toColumn().paddingSymmetric(
+                          horizontal: AppSpace.card * 0.5,
+                          vertical: AppSpace.card * 0.4,
+                        ),
+                  ),
                 ),
               ),
             ),
           ),
         ],
       ),
-    ).paddingAll(AppSpace.card);
+    ).paddingAll(AppSpace.card * 0.4);
   }
 }
