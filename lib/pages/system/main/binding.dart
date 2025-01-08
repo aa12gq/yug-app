@@ -5,11 +5,7 @@ import 'package:yug_app/pages/index.dart';
 class MainBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<NotesController>(() => NotesController());
-    Get.lazyPut<IslandController>(() => IslandController());
-    Get.lazyPut<MomentsController>(() => MomentsController());
-    Get.lazyPut<SocialController>(() => SocialController());
-    Get.lazyPut<MyIndexController>(() => MyIndexController());
     Get.lazyPut<MainController>(() => MainController());
+    Get.lazyPut<MomentsIndexController>(() => MomentsIndexController());
   }
 }

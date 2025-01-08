@@ -71,4 +71,11 @@ class RouteNames {
   static const String islandCoCreation = '/island/co-creation';
 
   static const myPrivacy = '/my/privacy';
+
+  // 动态相关路由
+  static const momentsIndex = '/moments/index';
+  static const momentsCircle = '/moments/circle';
+  static const momentsScan = '/moments/scan';
+  static const momentsListen = '/moments/listen';
+  static const momentsPublish = '/moments/publish';
 }

@@ -34,6 +34,11 @@ export 'home/index.dart';
 export 'social/index.dart';
 export 'island/index.dart';
 export 'moments/index.dart';
+export 'moments/moments_index/index.dart';
+export 'moments/circle/index.dart';
+export 'moments/circle/publish/index.dart';
+export 'moments/scan/index.dart';
+export 'moments/listen/index.dart';
 export 'notes/index.dart';
 
 export 'msg/msg_index/index.dart';

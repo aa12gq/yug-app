@@ -144,10 +144,6 @@ class RoutePages {
       name: RouteNames.islandIsland,
       page: () => const IslandPage(),
     ),
-    GetPage(
-      name: RouteNames.momentsMoments,
-      page: () => const MomentsPage(),
-    ),
     //////////////////////////////
     // 消息
     //////////////////////////////
@@ -249,6 +245,34 @@ class RoutePages {
       name: RouteNames.myHelpDetail,
       page: () => const HelpDetailPage(),
       binding: HelpDetailBinding(),
+    ),
+    //////////////////////////////
+    // 动态相关
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.momentsIndex,
+      page: () => const MomentsIndexPage(),
+      binding: MomentsIndexBinding(),
+    ),
+    GetPage(
+      name: RouteNames.momentsCircle,
+      page: () => const CirclePage(),
+      binding: CircleBinding(),
+    ),
+    GetPage(
+      name: RouteNames.momentsScan,
+      page: () => const ScanPage(),
+      binding: ScanBinding(),
+    ),
+    GetPage(
+      name: RouteNames.momentsListen,
+      page: () => const ListenPage(),
+      binding: ListenBinding(),
+    ),
+    GetPage(
+      name: RouteNames.momentsPublish,
+      page: () => const PublishPage(),
+      binding: PublishBinding(),
     ),
   ];
 }

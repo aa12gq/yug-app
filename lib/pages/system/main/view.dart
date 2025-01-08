@@ -148,7 +148,7 @@ class _MainViewGetX extends GetView<MainController> {
           onPageChanged: controller.onIndexChanged,
           children: const [
             IslandPage(),
-            MomentsPage(),
+            MomentsIndexPage(),
             NotesPage(),
             SocialPage(),
             MyIndexPage(),
