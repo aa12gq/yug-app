@@ -76,11 +76,13 @@ Map<String, String> localeZh = {
 
   // APP 导航
   LocaleKeys.tabBarHome: '首页',
-  LocaleKeys.tabBarSocial: '社交',
+  LocaleKeys.tabBarSocial: '聊天',
   LocaleKeys.tabBarIsland: '语乐岛',
   LocaleKeys.tabBarMoments: '动态',
   LocaleKeys.tabBarProfile: '我的',
   LocaleKeys.tabBarNotes: '随心记',
+  LocaleKeys.tabBarAiChat: '语',
+  LocaleKeys.tabBarAiChatLabel: '小语',
 
   // 语言设置
   LocaleKeys.settingsLanguage: '语言设置',

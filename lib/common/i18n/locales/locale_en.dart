@@ -79,11 +79,13 @@ Map<String, String> localeEn = {
 
   // APP 导航
   LocaleKeys.tabBarHome: 'Home',
-  LocaleKeys.tabBarSocial: 'Social',
+  LocaleKeys.tabBarSocial: 'Chat',
   LocaleKeys.tabBarIsland: 'Island',
   LocaleKeys.tabBarMoments: 'Moments',
   LocaleKeys.tabBarProfile: 'Profile',
   LocaleKeys.tabBarNotes: 'Notes',
+  LocaleKeys.tabBarAiChat: 'AI',
+  LocaleKeys.tabBarAiChatLabel: 'YuChat',
 
   // Language Settings
   LocaleKeys.settingsLanguage: 'Language',

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/pages/index.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 
 import 'index.dart';
 
@@ -76,7 +77,7 @@ class _MainViewGetX extends GetView<MainController> {
                   ),
                   child: Center(
                     child: Text(
-                      "语",
+                      LocaleKeys.tabBarAiChat.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -86,8 +87,8 @@ class _MainViewGetX extends GetView<MainController> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                const Text(
-                  "小语",
+                Text(
+                  LocaleKeys.tabBarAiChatLabel.tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 10,
@@ -113,26 +114,26 @@ class _MainViewGetX extends GetView<MainController> {
                 children: [
                   _buildNavItem(
                     icon: AssetsSvgs.navIslandSvg,
-                    label: '语乐岛',
+                    label: LocaleKeys.tabBarIsland.tr,
                     isSelected: controller.currentIndex == 0,
                     onTap: () => controller.onJumpToPage(0),
                   ),
                   _buildNavItem(
                     icon: AssetsSvgs.navMomentsSvg,
-                    label: '动态',
+                    label: LocaleKeys.tabBarMoments.tr,
                     isSelected: controller.currentIndex == 1,
                     onTap: () => controller.onJumpToPage(1),
                   ),
                   const SizedBox(width: 80),
                   _buildNavItem(
                     icon: AssetsSvgs.navSocialSvg,
-                    label: '聊天',
+                    label: LocaleKeys.tabBarSocial.tr,
                     isSelected: controller.currentIndex == 3,
                     onTap: () => controller.onJumpToPage(3),
                   ),
                   _buildNavItem(
                     icon: AssetsSvgs.navProfileSvg,
-                    label: '我的',
+                    label: LocaleKeys.tabBarProfile.tr,
                     isSelected: controller.currentIndex == 4,
                     onTap: () => controller.onJumpToPage(4),
                   ),

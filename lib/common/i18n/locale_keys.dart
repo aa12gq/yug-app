@@ -79,6 +79,8 @@ class LocaleKeys {
   static const tabBarMoments = 'tab_bar_moments';
   static const tabBarProfile = 'tab_bar_profile';
   static const tabBarNotes = 'tab_bar_notes';
+  static const tabBarAiChat = 'tab_bar_ai_chat';
+  static const tabBarAiChatLabel = 'tab_bar_ai_chat_label';
 
   // 语言设置
   static const settingsLanguage = 'settings_language';
