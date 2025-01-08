@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yug_app/common/index.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 
 import 'index.dart';
 
@@ -115,10 +116,14 @@ class MyIndexPage extends GetView<MyIndexController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem("关注", "12", const Color(0xFF6C5CE7)),
-          _buildStatItem("粉丝", "36", const Color(0xFFFF6B6B)),
-          _buildStatItem("获赞", "258", const Color(0xFF00B894)),
-          _buildStatItem("收藏", "46", const Color(0xFFFFBE0B)),
+          _buildStatItem(
+              LocaleKeys.myStatsFollowing.tr, "12", const Color(0xFF6C5CE7)),
+          _buildStatItem(
+              LocaleKeys.myStatsFollowers.tr, "36", const Color(0xFFFF6B6B)),
+          _buildStatItem(
+              LocaleKeys.myStatsLikes.tr, "258", const Color(0xFF00B894)),
+          _buildStatItem(
+              LocaleKeys.myStatsFavorites.tr, "46", const Color(0xFFFFBE0B)),
         ],
       ),
     );
@@ -167,31 +172,31 @@ class MyIndexPage extends GetView<MyIndexController> {
         children: [
           _buildMenuItem(
             icon: Icons.local_activity_outlined,
-            label: "最近活动",
+            label: LocaleKeys.myMenuRecentActivity.tr,
             color: const Color(0xFF6C5CE7),
             onTap: () => controller.onViewAllActivities(),
           ),
           _buildMenuItem(
             icon: Icons.language_outlined,
-            label: "语言设置",
+            label: LocaleKeys.myMenuLanguage.tr,
             color: const Color(0xFF00B894),
             onTap: () => controller.onLanguage(),
           ),
           _buildMenuItem(
             icon: Icons.notifications_outlined,
-            label: "消息通知",
+            label: LocaleKeys.myMenuNotifications.tr,
             color: const Color(0xFFFF7675),
             onTap: () => controller.onNotifications(),
           ),
           _buildMenuItem(
             icon: Icons.help_outline,
-            label: "帮助与反馈",
+            label: LocaleKeys.myMenuHelpFeedback.tr,
             color: const Color(0xFF74B9FF),
             onTap: () => controller.onHelpAndFeedback(),
           ),
           _buildMenuItem(
             icon: Icons.security_outlined,
-            label: "隐私设置",
+            label: LocaleKeys.myMenuPrivacy.tr,
             color: const Color(0xFF74B9FF),
             onTap: () => controller.onPrivacy(),
             showDivider: false,
@@ -307,21 +312,21 @@ class MyIndexPage extends GetView<MyIndexController> {
       child: Column(
         children: [
           _buildAboutItem(
-            "关于我们",
+            LocaleKeys.myAboutUs.tr,
             Icons.info_outline,
             const Color(0xFF74B9FF),
             () => controller.onAbout(),
           ),
           SizedBox(height: 12.h),
           _buildAboutItem(
-            "用户协议",
+            LocaleKeys.myTerms.tr,
             Icons.description_outlined,
             const Color(0xFF00B894),
             () => controller.onTerms(),
           ),
           SizedBox(height: 12.h),
           _buildAboutItem(
-            "隐私政策",
+            LocaleKeys.myPrivacyPolicy.tr,
             Icons.privacy_tip_outlined,
             const Color(0xFFFF7675),
             () => controller.onPrivacyPolicy(),
@@ -412,7 +417,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                   ),
                   SizedBox(width: 12.w),
                   Text(
-                    "我的空间",
+                    LocaleKeys.myTitle.tr,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -557,7 +562,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                                 Row(
                                   children: [
                                     Text(
-                                      "语乐用户",
+                                      LocaleKeys.myDefaultUsername.tr,
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w600,
@@ -593,7 +598,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                                           ),
                                           SizedBox(width: 2.w),
                                           Text(
-                                            "创作者",
+                                            LocaleKeys.myCreatorTag.tr,
                                             style: TextStyle(
                                               fontSize: 10.sp,
                                               color: Colors.white,
@@ -607,7 +612,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                                 ),
                                 SizedBox(height: 4.h),
                                 Text(
-                                  "在这里写一句简短的个性签名",
+                                  LocaleKeys.myDefaultSignature.tr,
                                   style: TextStyle(
                                     fontSize: 12.sp,
                                     color: AppColors.secondaryText,
@@ -618,13 +623,14 @@ class MyIndexPage extends GetView<MyIndexController> {
                                   children: [
                                     _buildAchievementTag(
                                       icon: Icons.military_tech,
-                                      label: "优秀创作者",
+                                      label: LocaleKeys.myAchievementCreator.tr,
                                       color: const Color(0xFFFF6B6B),
                                     ),
                                     SizedBox(width: 8.w),
                                     _buildAchievementTag(
                                       icon: Icons.workspace_premium,
-                                      label: "作品精选",
+                                      label:
+                                          LocaleKeys.myAchievementFeatured.tr,
                                       color: const Color(0xFF00B894),
                                     ),
                                   ],
@@ -645,10 +651,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _buildCreatorStat("作品数", "12"),
-                            _buildCreatorStat("总播放", "1.2w"),
-                            _buildCreatorStat("总收藏", "368"),
-                            _buildCreatorStat("总评论", "128"),
+                            _buildCreatorStat(LocaleKeys.myStatsWorks.tr, "12"),
+                            _buildCreatorStat(
+                                LocaleKeys.myStatsPlays.tr, "1.2w"),
+                            _buildCreatorStat(
+                                LocaleKeys.myStatsSaves.tr, "368"),
+                            _buildCreatorStat(
+                                LocaleKeys.myStatsComments.tr, "128"),
                           ],
                         ),
                       ),
@@ -684,7 +693,7 @@ class MyIndexPage extends GetView<MyIndexController> {
         children: [
           _buildQuickActionItem(
             icon: Icons.favorite_border,
-            label: "我的收藏",
+            label: LocaleKeys.myQuickFavorites.tr,
             color: const Color(0xFFFF6B6B),
             onTap: () => controller.onFavorites(),
           ),
@@ -705,7 +714,7 @@ class MyIndexPage extends GetView<MyIndexController> {
           ),
           _buildQuickActionItem(
             icon: Icons.history,
-            label: "浏览历史",
+            label: LocaleKeys.myQuickHistory.tr,
             color: const Color(0xFF4ECDC4),
             onTap: () => controller.onHistory(),
           ),
@@ -726,7 +735,7 @@ class MyIndexPage extends GetView<MyIndexController> {
           ),
           _buildQuickActionItem(
             icon: Icons.star_border,
-            label: "我的作品",
+            label: LocaleKeys.myQuickWorks.tr,
             color: const Color(0xFFFFBE0B),
             onTap: () => controller.onWorks(),
           ),

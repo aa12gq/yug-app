@@ -90,4 +90,37 @@ Map<String, String> localeZh = {
   LocaleKeys.settingsLanguageEn: 'English',
   LocaleKeys.settingsLanguageEnSub: '英语',
   LocaleKeys.settingsLanguageTip: '您可以随时在设置中更改语言',
+
+  // 我的页面
+  LocaleKeys.myStatsFollowing: '关注',
+  LocaleKeys.myStatsFollowers: '粉丝',
+  LocaleKeys.myStatsLikes: '获赞',
+  LocaleKeys.myStatsFavorites: '收藏',
+
+  LocaleKeys.myMenuRecentActivity: '最近活动',
+  LocaleKeys.myMenuLanguage: '语言设置',
+  LocaleKeys.myMenuNotifications: '消息通知',
+  LocaleKeys.myMenuHelpFeedback: '帮助与反馈',
+  LocaleKeys.myMenuPrivacy: '隐私设置',
+
+  // 我的页面 - 更多
+  LocaleKeys.myTitle: '我的空间',
+  LocaleKeys.myDefaultUsername: '语乐用户',
+  LocaleKeys.myDefaultSignature: '在这里写一句简短的个性签名',
+  LocaleKeys.myCreatorTag: '创作者',
+  LocaleKeys.myAchievementCreator: '优秀创作者',
+  LocaleKeys.myAchievementFeatured: '作品精选',
+
+  LocaleKeys.myStatsWorks: '作品数',
+  LocaleKeys.myStatsPlays: '总播放',
+  LocaleKeys.myStatsSaves: '总收藏',
+  LocaleKeys.myStatsComments: '总评论',
+
+  LocaleKeys.myQuickFavorites: '我的收藏',
+  LocaleKeys.myQuickHistory: '浏览历史',
+  LocaleKeys.myQuickWorks: '我的作品',
+
+  LocaleKeys.myAboutUs: '关于我们',
+  LocaleKeys.myTerms: '用户协议',
+  LocaleKeys.myPrivacyPolicy: '隐私政策',
 };

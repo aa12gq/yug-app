@@ -94,4 +94,37 @@ Map<String, String> localeEn = {
   LocaleKeys.settingsLanguageEnSub: 'English',
   LocaleKeys.settingsLanguageTip:
       'You can change the language at any time in settings',
+
+  // My Profile
+  LocaleKeys.myStatsFollowing: 'Following',
+  LocaleKeys.myStatsFollowers: 'Followers',
+  LocaleKeys.myStatsLikes: 'Likes',
+  LocaleKeys.myStatsFavorites: 'Favorites',
+
+  LocaleKeys.myMenuRecentActivity: 'Recent Activity',
+  LocaleKeys.myMenuLanguage: 'Language',
+  LocaleKeys.myMenuNotifications: 'Notifications',
+  LocaleKeys.myMenuHelpFeedback: 'Help & Feedback',
+  LocaleKeys.myMenuPrivacy: 'Privacy',
+
+  // My Profile - More
+  LocaleKeys.myTitle: 'My Space',
+  LocaleKeys.myDefaultUsername: 'YuLe User',
+  LocaleKeys.myDefaultSignature: 'Write a short bio here',
+  LocaleKeys.myCreatorTag: 'Creator',
+  LocaleKeys.myAchievementCreator: 'Top Creator',
+  LocaleKeys.myAchievementFeatured: 'Featured Works',
+
+  LocaleKeys.myStatsWorks: 'Works',
+  LocaleKeys.myStatsPlays: 'Plays',
+  LocaleKeys.myStatsSaves: 'Saves',
+  LocaleKeys.myStatsComments: 'Comments',
+
+  LocaleKeys.myQuickFavorites: 'Favorites',
+  LocaleKeys.myQuickHistory: 'History',
+  LocaleKeys.myQuickWorks: 'My Works',
+
+  LocaleKeys.myAboutUs: 'About Us',
+  LocaleKeys.myTerms: 'Terms of Service',
+  LocaleKeys.myPrivacyPolicy: 'Privacy Policy',
 };

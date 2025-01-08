@@ -88,4 +88,37 @@ class LocaleKeys {
   static const settingsLanguageEn = 'settings_language_en';
   static const settingsLanguageEnSub = 'settings_language_en_sub';
   static const settingsLanguageTip = 'settings_language_tip';
+
+  // 我的页面
+  static const myStatsFollowing = 'my_stats_following';
+  static const myStatsFollowers = 'my_stats_followers';
+  static const myStatsLikes = 'my_stats_likes';
+  static const myStatsFavorites = 'my_stats_favorites';
+
+  static const myMenuRecentActivity = 'my_menu_recent_activity';
+  static const myMenuLanguage = 'my_menu_language';
+  static const myMenuNotifications = 'my_menu_notifications';
+  static const myMenuHelpFeedback = 'my_menu_help_feedback';
+  static const myMenuPrivacy = 'my_menu_privacy';
+
+  // 我的页面 - 更多
+  static const myTitle = 'my_title';
+  static const myDefaultUsername = 'my_default_username';
+  static const myDefaultSignature = 'my_default_signature';
+  static const myCreatorTag = 'my_creator_tag';
+  static const myAchievementCreator = 'my_achievement_creator';
+  static const myAchievementFeatured = 'my_achievement_featured';
+
+  static const myStatsWorks = 'my_stats_works';
+  static const myStatsPlays = 'my_stats_plays';
+  static const myStatsSaves = 'my_stats_saves';
+  static const myStatsComments = 'my_stats_comments';
+
+  static const myQuickFavorites = 'my_quick_favorites';
+  static const myQuickHistory = 'my_quick_history';
+  static const myQuickWorks = 'my_quick_works';
+
+  static const myAboutUs = 'my_about_us';
+  static const myTerms = 'my_terms';
+  static const myPrivacyPolicy = 'my_privacy_policy';
 }
