@@ -75,13 +75,14 @@ class LoginFormFields extends GetView<LoginController> {
               ),
             ).paddingBottom(AppSpace.listRow),
 
-          // 验证码输入框 (仅手机号和邮箱登录时显示)
-          if (controller.loginType.value != 'username')
+          // 验证码输入框 (用户名密码登录时显示)
+          if (controller.loginType.value == 'username' &&
+              controller.needCaptcha.value)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8).w,
               decoration: BoxDecoration(
                 color: context.theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(20.w),
+                borderRadius: BorderRadius.circular(20).w,
                 border: Border.all(
                   color: context.theme.primaryColor.withOpacity(0.1),
                 ),
@@ -97,7 +98,72 @@ class LoginFormFields extends GetView<LoginController> {
                 children: [
                   Expanded(
                     child: InputFormFieldWidget(
-                      controller: controller.verifyCodeController,
+                      controller: controller.captchaController,
+                      labelText: "验证码",
+                      keyboardType: TextInputType.text,
+                      prefix: Icon(Icons.verified_user,
+                          color: context.theme.primaryColor),
+                      validator: Validatorless.multiple([
+                        Validatorless.required("请输入验证码"),
+                      ]),
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
+                  Obx(() {
+                    return GestureDetector(
+                      onTap: controller.refreshCaptcha,
+                      child: Container(
+                        width: 100.w,
+                        height: 44.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: context.theme.dividerColor,
+                          ),
+                        ),
+                        child: controller.captchaImage.value.isEmpty
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.memory(
+                                  Uri.parse(controller.captchaImage.value)
+                                      .data!
+                                      .contentAsBytes(),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ).paddingBottom(AppSpace.listRow),
+
+          // 验证码输入框 (手机号和邮箱登录时显示)
+          if (controller.loginType.value != 'username')
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8).w,
+              decoration: BoxDecoration(
+                color: context.theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(20).w,
+                border: Border.all(
+                  color: context.theme.primaryColor.withOpacity(0.1),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.02),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InputFormFieldWidget(
+                      controller: controller.captchaController,
                       labelText: "验证码",
                       keyboardType: TextInputType.number,
                       prefix: Icon(Icons.verified_user,
@@ -116,9 +182,11 @@ class LoginFormFields extends GetView<LoginController> {
                       backgroundColor: context.theme.primaryColor,
                       foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(
-                          horizontal: 16.w, vertical: 12.w),
+                        horizontal: 16,
+                        vertical: 12,
+                      ).w,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.w),
+                        borderRadius: BorderRadius.circular(16).w,
                       ),
                     ),
                     child: const Text("获取验证码"),

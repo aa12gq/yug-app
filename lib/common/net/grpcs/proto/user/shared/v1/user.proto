@@ -85,16 +85,19 @@ message LoginRequest {
     message UsernamePasswordLogin {
         string username = 1;
         string password = 2;
+        string image_captcha_answer = 3;
     }
 
     message PhoneLogin {
         string phone = 1;
         string password = 2;
+        string sms_code = 3;
     }
 
     message EmailLogin {
         string email = 1;
         string password = 2;
+        string email_code = 3;
     }
 
     message GithubLogin {
@@ -125,11 +128,11 @@ enum VerificationContext {
 }
 
 message CheckVerificationConditionResponse {
-    repeated VerificationMethod methods = 1; 
+    repeated VerificationCondition conditions = 1; 
 }
 
-enum VerificationMethod {
-    VERIFICATION_METHOD_UNSPECIFIED = 0; // 未指定
+enum VerificationCondition {
+    VERIFICATION_CONDITION_UNSPECIFIED = 0; // 未指定
     CAPTCHA_IMAGE = 1; // 图片验证码
     SMS_CODE = 2; // 短信验证码
     EMAIL_CODE = 3; // 邮件验证码

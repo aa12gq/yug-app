@@ -5,7 +5,11 @@ import 'package:yug_app/common/routers/name.dart';
 import 'package:yug_app/common/utils/loading.dart';
 import 'package:yug_app/common/api/api_service.dart';
 import 'package:yug_app/common/services/user.dart';
+import 'package:yug_app/common/services/captcha.dart';
 import 'package:yug_app/common/net/grpcs/proto/user/shared/v1/user.pb.dart';
+import 'package:yug_app/common/net/grpcs/proto/captcha/v1/captcha.pbgrpc.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:io';
 
 class LoginController extends GetxController {
   LoginController();
@@ -32,7 +36,82 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController();
 
   // 验证码
-  final verifyCodeController = TextEditingController();
+  final captchaController = TextEditingController();
+
+  // 设备标识符
+  final deviceId = ''.obs;
+
+  // 图片验证码base64
+  final captchaImage = ''.obs;
+
+  // 是否需要验证码
+  final needCaptcha = false.obs;
+
+  // 验证码服务
+  final _captchaService = Get.find<CaptchaService>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    _generateDeviceId();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    _checkCaptchaCondition();
+  }
+
+  // 生成设备标识符
+  Future<void> _generateDeviceId() async {
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceId.value = iosInfo.identifierForVendor ?? '';
+    } else if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      deviceId.value = androidInfo.id;
+    }
+    // 打印设备ID
+    print('deviceId: $deviceId');
+  }
+
+  // 检查是否需要验证码
+  Future<void> _checkCaptchaCondition() async {
+    try {
+      final response = await AuthApiService.to.checkVerificationCondition(
+        deviceId.value,
+        VerificationContext.LOGIN_ATTEMPT,
+      );
+
+      needCaptcha.value = response.conditions.isNotEmpty;
+      if (needCaptcha.value) {
+        _fetchCaptcha();
+      }
+    } catch (e) {
+      Get.snackbar('提示', '验证码检查失败：${e.toString()}');
+    }
+  }
+
+  // 获取图片验证码
+  Future<void> _fetchCaptcha() async {
+    try {
+      final response = await _captchaService.fetchImageCaptcha(
+        identityKey: deviceId.value,
+        captchaType: ImageCaptchaType.DIGIT,
+        businessScenario: 'login',
+      );
+      captchaImage.value = response.base64Image;
+      update(['captcha']);
+    } catch (e) {
+      Get.snackbar('错误', '获取验证码失败：${e.toString()}');
+    }
+  }
+
+  // 刷新验证码
+  void refreshCaptcha() {
+    _fetchCaptcha();
+  }
 
   // 切换登录类型
   void switchLoginType(String type) {
@@ -391,9 +470,11 @@ class LoginController extends GetxController {
     }
   }
 
-  // 登录处理
+  // 登录
   Future<void> handleLogin() async {
-    if (!formKey.currentState!.validate()) return;
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
 
     if (!isAgreementChecked.value) {
       showAgreementDialog();
@@ -401,47 +482,57 @@ class LoginController extends GetxController {
     }
 
     try {
-      Loading.show('登录中...');
+      Loading.show();
 
-      LoginRequest request;
+      // 如果需要验证码，先验证验证码
+      if (needCaptcha.value) {
+        final validateCaptchaResponse =
+            await _captchaService.validateImageCaptcha(
+          identityKey: deviceId.value,
+          answer: captchaController.text,
+        );
 
-      // 根据登录类型构建不同的请求
-      switch (loginType.value) {
-        case 'username':
-          request = LoginRequest(
-            usernamePassword: LoginRequest_UsernamePasswordLogin(
-              username: userNameController.text,
-              password: passwordController.text,
-            ),
-            appId: "com.vtyug.yugapp"
-          );
-          break;
-
-        case 'phone':
-        case 'email':
-          Loading.error('该登录方式开发中');
+        if (!validateCaptchaResponse.isValid) {
+          Get.snackbar('错误', '验证码错误');
+          refreshCaptcha();
           return;
-
-        default:
-          throw '未知的登录类型';
+        }
       }
-      // 调用登录API
+
+      // 登录
+      final request = LoginRequest(
+        usernamePassword: LoginRequest_UsernamePasswordLogin(
+          username: userNameController.text,
+          password: passwordController.text,
+          imageCaptchaAnswer: captchaController.text,
+        ),
+        appId: "com.vtyug.yugapp",
+      );
+
       final response = await AuthApiService.to.login(request);
-
-      // 保存token
       await UserService.to.setToken(response.accessToken);
-
-      // 获取用户信息
       await UserService.to.getMyProfile();
-
-      Loading.success('登录成功');
-
-      // 延迟跳转到首页
-      await Future.delayed(const Duration(seconds: 1));
       Get.offAllNamed(RouteNames.systemMain);
     } catch (e) {
-      await UserService.to.logout();
-      Loading.error('登录失败：${e.toString()}');
+      Get.snackbar('错误', e.toString());
+
+      // 登录失败后重新检查验证码条件
+      await _checkCaptchaCondition();
+
+      // 如果需要验证码，清空验证码输入框并获取新的验证码
+      if (needCaptcha.value) {
+        captchaController.clear();
+        // 显示提示信息
+        Get.snackbar(
+          '提示',
+          '需要输入图片验证码',
+          duration: const Duration(seconds: 2),
+        );
+        // 立即获取新的验证码
+        _fetchCaptcha();
+      }
+    } finally {
+      Loading.dismiss();
     }
   }
 
@@ -456,7 +547,7 @@ class LoginController extends GetxController {
     emailController.dispose();
     phoneController.dispose();
     passwordController.dispose();
-    verifyCodeController.dispose();
+    captchaController.dispose();
     super.onClose();
   }
 }
