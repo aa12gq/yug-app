@@ -1,78 +1,140 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yug_app/common/index.dart';
-import '../comment_model.dart';
 
 class CommentList extends StatelessWidget {
-  final List<CommentModel> comments;
-  final Function(String, CommentModel?) onReply;
+  final List<dynamic> comments;
+  final Function(String, dynamic) onReply;
 
   const CommentList({
-    super.key,
+    Key? key,
     required this.comments,
     required this.onReply,
-  });
+  }) : super(key: key);
 
-  Widget _buildCommentItem(CommentModel comment, {CommentModel? parent}) {
+  Widget _buildCommentItem(dynamic comment, {bool isReply = false}) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      margin: EdgeInsets.only(
+        left: isReply ? 36.w : 0,
+        bottom: 8.h,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 16.r,
-            backgroundImage: NetworkImage(comment.userAvatar),
+          // 头像
+          Container(
+            width: 24.w,
+            height: 24.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white,
+                width: 1,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24.w),
+              child: Image.network(
+                comment['userAvatar'] ?? 'https://via.placeholder.com/100',
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          SizedBox(width: 12.w),
+          SizedBox(width: 8.w),
+          // 评论内容
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  comment.userName,
-                  style: TextStyle(
-                    color: AppColors.primaryText,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                // 用户名和评论内容
+                RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      color: AppColors.primaryText,
+                      height: 1.3,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: comment['userName'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF6C5CE7),
+                        ),
+                      ),
+                      if (comment['replyTo'] != null) ...[
+                        TextSpan(text: ' 回复 '),
+                        TextSpan(
+                          text: comment['replyTo'],
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF6C5CE7),
+                          ),
+                        ),
+                      ],
+                      TextSpan(text: '：${comment['content']}'),
+                    ],
                   ),
                 ),
                 SizedBox(height: 4.h),
-                Text(
-                  comment.content,
-                  style: TextStyle(
-                    color: AppColors.primaryText,
-                    fontSize: 14.sp,
-                  ),
-                ),
-                SizedBox(height: 4.h),
+                // 时间和操作按钮
                 Row(
                   children: [
                     Text(
-                      comment.timeAgo,
+                      comment['timeAgo'] ?? '刚刚',
                       style: TextStyle(
+                        fontSize: 11.sp,
                         color: AppColors.secondaryText,
-                        fontSize: 12.sp,
                       ),
                     ),
-                    SizedBox(width: 16.w),
+                    SizedBox(width: 12.w),
                     GestureDetector(
-                      onTap: () => onReply(comment.userName, parent ?? comment),
+                      onTap: () => onReply(comment['userName'], comment),
                       child: Text(
                         '回复',
                         style: TextStyle(
+                          fontSize: 11.sp,
                           color: AppColors.secondaryText,
-                          fontSize: 12.sp,
                         ),
+                      ),
+                    ),
+                    SizedBox(width: 12.w),
+                    GestureDetector(
+                      onTap: () {
+                        // TODO: 处理点赞
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            comment['isLiked'] ?? false
+                                ? Icons.favorite_rounded
+                                : Icons.favorite_border_rounded,
+                            size: 12.w,
+                            color: comment['isLiked'] ?? false
+                                ? Colors.red
+                                : AppColors.secondaryText,
+                          ),
+                          SizedBox(width: 2.w),
+                          Text(
+                            (comment['likes'] ?? 0).toString(),
+                            style: TextStyle(
+                              fontSize: 11.sp,
+                              color: AppColors.secondaryText,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                if (comment.replies.isNotEmpty) ...[
+                // 子评论
+                if (comment['replies'] != null &&
+                    comment['replies'].isNotEmpty) ...[
                   SizedBox(height: 8.h),
-                  ...comment.replies.map((reply) => Padding(
-                        padding: EdgeInsets.only(left: 24.w),
-                        child: _buildCommentItem(reply, parent: comment),
-                      )),
+                  ...comment['replies']
+                      .map<Widget>(
+                          (reply) => _buildCommentItem(reply, isReply: true))
+                      .toList(),
                 ],
               ],
             ),
@@ -85,6 +147,7 @@ class CommentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: comments.map((comment) => _buildCommentItem(comment)).toList(),
     );
   }
