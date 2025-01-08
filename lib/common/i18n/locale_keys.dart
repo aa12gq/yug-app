@@ -137,6 +137,12 @@ class LocaleKeys {
   static const settingsNotificationDesc = 'settings_notification_desc';
   static const settingsClearCache = 'settings_clear_cache';
   static const settingsClearCacheDesc = 'settings_clear_cache_desc';
-
+  static const settingsClearCacheTitle = 'settings_clear_cache_title';
+  static const settingsClearCacheConfirm = 'settings_clear_cache_confirm';
+  static const settingsClearCacheSuccess = 'settings_clear_cache_success';
+  static const settingsClearCacheFailed = 'settings_clear_cache_failed';
   static const settingsLogout = 'settings_logout';
+  static const settingsLogoutTitle = 'settings_logout_title';
+  static const settingsLogoutConfirm = 'settings_logout_confirm';
+  static const settingsLogoutFailed = 'settings_logout_failed';
 }

@@ -133,16 +133,18 @@ Map<String, String> localeEn = {
   // Settings
   LocaleKeys.settingsTitle: 'Settings',
   LocaleKeys.settingsAccountSecurity: 'Account & Security',
-  LocaleKeys.settingsAccountSecurityTitle: 'Account Security',
-  LocaleKeys.settingsAccountSecurityDesc: 'Password, Phone Binding',
-  LocaleKeys.settingsPrivacy: 'Privacy',
-  LocaleKeys.settingsPrivacyDesc: 'Personal Information Protection',
-
-  LocaleKeys.settingsNotificationCache: 'Notification & Cache',
+  LocaleKeys.settingsNotificationCache: 'Notifications & Cache',
   LocaleKeys.settingsNotification: 'Notifications',
-  LocaleKeys.settingsNotificationDesc: 'Message Alerts, Sound Settings',
+  LocaleKeys.settingsNotificationDesc: 'Manage app notifications',
   LocaleKeys.settingsClearCache: 'Clear Cache',
-  LocaleKeys.settingsClearCacheDesc: 'Free Up Storage Space',
-
-  LocaleKeys.settingsLogout: 'Log Out',
+  LocaleKeys.settingsClearCacheDesc: 'Clear app cache data',
+  LocaleKeys.settingsClearCacheTitle: 'Clear Cache',
+  LocaleKeys.settingsClearCacheConfirm:
+      'Are you sure to clear cache? Current size: ',
+  LocaleKeys.settingsClearCacheSuccess: 'Cache cleared',
+  LocaleKeys.settingsClearCacheFailed: 'Failed to clear cache',
+  LocaleKeys.settingsLogout: 'Logout',
+  LocaleKeys.settingsLogoutTitle: 'Logout',
+  LocaleKeys.settingsLogoutConfirm: 'Are you sure to logout?',
+  LocaleKeys.settingsLogoutFailed: 'Failed to logout',
 };

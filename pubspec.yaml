@@ -36,7 +36,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_sound: ^9.17.8
   permission_handler: ^10.2.0
-  path_provider: ^2.0.15
+  path_provider: ^2.1.5
   device_info_plus: ^9.1.1
   uuid: ^4.2.1
   flutter_markdown: ^0.7.5

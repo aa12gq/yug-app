@@ -129,16 +129,17 @@ Map<String, String> localeZh = {
   // 设置页面
   LocaleKeys.settingsTitle: '设置',
   LocaleKeys.settingsAccountSecurity: '账号与安全',
-  LocaleKeys.settingsAccountSecurityTitle: '账号安全',
-  LocaleKeys.settingsAccountSecurityDesc: '密码修改、手机绑定',
-  LocaleKeys.settingsPrivacy: '隐私设置',
-  LocaleKeys.settingsPrivacyDesc: '个人信息保护',
-
   LocaleKeys.settingsNotificationCache: '通知与缓存',
   LocaleKeys.settingsNotification: '通知设置',
-  LocaleKeys.settingsNotificationDesc: '消息提醒、声音设置',
+  LocaleKeys.settingsNotificationDesc: '管理应用通知',
   LocaleKeys.settingsClearCache: '清除缓存',
-  LocaleKeys.settingsClearCacheDesc: '释放存储空间',
-
+  LocaleKeys.settingsClearCacheDesc: '清除应用缓存数据',
+  LocaleKeys.settingsClearCacheTitle: '清除缓存',
+  LocaleKeys.settingsClearCacheConfirm: '确定要清除缓存吗？当前缓存大小：',
+  LocaleKeys.settingsClearCacheSuccess: '清除成功',
+  LocaleKeys.settingsClearCacheFailed: '清除失败',
   LocaleKeys.settingsLogout: '退出登录',
+  LocaleKeys.settingsLogoutTitle: '退出登录',
+  LocaleKeys.settingsLogoutConfirm: '确定要退出登录吗？',
+  LocaleKeys.settingsLogoutFailed: '退出失败',
 };

@@ -171,14 +171,14 @@ class SettingsPage extends GetView<SettingsController> {
                   title: LocaleKeys.settingsAccountSecurity.tr,
                   children: [
                     _buildSettingItem(
-                      title: LocaleKeys.settingsAccountSecurityTitle.tr,
+                      title: LocaleKeys.settingsAccountSecurity.tr,
                       subtitle: LocaleKeys.settingsAccountSecurityDesc.tr,
                       icon: Icons.security_outlined,
                       iconColor: const Color(0xFF6C5CE7),
                       onTap: () => controller.onAccountSecurity(),
                     ),
                     _buildSettingItem(
-                      title: LocaleKeys.settingsPrivacy.tr,
+                      title: LocaleKeys.myMenuPrivacy.tr,
                       subtitle: LocaleKeys.settingsPrivacyDesc.tr,
                       icon: Icons.lock_outline,
                       iconColor: const Color(0xFF74B9FF),
@@ -213,7 +213,7 @@ class SettingsPage extends GetView<SettingsController> {
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Text(
-                          "12.5MB",
+                          controller.cacheSize,
                           style: TextStyle(
                             fontSize: 12.sp,
                             color: const Color(0xFF00B894),
