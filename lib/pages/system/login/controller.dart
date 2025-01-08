@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yug_app/common/net/grpcs/api/client.dart';
 import 'package:yug_app/common/routers/name.dart';
 import 'package:yug_app/common/utils/loading.dart';
 import 'package:yug_app/common/api/api_service.dart';
 import 'package:yug_app/common/services/user.dart';
-import 'package:yug_app/common/services/captcha.dart';
 import 'package:yug_app/common/net/grpcs/proto/user/shared/v1/user.pb.dart';
 import 'package:yug_app/common/net/grpcs/proto/captcha/v1/captcha.pbgrpc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -46,9 +46,6 @@ class LoginController extends GetxController {
 
   // 是否需要验证码
   final needCaptcha = false.obs;
-
-  // 验证码服务
-  final _captchaService = Get.find<CaptchaService>();
 
   @override
   void onInit() {
@@ -96,10 +93,13 @@ class LoginController extends GetxController {
   // 获取图片验证码
   Future<void> _fetchCaptcha() async {
     try {
-      final response = await _captchaService.fetchImageCaptcha(
-        identityKey: deviceId.value,
-        captchaType: ImageCaptchaType.DIGIT,
-        businessScenario: 'login',
+      final client = await GrpcClientUtil.createClient(CaptchaClient.new);
+      final response = await client.fetchImageCaptcha(
+        FetchImageCaptchaRequest(
+          identityKey: deviceId.value,
+          captchaType: ImageCaptchaType.DIGIT,
+          businessScenario: 'login',
+        ),
       );
       captchaImage.value = response.base64Image;
       update(['captcha']);
@@ -486,10 +486,12 @@ class LoginController extends GetxController {
 
       // 如果需要验证码，先验证验证码
       if (needCaptcha.value) {
-        final validateCaptchaResponse =
-            await _captchaService.validateImageCaptcha(
-          identityKey: deviceId.value,
-          answer: captchaController.text,
+        final client = await GrpcClientUtil.createClient(CaptchaClient.new);
+        final validateCaptchaResponse = await client.validateImageCaptcha(
+          ValidateImageCaptchaRequest(
+            identityKey: deviceId.value,
+            answer: captchaController.text,
+          ),
         );
 
         if (!validateCaptchaResponse.isValid) {
