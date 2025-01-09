@@ -1,20 +1,19 @@
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yug_app/common/components/page_title.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 import 'package:yug_app/pages/system/login/widgets/login_form.dart';
-import 'package:yug_app/pages/system/register/wave_painter.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
 
   void _handleSwipe(DragEndDetails details) {
     final items = [
-      'username',
-      'phone',
-      'email',
+      LocaleKeys.loginTypeUsernameValue.tr,
+      LocaleKeys.loginTypePhoneValue.tr,
+      LocaleKeys.loginTypeEmailValue.tr,
     ];
     final currentIndex = items.indexOf(controller.loginType.value);
     if (details.primaryVelocity! < 0 && currentIndex < items.length - 1) {
@@ -45,15 +44,6 @@ class LoginPage extends GetView<LoginController> {
                   ],
                 ),
               ),
-            ),
-
-            // 波浪背景
-            CustomPaint(
-              painter: WavePainter(
-                color: context.theme.primaryColor.withOpacity(0.08),
-                waveHeight: 60,
-              ),
-              size: Size(Get.width, Get.height),
             ),
 
             // 主内容
@@ -342,7 +332,7 @@ class LoginPage extends GetView<LoginController> {
                                                   ),
                                                 ),
                                                 child: Text(
-                                                  "Beta",
+                                                  LocaleKeys.loginBetaTag.tr,
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: context.theme
@@ -376,7 +366,7 @@ class LoginPage extends GetView<LoginController> {
                                               ),
                                             ),
                                             child: Text(
-                                              "让生活更美好",
+                                              LocaleKeys.loginSlogan.tr,
                                               style: TextStyle(
                                                 fontSize: 13.sp,
                                                 color:

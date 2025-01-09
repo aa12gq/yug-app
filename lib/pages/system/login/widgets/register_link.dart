@@ -1,6 +1,7 @@
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/routers/name.dart';
 import 'package:yug_app/common/style/space.dart';
 
@@ -27,8 +28,8 @@ class RegisterLink extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: context.theme.primaryColor.withOpacity(0.1),
-                    width: 2,
+                    color: context.theme.primaryColor.withOpacity(0.2),
+                    width: 1,
                   ),
                 ),
               ),
@@ -36,32 +37,26 @@ class RegisterLink extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "还没有账号？",
+                    LocaleKeys.loginNoAccount.tr,
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color:
-                          context.theme.colorScheme.onSurface.withOpacity(0.6),
-                      letterSpacing: 0.5,
+                      color: context.theme.hintColor,
                     ),
                   ),
                   SizedBox(width: 4.w),
                   ShaderMask(
-                    shaderCallback: (Rect bounds) {
+                    shaderCallback: (bounds) {
                       return LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
                           context.theme.primaryColor,
-                          Color.lerp(
-                            context.theme.primaryColor,
-                            context.theme.colorScheme.secondary,
-                            0.6,
-                          )!,
+                          context.theme.colorScheme.secondary,
                         ],
                       ).createShader(bounds);
                     },
                     child: Text(
-                      "立即注册",
+                      LocaleKeys.loginRegisterNow.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,

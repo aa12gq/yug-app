@@ -1,6 +1,7 @@
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
 
 class OrDivider extends StatelessWidget {
@@ -13,24 +14,43 @@ class OrDivider extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Divider(
-              color: context.theme.colorScheme.onSurface.withOpacity(0.2),
+            child: Container(
+              height: 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerRight,
+                  end: Alignment.centerLeft,
+                  colors: [
+                    context.theme.dividerColor,
+                    context.theme.dividerColor.withOpacity(0),
+                  ],
+                ),
+              ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSpace.listItem),
             child: Text(
-              "或",
+              LocaleKeys.loginOr.tr,
               style: TextStyle(
-                color: context.theme.colorScheme.onSurface.withOpacity(0.5),
                 fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
+                color: context.theme.hintColor,
               ),
             ),
           ),
           Expanded(
-            child: Divider(
-              color: context.theme.colorScheme.onSurface.withOpacity(0.2),
+            child: Container(
+              height: 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    context.theme.dividerColor,
+                    context.theme.dividerColor.withOpacity(0),
+                  ],
+                ),
+              ),
             ),
           ),
         ],

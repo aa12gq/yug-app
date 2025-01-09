@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 
 class AgreementCheckbox extends GetView<LoginController> {
@@ -31,24 +32,28 @@ class AgreementCheckbox extends GetView<LoginController> {
                   color: Theme.of(context).textTheme.bodyMedium?.color,
                 ),
                 children: [
-                  const TextSpan(text: '我已阅读并同意'),
+                  TextSpan(text: LocaleKeys.loginAgreementCheck.tr),
+                  TextSpan(text: LocaleKeys.loginAgreementPrefix.tr),
                   TextSpan(
-                    text: '《用户协议》',
+                    text: LocaleKeys.loginUserAgreement.tr,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = controller.openUserAgreement,
                   ),
-                  const TextSpan(text: '和'),
+                  TextSpan(text: LocaleKeys.loginAgreementSuffix.tr),
+                  TextSpan(text: LocaleKeys.loginAgreementAnd.tr),
+                  TextSpan(text: LocaleKeys.loginAgreementPrefix.tr),
                   TextSpan(
-                    text: '《隐私政策》',
+                    text: LocaleKeys.loginPrivacyPolicy.tr,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = controller.openPrivacyPolicy,
                   ),
+                  TextSpan(text: LocaleKeys.loginAgreementSuffix.tr),
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 
@@ -64,18 +65,18 @@ class LoginTypeSwitcher extends GetView<LoginController> {
   Widget build(BuildContext context) {
     final items = [
       {
-        'type': 'username',
-        'text': '账号密码',
+        'type': LocaleKeys.loginTypeUsernameValue.tr,
+        'text': LocaleKeys.loginTypeUsername.tr,
         'icon': Icons.person_outline_rounded,
       },
       {
-        'type': 'phone',
-        'text': '手机号',
+        'type': LocaleKeys.loginTypePhoneValue.tr,
+        'text': LocaleKeys.loginTypePhone.tr,
         'icon': Icons.phone_android_rounded,
       },
       {
-        'type': 'email',
-        'text': '邮箱',
+        'type': LocaleKeys.loginTypeEmailValue.tr,
+        'text': LocaleKeys.loginTypeEmail.tr,
         'icon': Icons.email_outlined,
       },
     ];

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/net/grpcs/api/client.dart';
 import 'package:yug_app/common/routers/name.dart';
 import 'package:yug_app/common/utils/loading.dart';
@@ -18,7 +19,7 @@ class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   // 登录类型
-  final loginType = 'username'.obs;
+  final loginType = LocaleKeys.loginTypeUsernameValue.tr.obs;
 
   // 用户协议勾选状态
   final isAgreementChecked = false.obs;
@@ -37,6 +38,9 @@ class LoginController extends GetxController {
 
   // 验证码
   final captchaController = TextEditingController();
+
+  // 短信/邮箱验证码
+  final verifyCodeController = TextEditingController();
 
   // 设备标识符
   final deviceId = ''.obs;
@@ -225,9 +229,9 @@ class LoginController extends GetxController {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            '服务协议和隐私政策',
-                            style: TextStyle(
+                          Text(
+                            LocaleKeys.loginAgreementTitle.tr,
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -274,7 +278,7 @@ class LoginController extends GetxController {
                               ),
                               child: Center(
                                 child: Text(
-                                  '用户协议',
+                                  LocaleKeys.loginUserAgreement.tr,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: selectedIndex.value == 0
@@ -311,7 +315,7 @@ class LoginController extends GetxController {
                               ),
                               child: Center(
                                 child: Text(
-                                  '隐私政策',
+                                  LocaleKeys.loginPrivacyPolicy.tr,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: selectedIndex.value == 1
@@ -327,49 +331,6 @@ class LoginController extends GetxController {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                ),
-              ),
-
-              // 协议内容（可滚动）
-              Flexible(
-                child: Obx(
-                  () => SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.1),
-                        ),
-                      ),
-                      child: Text(
-                        selectedIndex.value == 0
-                            ? '1. 服务条款的确认和接纳\n'
-                                '当您注册成为用户时，即表示您已充分阅读、理解并接受本协议的全部内容。\n\n'
-                                '2. 服务内容\n'
-                                '本应用为用户提供以下服务：信息发布、交流互动、内容分享等。\n\n'
-                                '3. 用户个人信息保护\n'
-                                '我们将按照法律法规要求，采取安全保护措施，保护您的个人信息安全。\n\n'
-                                '4. 用户行为规范\n'
-                                '您在使用本服务时需遵守法律法规，不得发布违法违规内容。'
-                            : '1. 信息收集\n'
-                                '我们可能收集您的以下信息：账号信息、设备信息、位置信息等。\n\n'
-                                '2. 信息使用\n'
-                                '我们收集的信息将用于：提供服务、改善体验、安全防护等。\n\n'
-                                '3. 信息共享\n'
-                                '未经您同意，我们不会与第三方分享您的个人信息。\n\n'
-                                '4. 信息安全\n'
-                                '我们采用业界标准的安全技术和程序来保护您的个人信息。',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
-                          height: 1.6,
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -393,9 +354,9 @@ class LoginController extends GetxController {
                             ),
                           ),
                         ),
-                        child: const Text(
-                          '暂不同意',
-                          style: TextStyle(
+                        child: Text(
+                          LocaleKeys.loginDisagreeButton.tr,
+                          style: const TextStyle(
                             fontSize: 15,
                             color: Colors.black54,
                           ),
@@ -420,9 +381,9 @@ class LoginController extends GetxController {
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                        child: const Text(
-                          '同意并继续',
-                          style: TextStyle(
+                        child: Text(
+                          LocaleKeys.loginAgreementButton.tr,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                           ),
@@ -445,28 +406,18 @@ class LoginController extends GetxController {
     try {
       Loading.show();
 
-      final contact = loginType.value == 'phone'
+      final contact = loginType.value == LocaleKeys.loginTypePhoneValue.tr
           ? phoneController.text
           : emailController.text;
 
       if (contact.isEmpty) {
-        Loading.error(loginType.value == 'phone' ? '请输入手机号' : '请输入邮箱');
+        Loading.error(LocaleKeys.loginErrorContactRequired.tr);
         return;
       }
 
-      // // 构建验证码请求
-      // final request = SendVerifyCodeRequest(
-      //   contact: contact,
-      //   type:
-      //       loginType.value == 'phone' ? ContactType.PHONE : ContactType.EMAIL,
-      //   usage: VerifyCodeUsage.LOGIN,
-      // );
-
-      // // 调用发送验证码API
-      // await AuthApiService.to.sendVerifyCode(request);
-      Loading.success('验证码已发送');
+      Loading.success(LocaleKeys.loginSuccessVerifyCode.tr);
     } catch (e) {
-      Loading.error('发送失败：${e.toString()}');
+      Loading.error('${LocaleKeys.loginErrorGeneral.tr}: ${e.toString()}');
     }
   }
 
@@ -495,7 +446,8 @@ class LoginController extends GetxController {
         );
 
         if (!validateCaptchaResponse.isValid) {
-          Get.snackbar('错误', '验证码错误');
+          Get.snackbar(
+              LocaleKeys.loginErrorTip.tr, LocaleKeys.loginErrorCaptcha.tr);
           refreshCaptcha();
           return;
         }
@@ -516,7 +468,7 @@ class LoginController extends GetxController {
       await UserService.to.getMyProfile();
       Get.offAllNamed(RouteNames.systemMain);
     } catch (e) {
-      Get.snackbar('错误', e.toString());
+      Get.snackbar(LocaleKeys.loginErrorTip.tr, e.toString());
 
       // 登录失败后重新检查验证码条件
       await _checkCaptchaCondition();
@@ -526,8 +478,8 @@ class LoginController extends GetxController {
         captchaController.clear();
         // 显示提示信息
         Get.snackbar(
-          '提示',
-          '需要输入图片验证码',
+          LocaleKeys.loginErrorTip.tr,
+          LocaleKeys.loginErrorCaptchaRequired.tr,
           duration: const Duration(seconds: 2),
         );
         // 立即获取新的验证码
@@ -550,6 +502,7 @@ class LoginController extends GetxController {
     phoneController.dispose();
     passwordController.dispose();
     captchaController.dispose();
+    verifyCodeController.dispose();
     super.onClose();
   }
 }

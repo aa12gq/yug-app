@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:validatorless/validatorless.dart';
+import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/common/utils/validators.dart';
 import 'package:yug_app/common/widgets/form/input.dart';
@@ -16,67 +19,70 @@ class LoginFormFields extends GetView<LoginController> {
       () => Column(
         children: [
           // 用户名输入框 (仅用户名密码登录时显示)
-          if (controller.loginType.value == 'username')
+          if (controller.loginType.value ==
+              LocaleKeys.loginTypeUsernameValue.tr)
             Hero(
               tag: 'username_field',
               child: InputFormFieldWidget(
                 controller: controller.userNameController,
-                labelText: "用户名",
+                labelText: LocaleKeys.loginUsername.tr,
                 prefix: Icon(Icons.person, color: context.theme.primaryColor),
                 validator: Validatorless.multiple([
-                  Validatorless.required("请输入用户名"),
-                  Validatorless.min(3, "用户名至少3个字符"),
-                  Validatorless.max(20, "用户名最多20个字符"),
+                  Validatorless.required(LocaleKeys.loginUsernameRequired.tr),
+                  Validatorless.min(3, LocaleKeys.loginUsernameLength.tr),
+                  Validatorless.max(20, LocaleKeys.loginUsernameLength.tr),
                 ]),
               ),
             ).paddingBottom(AppSpace.listRow),
 
           // 手机号输入框 (仅手机号登录时显示)
-          if (controller.loginType.value == 'phone')
+          if (controller.loginType.value == LocaleKeys.loginTypePhoneValue.tr)
             InputFormFieldWidget(
               controller: controller.phoneController,
-              labelText: "手机号",
+              labelText: LocaleKeys.loginPhone.tr,
               keyboardType: TextInputType.phone,
               prefix:
                   Icon(Icons.phone_android, color: context.theme.primaryColor),
               validator: Validatorless.multiple([
-                Validatorless.required("请输入手机号"),
-                Validators.phone("请输入正确的手机号"),
+                Validatorless.required(LocaleKeys.loginPhoneRequired.tr),
+                Validators.phone(LocaleKeys.loginPhoneInvalid.tr),
               ]),
             ).paddingBottom(AppSpace.listRow),
 
           // 邮箱输入框 (仅邮箱登录时显示)
-          if (controller.loginType.value == 'email')
+          if (controller.loginType.value == LocaleKeys.loginTypeEmailValue.tr)
             InputFormFieldWidget(
               controller: controller.emailController,
-              labelText: "邮箱",
+              labelText: LocaleKeys.loginEmail.tr,
               keyboardType: TextInputType.emailAddress,
               prefix: Icon(Icons.email, color: context.theme.primaryColor),
               validator: Validatorless.multiple([
-                Validatorless.required("请输入邮箱"),
-                Validatorless.email("请输入正确的邮箱"),
+                Validatorless.required(LocaleKeys.loginEmailRequired.tr),
+                Validatorless.email(LocaleKeys.loginEmailInvalid.tr),
               ]),
             ).paddingBottom(AppSpace.listRow),
 
           // 密码输入框 (仅用户名密码登录时显示)
-          if (controller.loginType.value == 'username')
+          if (controller.loginType.value ==
+              LocaleKeys.loginTypeUsernameValue.tr)
             Hero(
               tag: 'password_field',
               child: InputFormFieldWidget(
                 controller: controller.passwordController,
-                labelText: "密码",
+                labelText: LocaleKeys.loginPassword.tr,
                 obscureText: true,
                 prefix:
                     Icon(Icons.lock_outline, color: context.theme.primaryColor),
                 validator: Validatorless.multiple([
-                  Validatorless.required("请输入密码"),
-                  Validators.password(6, 18, "密码长度为6-18位"),
+                  Validatorless.required(LocaleKeys.loginPasswordRequired.tr),
+                  Validators.password(6, 18, LocaleKeys.loginPasswordLength.tr),
                 ]),
               ),
             ).paddingBottom(AppSpace.listRow),
 
           // 验证码输入框 (用户名密码登录时显示)
-          if (controller.loginType.value == 'username' &&
+          if (controller.loginType.value ==
+                  LocaleKeys.loginTypeUsernameValue.tr &&
               controller.needCaptcha.value)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8).w,
@@ -84,112 +90,122 @@ class LoginFormFields extends GetView<LoginController> {
                 color: context.theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(20).w,
                 border: Border.all(
-                  color: context.theme.primaryColor.withOpacity(0.1),
+                  color: Colors.white.withOpacity(0.08),
+                  width: 0.5,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
               ),
               child: Row(
                 children: [
                   Expanded(
                     child: InputFormFieldWidget(
                       controller: controller.captchaController,
-                      labelText: "验证码",
-                      keyboardType: TextInputType.text,
-                      prefix: Icon(Icons.verified_user,
+                      labelText: LocaleKeys.loginCaptcha.tr,
+                      prefix: Icon(Icons.verified_user_outlined,
                           color: context.theme.primaryColor),
                       validator: Validatorless.multiple([
-                        Validatorless.required("请输入验证码"),
+                        Validatorless.required(
+                            LocaleKeys.loginCaptchaRequired.tr),
+                        Validatorless.min(4, LocaleKeys.loginCaptchaLength.tr),
+                        Validatorless.max(6, LocaleKeys.loginCaptchaLength.tr),
                       ]),
                     ),
                   ),
-                  SizedBox(width: 16.w),
-                  Obx(() {
-                    return GestureDetector(
-                      onTap: controller.refreshCaptcha,
-                      child: Container(
-                        width: 100.w,
-                        height: 44.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: context.theme.dividerColor,
-                          ),
-                        ),
-                        child: controller.captchaImage.value.isEmpty
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.memory(
-                                  Uri.parse(controller.captchaImage.value)
-                                      .data!
-                                      .contentAsBytes(),
-                                  fit: BoxFit.cover,
-                                ),
+                  SizedBox(width: 8.w),
+                  GetBuilder<LoginController>(
+                    id: 'captcha',
+                    builder: (_) {
+                      return GestureDetector(
+                        onTap: controller.refreshCaptcha,
+                        child: Container(
+                          width: 100.w,
+                          height: 40.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.w),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                blurRadius: 10,
+                                offset: const Offset(0, 2),
                               ),
-                      ),
-                    );
-                  }),
+                            ],
+                          ),
+                          child: controller.captchaImage.value.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    LocaleKeys.loginGetCaptcha.tr,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: context.theme.primaryColor,
+                                    ),
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.w),
+                                  child: Image.memory(
+                                    Uri.parse(controller.captchaImage.value)
+                                        .data!
+                                        .contentAsBytes(),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ).paddingBottom(AppSpace.listRow),
 
-          // 验证码输入框 (手机号和邮箱登录时显示)
-          if (controller.loginType.value != 'username')
+          // 验证码输入框 (手机号或邮箱登录时显示)
+          if (controller.loginType.value !=
+              LocaleKeys.loginTypeUsernameValue.tr)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8).w,
               decoration: BoxDecoration(
                 color: context.theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(20).w,
                 border: Border.all(
-                  color: context.theme.primaryColor.withOpacity(0.1),
+                  color: Colors.white.withOpacity(0.08),
+                  width: 0.5,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
               ),
               child: Row(
                 children: [
                   Expanded(
                     child: InputFormFieldWidget(
-                      controller: controller.captchaController,
-                      labelText: "验证码",
-                      keyboardType: TextInputType.number,
-                      prefix: Icon(Icons.verified_user,
+                      controller: controller.verifyCodeController,
+                      labelText: LocaleKeys.loginCaptcha.tr,
+                      prefix: Icon(Icons.verified_user_outlined,
                           color: context.theme.primaryColor),
                       validator: Validatorless.multiple([
-                        Validatorless.required("请输入验证码"),
-                        Validatorless.min(4, "验证码至少4位"),
-                        Validatorless.max(6, "验证码最多6位"),
+                        Validatorless.required(
+                            LocaleKeys.loginCaptchaRequired.tr),
+                        Validatorless.min(4, LocaleKeys.loginCaptchaLength.tr),
+                        Validatorless.max(6, LocaleKeys.loginCaptchaLength.tr),
                       ]),
                     ),
                   ),
-                  SizedBox(width: 16.w),
-                  ElevatedButton(
-                    onPressed: controller.getVerifyCode,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.theme.primaryColor,
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ).w,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16).w,
+                  SizedBox(width: 8.w),
+                  SizedBox(
+                    width: 100.w,
+                    height: 40.w,
+                    child: ElevatedButton(
+                      onPressed: controller.getVerifyCode,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.w),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        LocaleKeys.loginGetCaptcha.tr,
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ),
-                    child: const Text("获取验证码"),
                   ),
                 ],
               ),

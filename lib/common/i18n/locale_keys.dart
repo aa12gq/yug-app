@@ -145,4 +145,57 @@ class LocaleKeys {
   static const settingsLogoutTitle = 'settings_logout_title';
   static const settingsLogoutConfirm = 'settings_logout_confirm';
   static const settingsLogoutFailed = 'settings_logout_failed';
+
+  /// 登录
+  static const loginSlogan = "login_slogan";
+  static const loginUsername = "login_username";
+  static const loginPassword = "login_password";
+  static const loginPhone = "login_phone";
+  static const loginEmail = "login_email";
+  static const loginCaptcha = "login_captcha";
+  static const loginGetCaptcha = "login_get_captcha";
+  static const loginUsernameRequired = "login_username_required";
+  static const loginUsernameLength = "login_username_length";
+  static const loginPasswordRequired = "login_password_required";
+  static const loginPasswordLength = "login_password_length";
+  static const loginPhoneRequired = "login_phone_required";
+  static const loginPhoneInvalid = "login_phone_invalid";
+  static const loginEmailRequired = "login_email_required";
+  static const loginEmailInvalid = "login_email_invalid";
+  static const loginCaptchaRequired = "login_captcha_required";
+  static const loginCaptchaLength = "login_captcha_length";
+  static const loginBetaTag = "login_beta_tag";
+  static const loginTypeUsernameValue = "login_type_username_value";
+  static const loginTypePhoneValue = "login_type_phone_value";
+  static const loginTypeEmailValue = "login_type_email_value";
+  static const loginButton = "login_button";
+  static const loginOr = "login_or";
+  static const loginOtherMethods = "login_other_methods";
+  static const loginNoAccount = "login_no_account";
+  static const loginRegisterNow = "login_register_now";
+  static const loginTypeUsername = "login_type_username";
+  static const loginTypePhone = "login_type_phone";
+  static const loginTypeEmail = "login_type_email";
+  static const loginAgreementCheck = "login_agreement_check";
+  static const loginAgreementPrefix = "login_agreement_prefix";
+  static const loginAgreementSuffix = "login_agreement_suffix";
+
+  // 协议相关
+  static const loginAgreementTitle = "login_agreement_title";
+  static const loginUserAgreement = "login_user_agreement";
+  static const loginPrivacyPolicy = "login_privacy_policy";
+  static const loginAgreementTip = "login_agreement_tip";
+  static const loginAgreementRead = "login_agreement_read";
+  static const loginAgreementAnd = "login_agreement_and";
+  static const loginAgreementButton = "login_agreement_button";
+  static const loginDisagreeButton = "login_disagree_button";
+  static const loginAgreeButton = "login_agree_button";
+
+  // 错误提示
+  static const loginErrorCaptcha = "login_error_captcha";
+  static const loginErrorCaptchaRequired = "login_error_captcha_required";
+  static const loginErrorContactRequired = "login_error_contact_required";
+  static const loginErrorGeneral = "login_error_general";
+  static const loginErrorTip = "login_error_tip";
+  static const loginSuccessVerifyCode = "login_success_verify_code";
 }
