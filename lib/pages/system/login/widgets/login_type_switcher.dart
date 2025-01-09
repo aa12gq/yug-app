@@ -13,10 +13,8 @@ class LoginTypeSwitcher extends GetView<LoginController> {
     final currentIndex =
         items.indexWhere((item) => item['type'] == currentType);
     if (details.primaryVelocity! < 0 && currentIndex < items.length - 1) {
-      // 向左滑动，切换到下一个
       controller.switchLoginType(items[currentIndex + 1]['type'] as String);
     } else if (details.primaryVelocity! > 0 && currentIndex > 0) {
-      // 向右滑动，切换到上一个
       controller.switchLoginType(items[currentIndex - 1]['type'] as String);
     }
   }
@@ -28,27 +26,37 @@ class LoginTypeSwitcher extends GetView<LoginController> {
         color: Colors.transparent,
         child: InkWell(
           onTap: () => controller.switchLoginType(item['type'] as String),
+          borderRadius: BorderRadius.circular(8.w),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12.w),
+            padding: EdgeInsets.symmetric(vertical: 8.w),
             decoration: BoxDecoration(
               color: isSelected
-                  ? context.theme.primaryColor.withOpacity(0.08)
+                  ? context.theme.primaryColor.withOpacity(0.1)
                   : Colors.transparent,
-              borderRadius: BorderRadius.circular(12.w),
+              borderRadius: BorderRadius.circular(8.w),
+              border: Border.all(
+                color: isSelected
+                    ? context.theme.primaryColor.withOpacity(0.2)
+                    : Colors.transparent,
+                width: 1,
+              ),
             ),
-            child: Column(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   item['icon'] as IconData,
-                  size: 24.w,
+                  size: 18.w,
                   color: isSelected ? context.theme.primaryColor : Colors.grey,
                 ),
-                SizedBox(height: 4.w),
+                SizedBox(width: 4.w),
                 Text(
                   item['text'] as String,
                   style: TextStyle(
                     fontSize: 13.sp,
+                    fontWeight:
+                        isSelected ? FontWeight.w600 : FontWeight.normal,
                     color:
                         isSelected ? context.theme.primaryColor : Colors.grey,
                   ),
@@ -82,17 +90,15 @@ class LoginTypeSwitcher extends GetView<LoginController> {
     ];
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w),
+      margin: EdgeInsets.symmetric(horizontal: 8.w),
+      padding: EdgeInsets.all(4.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.w),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.theme.cardColor,
+        borderRadius: BorderRadius.circular(10.w),
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: Obx(() {
         final currentType = controller.loginType.value;
@@ -108,6 +114,6 @@ class LoginTypeSwitcher extends GetView<LoginController> {
           ),
         );
       }),
-    ).paddingBottom(AppSpace.listRow);
+    ).paddingBottom(AppSpace.listRow * 0.5);
   }
 }

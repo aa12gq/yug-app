@@ -189,14 +189,9 @@ Map<String, String> localeEn = {
 
   // Agreement
   LocaleKeys.loginAgreementTitle: "Terms of Service & Privacy Policy",
-  LocaleKeys.loginUserAgreement: "Terms of Service",
-  LocaleKeys.loginPrivacyPolicy: "Privacy Policy",
   LocaleKeys.loginAgreementTip:
       "Please read and agree to the following agreements",
   LocaleKeys.loginAgreementRead: "I have read and agree to the",
-  LocaleKeys.loginAgreementAnd: "and",
-  LocaleKeys.loginAgreementButton: "Agree and Continue",
-  LocaleKeys.loginDisagreeButton: "Disagree",
   LocaleKeys.loginAgreeButton: "Agree",
 
   // Error Messages
