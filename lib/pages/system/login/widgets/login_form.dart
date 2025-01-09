@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
+import 'package:yug_app/pages/system/login/widgets/about_footer.dart';
 import 'package:yug_app/pages/system/login/widgets/agreement_checkbox.dart';
 import 'package:yug_app/pages/system/login/widgets/login_button.dart';
 import 'package:yug_app/pages/system/login/widgets/login_form_fields.dart';
@@ -166,6 +167,10 @@ class LoginForm extends GetView<LoginController> {
 
                       // 注册入口
                       const RegisterLink(),
+                      SizedBox(height: 16.h),
+
+                      // 关于我们
+                      const AboutFooter(),
 
                       // end
                     ].toColumn().paddingSymmetric(

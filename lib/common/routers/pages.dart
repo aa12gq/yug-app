@@ -247,6 +247,15 @@ class RoutePages {
       binding: HelpDetailBinding(),
     ),
     //////////////////////////////
+    // 关于
+    //////////////////////////////
+    GetPage(
+      name: RouteNames.systemAbout,
+      page: () => const AboutPage(),
+      binding: AboutBinding(),
+      transition: Transition.fadeIn,
+    ),
+    //////////////////////////////
     // 动态相关
     //////////////////////////////
     GetPage(

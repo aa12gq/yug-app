@@ -201,4 +201,13 @@ Map<String, String> localeEn = {
   LocaleKeys.loginErrorGeneral: "Login failed",
   LocaleKeys.loginErrorTip: "Tips",
   LocaleKeys.loginSuccessVerifyCode: "Verification code sent",
+
+  // About Page
+  LocaleKeys.aboutTitle: "About YuGuang",
+  LocaleKeys.appName: "YuGuang",
+  LocaleKeys.appSlogan: "Make Life Better",
+  LocaleKeys.appDescription:
+      "YuGuang is a creative and warm social platform dedicated to providing users with a space to share life, exchange ideas, and discover beauty. Here, everyone can find their spiritual home.",
+  LocaleKeys.appFeatures:
+      "Unlimited Creativity: Explore and create on YuLe Island\\nKnowledge Sharing: Connect with like-minded friends\\nEmotional Interaction: Grow in a warm community\\nSmart Assistant: AI helps you express better\\nPrivacy Protection: Secure and reliable data encryption",
 };

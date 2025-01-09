@@ -40,6 +40,7 @@ export 'moments/circle/publish/index.dart';
 export 'moments/scan/index.dart';
 export 'moments/listen/index.dart';
 export 'notes/index.dart';
+export 'system/about/index.dart';
 
 export 'msg/msg_index/index.dart';
 

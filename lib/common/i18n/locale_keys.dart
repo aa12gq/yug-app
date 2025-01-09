@@ -198,4 +198,11 @@ class LocaleKeys {
   static const loginErrorGeneral = "login_error_general";
   static const loginErrorTip = "login_error_tip";
   static const loginSuccessVerifyCode = "login_success_verify_code";
+
+  // 关于页面
+  static const aboutTitle = "about_title";
+  static const appName = "app_name";
+  static const appSlogan = "app_slogan";
+  static const appDescription = "app_description";
+  static const appFeatures = "app_features";
 }
