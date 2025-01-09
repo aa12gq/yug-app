@@ -210,4 +210,10 @@ Map<String, String> localeEn = {
       "YuGuang is a creative and warm social platform dedicated to providing users with a space to share life, exchange ideas, and discover beauty. Here, everyone can find their spiritual home.",
   LocaleKeys.appFeatures:
       "Unlimited Creativity: Explore and create on YuLe Island\\nKnowledge Sharing: Connect with like-minded friends\\nEmotional Interaction: Grow in a warm community\\nSmart Assistant: AI helps you express better\\nPrivacy Protection: Secure and reliable data encryption",
+
+  LocaleKeys.loginUsernameHint: "Enter your username",
+  LocaleKeys.loginPasswordHint: "Enter your password",
+  LocaleKeys.loginPhoneHint: "Enter your phone number",
+  LocaleKeys.loginEmailHint: "Enter your email",
+  LocaleKeys.loginCaptchaHint: "Enter verification code",
 };

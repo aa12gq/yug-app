@@ -203,4 +203,10 @@ Map<String, String> localeZh = {
       "语光是一个充满创意和温暖的社交平台，致力于为用户提供一个分享生活、交流想法、发现美好的空间。在这里，每个人都可以找到属于自己的精神家园。",
   LocaleKeys.appFeatures:
       "创意无限：在语乐岛探索和创作\\n知识分享：与志同道合的朋友交流\\n情感互动：在温暖的社区中成长\\n智能助手：AI助你更好地表达\\n隐私保护：安全可靠的数据加密",
+
+  LocaleKeys.loginUsernameHint: "请输入您的用户名",
+  LocaleKeys.loginPasswordHint: "请输入您的密码",
+  LocaleKeys.loginPhoneHint: "请输入您的手机号",
+  LocaleKeys.loginEmailHint: "请输入您的邮箱",
+  LocaleKeys.loginCaptchaHint: "请输入验证码",
 };

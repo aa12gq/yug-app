@@ -205,4 +205,10 @@ class LocaleKeys {
   static const appSlogan = "app_slogan";
   static const appDescription = "app_description";
   static const appFeatures = "app_features";
+
+  static const loginUsernameHint = "login_username_hint";
+  static const loginPasswordHint = "login_password_hint";
+  static const loginPhoneHint = "login_phone_hint";
+  static const loginEmailHint = "login_email_hint";
+  static const loginCaptchaHint = "login_captcha_hint";
 }

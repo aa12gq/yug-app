@@ -28,6 +28,7 @@ class LoginFormFields extends GetView<LoginController> {
               child: InputFormFieldWidget(
                 controller: controller.userNameController,
                 labelText: LocaleKeys.loginUsername.tr,
+                placeholder: LocaleKeys.loginUsernameHint.tr,
                 prefix: Icon(Icons.person, color: context.theme.primaryColor),
                 validator: Validatorless.multiple([
                   Validatorless.required(LocaleKeys.loginUsernameRequired.tr),
@@ -42,6 +43,7 @@ class LoginFormFields extends GetView<LoginController> {
             InputFormFieldWidget(
               controller: controller.phoneController,
               labelText: LocaleKeys.loginPhone.tr,
+              placeholder: LocaleKeys.loginPhoneHint.tr,
               keyboardType: TextInputType.phone,
               prefix:
                   Icon(Icons.phone_android, color: context.theme.primaryColor),
@@ -56,6 +58,7 @@ class LoginFormFields extends GetView<LoginController> {
             InputFormFieldWidget(
               controller: controller.emailController,
               labelText: LocaleKeys.loginEmail.tr,
+              placeholder: LocaleKeys.loginEmailHint.tr,
               keyboardType: TextInputType.emailAddress,
               prefix: Icon(Icons.email, color: context.theme.primaryColor),
               validator: Validatorless.multiple([
@@ -72,6 +75,7 @@ class LoginFormFields extends GetView<LoginController> {
               child: InputFormFieldWidget(
                 controller: controller.passwordController,
                 labelText: LocaleKeys.loginPassword.tr,
+                placeholder: LocaleKeys.loginPasswordHint.tr,
                 obscureText: true,
                 prefix:
                     Icon(Icons.lock_outline, color: context.theme.primaryColor),
@@ -102,6 +106,7 @@ class LoginFormFields extends GetView<LoginController> {
                     child: InputFormFieldWidget(
                       controller: controller.captchaController,
                       labelText: LocaleKeys.loginCaptcha.tr,
+                      placeholder: LocaleKeys.loginCaptchaHint.tr,
                       prefix: Icon(Icons.verified_user_outlined,
                           color: context.theme.primaryColor),
                       validator: Validatorless.multiple([
@@ -162,62 +167,51 @@ class LoginFormFields extends GetView<LoginController> {
           // 验证码输入框 (手机号或邮箱登录时显示)
           if (controller.loginType.value !=
               LocaleKeys.loginTypeUsernameValue.tr)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8).w,
-              decoration: BoxDecoration(
-                color: context.theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(20).w,
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.08),
-                  width: 0.5,
+            Row(
+              children: [
+                Expanded(
+                  child: InputFormFieldWidget(
+                    controller: controller.verifyCodeController,
+                    labelText: LocaleKeys.loginCaptcha.tr,
+                    placeholder: LocaleKeys.loginCaptchaHint.tr,
+                    prefix: Icon(Icons.verified_user_outlined,
+                        color: context.theme.primaryColor),
+                    validator: Validatorless.multiple([
+                      Validatorless.required(
+                          LocaleKeys.loginCaptchaRequired.tr),
+                      Validatorless.min(4, LocaleKeys.loginCaptchaLength.tr),
+                      Validatorless.max(6, LocaleKeys.loginCaptchaLength.tr),
+                    ]),
+                    suffix: SizedBox(
+                      width: 100.w,
+                      height: 36.w,
+                      child: ElevatedButton(
+                        onPressed: controller.getVerifyCode,
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.w),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          LocaleKeys.loginGetCaptcha.tr,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: InputFormFieldWidget(
-                      controller: controller.verifyCodeController,
-                      labelText: LocaleKeys.loginCaptcha.tr,
-                      prefix: Icon(Icons.verified_user_outlined,
-                          color: context.theme.primaryColor),
-                      validator: Validatorless.multiple([
-                        Validatorless.required(
-                            LocaleKeys.loginCaptchaRequired.tr),
-                        Validatorless.min(4, LocaleKeys.loginCaptchaLength.tr),
-                        Validatorless.max(6, LocaleKeys.loginCaptchaLength.tr),
-                      ]),
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  SizedBox(
-                    width: 100.w,
-                    height: 40.w,
-                    child: ElevatedButton(
-                      onPressed: controller.getVerifyCode,
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.w),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        LocaleKeys.loginGetCaptcha.tr,
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              ],
             ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 注册入口
           Align(
             alignment: Alignment.centerRight,
             child: const RegisterLink(),
-          ),
+          ).paddingOnly(bottom: AppSpace.card * 1.5),
         ],
       ),
     );
