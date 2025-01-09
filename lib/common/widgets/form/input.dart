@@ -58,41 +58,61 @@ class InputFormFieldWidget extends FormField<String> {
                 style: TextStyle(fontSize: 14.sp),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: theme.colorScheme.surface,
+                  fillColor: theme.colorScheme.surface.withOpacity(0.6),
                   hintText: placeholder,
-                  prefixIcon: prefix,
+                  hintStyle: TextStyle(
+                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                    fontSize: 14.sp,
+                  ),
+                  prefixIcon: prefix != null
+                      ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12.w),
+                          child: prefix,
+                        )
+                      : null,
+                  prefixIconConstraints: BoxConstraints(
+                    minWidth: 40.w,
+                    minHeight: 40.w,
+                  ),
                   suffixIcon: suffix,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.w,
+                  ),
                   isDense: true,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.primaryColor.withOpacity(0.1),
+                      color: theme.colorScheme.outline.withOpacity(0.1),
+                      width: 1,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.primaryColor.withOpacity(0.1),
+                      color: theme.colorScheme.outline.withOpacity(0.1),
+                      width: 1,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.primaryColor,
+                      color: theme.primaryColor.withOpacity(0.6),
+                      width: 1.5,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.colorScheme.error,
+                      color: theme.colorScheme.error.withOpacity(0.6),
+                      width: 1,
                     ),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
                       color: theme.colorScheme.error,
+                      width: 1.5,
                     ),
                   ),
                 ),
