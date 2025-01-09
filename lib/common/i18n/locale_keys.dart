@@ -190,6 +190,8 @@ class LocaleKeys {
   static const loginAgreementButton = "login_agreement_button";
   static const loginDisagreeButton = "login_disagree_button";
   static const loginAgreeButton = "login_agree_button";
+  static const loginUserAgreementContent = "login_user_agreement_content";
+  static const loginPrivacyPolicyContent = "login_privacy_policy_content";
 
   // 错误提示
   static const loginErrorCaptcha = "login_error_captcha";

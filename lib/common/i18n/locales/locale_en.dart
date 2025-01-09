@@ -194,6 +194,73 @@ Map<String, String> localeEn = {
   LocaleKeys.loginAgreementRead: "I have read and agree to the",
   LocaleKeys.loginAgreeButton: "Agree",
 
+  // Agreement Content
+  LocaleKeys.loginUserAgreementContent: """
+Welcome to YuGuang!
+
+This User Agreement (hereinafter referred to as "this Agreement") is the agreement between you and YuGuang regarding the use of YuGuang services.
+
+1. Service Content
+YuGuang provides social platform services including but not limited to:
+- Content creation and sharing
+- Social interaction
+- Creative exploration
+- Knowledge exchange
+
+2. User Behavior Guidelines
+2.1 Users shall comply with relevant laws and regulations when using YuGuang services.
+2.2 Users shall not post content that is illegal or infringes upon others' rights.
+2.3 Users shall respect others' intellectual property rights.
+
+3. Account Security
+3.1 Users shall properly safeguard their account passwords. Users are responsible for losses caused by improper password management.
+3.2 Users shall notify YuGuang immediately if they discover unauthorized use of their account.
+
+4. Service Changes, Interruption, or Termination
+4.1 YuGuang reserves the right to modify or interrupt services at any time.
+4.2 YuGuang has the right to terminate services if users violate this agreement.
+
+5. Other Provisions
+5.1 YuGuang reserves the right to interpret this agreement.
+5.2 Modifications to this agreement will be announced in the application.
+""",
+
+  LocaleKeys.loginPrivacyPolicyContent: """
+YuGuang Privacy Policy
+
+We value your privacy. This policy explains how we collect, use, and protect your personal information.
+
+1. Information Collection
+We collect information including:
+- Registration information (username, phone number, email, etc.)
+- Usage records
+- Device information
+- Location information (if authorized)
+
+2. Information Usage
+We use collected information for:
+- Providing and improving services
+- Personalizing user experience
+- Security protection
+- Sending service-related notifications
+
+3. Information Protection
+3.1 We use industry-standard security technology to protect your information.
+3.2 We will not use your information for purposes not stated in this policy.
+3.3 We will not share your personal information with third parties without your consent.
+
+4. Your Rights
+4.1 You can view and modify your personal information.
+4.2 You can delete your account.
+4.3 You can manage your privacy settings.
+
+5. Privacy Policy Updates
+We may modify this privacy policy from time to time and publish updated versions in the application.
+
+6. Contact Us
+If you have any questions about this privacy policy, please contact us through "Help & Feedback" in the application.
+""",
+
   // Error Messages
   LocaleKeys.loginErrorCaptcha: "Invalid verification code",
   LocaleKeys.loginErrorCaptchaRequired: "Image verification code required",

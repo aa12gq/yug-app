@@ -336,19 +336,44 @@ class LoginController extends GetxController {
                 ),
               ),
 
+              // 协议内容
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                  child: Obx(
+                    () => SingleChildScrollView(
+                      child: Text(
+                        selectedIndex.value == 0
+                            ? LocaleKeys.loginUserAgreementContent.tr
+                            : LocaleKeys.loginPrivacyPolicyContent.tr,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[700],
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
               // 按钮组
               Container(
-                padding: const EdgeInsets.all(20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
                     // 取消按钮
-                    Expanded(
+                    SizedBox(
+                      width: 100,
                       child: TextButton(
                         onPressed: () => Get.back(),
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(16),
                             side: BorderSide(
                               color: Colors.grey.withOpacity(0.3),
                             ),
@@ -357,15 +382,16 @@ class LoginController extends GetxController {
                         child: Text(
                           LocaleKeys.loginDisagreeButton.tr,
                           style: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             color: Colors.black54,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const Spacer(),
                     // 确认按钮
-                    Expanded(
+                    SizedBox(
+                      width: 100,
                       child: TextButton(
                         onPressed: () {
                           Get.back();
@@ -375,16 +401,18 @@ class LoginController extends GetxController {
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.blue,
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(16),
                           ),
                         ),
                         child: Text(
                           LocaleKeys.loginAgreementButton.tr,
                           style: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
