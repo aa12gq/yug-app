@@ -36,12 +36,144 @@ class LoginPage extends GetView<LoginController> {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: [
-                    context.theme.primaryColor.withOpacity(0.05),
-                    Colors.transparent,
+                    context.theme.primaryColor.withOpacity(0.15),
+                    Colors.white,
                   ],
+                ),
+              ),
+            ),
+
+            // 右上大圆
+            Positioned(
+              right: -100,
+              top: -100,
+              child: Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      context.theme.primaryColor.withOpacity(0.2),
+                      context.theme.primaryColor.withOpacity(0.05),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // 左下大圆
+            Positioned(
+              left: -50,
+              bottom: -50,
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      context.theme.colorScheme.secondary.withOpacity(0.2),
+                      context.theme.colorScheme.secondary.withOpacity(0.05),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // 右侧装饰线条
+            Positioned(
+              right: 60,
+              top: Get.height * 0.25,
+              child: Transform.rotate(
+                angle: 0.2,
+                child: Container(
+                  width: 3,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        context.theme.primaryColor.withOpacity(0.4),
+                        context.theme.primaryColor.withOpacity(0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // 左侧装饰线条
+            Positioned(
+              left: 40,
+              bottom: Get.height * 0.2,
+              child: Transform.rotate(
+                angle: -0.2,
+                child: Container(
+                  width: 3,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        context.theme.colorScheme.secondary.withOpacity(0.4),
+                        context.theme.colorScheme.secondary.withOpacity(0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // 装饰点1
+            Positioned(
+              right: Get.width * 0.2,
+              top: Get.height * 0.15,
+              child: Transform.rotate(
+                angle: 0.3,
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  decoration: BoxDecoration(
+                    color: context.theme.colorScheme.secondary.withOpacity(0.3),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(6),
+                      bottomLeft: Radius.circular(7),
+                      bottomRight: Radius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // 装饰点2
+            Positioned(
+              left: Get.width * 0.15,
+              bottom: Get.height * 0.3,
+              child: Transform.rotate(
+                angle: -0.4,
+                child: Container(
+                  width: 14,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color: context.theme.primaryColor.withOpacity(0.3),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(7),
+                      topRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(6),
+                      bottomRight: Radius.circular(7),
+                    ),
+                  ),
                 ),
               ),
             ),
