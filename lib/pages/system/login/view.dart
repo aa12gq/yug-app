@@ -5,6 +5,7 @@ import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 import 'package:yug_app/pages/system/login/widgets/login_form.dart';
+import 'package:yug_app/pages/system/login/widgets/about_footer.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
@@ -13,7 +14,6 @@ class LoginPage extends GetView<LoginController> {
     final items = [
       LocaleKeys.loginTypeUsernameValue.tr,
       LocaleKeys.loginTypePhoneValue.tr,
-      LocaleKeys.loginTypeEmailValue.tr,
     ];
     final currentIndex = items.indexOf(controller.loginType.value);
     if (details.primaryVelocity! < 0 && currentIndex < items.length - 1) {
@@ -526,6 +526,8 @@ class LoginPage extends GetView<LoginController> {
                       child: const LoginForm(),
                     ),
 
+                    // 关于我们
+                    const AboutFooter(),
                     SizedBox(height: Get.height * 0.01),
                   ],
                 ).paddingHorizontal(AppSpace.page * 0.6),

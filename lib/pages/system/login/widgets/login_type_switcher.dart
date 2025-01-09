@@ -26,19 +26,16 @@ class LoginTypeSwitcher extends GetView<LoginController> {
         color: Colors.transparent,
         child: InkWell(
           onTap: () => controller.switchLoginType(item['type'] as String),
-          borderRadius: BorderRadius.circular(8.w),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.w),
+            padding: EdgeInsets.symmetric(vertical: 6.w),
             decoration: BoxDecoration(
-              color: isSelected
-                  ? context.theme.primaryColor.withOpacity(0.1)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(8.w),
-              border: Border.all(
-                color: isSelected
-                    ? context.theme.primaryColor.withOpacity(0.2)
-                    : Colors.transparent,
-                width: 1,
+              border: Border(
+                bottom: BorderSide(
+                  color: isSelected
+                      ? context.theme.primaryColor
+                      : Colors.transparent,
+                  width: 2,
+                ),
               ),
             ),
             child: Row(
@@ -47,8 +44,9 @@ class LoginTypeSwitcher extends GetView<LoginController> {
               children: [
                 Icon(
                   item['icon'] as IconData,
-                  size: 18.w,
-                  color: isSelected ? context.theme.primaryColor : Colors.grey,
+                  size: 16.w,
+                  color:
+                      isSelected ? context.theme.primaryColor : Colors.black54,
                 ),
                 SizedBox(width: 4.w),
                 Text(
@@ -56,9 +54,10 @@ class LoginTypeSwitcher extends GetView<LoginController> {
                   style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight:
-                        isSelected ? FontWeight.w600 : FontWeight.normal,
-                    color:
-                        isSelected ? context.theme.primaryColor : Colors.grey,
+                        isSelected ? FontWeight.w500 : FontWeight.normal,
+                    color: isSelected
+                        ? context.theme.primaryColor
+                        : Colors.black54,
                   ),
                 ),
               ],
@@ -82,24 +81,10 @@ class LoginTypeSwitcher extends GetView<LoginController> {
         'text': LocaleKeys.loginTypePhone.tr,
         'icon': Icons.phone_android_rounded,
       },
-      {
-        'type': LocaleKeys.loginTypeEmailValue.tr,
-        'text': LocaleKeys.loginTypeEmail.tr,
-        'icon': Icons.email_outlined,
-      },
     ];
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.w),
-      padding: EdgeInsets.all(4.w),
-      decoration: BoxDecoration(
-        color: context.theme.cardColor,
-        borderRadius: BorderRadius.circular(10.w),
-        border: Border.all(
-          color: Colors.grey.withOpacity(0.1),
-          width: 1,
-        ),
-      ),
       child: Obx(() {
         final currentType = controller.loginType.value;
 

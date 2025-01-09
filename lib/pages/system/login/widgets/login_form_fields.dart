@@ -9,6 +9,7 @@ import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/common/utils/validators.dart';
 import 'package:yug_app/common/widgets/form/input.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
+import 'package:yug_app/pages/system/login/widgets/register_link.dart';
 
 class LoginFormFields extends GetView<LoginController> {
   const LoginFormFields({super.key});
@@ -17,6 +18,7 @@ class LoginFormFields extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 用户名输入框 (仅用户名密码登录时显示)
           if (controller.loginType.value ==
@@ -33,7 +35,7 @@ class LoginFormFields extends GetView<LoginController> {
                   Validatorless.max(20, LocaleKeys.loginUsernameLength.tr),
                 ]),
               ),
-            ).paddingBottom(AppSpace.listRow),
+            ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 手机号输入框 (仅手机号登录时显示)
           if (controller.loginType.value == LocaleKeys.loginTypePhoneValue.tr)
@@ -47,7 +49,7 @@ class LoginFormFields extends GetView<LoginController> {
                 Validatorless.required(LocaleKeys.loginPhoneRequired.tr),
                 Validators.phone(LocaleKeys.loginPhoneInvalid.tr),
               ]),
-            ).paddingBottom(AppSpace.listRow),
+            ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 邮箱输入框 (仅邮箱登录时显示)
           if (controller.loginType.value == LocaleKeys.loginTypeEmailValue.tr)
@@ -60,7 +62,7 @@ class LoginFormFields extends GetView<LoginController> {
                 Validatorless.required(LocaleKeys.loginEmailRequired.tr),
                 Validatorless.email(LocaleKeys.loginEmailInvalid.tr),
               ]),
-            ).paddingBottom(AppSpace.listRow),
+            ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 密码输入框 (仅用户名密码登录时显示)
           if (controller.loginType.value ==
@@ -78,7 +80,7 @@ class LoginFormFields extends GetView<LoginController> {
                   Validators.password(6, 18, LocaleKeys.loginPasswordLength.tr),
                 ]),
               ),
-            ).paddingBottom(AppSpace.listRow),
+            ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 验证码输入框 (用户名密码登录时显示)
           if (controller.loginType.value ==
@@ -155,7 +157,7 @@ class LoginFormFields extends GetView<LoginController> {
                   ),
                 ],
               ),
-            ).paddingBottom(AppSpace.listRow),
+            ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 验证码输入框 (手机号或邮箱登录时显示)
           if (controller.loginType.value !=
@@ -209,7 +211,13 @@ class LoginFormFields extends GetView<LoginController> {
                   ),
                 ],
               ),
-            ).paddingBottom(AppSpace.listRow),
+            ).paddingBottom(AppSpace.listRow * 0.5),
+
+          // 注册入口
+          Align(
+            alignment: Alignment.centerRight,
+            child: const RegisterLink(),
+          ),
         ],
       ),
     );

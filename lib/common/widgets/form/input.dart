@@ -43,7 +43,7 @@ class InputFormFieldWidget extends FormField<String> {
                 labelText,
                 style: TextStyle(
                   color: theme.colorScheme.onSurface.withOpacity(0.8),
-                  fontSize: 14.sp,
+                  fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ).paddingLeft(AppSpace.card),
@@ -55,38 +55,42 @@ class InputFormFieldWidget extends FormField<String> {
                 keyboardType: keyboardType,
                 autofocus: autofocus ?? false,
                 onChanged: onChangedHandler,
+                style: TextStyle(fontSize: 14.sp),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: theme.colorScheme.surface,
                   hintText: placeholder,
                   prefixIcon: prefix,
                   suffixIcon: suffix,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  isDense: true,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
                       color: theme.primaryColor.withOpacity(0.1),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
                       color: theme.primaryColor.withOpacity(0.1),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
                       color: theme.primaryColor,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
                       color: theme.colorScheme.error,
                     ),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
                       color: theme.colorScheme.error,
                     ),

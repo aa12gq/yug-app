@@ -19,64 +19,40 @@ class LoginForm extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.1),
-              width: 0.5,
+    return Form(
+      key: controller.formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: <Widget>[
+          // 登录类型选择
+          const LoginTypeSwitcher(),
+          SizedBox(height: 6.h),
+
+          // 登录表单
+          const LoginFormFields(),
+          SizedBox(height: 6.h),
+
+          // 用户协议勾选框
+          const AgreementCheckbox(),
+          SizedBox(height: 6.h),
+
+          // 登录按钮
+          const LoginButton(),
+          SizedBox(height: 8.h),
+
+          // OR
+          const OrDivider(),
+          SizedBox(height: 8.h),
+
+          // 社交登录按钮
+          const SocialLoginButtons(),
+
+          // end
+        ].toColumn().paddingSymmetric(
+              horizontal: AppSpace.card * 0.5,
+              vertical: AppSpace.card * 0.4,
             ),
-          ),
-          child: Form(
-            key: controller.formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: <Widget>[
-                // 登录类型选择
-                const LoginTypeSwitcher(),
-                SizedBox(height: 6.h),
-
-                // 登录表单
-                const LoginFormFields(),
-                SizedBox(height: 6.h),
-
-                // 用户协议勾选框
-                const AgreementCheckbox(),
-                SizedBox(height: 6.h),
-
-                // 登录按钮
-                const LoginButton(),
-                SizedBox(height: 8.h),
-
-                // OR
-                const OrDivider(),
-                SizedBox(height: 8.h),
-
-                // 社交登录按钮
-                const SocialLoginButtons(),
-                SizedBox(height: 8.h),
-
-                // 注册入口
-                const RegisterLink(),
-                SizedBox(height: 16.h),
-
-                // 关于我们
-                const AboutFooter(),
-
-                // end
-              ].toColumn().paddingSymmetric(
-                    horizontal: AppSpace.card * 0.5,
-                    vertical: AppSpace.card * 0.4,
-                  ),
-            ),
-          ),
-        ),
       ),
     ).paddingAll(AppSpace.card * 0.4);
   }
