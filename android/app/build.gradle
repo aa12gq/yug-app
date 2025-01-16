@@ -23,7 +23,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.vtyug.yugapp"
+        applicationId "com.vtyug.ygApp"
         minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode 1
