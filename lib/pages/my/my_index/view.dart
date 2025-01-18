@@ -604,6 +604,12 @@ class MyIndexPage extends GetView<MyIndexController> {
             onTap: () => controller.onLanguage(),
           ),
           _buildMenuItem(
+            icon: Icons.palette_outlined,
+            label: LocaleKeys.myMenuTheme.tr,
+            color: const Color(0xFFFFBE0B),
+            onTap: () => controller.onTheme(),
+          ),
+          _buildMenuItem(
             icon: Icons.notifications_outlined,
             label: LocaleKeys.myMenuNotifications.tr,
             color: const Color(0xFFFF7675),

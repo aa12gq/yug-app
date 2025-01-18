@@ -99,6 +99,7 @@ class LocaleKeys {
 
   static const myMenuRecentActivity = 'my_menu_recent_activity';
   static const myMenuLanguage = 'my_menu_language';
+  static const myMenuTheme = 'my_menu_theme';
   static const myMenuNotifications = 'my_menu_notifications';
   static const myMenuHelpFeedback = 'my_menu_help_feedback';
   static const myMenuPrivacy = 'my_menu_privacy';

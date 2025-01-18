@@ -51,6 +51,11 @@ class MyIndexController extends GetxController {
     Get.toNamed(RouteNames.myLanguage);
   }
 
+  // 主题设置
+  void onTheme() {
+    Get.toNamed(RouteNames.myTheme);
+  }
+
   // 消息通知
   void onNotifications() {
     Get.toNamed('/my/notifications');

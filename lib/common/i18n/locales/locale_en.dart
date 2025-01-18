@@ -105,6 +105,7 @@ Map<String, String> localeEn = {
 
   LocaleKeys.myMenuRecentActivity: 'Recent Activity',
   LocaleKeys.myMenuLanguage: 'Language',
+  LocaleKeys.myMenuTheme: 'Theme',
   LocaleKeys.myMenuNotifications: 'Notifications',
   LocaleKeys.myMenuHelpFeedback: 'Help & Feedback',
   LocaleKeys.myMenuPrivacy: 'Privacy',

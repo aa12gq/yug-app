@@ -19,4 +19,7 @@ class Constants {
 
   // 存储 - 设备码
   static const String storageDeviceId = 'device_id';
+
+  // 存储 - 主题颜色
+  static const String storageThemeColor = 'theme_color';
 }
