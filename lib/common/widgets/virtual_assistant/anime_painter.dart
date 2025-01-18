@@ -24,7 +24,7 @@ class AnimePainter extends CustomPainter {
     _drawFace(canvas, size, paint); // 面部
     _drawEyes(canvas, size, paint); // 眼睛
     _drawCircuits(canvas, size, paint); // 电路
-    _drawInfo(canvas, size, paint); // 信息显示
+    _drawYuiLogo(canvas, size, paint); // YUI标识
   }
 
   void _drawBackground(Canvas canvas, Size size, Paint paint) {
@@ -176,13 +176,14 @@ class AnimePainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 1;
     paint.color = const Color(0xFF00FFFF).withOpacity(0.5);
+    paint.maskFilter = null;
 
-    // 电路图案
+    // 修改电路布局，避免与标识重叠
     final Path circuitPath = Path()
-      ..moveTo(size.width * 0.3, size.height * 0.6)
-      ..lineTo(size.width * 0.4, size.height * 0.7)
-      ..moveTo(size.width * 0.7, size.height * 0.6)
-      ..lineTo(size.width * 0.6, size.height * 0.7);
+      ..moveTo(size.width * 0.3, size.height * 0.55)
+      ..lineTo(size.width * 0.4, size.height * 0.6)
+      ..moveTo(size.width * 0.7, size.height * 0.55)
+      ..lineTo(size.width * 0.6, size.height * 0.6);
 
     canvas.drawPath(circuitPath, paint);
 
@@ -192,36 +193,61 @@ class AnimePainter extends CustomPainter {
     canvas.drawCircle(
       Offset(
         size.width * (0.3 + progress * 0.4),
-        size.height * 0.6,
+        size.height * 0.55,
       ),
-      2,
+      1.5,
       paint,
     );
   }
 
-  void _drawInfo(Canvas canvas, Size size, Paint paint) {
+  void _drawYuiLogo(Canvas canvas, Size size, Paint paint) {
+    // YUI 标识
     final textStyle = TextStyle(
       color: const Color(0xFF00FFFF),
-      fontSize: size.width * 0.03,
+      fontSize: size.width * 0.08,
+      fontWeight: FontWeight.bold,
+      shadows: [
+        Shadow(
+          color: const Color(0xFF00FFFF).withOpacity(0.3),
+          blurRadius: 5,
+        ),
+      ],
     );
 
     final textPainter = TextPainter(
-      text: TextSpan(
-        text: 'YUI',
-        style: textStyle,
-      ),
+      text: TextSpan(text: 'YUI', style: textStyle),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     );
 
-    textPainter.layout(maxWidth: size.width);
+    textPainter.layout();
     textPainter.paint(
       canvas,
       Offset(
-        size.width / 2 - textPainter.width / 2,
-        size.height * 0.75,
+        size.width * 0.5 - textPainter.width / 2,
+        size.height * 0.58,
       ),
     );
+
+    // 添加装饰线条
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = 0.5;
+    paint.color = const Color(0xFF00FFFF).withOpacity(0.2);
+
+    // 左侧装饰线
+    canvas.drawLine(
+      Offset(size.width * 0.35, size.height * 0.6),
+      Offset(size.width * 0.43, size.height * 0.6),
+      paint,
+    );
+
+    // 右侧装饰线
+    canvas.drawLine(
+      Offset(size.width * 0.57, size.height * 0.6),
+      Offset(size.width * 0.65, size.height * 0.6),
+      paint,
+    );
+
   }
 
   @override
