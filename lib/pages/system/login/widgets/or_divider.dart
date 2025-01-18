@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
     return Container(
       margin: EdgeInsets.symmetric(vertical: AppSpace.listRow),
       child: Row(
@@ -21,8 +23,10 @@ class OrDivider extends StatelessWidget {
                   begin: Alignment.centerRight,
                   end: Alignment.centerLeft,
                   colors: [
-                    context.theme.dividerColor,
-                    context.theme.dividerColor.withOpacity(0),
+                    isDark
+                        ? Colors.white.withOpacity(0.2)
+                        : Colors.black.withOpacity(0.1),
+                    Colors.transparent,
                   ],
                 ),
               ),

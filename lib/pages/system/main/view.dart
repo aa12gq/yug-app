@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/pages/index.dart';
 import 'package:yug_app/common/i18n/locale_keys.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 import 'index.dart';
 
@@ -103,12 +104,14 @@ class _MainViewGetX extends GetView<MainController> {
         bottomNavigationBar: GetBuilder<MainController>(
           id: "navigation",
           builder: (controller) {
+            final isDark =
+                AdaptiveTheme.of(context).brightness == Brightness.dark;
             return BottomAppBar(
               height: 49,
               padding: EdgeInsets.zero,
               notchMargin: 5,
               shape: const CircularNotchedRectangle(),
-              color: Colors.white,
+              color: isDark ? Colors.black.withOpacity(0.3) : Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -117,12 +120,14 @@ class _MainViewGetX extends GetView<MainController> {
                     label: LocaleKeys.tabBarIsland.tr,
                     isSelected: controller.currentIndex == 0,
                     onTap: () => controller.onJumpToPage(0),
+                    isDark: isDark,
                   ),
                   _buildNavItem(
                     icon: AssetsSvgs.navMomentsSvg,
                     label: LocaleKeys.tabBarMoments.tr,
                     isSelected: controller.currentIndex == 1,
                     onTap: () => controller.onJumpToPage(1),
+                    isDark: isDark,
                   ),
                   const SizedBox(width: 80),
                   _buildNavItem(
@@ -130,12 +135,14 @@ class _MainViewGetX extends GetView<MainController> {
                     label: LocaleKeys.tabBarSocial.tr,
                     isSelected: controller.currentIndex == 3,
                     onTap: () => controller.onJumpToPage(3),
+                    isDark: isDark,
                   ),
                   _buildNavItem(
                     icon: AssetsSvgs.navProfileSvg,
                     label: LocaleKeys.tabBarProfile.tr,
                     isSelected: controller.currentIndex == 4,
                     onTap: () => controller.onJumpToPage(4),
+                    isDark: isDark,
                   ),
                 ],
               ),
@@ -163,9 +170,11 @@ class _MainViewGetX extends GetView<MainController> {
     required String label,
     required bool isSelected,
     required VoidCallback onTap,
+    required bool isDark,
   }) {
-    // 未选中状态的颜色
-    const Color unselectedColor = Color(0xFF999999);
+    // 未选中状态的颜色根据深色模式调整
+    final unselectedColor =
+        isDark ? Colors.white.withOpacity(0.5) : const Color(0xFF999999);
 
     return Material(
       color: Colors.transparent,

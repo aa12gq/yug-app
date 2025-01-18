@@ -13,7 +13,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 初始化全局设置
-  await Global.init();
+  await Get.putAsync<ConfigService>(() => ConfigService().init());
 
   runApp(const MyApp());
 }
@@ -34,16 +34,16 @@ class MyApp extends StatelessWidget {
         // 样式
         light: AppTheme.light, // 亮色主题
         dark: AppTheme.dark, // 暗色主题
-        initial: ConfigService.to.themeMode, // 初始主题
+        initial: AdaptiveThemeMode.light, // 初始主题
         debugShowFloatingThemeButton: true, // 显示主题按钮
 
         // 构建
-        builder: (theme, darkTheme) => GetMaterialApp(
+        builder: (light, dark) => GetMaterialApp(
           title: '语光',
 
           // 主题
-          theme: theme,
-          darkTheme: darkTheme,
+          theme: light,
+          darkTheme: dark,
 
           // 路由
           initialRoute: RouteNames.systemSplash,

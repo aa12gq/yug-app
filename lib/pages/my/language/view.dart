@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/common/i18n/locale_keys.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 import 'index.dart';
 
@@ -11,12 +12,13 @@ class LanguagePage extends GetView<LanguageController> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
     return GetBuilder<LanguageController>(
       init: LanguageController(),
       id: "language",
       builder: (_) {
         return Scaffold(
-          backgroundColor: const Color(0xFFF8F9FA),
+          backgroundColor: isDark ? Colors.black : const Color(0xFFF8F9FA),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.h),
             child: AppBar(
@@ -28,10 +30,15 @@ class LanguagePage extends GetView<LanguageController> {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [
-                      AppTheme.secondary,
-                      AppTheme.secondary.withOpacity(0.8),
-                    ],
+                    colors: isDark
+                        ? [
+                            AppTheme.secondary.withOpacity(0.6),
+                            AppTheme.secondary.withOpacity(0.4),
+                          ]
+                        : [
+                            AppTheme.secondary,
+                            AppTheme.secondary.withOpacity(0.8),
+                          ],
                   ),
                 ),
                 child: SafeArea(
@@ -90,16 +97,18 @@ class LanguagePage extends GetView<LanguageController> {
               Container(
                 margin: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: isDark ? Colors.black.withOpacity(0.3) : Colors.white,
                   borderRadius: BorderRadius.circular(16.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      offset: const Offset(0, 4),
-                      blurRadius: 16,
-                      spreadRadius: -2,
-                    ),
-                  ],
+                  boxShadow: isDark
+                      ? []
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.04),
+                            offset: const Offset(0, 4),
+                            blurRadius: 16,
+                            spreadRadius: -2,
+                          ),
+                        ],
                 ),
                 child: Column(
                   children: [
@@ -109,11 +118,14 @@ class LanguagePage extends GetView<LanguageController> {
                       "zh",
                       controller.currentLanguage == "zh",
                       Icons.translate_outlined,
+                      isDark,
                     ),
                     Divider(
                       height: 1,
                       thickness: 1,
-                      color: const Color(0xFFF7F7F9),
+                      color: isDark
+                          ? Colors.white.withOpacity(0.1)
+                          : const Color(0xFFF7F7F9),
                       indent: 16.w,
                       endIndent: 16.w,
                     ),
@@ -123,6 +135,7 @@ class LanguagePage extends GetView<LanguageController> {
                       "en",
                       controller.currentLanguage == "en",
                       Icons.language_outlined,
+                      isDark,
                     ),
                   ],
                 ),
@@ -134,7 +147,9 @@ class LanguagePage extends GetView<LanguageController> {
                   LocaleKeys.settingsLanguageTip.tr,
                   style: TextStyle(
                     fontSize: 12.sp,
-                    color: AppColors.secondaryText,
+                    color: isDark
+                        ? Colors.white.withOpacity(0.7)
+                        : AppColors.secondaryText,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -153,6 +168,7 @@ class LanguagePage extends GetView<LanguageController> {
     String code,
     bool isSelected,
     IconData icon,
+    bool isDark,
   ) {
     return Material(
       color: Colors.transparent,
@@ -172,14 +188,19 @@ class LanguagePage extends GetView<LanguageController> {
                 height: 40.w,
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? AppTheme.secondary.withOpacity(0.1)
-                      : const Color(0xFFF7F7F9),
+                      ? AppTheme.secondary.withOpacity(isDark ? 0.2 : 0.1)
+                      : (isDark
+                          ? Colors.white.withOpacity(0.1)
+                          : const Color(0xFFF7F7F9)),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Icon(
                   icon,
-                  color:
-                      isSelected ? AppTheme.secondary : AppColors.secondaryText,
+                  color: isSelected
+                      ? AppTheme.secondary
+                      : (isDark
+                          ? Colors.white.withOpacity(0.7)
+                          : AppColors.secondaryText),
                   size: 20.w,
                 ),
               ),
@@ -195,7 +216,7 @@ class LanguagePage extends GetView<LanguageController> {
                         fontSize: 14.sp,
                         fontWeight:
                             isSelected ? FontWeight.w600 : FontWeight.w500,
-                        color: AppColors.primaryText,
+                        color: isDark ? Colors.white : AppColors.primaryText,
                       ),
                     ),
                     SizedBox(height: 2.h),
@@ -203,7 +224,9 @@ class LanguagePage extends GetView<LanguageController> {
                       subtitle,
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: AppColors.secondaryText,
+                        color: isDark
+                            ? Colors.white.withOpacity(0.7)
+                            : AppColors.secondaryText,
                       ),
                     ),
                   ],
@@ -215,7 +238,7 @@ class LanguagePage extends GetView<LanguageController> {
                   width: 24.w,
                   height: 24.w,
                   decoration: BoxDecoration(
-                    color: AppTheme.secondary.withOpacity(0.1),
+                    color: AppTheme.secondary.withOpacity(isDark ? 0.2 : 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

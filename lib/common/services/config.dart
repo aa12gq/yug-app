@@ -8,7 +8,6 @@ import 'package:yug_app/common/utils/storage.dart';
 
 /// configuration service
 class ConfigService extends GetxController {
-  // this is a singleton
   static ConfigService get to => Get.find();
 
   PackageInfo? _platform;
@@ -19,10 +18,21 @@ class ConfigService extends GetxController {
   // 是否首次打开
   bool get isAlreadyOpen => Storage().getBool(Constants.storageAlreadyOpen);
 
-  // 主题
-  AdaptiveThemeMode themeMode = AdaptiveThemeMode.light;
-  String _themeColor = 'mint'; // 当前主题颜色
+  // 主题模式
+  late AdaptiveThemeMode themeMode;
+
+  // 主题颜色
+  String _themeColor = 'mint';
   String get themeColor => _themeColor;
+
+  // 初始化
+  Future<ConfigService> init() async {
+    await getPlatform();
+    await initTheme();
+    initLocale();
+    initThemeColor();
+    return this;
+  }
 
   @override
   void onReady() {
@@ -37,21 +47,27 @@ class ConfigService extends GetxController {
     _platform = await PackageInfo.fromPlatform();
   }
 
-  // 初始 theme
+  // 初始化主题
   Future<void> initTheme() async {
     final savedThemeMode = await AdaptiveTheme.getThemeMode();
     themeMode = savedThemeMode ?? AdaptiveThemeMode.light;
-    _applyTheme();
   }
 
-  // 应用主题
-  void _applyTheme() {
-    if (Get.context == null) return;
-
-    AdaptiveTheme.of(Get.context!).setTheme(
-      light: AppTheme.light,
-      dark: AppTheme.dark,
-    );
+  // 设置主题模式
+  Future<void> setThemeMode(String mode) async {
+    switch (mode) {
+      case 'light':
+        themeMode = AdaptiveThemeMode.light;
+        break;
+      case 'dark':
+        themeMode = AdaptiveThemeMode.dark;
+        break;
+      case 'system':
+        themeMode = AdaptiveThemeMode.system;
+        break;
+    }
+    // 保存到本地存储
+    await Storage().setString('theme_mode', mode);
   }
 
   // init locale
@@ -74,7 +90,7 @@ class ConfigService extends GetxController {
 
   // 初始化主题颜色
   void initThemeColor() {
-    var savedColor = Storage().getString(Constants.storageThemeColor);
+    var savedColor = Storage().getString('theme_color');
     _themeColor = savedColor.isEmpty ? 'mint' : savedColor;
     _applyTheme();
   }
@@ -82,39 +98,18 @@ class ConfigService extends GetxController {
   // 设置主题颜色
   Future<void> setThemeColor(String colorKey) async {
     _themeColor = colorKey;
-    Storage().setString(Constants.storageThemeColor, colorKey);
+    await Storage().setString('theme_color', colorKey);
     _applyTheme();
     update();
   }
 
-  // 切换 theme
-  Future<void> setThemeMode(String themeKey) async {
+  // 应用主题
+  void _applyTheme() {
     if (Get.context == null) return;
-
-    switch (themeKey) {
-      case "light":
-        AdaptiveTheme.of(Get.context!).setTheme(
-          light: AppTheme.light,
-          dark: AppTheme.dark,
-        );
-        themeMode = AdaptiveThemeMode.light;
-        break;
-      case "dark":
-        AdaptiveTheme.of(Get.context!).setTheme(
-          light: AppTheme.light,
-          dark: AppTheme.dark,
-        );
-        themeMode = AdaptiveThemeMode.dark;
-        break;
-      case "system":
-        AdaptiveTheme.of(Get.context!).setTheme(
-          light: AppTheme.light,
-          dark: AppTheme.dark,
-        );
-        themeMode = AdaptiveThemeMode.system;
-        break;
-    }
-    update();
+    AdaptiveTheme.of(Get.context!).setTheme(
+      light: AppTheme.light,
+      dark: AppTheme.dark,
+    );
   }
 
   // 标记已打开app

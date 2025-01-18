@@ -22,4 +22,7 @@ class Constants {
 
   // 存储 - 主题颜色
   static const String storageThemeColor = 'theme_color';
+
+  // 主题
+  static const String storageThemeMode = 'theme_mode';
 }

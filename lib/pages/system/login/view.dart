@@ -7,6 +7,7 @@ import 'package:yug_app/pages/system/login/controller.dart';
 import 'package:yug_app/pages/system/login/widgets/login_form.dart';
 import 'package:yug_app/pages/system/login/widgets/about_footer.dart';
 import 'package:yug_app/common/style/theme.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
@@ -28,8 +29,9 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      resizeToAvoidBottomInset: false, // 防止键盘弹出时页面被顶起
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onHorizontalDragEnd: _handleSwipe,
         child: Stack(
@@ -40,10 +42,15 @@ class LoginPage extends GetView<LoginController> {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    AppTheme.primary.withOpacity(0.3),
-                    AppTheme.primary.withOpacity(0.05),
-                  ],
+                  colors: isDark
+                      ? [
+                          AppTheme.primary.withOpacity(0.2),
+                          Colors.black.withOpacity(0.8),
+                        ]
+                      : [
+                          AppTheme.primary.withOpacity(0.3),
+                          AppTheme.primary.withOpacity(0.05),
+                        ],
                 ),
               ),
             ),
@@ -60,10 +67,15 @@ class LoginPage extends GetView<LoginController> {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [
-                      AppTheme.primary.withOpacity(0.4),
-                      AppTheme.primary.withOpacity(0.1),
-                    ],
+                    colors: isDark
+                        ? [
+                            AppTheme.primary.withOpacity(0.3),
+                            Colors.black.withOpacity(0.3),
+                          ]
+                        : [
+                            AppTheme.primary.withOpacity(0.4),
+                            AppTheme.primary.withOpacity(0.1),
+                          ],
                   ),
                 ),
               ),

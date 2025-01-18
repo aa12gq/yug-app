@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yug_app/common/index.dart';
 import 'package:yug_app/common/i18n/locale_keys.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 import 'index.dart';
 
@@ -11,6 +12,7 @@ class MyIndexPage extends GetView<MyIndexController> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
     return GetBuilder<MyIndexController>(
       init: MyIndexController(),
       id: "my_index",
@@ -24,13 +26,21 @@ class MyIndexPage extends GetView<MyIndexController> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: const [0.0, 0.3, 0.6, 0.8, 1.0],
-                    colors: [
-                      AppTheme.primary,
-                      AppTheme.primary.withOpacity(0.8),
-                      AppTheme.secondary.withOpacity(0.5),
-                      Colors.white.withOpacity(0.8),
-                      Colors.white,
-                    ],
+                    colors: isDark
+                        ? [
+                            AppTheme.primary.withOpacity(0.8),
+                            AppTheme.primary.withOpacity(0.6),
+                            Colors.black.withOpacity(0.5),
+                            Colors.black.withOpacity(0.8),
+                            Colors.black,
+                          ]
+                        : [
+                            AppTheme.primary,
+                            AppTheme.primary.withOpacity(0.8),
+                            AppTheme.secondary.withOpacity(0.5),
+                            Colors.white.withOpacity(0.8),
+                            Colors.white,
+                          ],
                   ),
                 ),
                 child: SafeArea(
@@ -339,59 +349,71 @@ class MyIndexPage extends GetView<MyIndexController> {
 
   // 构建用户统计
   Widget _buildUserStats() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
-      padding: EdgeInsets.symmetric(vertical: 12.h),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.2),
-          width: 1,
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return Container(
+        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+        padding: EdgeInsets.symmetric(vertical: 12.h),
+        decoration: BoxDecoration(
+          color: isDark
+              ? Colors.black.withOpacity(0.3)
+              : Colors.white.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withOpacity(0.1)
+                : Colors.white.withOpacity(0.2),
+            width: 1,
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildStatItem(
-              LocaleKeys.myStatsFollowing.tr, "12", const Color(0xFF6C5CE7)),
-          _buildDivider(),
-          _buildStatItem(
-              LocaleKeys.myStatsFollowers.tr, "36", const Color(0xFFFF6B6B)),
-          _buildDivider(),
-          _buildStatItem(
-              LocaleKeys.myStatsLikes.tr, "258", const Color(0xFF00B894)),
-          _buildDivider(),
-          _buildStatItem(
-              LocaleKeys.myStatsFavorites.tr, "46", const Color(0xFFFFBE0B)),
-        ],
-      ),
-    );
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildStatItem(
+                LocaleKeys.myStatsFollowing.tr, "12", const Color(0xFF6C5CE7)),
+            _buildDivider(),
+            _buildStatItem(
+                LocaleKeys.myStatsFollowers.tr, "36", const Color(0xFFFF6B6B)),
+            _buildDivider(),
+            _buildStatItem(
+                LocaleKeys.myStatsLikes.tr, "258", const Color(0xFF00B894)),
+            _buildDivider(),
+            _buildStatItem(
+                LocaleKeys.myStatsFavorites.tr, "46", const Color(0xFFFFBE0B)),
+          ],
+        ),
+      );
+    });
   }
 
   // 构建统计项
   Widget _buildStatItem(String label, String value, Color color) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            color: color,
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              color: isDark ? color.withOpacity(0.9) : color,
+            ),
           ),
-        ),
-        SizedBox(height: 4.h),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11.sp,
-            color: AppColors.primaryText.withOpacity(0.7),
+          SizedBox(height: 4.h),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11.sp,
+              color: isDark
+                  ? Colors.white.withOpacity(0.7)
+                  : AppColors.primaryText.withOpacity(0.7),
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   // 构建分隔线
@@ -405,65 +427,72 @@ class MyIndexPage extends GetView<MyIndexController> {
 
   // 构建菜单部分
   Widget _buildMenuSection() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.2),
-          width: 1,
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return Container(
+        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+        decoration: BoxDecoration(
+          color: isDark
+              ? Colors.white.withOpacity(0.1)
+              : Colors.white.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withOpacity(0.1)
+                : Colors.white.withOpacity(0.2),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(isDark ? 0.3 : 0.02),
+              offset: const Offset(0, 8),
+              blurRadius: 16,
+            ),
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            offset: const Offset(0, 8),
-            blurRadius: 16,
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          _buildMenuItem(
-            icon: Icons.local_activity_outlined,
-            label: LocaleKeys.myMenuRecentActivity.tr,
-            color: const Color(0xFF6C5CE7),
-            onTap: () => controller.onViewAllActivities(),
-          ),
-          _buildMenuItem(
-            icon: Icons.language_outlined,
-            label: LocaleKeys.myMenuLanguage.tr,
-            color: const Color(0xFF00B894),
-            onTap: () => controller.onLanguage(),
-          ),
-          _buildMenuItem(
-            icon: Icons.palette_outlined,
-            label: LocaleKeys.myMenuTheme.tr,
-            color: const Color(0xFFFFBE0B),
-            onTap: () => controller.onTheme(),
-          ),
-          _buildMenuItem(
-            icon: Icons.notifications_outlined,
-            label: LocaleKeys.myMenuNotifications.tr,
-            color: const Color(0xFFFF7675),
-            onTap: () => controller.onNotifications(),
-          ),
-          _buildMenuItem(
-            icon: Icons.help_outline,
-            label: LocaleKeys.myMenuHelpFeedback.tr,
-            color: const Color(0xFF74B9FF),
-            onTap: () => controller.onHelpAndFeedback(),
-          ),
-          _buildMenuItem(
-            icon: Icons.security_outlined,
-            label: LocaleKeys.myMenuPrivacy.tr,
-            color: const Color(0xFF74B9FF),
-            onTap: () => controller.onPrivacy(),
-            showDivider: false,
-          ),
-        ],
-      ),
-    );
+        child: Column(
+          children: [
+            _buildMenuItem(
+              icon: Icons.local_activity_outlined,
+              label: LocaleKeys.myMenuRecentActivity.tr,
+              color: const Color(0xFF6C5CE7),
+              onTap: () => controller.onViewAllActivities(),
+            ),
+            _buildMenuItem(
+              icon: Icons.language_outlined,
+              label: LocaleKeys.myMenuLanguage.tr,
+              color: const Color(0xFF00B894),
+              onTap: () => controller.onLanguage(),
+            ),
+            _buildMenuItem(
+              icon: Icons.palette_outlined,
+              label: LocaleKeys.myMenuTheme.tr,
+              color: const Color(0xFFFFBE0B),
+              onTap: () => controller.onTheme(),
+            ),
+            _buildMenuItem(
+              icon: Icons.notifications_outlined,
+              label: LocaleKeys.myMenuNotifications.tr,
+              color: const Color(0xFFFF7675),
+              onTap: () => controller.onNotifications(),
+            ),
+            _buildMenuItem(
+              icon: Icons.help_outline,
+              label: LocaleKeys.myMenuHelpFeedback.tr,
+              color: const Color(0xFF74B9FF),
+              onTap: () => controller.onHelpAndFeedback(),
+            ),
+            _buildMenuItem(
+              icon: Icons.security_outlined,
+              label: LocaleKeys.myMenuPrivacy.tr,
+              color: const Color(0xFF74B9FF),
+              onTap: () => controller.onPrivacy(),
+              showDivider: false,
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   // 菜单项
@@ -474,83 +503,87 @@ class MyIndexPage extends GetView<MyIndexController> {
     required VoidCallback onTap,
     bool showDivider = true,
   }) {
-    return Column(
-      children: [
-        ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-          leading: Container(
-            width: 32.w,
-            height: 32.w,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  color.withOpacity(0.1),
-                  color.withOpacity(0.05),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(
-                color: color.withOpacity(0.1),
-                width: 1,
-              ),
-            ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 16.w,
-            ),
-          ),
-          title: Text(
-            label,
-            style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.primaryText,
-              letterSpacing: 0.3,
-            ),
-          ),
-          trailing: Container(
-            width: 24.w,
-            height: 24.w,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  color.withOpacity(0.1),
-                  color.withOpacity(0.05),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Icon(
-              Icons.arrow_forward_ios,
-              size: 10.w,
-              color: color,
-            ),
-          ),
-          onTap: onTap,
-        ),
-        if (showDivider)
-          Padding(
-            padding: EdgeInsets.only(left: 64.w, right: 16.w),
-            child: Container(
-              height: 1,
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return Column(
+        children: [
+          ListTile(
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+            leading: Container(
+              width: 32.w,
+              height: 32.w,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: [
-                    Colors.grey.withOpacity(0),
-                    Colors.grey.withOpacity(0.1),
-                    Colors.grey.withOpacity(0),
+                    color.withOpacity(isDark ? 0.2 : 0.1),
+                    color.withOpacity(isDark ? 0.1 : 0.05),
                   ],
+                ),
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(
+                  color: color.withOpacity(isDark ? 0.2 : 0.1),
+                  width: 1,
+                ),
+              ),
+              child: Icon(
+                icon,
+                color: isDark ? color.withOpacity(0.9) : color,
+                size: 16.w,
+              ),
+            ),
+            title: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w500,
+                color: isDark ? Colors.white : AppColors.primaryText,
+                letterSpacing: 0.3,
+              ),
+            ),
+            trailing: Container(
+              width: 24.w,
+              height: 24.w,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    color.withOpacity(0.1),
+                    color.withOpacity(0.05),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                size: 10.w,
+                color: color,
+              ),
+            ),
+            onTap: onTap,
+          ),
+          if (showDivider)
+            Padding(
+              padding: EdgeInsets.only(left: 64.w, right: 16.w),
+              child: Container(
+                height: 1,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.grey.withOpacity(0),
+                      Colors.grey.withOpacity(isDark ? 0.2 : 0.1),
+                      Colors.grey.withOpacity(0),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   // 构建关于部分
@@ -653,78 +686,85 @@ class MyIndexPage extends GetView<MyIndexController> {
 
   // 构建快捷操作
   Widget _buildQuickActions() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 6.h, 16.w, 12.h),
-      padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.2),
-          width: 1,
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return Container(
+        margin: EdgeInsets.fromLTRB(16.w, 6.h, 16.w, 12.h),
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
+        decoration: BoxDecoration(
+          color: isDark
+              ? Colors.black.withOpacity(0.3)
+              : Colors.white.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withOpacity(0.1)
+                : Colors.white.withOpacity(0.2),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(isDark ? 0.2 : 0.02),
+              offset: const Offset(0, 8),
+              blurRadius: 16,
+            ),
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            offset: const Offset(0, 8),
-            blurRadius: 16,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildQuickActionItem(
-            icon: Icons.favorite_border,
-            label: LocaleKeys.myQuickFavorites.tr,
-            color: const Color(0xFFFF6B6B),
-            onTap: () => controller.onFavorites(),
-          ),
-          Container(
-            height: 30.h,
-            width: 1,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.grey.withOpacity(0),
-                  Colors.grey.withOpacity(0.1),
-                  Colors.grey.withOpacity(0),
-                ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildQuickActionItem(
+              icon: Icons.favorite_border,
+              label: LocaleKeys.myQuickFavorites.tr,
+              color: const Color(0xFFFF6B6B),
+              onTap: () => controller.onFavorites(),
+            ),
+            Container(
+              height: 30.h,
+              width: 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.grey.withOpacity(0),
+                    Colors.grey.withOpacity(0.1),
+                    Colors.grey.withOpacity(0),
+                  ],
+                ),
               ),
             ),
-          ),
-          _buildQuickActionItem(
-            icon: Icons.history,
-            label: LocaleKeys.myQuickHistory.tr,
-            color: const Color(0xFF4ECDC4),
-            onTap: () => controller.onHistory(),
-          ),
-          Container(
-            height: 30.h,
-            width: 1,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.grey.withOpacity(0),
-                  Colors.grey.withOpacity(0.1),
-                  Colors.grey.withOpacity(0),
-                ],
+            _buildQuickActionItem(
+              icon: Icons.history,
+              label: LocaleKeys.myQuickHistory.tr,
+              color: const Color(0xFF4ECDC4),
+              onTap: () => controller.onHistory(),
+            ),
+            Container(
+              height: 30.h,
+              width: 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.grey.withOpacity(0),
+                    Colors.grey.withOpacity(0.1),
+                    Colors.grey.withOpacity(0),
+                  ],
+                ),
               ),
             ),
-          ),
-          _buildQuickActionItem(
-            icon: Icons.star_border,
-            label: LocaleKeys.myQuickWorks.tr,
-            color: const Color(0xFFFFBE0B),
-            onTap: () => controller.onWorks(),
-          ),
-        ],
-      ),
-    );
+            _buildQuickActionItem(
+              icon: Icons.star_border,
+              label: LocaleKeys.myQuickWorks.tr,
+              color: const Color(0xFFFFBE0B),
+              onTap: () => controller.onWorks(),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   // 快捷操作项
@@ -734,51 +774,56 @@ class MyIndexPage extends GetView<MyIndexController> {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 60.w,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40.w,
-              height: 40.w,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    color.withOpacity(0.1),
-                    color.withOpacity(0.05),
-                  ],
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 60.w,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40.w,
+                height: 40.w,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      color.withOpacity(isDark ? 0.2 : 0.1),
+                      color.withOpacity(isDark ? 0.1 : 0.05),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: color.withOpacity(isDark ? 0.2 : 0.1),
+                    width: 1,
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  color: color.withOpacity(0.1),
-                  width: 1,
+                child: Icon(
+                  icon,
+                  color: isDark ? color.withOpacity(0.9) : color,
+                  size: 20.w,
                 ),
               ),
-              child: Icon(
-                icon,
-                color: color,
-                size: 20.w,
+              SizedBox(height: 6.h),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.w500,
+                  color: isDark
+                      ? Colors.white.withOpacity(0.9)
+                      : AppColors.primaryText,
+                  height: 1,
+                ),
               ),
-            ),
-            SizedBox(height: 6.h),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.primaryText,
-                height: 1,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   // 构建成就标签
