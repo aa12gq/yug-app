@@ -51,11 +51,11 @@ class _MainViewGetX extends GetView<MainController> {
       child: Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
-        floatingActionButton: Container(
+        floatingActionButton: SizedBox(
           height: 56,
           width: 56,
           child: FloatingActionButton(
-            backgroundColor: const Color(0xFF88C9C9),
+            backgroundColor: AppTheme.primary,
             elevation: 2,
             shape: const CircleBorder(),
             child: Column(
@@ -64,21 +64,21 @@ class _MainViewGetX extends GetView<MainController> {
                 Container(
                   width: 24,
                   height: 24,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Color(0xFF88C9C9),
-                        Color(0xFF6BAFAF),
+                        AppTheme.primary,
+                        AppTheme.primary.withOpacity(0.8),
                       ],
                     ),
                   ),
                   child: Center(
                     child: Text(
                       LocaleKeys.tabBarAiChat.tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -89,7 +89,7 @@ class _MainViewGetX extends GetView<MainController> {
                 const SizedBox(height: 2),
                 Text(
                   LocaleKeys.tabBarAiChatLabel.tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
                   ),
@@ -164,13 +164,16 @@ class _MainViewGetX extends GetView<MainController> {
     required bool isSelected,
     required VoidCallback onTap,
   }) {
+    // 未选中状态的颜色
+    const Color unselectedColor = Color(0xFF999999);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         customBorder: const CircleBorder(),
-        splashColor: const Color(0xFF88C9C9).withOpacity(0.2),
-        highlightColor: const Color(0xFF88C9C9).withOpacity(0.1),
+        splashColor: AppTheme.primary.withOpacity(0.2),
+        highlightColor: AppTheme.primary.withOpacity(0.1),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Column(
@@ -181,9 +184,7 @@ class _MainViewGetX extends GetView<MainController> {
                 width: 20,
                 height: 20,
                 colorFilter: ColorFilter.mode(
-                  isSelected
-                      ? const Color(0xFF88C9C9)
-                      : const Color(0xFFB8DADA),
+                  isSelected ? AppTheme.primary : unselectedColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -192,9 +193,8 @@ class _MainViewGetX extends GetView<MainController> {
                 label,
                 style: TextStyle(
                   fontSize: 10,
-                  color: isSelected
-                      ? const Color(0xFF88C9C9)
-                      : const Color(0xFFB8DADA),
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+                  color: isSelected ? AppTheme.primary : unselectedColor,
                 ),
               ),
             ],
