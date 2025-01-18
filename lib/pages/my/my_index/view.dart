@@ -33,42 +33,147 @@ class MyIndexPage extends GetView<MyIndexController> {
             ),
             child: Stack(
               children: [
-                // 装饰效果1 - 顶部波浪装饰
+                // 装饰效果1 - 顶部大圆形光晕
                 Positioned(
-                  top: -100.h,
-                  left: -50.w,
-                  right: -50.w,
+                  top: -180.h,
+                  right: -120.w,
                   child: Container(
-                    height: 300.h,
+                    width: 500.w,
+                    height: 500.w,
                     decoration: BoxDecoration(
                       gradient: RadialGradient(
-                        center: Alignment.topCenter,
-                        radius: 1.0,
                         colors: [
-                          Colors.white.withOpacity(0.15),
-                          Colors.white.withOpacity(0),
+                          AppTheme.primary.withOpacity(0.3),
+                          Colors.transparent,
+                        ],
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+
+                // 装饰效果2 - 左上角装饰
+                Positioned(
+                  top: 30.h,
+                  left: -80.w,
+                  child: Container(
+                    width: 300.w,
+                    height: 300.w,
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: [
+                          Colors.white.withOpacity(0.25),
+                          Colors.transparent,
+                        ],
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+
+                // 装饰效果3 - 波浪形状
+                Positioned(
+                  top: 80.h,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 400.h,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AppTheme.secondary.withOpacity(0.3),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                    child: Stack(
+                      children: List.generate(6, (index) {
+                        return Positioned(
+                          left: -150.w + (index * 100.w),
+                          top: index * 60.h,
+                          child: Transform.rotate(
+                            angle: index * 0.3,
+                            child: Container(
+                              width: 300.w,
+                              height: 100.h,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.15),
+                                    Colors.transparent,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(150.r),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ),
+
+                // 装饰效果4 - 右侧装饰
+                Positioned(
+                  right: -50.w,
+                  top: 150.h,
+                  child: Container(
+                    width: 200.w,
+                    height: 400.h,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppTheme.primary.withOpacity(0.3),
+                          Colors.transparent,
                         ],
                       ),
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(300.r),
-                        bottomRight: Radius.circular(300.r),
+                        topLeft: Radius.circular(200.r),
+                        bottomLeft: Radius.circular(200.r),
                       ),
                     ),
                   ),
                 ),
 
-                // 装饰效果2 - 右上角圆形装饰
+                // 装饰效果5 - 漂浮的小圆点
+                ...List.generate(12, (index) {
+                  return Positioned(
+                    left: (index * 60).w,
+                    top: (80 + index * 50).h,
+                    child: Container(
+                      width: (index % 3 + 1) * 6.w,
+                      height: (index % 3 + 1) * 6.w,
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.4),
+                            Colors.transparent,
+                          ],
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  );
+                }),
+
+                // 装饰效果6 - 中部光晕
                 Positioned(
-                  right: -80.w,
-                  top: 100.h,
+                  left: 50.w,
+                  top: 250.h,
                   child: Container(
-                    width: 200.w,
-                    height: 200.w,
+                    width: 250.w,
+                    height: 250.w,
                     decoration: BoxDecoration(
                       gradient: RadialGradient(
                         colors: [
-                          Colors.white.withOpacity(0.2),
-                          Colors.white.withOpacity(0),
+                          AppTheme.secondary.withOpacity(0.2),
+                          Colors.transparent,
                         ],
                       ),
                       shape: BoxShape.circle,
@@ -83,32 +188,17 @@ class MyIndexPage extends GetView<MyIndexController> {
                       _buildUserInfo(),
                       SizedBox(height: 8.h),
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.3),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32.r),
-                              topRight: Radius.circular(32.r),
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(32.r),
-                              topRight: Radius.circular(32.r),
-                            ),
-                            child: ListView(
-                              physics: const BouncingScrollPhysics(),
-                              padding: EdgeInsets.zero,
-                              children: [
-                                SizedBox(height: 16.h),
-                                _buildUserStats(),
-                                _buildQuickActions(),
-                                _buildMenuSection(),
-                                _buildAboutSection(),
-                                SizedBox(height: 16.h),
-                              ],
-                            ),
-                          ),
+                        child: ListView(
+                          physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          children: [
+                            SizedBox(height: 16.h),
+                            _buildUserStats(),
+                            _buildQuickActions(),
+                            _buildMenuSection(),
+                            _buildAboutSection(),
+                            SizedBox(height: 16.h),
+                          ],
                         ),
                       ),
                     ],
@@ -125,7 +215,7 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建用户信息
   Widget _buildUserInfo() {
     return Container(
-      padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 16.h),
+      padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 12.h),
       child: Column(
         children: [
           // 顶部操作栏
@@ -133,23 +223,23 @@ class MyIndexPage extends GetView<MyIndexController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(20.r),
+                  borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Row(
                   children: [
                     Icon(
                       Icons.auto_awesome,
                       color: Colors.white,
-                      size: 16.w,
+                      size: 14.w,
                     ),
-                    SizedBox(width: 6.w),
+                    SizedBox(width: 4.w),
                     Text(
                       LocaleKeys.myTitle.tr,
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
@@ -161,72 +251,229 @@ class MyIndexPage extends GetView<MyIndexController> {
                 children: [
                   _buildIconButton(Icons.notifications_outlined,
                       () => controller.onNotifications()),
-                  SizedBox(width: 8.w),
+                  SizedBox(width: 6.w),
                   _buildIconButton(
                       Icons.settings_outlined, () => controller.onSettings()),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 16.h),
+          SizedBox(height: 12.h),
           // 个人资料卡片
           GestureDetector(
             onTap: () => controller.onEditProfile(),
-            child: Container(
-              padding: EdgeInsets.all(16.w),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.2),
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 60.w,
-                    height: 60.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2,
+            child: Row(
+              children: [
+                // 头像部分
+                Stack(
+                  children: [
+                    Container(
+                      width: 48.w,
+                      height: 48.w,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.3),
+                            Colors.white.withOpacity(0.1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Stack(
+                        children: [
+                          // 头像
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16.r),
+                            child: Image.network(
+                              "https://avatars.githubusercontent.com/u/24516654",
+                              width: 48.w,
+                              height: 48.w,
+                              fit: BoxFit.cover,
+                              // 加载时显示占位
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: Icon(
+                                    Icons.person_rounded,
+                                    color: Colors.white,
+                                    size: 26.w,
+                                  ),
+                                );
+                              },
+                              // 加载失败时显示默认头像
+                              errorBuilder: (context, error, stackTrace) {
+                                return Center(
+                                  child: Icon(
+                                    Icons.person_rounded,
+                                    color: Colors.white,
+                                    size: 26.w,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          // 右下角的等级标记
+                          Positioned(
+                            right: -1,
+                            bottom: -1,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 4.w, vertical: 2.h),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFBE0B),
+                                borderRadius: BorderRadius.circular(6.r),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Text(
+                                "Lv.5",
+                                style: TextStyle(
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Icon(
-                      Icons.person_rounded,
-                      color: Colors.white,
-                      size: 32.w,
-                    ),
-                  ),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "用户名",
+                    // 左上角的VIP标记
+                    Positioned(
+                      left: -2,
+                      top: -2,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 4.w, vertical: 2.h),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              const Color(0xFFFF6B6B),
+                              const Color(0xFFFF6B6B).withOpacity(0.8),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(6.r),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Text(
+                          "VIP",
                           style: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 8.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 4.h),
-                        Text(
-                          "编辑个人资料 >",
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.white.withOpacity(0.8),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
+                  ],
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "用户名",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(width: 6.w),
+                          // 认证标记
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 4.w, vertical: 2.h),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF00B894).withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.verified_user,
+                                  color: const Color(0xFF00B894),
+                                  size: 10.w,
+                                ),
+                                SizedBox(width: 2.w),
+                                Text(
+                                  "已认证",
+                                  style: TextStyle(
+                                    fontSize: 8.sp,
+                                    color: const Color(0xFF00B894),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 4.h),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 6.w, vertical: 2.h),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: const Color(0xFFFFBE0B),
+                                  size: 10.w,
+                                ),
+                                SizedBox(width: 2.w),
+                                Text(
+                                  "创作者",
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    color: Colors.white.withOpacity(0.9),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 6.w),
+                          Text(
+                            "编辑资料 >",
+                            style: TextStyle(
+                              fontSize: 11.sp,
+                              color: Colors.white.withOpacity(0.8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -239,10 +486,10 @@ class MyIndexPage extends GetView<MyIndexController> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(8.w),
+        padding: EdgeInsets.all(6.w),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: Colors.white.withOpacity(0.2),
             width: 1,
@@ -251,7 +498,7 @@ class MyIndexPage extends GetView<MyIndexController> {
         child: Icon(
           icon,
           color: Colors.white,
-          size: 18.w,
+          size: 16.w,
         ),
       ),
     );
@@ -260,22 +507,15 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建用户统计
   Widget _buildUserStats() {
     return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-      padding: EdgeInsets.symmetric(vertical: 16.h),
+      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
           width: 1,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            offset: const Offset(0, 8),
-            blurRadius: 16,
-          ),
-        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -304,7 +544,7 @@ class MyIndexPage extends GetView<MyIndexController> {
         Text(
           value,
           style: TextStyle(
-            fontSize: 20.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold,
             color: color,
           ),
@@ -313,8 +553,8 @@ class MyIndexPage extends GetView<MyIndexController> {
         Text(
           label,
           style: TextStyle(
-            fontSize: 12.sp,
-            color: AppColors.secondaryText,
+            fontSize: 11.sp,
+            color: AppColors.primaryText.withOpacity(0.7),
           ),
         ),
       ],
@@ -324,7 +564,7 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建分隔线
   Widget _buildDivider() {
     return Container(
-      height: 24.h,
+      height: 20.h,
       width: 1,
       color: Colors.grey.withOpacity(0.2),
     );
@@ -333,10 +573,10 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建菜单部分
   Widget _buildMenuSection() {
     return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
           width: 1,
@@ -398,10 +638,10 @@ class MyIndexPage extends GetView<MyIndexController> {
     return Column(
       children: [
         ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
           leading: Container(
-            width: 40.w,
-            height: 40.w,
+            width: 32.w,
+            height: 32.w,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -411,7 +651,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                   color.withOpacity(0.05),
                 ],
               ),
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(10.r),
               border: Border.all(
                 color: color.withOpacity(0.1),
                 width: 1,
@@ -420,21 +660,21 @@ class MyIndexPage extends GetView<MyIndexController> {
             child: Icon(
               icon,
               color: color,
-              size: 20.w,
+              size: 16.w,
             ),
           ),
           title: Text(
             label,
             style: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 13.sp,
               fontWeight: FontWeight.w500,
               color: AppColors.primaryText,
               letterSpacing: 0.3,
             ),
           ),
           trailing: Container(
-            width: 28.w,
-            height: 28.w,
+            width: 24.w,
+            height: 24.w,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -448,7 +688,7 @@ class MyIndexPage extends GetView<MyIndexController> {
             ),
             child: Icon(
               Icons.arrow_forward_ios,
-              size: 12.w,
+              size: 10.w,
               color: color,
             ),
           ),
@@ -456,7 +696,7 @@ class MyIndexPage extends GetView<MyIndexController> {
         ),
         if (showDivider)
           Padding(
-            padding: EdgeInsets.only(left: 75.w, right: 20.w),
+            padding: EdgeInsets.only(left: 64.w, right: 16.w),
             child: Container(
               height: 1,
               decoration: BoxDecoration(
@@ -477,11 +717,11 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建关于部分
   Widget _buildAboutSection() {
     return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-      padding: EdgeInsets.all(16.w),
+      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
           width: 1,
@@ -575,11 +815,11 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建快捷操作
   Widget _buildQuickActions() {
     return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 16.h),
-      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 12.w),
+      margin: EdgeInsets.fromLTRB(16.w, 6.h, 16.w, 12.h),
+      padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
           width: 1,
@@ -602,7 +842,7 @@ class MyIndexPage extends GetView<MyIndexController> {
             onTap: () => controller.onFavorites(),
           ),
           Container(
-            height: 35.h,
+            height: 30.h,
             width: 1,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -623,7 +863,7 @@ class MyIndexPage extends GetView<MyIndexController> {
             onTap: () => controller.onHistory(),
           ),
           Container(
-            height: 35.h,
+            height: 30.h,
             width: 1,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -658,13 +898,13 @@ class MyIndexPage extends GetView<MyIndexController> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 70.w,
+        width: 60.w,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 48.w,
-              height: 48.w,
+              width: 40.w,
+              height: 40.w,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -674,7 +914,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                     color.withOpacity(0.05),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(15.r),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: color.withOpacity(0.1),
                   width: 1,
@@ -683,14 +923,14 @@ class MyIndexPage extends GetView<MyIndexController> {
               child: Icon(
                 icon,
                 color: color,
-                size: 22.w,
+                size: 20.w,
               ),
             ),
-            SizedBox(height: 8.h),
+            SizedBox(height: 6.h),
             Text(
               label,
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 11.sp,
                 fontWeight: FontWeight.w500,
                 color: AppColors.primaryText,
                 height: 1,
