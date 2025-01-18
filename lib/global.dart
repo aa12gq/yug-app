@@ -30,9 +30,9 @@ class Global {
     Get.put<UserService>(UserService()); // 用户服务（核心服务，需要全局初始化）
 
     // 初始化语言
-    String? languageCode =
-        await Storage().getString(Constants.storageLanguageCode);
-    if (languageCode != null) {
+    String languageCode =
+        await Storage().getString(Constants.storageLanguageCode) ?? 'zh';
+    if (languageCode.isNotEmpty) {
       Get.updateLocale(Locale(languageCode));
     }
   }
