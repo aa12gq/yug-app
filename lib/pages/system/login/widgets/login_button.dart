@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
+import 'package:yug_app/common/style/theme.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 
 class LoginButton extends GetView<LoginController> {
@@ -33,25 +34,26 @@ class LoginButton extends GetView<LoginController> {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
                         colors: [
-                          context.theme.primaryColor.withOpacity(0.9),
-                          context.theme.colorScheme.secondary,
+                          AppTheme.primary,
+                          Color.lerp(AppTheme.primary, Colors.white, 0.3) ??
+                              AppTheme.primary,
+                          AppTheme.primary,
                         ],
-                        stops: const [0.2, 0.9],
+                        stops: const [0.0, 0.5, 1.0],
                       ),
                       borderRadius: BorderRadius.circular(22.w),
                       boxShadow: [
                         BoxShadow(
-                          color: context.theme.primaryColor.withOpacity(0.3),
+                          color: AppTheme.primary.withOpacity(0.3),
                           blurRadius: 12,
                           offset: const Offset(0, 6),
                           spreadRadius: 1,
                         ),
                         BoxShadow(
-                          color: context.theme.colorScheme.secondary
-                              .withOpacity(0.2),
+                          color: AppTheme.secondary.withOpacity(0.2),
                           blurRadius: 6,
                           offset: const Offset(0, 3),
                         ),

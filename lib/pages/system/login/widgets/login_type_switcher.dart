@@ -5,6 +5,7 @@ import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/space.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 import 'dart:math' as math;
+import 'package:yug_app/common/style/theme.dart';
 
 // 波浪线画笔
 class WavyPainter extends CustomPainter {
@@ -90,9 +91,7 @@ class LoginTypeSwitcher extends GetView<LoginController> {
                     Icon(
                       item['icon'] as IconData,
                       size: 18.w,
-                      color: isSelected
-                          ? context.theme.primaryColor
-                          : Colors.black54,
+                      color: isSelected ? AppTheme.primary : Colors.black54,
                     ),
                     SizedBox(width: 6.w),
                     Text(
@@ -101,9 +100,7 @@ class LoginTypeSwitcher extends GetView<LoginController> {
                         fontSize: 15.sp,
                         fontWeight:
                             isSelected ? FontWeight.w500 : FontWeight.normal,
-                        color: isSelected
-                            ? context.theme.primaryColor
-                            : Colors.black54,
+                        color: isSelected ? AppTheme.primary : Colors.black54,
                       ),
                     ),
                   ],
@@ -135,7 +132,7 @@ class LoginTypeSwitcher extends GetView<LoginController> {
                     child: isSelected
                         ? CustomPaint(
                             painter: WavyPainter(
-                              color: context.theme.primaryColor,
+                              color: AppTheme.primary,
                             ),
                             size: Size(waveWidth, 8.w),
                           )

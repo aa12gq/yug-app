@@ -10,6 +10,7 @@ import 'package:yug_app/common/utils/validators.dart';
 import 'package:yug_app/common/widgets/form/input.dart';
 import 'package:yug_app/pages/system/login/controller.dart';
 import 'package:yug_app/pages/system/login/widgets/register_link.dart';
+import 'package:yug_app/common/style/theme.dart';
 
 class LoginFormFields extends GetView<LoginController> {
   const LoginFormFields({super.key});
@@ -29,7 +30,7 @@ class LoginFormFields extends GetView<LoginController> {
                 controller: controller.userNameController,
                 labelText: LocaleKeys.loginUsername.tr,
                 placeholder: LocaleKeys.loginUsernameHint.tr,
-                prefix: Icon(Icons.person, color: context.theme.primaryColor),
+                prefix: Icon(Icons.person, color: AppTheme.primary),
                 validator: Validatorless.multiple([
                   Validatorless.required(LocaleKeys.loginUsernameRequired.tr),
                   Validatorless.min(3, LocaleKeys.loginUsernameLength.tr),
@@ -45,8 +46,7 @@ class LoginFormFields extends GetView<LoginController> {
               labelText: LocaleKeys.loginPhone.tr,
               placeholder: LocaleKeys.loginPhoneHint.tr,
               keyboardType: TextInputType.phone,
-              prefix:
-                  Icon(Icons.phone_android, color: context.theme.primaryColor),
+              prefix: Icon(Icons.phone_android, color: AppTheme.primary),
               validator: Validatorless.multiple([
                 Validatorless.required(LocaleKeys.loginPhoneRequired.tr),
                 Validators.phone(LocaleKeys.loginPhoneInvalid.tr),
@@ -60,7 +60,7 @@ class LoginFormFields extends GetView<LoginController> {
               labelText: LocaleKeys.loginEmail.tr,
               placeholder: LocaleKeys.loginEmailHint.tr,
               keyboardType: TextInputType.emailAddress,
-              prefix: Icon(Icons.email, color: context.theme.primaryColor),
+              prefix: Icon(Icons.email, color: AppTheme.primary),
               validator: Validatorless.multiple([
                 Validatorless.required(LocaleKeys.loginEmailRequired.tr),
                 Validatorless.email(LocaleKeys.loginEmailInvalid.tr),
@@ -77,8 +77,7 @@ class LoginFormFields extends GetView<LoginController> {
                 labelText: LocaleKeys.loginPassword.tr,
                 placeholder: LocaleKeys.loginPasswordHint.tr,
                 obscureText: true,
-                prefix:
-                    Icon(Icons.lock_outline, color: context.theme.primaryColor),
+                prefix: Icon(Icons.lock_outline, color: AppTheme.primary),
                 validator: Validatorless.multiple([
                   Validatorless.required(LocaleKeys.loginPasswordRequired.tr),
                   Validators.password(6, 18, LocaleKeys.loginPasswordLength.tr),
@@ -108,7 +107,7 @@ class LoginFormFields extends GetView<LoginController> {
                       labelText: LocaleKeys.loginCaptcha.tr,
                       placeholder: LocaleKeys.loginCaptchaHint.tr,
                       prefix: Icon(Icons.verified_user_outlined,
-                          color: context.theme.primaryColor),
+                          color: AppTheme.primary),
                       validator: Validatorless.multiple([
                         Validatorless.required(
                             LocaleKeys.loginCaptchaRequired.tr),
@@ -143,7 +142,7 @@ class LoginFormFields extends GetView<LoginController> {
                                     LocaleKeys.loginGetCaptcha.tr,
                                     style: TextStyle(
                                       fontSize: 12.sp,
-                                      color: context.theme.primaryColor,
+                                      color: AppTheme.primary,
                                     ),
                                   ),
                                 )
@@ -175,7 +174,7 @@ class LoginFormFields extends GetView<LoginController> {
                     labelText: LocaleKeys.loginCaptcha.tr,
                     placeholder: LocaleKeys.loginCaptchaHint.tr,
                     prefix: Icon(Icons.verified_user_outlined,
-                        color: context.theme.primaryColor),
+                        color: AppTheme.primary),
                     validator: Validatorless.multiple([
                       Validatorless.required(
                           LocaleKeys.loginCaptchaRequired.tr),

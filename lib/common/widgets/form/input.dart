@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../index.dart';
+import 'package:yug_app/common/style/theme.dart';
 
 /// Form 字段组件
 class InputFormFieldWidget extends FormField<String> {
@@ -97,7 +98,7 @@ class InputFormFieldWidget extends FormField<String> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.primaryColor.withOpacity(0.6),
+                      color: AppTheme.primary.withOpacity(0.6),
                       width: 1.5,
                     ),
                   ),
