@@ -18,11 +18,11 @@ class ThemePage extends GetView<ThemeController> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 80.w,
-        height: 90.h,
+        width: 65.w,
+        height: 75.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: isSelected ? color : Colors.grey.withOpacity(0.2),
             width: isSelected ? 2 : 1,
@@ -30,8 +30,8 @@ class ThemePage extends GetView<ThemeController> {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: color.withOpacity(0.3),
-                    blurRadius: 8,
+                    color: color.withOpacity(0.2),
+                    blurRadius: 6,
                     offset: const Offset(0, 2),
                   )
                 ]
@@ -41,35 +41,36 @@ class ThemePage extends GetView<ThemeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 40.w,
-              height: 40.w,
+              width: 32.w,
+              height: 32.w,
               decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: Colors.white,
-                  width: 3,
+                  width: 2,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: color.withOpacity(0.3),
-                    blurRadius: 6,
+                    color: color.withOpacity(0.2),
+                    blurRadius: 4,
                     offset: const Offset(0, 2),
                   ),
                 ],
               ),
               child: isSelected
-                  ? const Icon(
+                  ? Icon(
                       Icons.check,
                       color: Colors.white,
+                      size: 16.w,
                     )
                   : null,
             ),
-            SizedBox(height: 8.h),
+            SizedBox(height: 6.h),
             Text(
               AppTheme.themeColorNames[colorKey] ?? '',
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 11.sp,
                 color: AppColors.primaryText,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
@@ -157,10 +158,10 @@ class ThemePage extends GetView<ThemeController> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(16.w),
+        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: isSelected ? AppTheme.primary.withOpacity(0.1) : Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: isSelected ? AppTheme.primary : Colors.grey.withOpacity(0.2),
             width: 1,
@@ -169,21 +170,21 @@ class ThemePage extends GetView<ThemeController> {
         child: Row(
           children: [
             Container(
-              width: 40.w,
-              height: 40.w,
+              width: 32.w,
+              height: 32.w,
               decoration: BoxDecoration(
                 color: isSelected
                     ? AppTheme.primary
                     : Colors.grey.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               child: Icon(
                 icon,
                 color: isSelected ? Colors.white : Colors.grey,
-                size: 20.w,
+                size: 16.w,
               ),
             ),
-            SizedBox(width: 12.w),
+            SizedBox(width: 10.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,16 +192,16 @@ class ThemePage extends GetView<ThemeController> {
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primaryText,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 2.h),
                   Text(
                     subtitle,
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 11.sp,
                       color: AppColors.secondaryText,
                     ),
                   ),
@@ -211,7 +212,7 @@ class ThemePage extends GetView<ThemeController> {
               Icon(
                 Icons.check_circle,
                 color: AppTheme.primary,
-                size: 20.w,
+                size: 16.w,
               ),
           ],
         ),
@@ -226,10 +227,195 @@ class ThemePage extends GetView<ThemeController> {
       id: "theme",
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(title: const Text("主题设置")),
+          appBar: AppBar(
+            title: const Text("主题设置"),
+            elevation: 0,
+          ),
           body: SafeArea(
             child: SingleChildScrollView(
-              child: _buildView(),
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  // 顶部装饰
+                  Container(
+                    height: 90.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(24.r),
+                        bottomRight: Radius.circular(24.r),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.palette_outlined,
+                          color: Colors.white,
+                          size: 32.w,
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          "个性化您的应用主题",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 2.h),
+                        Text(
+                          "选择适合您的显示模式和主题颜色",
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
+                            fontSize: 11.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // 主视图内容
+                  Container(
+                    margin: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // 主题模式标题
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 12.h),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(6.w),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.primary.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(6.r),
+                                ),
+                                child: Icon(
+                                  Icons.brightness_4_outlined,
+                                  color: AppTheme.primary,
+                                  size: 16.w,
+                                ),
+                              ),
+                              SizedBox(width: 8.w),
+                              Text(
+                                '主题模式',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // 主题模式选项
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12.w),
+                          child: Column(
+                            children: [
+                              _buildThemeModeItem(
+                                title: '浅色模式',
+                                subtitle: '明亮清新的界面风格',
+                                icon: Icons.light_mode_outlined,
+                                isSelected:
+                                    controller.currentThemeMode == 'light',
+                                onTap: () =>
+                                    controller.onThemeModeSelected('light'),
+                              ),
+                              SizedBox(height: 8.h),
+                              _buildThemeModeItem(
+                                title: '深色模式',
+                                subtitle: '护眼舒适的暗色模式',
+                                icon: Icons.dark_mode_outlined,
+                                isSelected:
+                                    controller.currentThemeMode == 'dark',
+                                onTap: () =>
+                                    controller.onThemeModeSelected('dark'),
+                              ),
+                              SizedBox(height: 8.h),
+                              _buildThemeModeItem(
+                                title: '跟随系统',
+                                subtitle: '自动适应系统主题设置',
+                                icon: Icons.settings_brightness_outlined,
+                                isSelected:
+                                    controller.currentThemeMode == 'system',
+                                onTap: () =>
+                                    controller.onThemeModeSelected('system'),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // 主题颜色标题
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 12.h),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(6.w),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.primary.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(6.r),
+                                ),
+                                child: Icon(
+                                  Icons.palette_outlined,
+                                  color: AppTheme.primary,
+                                  size: 16.w,
+                                ),
+                              ),
+                              SizedBox(width: 8.w),
+                              Text(
+                                '主题颜色',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // 主题颜色选项
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 16.h),
+                          child: Wrap(
+                            spacing: 8.w,
+                            runSpacing: 8.h,
+                            alignment: WrapAlignment.center,
+                            children:
+                                controller.themeColors.entries.map((entry) {
+                              return _buildColorItem(
+                                color: entry.value,
+                                colorKey: entry.key,
+                                isSelected:
+                                    controller.currentThemeColor == entry.key,
+                                onTap: () =>
+                                    controller.onThemeColorSelected(entry.key),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
