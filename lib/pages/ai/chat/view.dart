@@ -5,6 +5,7 @@ import 'package:yug_app/common/index.dart';
 
 import 'index.dart';
 import 'widgets/wave_animation.dart';
+import 'package:yug_app/common/widgets/virtual_assistant/index.dart';
 
 class AIChatPage extends GetView<AIChatController> {
   const AIChatPage({super.key});
@@ -158,6 +159,15 @@ class AIChatPage extends GetView<AIChatController> {
               ),
               // 输入区域
               _buildInputArea(),
+              Positioned(
+                right: 16.w,
+                bottom: 80.h,
+                child: VirtualAssistant(
+                  size: 60.w,
+                  showOptions: false,
+                  onTap: () => controller.onAssistantTap(),
+                ),
+              ),
             ],
           ),
         );

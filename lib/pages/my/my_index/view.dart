@@ -16,173 +16,24 @@ class MyIndexPage extends GetView<MyIndexController> {
       id: "my_index",
       builder: (_) {
         return Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: const [0.0, 0.3, 0.6, 0.8, 1.0],
-                colors: [
-                  AppTheme.primary,
-                  AppTheme.primary.withOpacity(0.8),
-                  AppTheme.secondary.withOpacity(0.5),
-                  Colors.white.withOpacity(0.8),
-                  Colors.white,
-                ],
-              ),
-            ),
-            child: Stack(
-              children: [
-                // 装饰效果1 - 顶部大圆形光晕
-                Positioned(
-                  top: -180.h,
-                  right: -120.w,
-                  child: Container(
-                    width: 500.w,
-                    height: 500.w,
-                    decoration: BoxDecoration(
-                      gradient: RadialGradient(
-                        colors: [
-                          AppTheme.primary.withOpacity(0.3),
-                          Colors.transparent,
-                        ],
-                      ),
-                      shape: BoxShape.circle,
-                    ),
+          body: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0.0, 0.3, 0.6, 0.8, 1.0],
+                    colors: [
+                      AppTheme.primary,
+                      AppTheme.primary.withOpacity(0.8),
+                      AppTheme.secondary.withOpacity(0.5),
+                      Colors.white.withOpacity(0.8),
+                      Colors.white,
+                    ],
                   ),
                 ),
-
-                // 装饰效果2 - 左上角装饰
-                Positioned(
-                  top: 30.h,
-                  left: -80.w,
-                  child: Container(
-                    width: 300.w,
-                    height: 300.w,
-                    decoration: BoxDecoration(
-                      gradient: RadialGradient(
-                        colors: [
-                          Colors.white.withOpacity(0.25),
-                          Colors.transparent,
-                        ],
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-
-                // 装饰效果3 - 波浪形状
-                Positioned(
-                  top: 80.h,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 400.h,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          AppTheme.secondary.withOpacity(0.3),
-                          Colors.transparent,
-                        ],
-                      ),
-                    ),
-                    child: Stack(
-                      children: List.generate(6, (index) {
-                        return Positioned(
-                          left: -150.w + (index * 100.w),
-                          top: index * 60.h,
-                          child: Transform.rotate(
-                            angle: index * 0.3,
-                            child: Container(
-                              width: 300.w,
-                              height: 100.h,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Colors.white.withOpacity(0.15),
-                                    Colors.transparent,
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(150.r),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                ),
-
-                // 装饰效果4 - 右侧装饰
-                Positioned(
-                  right: -50.w,
-                  top: 150.h,
-                  child: Container(
-                    width: 200.w,
-                    height: 400.h,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          AppTheme.primary.withOpacity(0.3),
-                          Colors.transparent,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(200.r),
-                        bottomLeft: Radius.circular(200.r),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // 装饰效果5 - 漂浮的小圆点
-                ...List.generate(12, (index) {
-                  return Positioned(
-                    left: (index * 60).w,
-                    top: (80 + index * 50).h,
-                    child: Container(
-                      width: (index % 3 + 1) * 6.w,
-                      height: (index % 3 + 1) * 6.w,
-                      decoration: BoxDecoration(
-                        gradient: RadialGradient(
-                          colors: [
-                            Colors.white.withOpacity(0.4),
-                            Colors.transparent,
-                          ],
-                        ),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  );
-                }),
-
-                // 装饰效果6 - 中部光晕
-                Positioned(
-                  left: 50.w,
-                  top: 250.h,
-                  child: Container(
-                    width: 250.w,
-                    height: 250.w,
-                    decoration: BoxDecoration(
-                      gradient: RadialGradient(
-                        colors: [
-                          AppTheme.secondary.withOpacity(0.2),
-                          Colors.transparent,
-                        ],
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-
-                // 主要内容
-                SafeArea(
+                child: SafeArea(
                   child: Column(
                     children: [
                       _buildUserInfo(),
@@ -204,8 +55,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Positioned(
+                right: 20.w,
+                bottom: 100.h,
+                child: const VirtualAssistant(),
+              ),
+            ],
           ),
         );
       },
@@ -477,29 +333,6 @@ class MyIndexPage extends GetView<MyIndexController> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  // 构建图标按钮
-  Widget _buildIconButton(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(6.w),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.2),
-            width: 1,
-          ),
-        ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 16.w,
-        ),
       ),
     );
   }
@@ -1007,6 +840,29 @@ class MyIndexPage extends GetView<MyIndexController> {
           ),
         ),
       ],
+    );
+  }
+
+  // 添加回 _buildIconButton 方法
+  Widget _buildIconButton(IconData icon, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(6.w),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.15),
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(
+            color: Colors.white.withOpacity(0.2),
+            width: 1,
+          ),
+        ),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 16.w,
+        ),
+      ),
     );
   }
 }

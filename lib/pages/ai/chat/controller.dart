@@ -413,4 +413,9 @@ class AIChatController extends GetxController {
       ),
     );
   }
+
+  // 添加虚拟助手点击方法
+  void onAssistantTap() {
+    // TODO: 实现虚拟助手点击响应
+  }
 }

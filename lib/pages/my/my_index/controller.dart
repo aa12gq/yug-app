@@ -2,8 +2,13 @@ import 'package:get/get.dart';
 import 'package:yug_app/common/services/user.dart';
 import 'package:yug_app/common/utils/loading.dart';
 import 'package:yug_app/common/routers/name.dart';
+import 'package:rive/rive.dart';
 
 class MyIndexController extends GetxController {
+  StateMachineController? riveController;
+  SMITrigger? idleTrigger;
+  SMITrigger? talkTrigger;
+
   MyIndexController();
 
   _initData() {
@@ -94,5 +99,44 @@ class MyIndexController extends GetxController {
     } catch (e) {
       Loading.error('退出失败：${e.toString()}');
     }
+  }
+
+  // 虚拟人物相关方法
+  void onCustomizeAvatar() {
+    Get.toNamed('/avatar/customize');
+  }
+
+  void onAvatarPersonality() {
+    Get.toNamed('/avatar/personality');
+  }
+
+  void onAvatarInteractions() {
+    Get.toNamed('/avatar/interactions');
+  }
+
+  void initRiveAnimation(Artboard artboard) {
+    riveController = StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1',
+    );
+    if (riveController != null) {
+      artboard.addController(riveController!);
+      idleTrigger = riveController?.findSMI('idle');
+      talkTrigger = riveController?.findSMI('talk');
+    }
+  }
+
+  void playTalkAnimation() {
+    talkTrigger?.fire();
+  }
+
+  void playIdleAnimation() {
+    idleTrigger?.fire();
+  }
+
+  @override
+  void onClose() {
+    riveController?.dispose();
+    super.onClose();
   }
 }
