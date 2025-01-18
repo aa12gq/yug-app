@@ -10,7 +10,7 @@ class Loading {
     EasyLoading.instance
       ..displayDuration =
           const Duration(milliseconds: _dismissMilliseconds) // 关闭延迟
-      ..indicatorType = EasyLoadingIndicatorType.ring // 指示器类型
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
       ..loadingStyle = EasyLoadingStyle.custom // loading样式 自定义
       ..indicatorSize = 35.0 // 指示器大小
       ..lineWidth = 2 // 进度条宽度
@@ -21,12 +21,72 @@ class Loading {
       ..textColor = Colors.white // 文字颜色
       ..maskColor = Colors.black.withOpacity(0.6) // 遮罩颜色
       ..userInteractions = true // 用户交互
-      ..dismissOnTap = false; // 点击关闭
+      ..dismissOnTap = false // 点击关闭
+      ..indicatorWidget = Image.asset(
+        'assets/icons/launcher_ios.png',
+        width: 35.0,
+        height: 35.0,
+      );
+  }
+
+  // 配置通用样式
+  static void _configureWithLogo() {
+    EasyLoading.instance
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..backgroundColor = Colors.white
+      ..indicatorColor = Colors.transparent
+      ..textColor = const Color(0xFF2C3E50)
+      ..maskColor = Colors.transparent
+      ..userInteractions = true
+      ..dismissOnTap = false
+      ..indicatorWidget = Image.asset(
+        'assets/icons/launcher_ios.png',
+        width: 26,
+        height: 26,
+      );
+  }
+
+  // 自定义提示方法
+  static void _showCustom(String text, {bool isSuccess = true}) {
+    EasyLoading.instance
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..backgroundColor = Colors.white
+      ..indicatorColor = Colors.transparent
+      ..textColor = const Color(0xFF2C3E50)
+      ..maskColor = Colors.transparent
+      ..userInteractions = true
+      ..dismissOnTap = false
+      ..indicatorWidget = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            'assets/icons/launcher_ios.png',
+            width: 26,
+            height: 26,
+          ),
+          SizedBox(width: 12),
+          Text(
+            text,
+            style: TextStyle(
+              color: const Color(0xFF2C3E50),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      );
+
+    EasyLoading.show();
+
+    Future.delayed(Duration(seconds: 2), () {
+      EasyLoading.dismiss();
+    });
   }
 
   // 显示
   static void show([String? text]) {
-    EasyLoading.instance.userInteractions = false; // 屏蔽交互操作
+    _configureWithLogo();
+    EasyLoading.instance.userInteractions = false;
     EasyLoading.show(status: text ?? 'Loading...');
   }
 
@@ -34,7 +94,7 @@ class Loading {
   static void error([String? text]) {
     Future.delayed(
       const Duration(milliseconds: _milliseconds),
-      () => EasyLoading.showError(text ?? 'Error'),
+      () => _showCustom(text ?? 'Error', isSuccess: false),
     );
   }
 
@@ -42,13 +102,13 @@ class Loading {
   static void success([String? text]) {
     Future.delayed(
       const Duration(milliseconds: _milliseconds),
-      () => EasyLoading.showSuccess(text ?? 'Success'),
+      () => _showCustom(text ?? 'Success'),
     );
   }
 
   // toast
   static void toast(String text) {
-    EasyLoading.showToast(text);
+    _showCustom(text);
   }
 
   // 关闭

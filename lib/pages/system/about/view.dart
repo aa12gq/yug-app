@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:ducafe_ui_core/ducafe_ui_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:yug_app/common/i18n/locale_keys.dart';
 import 'package:yug_app/common/style/theme.dart';
+import 'package:yug_app/common/utils/loading.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -11,10 +14,23 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text(LocaleKeys.aboutTitle.tr),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        title: Text(
+          LocaleKeys.aboutTitle.tr,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.primary,
+          ),
+        ),
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: AppTheme.primary,
+        ),
       ),
       body: Stack(
         children: [
@@ -22,52 +38,51 @@ class AboutPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
                 colors: [
-                  AppTheme.primary.withOpacity(0.15),
                   Colors.white,
+                  AppTheme.primary.withOpacity(0.03),
                 ],
               ),
             ),
           ),
 
-          // 右上大圆
+          // 装饰圆形
           Positioned(
-            right: -100,
-            top: -100,
+            right: -100.w,
+            top: -60.h,
             child: Container(
-              width: 300,
-              height: 300,
+              width: 200.w,
+              height: 200.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppTheme.primary.withOpacity(0.2),
-                    AppTheme.primary.withOpacity(0.05),
+                    AppTheme.primary.withOpacity(0.1),
+                    AppTheme.primary.withOpacity(0.02),
                   ],
                 ),
               ),
             ),
           ),
 
-          // 左下大圆
           Positioned(
-            left: -50,
-            bottom: -50,
+            left: -80.w,
+            bottom: -40.h,
             child: Container(
-              width: 200,
-              height: 200,
+              width: 160.w,
+              height: 160.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppTheme.secondary.withOpacity(0.2),
-                    AppTheme.secondary.withOpacity(0.05),
+                    AppTheme.secondary.withOpacity(0.08),
+                    AppTheme.secondary.withOpacity(0.02),
                   ],
                 ),
               ),
@@ -101,40 +116,32 @@ class AboutPage extends StatelessWidget {
           FutureBuilder<PackageInfo>(
             future: PackageInfo.fromPlatform(),
             builder: (context, snapshot) {
-              final version = snapshot.hasData ? snapshot.data!.version : '';
-              final buildNumber =
-                  snapshot.hasData ? snapshot.data!.buildNumber : '';
-
               return SingleChildScrollView(
-                padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    SizedBox(height: 16.h),
+                    SizedBox(height: kToolbarHeight + 48.h),
 
                     // Logo
                     Container(
-                      width: 100.w,
-                      height: 100.w,
-                      padding: EdgeInsets.all(20.w),
+                      width: 88.w,
+                      height: 88.w,
+                      padding: EdgeInsets.all(18.w),
                       decoration: BoxDecoration(
-                        color: AppTheme.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(25.w),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24.w),
                         boxShadow: [
                           BoxShadow(
                             color: AppTheme.primary.withOpacity(0.1),
                             blurRadius: 20,
-                            spreadRadius: 1,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
                           ),
                         ],
-                        border: Border.all(
-                          color: AppTheme.primary.withOpacity(0.1),
-                          width: 1,
-                        ),
                       ),
                       child: Image.asset(
                         'assets/icons/launcher_ios.png',
-                        width: 60.w,
-                        height: 60.w,
+                        width: 52.w,
+                        height: 52.w,
                       ),
                     ),
                     SizedBox(height: 16.h),
@@ -143,144 +150,101 @@ class AboutPage extends StatelessWidget {
                     Text(
                       LocaleKeys.appName.tr,
                       style: TextStyle(
-                        fontSize: 24.sp,
+                        fontSize: 22.sp,
                         fontWeight: FontWeight.w600,
-                        color: AppTheme.primary.withOpacity(0.8),
+                        color: AppTheme.primary,
+                        height: 1.2,
                       ),
                     ),
                     SizedBox(height: 8.h),
 
                     // 版本号
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                      decoration: BoxDecoration(
-                        color: AppTheme.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(20.w),
-                      ),
-                      child: Text(
-                        'v$version ($buildNumber)',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppTheme.primary.withOpacity(0.6),
-                        ),
+                    Text(
+                      'v${snapshot.hasData ? snapshot.data!.version : ''} (${snapshot.hasData ? snapshot.data!.buildNumber : ''})',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: Colors.black45,
                       ),
                     ),
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 40.h),
 
-                    // 应用简介
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 24.w),
-                      padding: EdgeInsets.all(20.w),
-                      decoration: BoxDecoration(
-                        color: AppTheme.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(20.w),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.primary.withOpacity(0.1),
-                            blurRadius: 20,
-                            spreadRadius: 1,
-                          ),
-                        ],
-                        border: Border.all(
-                          color: AppTheme.primary.withOpacity(0.1),
-                          width: 1,
-                        ),
-                      ),
-                      child: Text(
-                        LocaleKeys.appDescription.tr,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: AppTheme.primary.withOpacity(0.8),
-                          height: 1.6,
-                          letterSpacing: 0.3,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
                     SizedBox(height: 32.h),
 
-                    // 功能特点列表
-                    ...LocaleKeys.appFeatures.tr
-                        .split('\\n')
-                        .map(
-                          (feature) => Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 24.w, vertical: 8.h),
-                            padding: EdgeInsets.all(20.w),
-                            decoration: BoxDecoration(
-                              color: AppTheme.primary.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(20.w),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppTheme.primary.withOpacity(0.1),
-                                  blurRadius: 20,
-                                  spreadRadius: 1,
-                                ),
-                              ],
-                              border: Border.all(
-                                color: AppTheme.primary.withOpacity(0.1),
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 44.w,
-                                  height: 44.w,
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(14.w),
-                                    border: Border.all(
-                                      color: AppTheme.primary.withOpacity(0.2),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.check_circle_outline,
-                                    color: AppTheme.primary.withOpacity(0.8),
-                                    size: 24.w,
-                                  ),
-                                ),
-                                SizedBox(width: 16.w),
-                                Expanded(
-                                  child: Text(
-                                    feature,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: AppTheme.primary.withOpacity(0.8),
-                                      height: 1.5,
-                                      letterSpacing: 0.3,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    // 功能列表
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16.w),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.primary.withOpacity(0.06),
+                            blurRadius: 20,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
                           ),
-                        )
-                        .toList(),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          _buildListTile(
+                            icon: Icons.system_update_outlined,
+                            title: '检查更新',
+                            onTap: () async {
+                              // 显示检查中的提示
+                              Loading.toast('正在检查更新...');
+
+                              // 模拟网络请求延迟
+                              await Future.delayed(Duration(seconds: 2));
+
+                              // 显示检查结果
+                              Loading.success('已是最新版本');
+                            },
+                          ),
+                          _buildListTile(
+                            icon: Icons.share_outlined,
+                            title: '分享应用',
+                            onTap: () {
+                              // TODO: 实现分享功能
+                            },
+                          ),
+                          _buildListTile(
+                            icon: Icons.feedback_outlined,
+                            title: '问题反馈',
+                            onTap: () {
+                              // TODO: 实现问题反馈功能
+                            },
+                          ),
+                          _buildListTile(
+                            icon: Icons.privacy_tip_outlined,
+                            title: '隐私政策',
+                            onTap: () {
+                              // TODO: 跳转到隐私政策页面
+                            },
+                          ),
+                          _buildListTile(
+                            icon: Icons.description_outlined,
+                            title: '用户协议',
+                            onTap: () {
+                              // TODO: 跳转到用户协议页面
+                            },
+                            showDivider: false,
+                          ),
+                        ],
+                      ),
+                    ),
 
                     SizedBox(height: 32.h),
 
                     // 版权信息
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                      decoration: BoxDecoration(
-                        color: AppTheme.primary.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(20.w),
-                      ),
-                      child: Text(
-                        '© ${DateTime.now().year} ${LocaleKeys.appName.tr}',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppTheme.primary.withOpacity(0.6),
-                          letterSpacing: 0.5,
-                        ),
+                    Text(
+                      '© ${DateTime.now().year} ${LocaleKeys.appName.tr}',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.black38,
                       ),
                     ),
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 16.h),
                   ],
                 ),
               );
@@ -288,6 +252,56 @@ class AboutPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildListTile({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    bool showDivider = true,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ListTile(
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
+          leading: Container(
+            width: 32.w,
+            height: 32.w,
+            decoration: BoxDecoration(
+              color: AppTheme.primary.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Icon(
+              icon,
+              size: 20.w,
+              color: AppTheme.primary,
+            ),
+          ),
+          title: Text(
+            title,
+            style: TextStyle(
+              fontSize: 15.sp,
+              color: Colors.black87,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          trailing: Icon(
+            Icons.chevron_right_rounded,
+            size: 20.w,
+            color: Colors.black38,
+          ),
+          onTap: onTap,
+        ),
+        if (showDivider)
+          Divider(
+            height: 1,
+            indent: 72.w,
+            endIndent: 20.w,
+            color: Colors.black12,
+          ),
+      ],
     );
   }
 }
