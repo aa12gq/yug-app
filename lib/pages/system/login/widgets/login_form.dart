@@ -25,17 +25,6 @@ class LoginForm extends GetView<LoginController> {
       key: controller.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Container(
-        decoration: BoxDecoration(
-          color: isDark
-              ? Colors.black.withOpacity(0.3)
-              : Colors.white.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(
-            color: isDark
-                ? Colors.white.withOpacity(0.1)
-                : Colors.white.withOpacity(0.2),
-          ),
-        ),
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           child: <Widget>[

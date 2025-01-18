@@ -107,7 +107,7 @@ class _MainViewGetX extends GetView<MainController> {
             final isDark =
                 AdaptiveTheme.of(context).brightness == Brightness.dark;
             return BottomAppBar(
-              height: 49,
+              height: 56,
               padding: EdgeInsets.zero,
               notchMargin: 5,
               shape: const CircularNotchedRectangle(),

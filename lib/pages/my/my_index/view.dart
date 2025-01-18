@@ -20,6 +20,7 @@ class MyIndexPage extends GetView<MyIndexController> {
         return Scaffold(
           body: Stack(
             children: [
+              // 背景渐变
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -43,25 +44,168 @@ class MyIndexPage extends GetView<MyIndexController> {
                           ],
                   ),
                 ),
-                child: SafeArea(
+              ),
+              // 大圆装饰
+              Positioned(
+                top: -120,
+                right: -80,
+                child: Stack(
+                  children: [
+                    // 主球体
+                    Container(
+                      width: 280,
+                      height: 280,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.2),
+                            Colors.white.withOpacity(0.05),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.1),
+                            blurRadius: 20,
+                            spreadRadius: 5,
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 球体光晕
+                    Positioned(
+                      top: 40,
+                      left: 40,
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [
+                              Colors.white.withOpacity(0.2),
+                              Colors.white.withOpacity(0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // 中圆装饰
+              Positioned(
+                top: 60,
+                left: -60,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 180,
+                      height: 180,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppTheme.primary.withOpacity(0.2),
+                            AppTheme.primary.withOpacity(0.05),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.primary.withOpacity(0.1),
+                            blurRadius: 15,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 添加内部光晕
+                    Positioned(
+                      top: 30,
+                      left: 30,
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [
+                              AppTheme.primary.withOpacity(0.2),
+                              AppTheme.primary.withOpacity(0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // 小圆装饰1
+              Positioned(
+                top: 40,
+                right: 40,
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        AppTheme.secondary.withOpacity(0.3),
+                        AppTheme.secondary.withOpacity(0.1),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppTheme.secondary.withOpacity(0.1),
+                        blurRadius: 8,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // 小圆装饰2
+              Positioned(
+                top: 80,
+                right: 100,
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.3),
+                        Colors.white.withOpacity(0.1),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.1),
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // 主要内容
+              SafeArea(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       _buildUserInfo(),
                       SizedBox(height: 8.h),
-                      Expanded(
-                        child: ListView(
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          children: [
-                            SizedBox(height: 16.h),
-                            _buildUserStats(),
-                            _buildQuickActions(),
-                            _buildMenuSection(),
-                            _buildAboutSection(),
-                            SizedBox(height: 16.h),
-                          ],
-                        ),
-                      ),
+                      _buildMemberCard(),
+                      _buildUserStats(),
+                      _buildMenuSection(),
+                      SizedBox(height: 16.h),
                     ],
                   ),
                 ),
@@ -347,82 +491,308 @@ class MyIndexPage extends GetView<MyIndexController> {
     );
   }
 
-  // 构建用户统计
+  // 会员卡片组件
+  Widget _buildMemberCard() {
+    return Builder(builder: (context) {
+      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
+      return Container(
+        height: 80.h,
+        margin: EdgeInsets.symmetric(vertical: 8.h),
+        child: PageView.builder(
+          controller: controller.pageController,
+          itemCount: null,
+          onPageChanged: controller.onPageChanged,
+          itemBuilder: (context, index) {
+            final card = controller.getCard(index);
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: card.colors,
+                  stops: const [0.2, 0.8],
+                ),
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: card.colors[0].withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Stack(
+                children: [
+                  // 背景装饰
+                  Positioned(
+                    right: -15.w,
+                    top: -15.h,
+                    child: Container(
+                      width: 70.w,
+                      height: 70.w,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.2),
+                            Colors.white.withOpacity(0.1),
+                          ],
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: -20.w,
+                    bottom: -20.h,
+                    child: Container(
+                      width: 80.w,
+                      height: 80.w,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.2),
+                            Colors.white.withOpacity(0.05),
+                          ],
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  // 主要内容
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              card.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    offset: const Offset(0, 2),
+                                    blurRadius: 4,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              card.subtitle,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 12.sp,
+                                letterSpacing: 0.3,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    offset: const Offset(0, 1),
+                                    blurRadius: 2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 6.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.r),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.5),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          card.buttonText,
+                          style: TextStyle(
+                            color: card.buttonColor,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      );
+    });
+  }
+
+  // 用户统计区域
   Widget _buildUserStats() {
     return Builder(builder: (context) {
       final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
       return Container(
         margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
-        padding: EdgeInsets.symmetric(vertical: 12.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
         decoration: BoxDecoration(
-          color: isDark
-              ? Colors.black.withOpacity(0.3)
-              : Colors.white.withOpacity(0.5),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    Colors.black.withOpacity(0.3),
+                    Colors.black.withOpacity(0.2),
+                  ]
+                : [
+                    Colors.white.withOpacity(0.8),
+                    Colors.white.withOpacity(0.6),
+                  ],
+          ),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: isDark
-                ? Colors.white.withOpacity(0.1)
-                : Colors.white.withOpacity(0.2),
+            color: isDark ? Colors.white.withOpacity(0.1) : Colors.white,
             width: 1,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _buildStatItem(
-                LocaleKeys.myStatsFollowing.tr, "12", const Color(0xFF6C5CE7)),
-            _buildDivider(),
+              "作品",
+              "12",
+              const Color(0xFF6C5CE7),
+              Icons.auto_awesome,
+            ),
             _buildStatItem(
-                LocaleKeys.myStatsFollowers.tr, "36", const Color(0xFFFF6B6B)),
-            _buildDivider(),
+              "获赞",
+              "1.2k",
+              const Color(0xFFFF6B6B),
+              Icons.favorite_border,
+            ),
             _buildStatItem(
-                LocaleKeys.myStatsLikes.tr, "258", const Color(0xFF00B894)),
-            _buildDivider(),
+              "关注",
+              "86",
+              const Color(0xFF00B894),
+              Icons.people_outline,
+            ),
             _buildStatItem(
-                LocaleKeys.myStatsFavorites.tr, "46", const Color(0xFFFFBE0B)),
+              "粉丝",
+              "168",
+              const Color(0xFF74B9FF),
+              Icons.group_outlined,
+            ),
           ],
         ),
       );
     });
   }
 
-  // 构建统计项
-  Widget _buildStatItem(String label, String value, Color color) {
+  // 统计项样式
+  Widget _buildStatItem(
+      String label, String value, Color color, IconData icon) {
     return Builder(builder: (context) {
       final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: isDark ? color.withOpacity(0.9) : color,
+      return Container(
+        width: 68.w,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 46.w,
+              height: 46.w,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    color.withOpacity(isDark ? 0.2 : 0.1),
+                    color.withOpacity(isDark ? 0.1 : 0.05),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(14.r),
+                border: Border.all(
+                  color: color.withOpacity(isDark ? 0.3 : 0.2),
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    icon,
+                    color: isDark ? color.withOpacity(0.9) : color,
+                    size: 18.w,
+                  ),
+                  SizedBox(height: 3.h),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? color.withOpacity(0.9) : color,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11.sp,
-              color: isDark
-                  ? Colors.white.withOpacity(0.7)
-                  : AppColors.primaryText.withOpacity(0.7),
+            SizedBox(height: 5.h),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w500,
+                color: isDark
+                    ? Colors.white.withOpacity(0.7)
+                    : AppColors.secondaryText,
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-        ],
+          ],
+        ),
       );
     });
-  }
-
-  // 构建分隔线
-  Widget _buildDivider() {
-    return Container(
-      height: 20.h,
-      width: 1,
-      color: Colors.grey.withOpacity(0.2),
-    );
   }
 
   // 构建菜单部分
@@ -467,19 +837,19 @@ class MyIndexPage extends GetView<MyIndexController> {
             _buildMenuItem(
               icon: Icons.palette_outlined,
               label: LocaleKeys.myMenuTheme.tr,
-              color: const Color(0xFFFFBE0B),
+              color: const Color(0xFF74B9FF),
               onTap: () => controller.onTheme(),
             ),
-            _buildMenuItem(
-              icon: Icons.notifications_outlined,
-              label: LocaleKeys.myMenuNotifications.tr,
-              color: const Color(0xFFFF7675),
-              onTap: () => controller.onNotifications(),
-            ),
+            // _buildMenuItem(
+            //   icon: Icons.notifications_outlined,
+            //   label: LocaleKeys.myMenuNotifications.tr,
+            //   color: const Color(0xFFFF6B6B),
+            //   onTap: () => controller.onNotifications(),
+            // ),
             _buildMenuItem(
               icon: Icons.help_outline,
               label: LocaleKeys.myMenuHelpFeedback.tr,
-              color: const Color(0xFF74B9FF),
+              color: const Color(0xFF00B894),
               onTap: () => controller.onHelpAndFeedback(),
             ),
             _buildMenuItem(
@@ -543,25 +913,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                 letterSpacing: 0.3,
               ),
             ),
-            trailing: Container(
-              width: 24.w,
-              height: 24.w,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    color.withOpacity(0.1),
-                    color.withOpacity(0.05),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Icon(
-                Icons.arrow_forward_ios,
-                size: 10.w,
-                color: color,
-              ),
+            // 简化箭头样式
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 14.w,
+              color: isDark
+                  ? Colors.white.withOpacity(0.5)
+                  : Colors.black.withOpacity(0.3),
             ),
             onTap: onTap,
           ),
@@ -586,309 +944,7 @@ class MyIndexPage extends GetView<MyIndexController> {
     });
   }
 
-  // 构建关于部分
-  Widget _buildAboutSection() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
-      padding: EdgeInsets.all(12.w),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.2),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            offset: const Offset(0, 8),
-            blurRadius: 16,
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          _buildAboutItem(
-            LocaleKeys.myAboutUs.tr,
-            Icons.info_outline,
-            const Color(0xFF74B9FF),
-            () => controller.onAbout(),
-          ),
-          SizedBox(height: 12.h),
-          _buildAboutItem(
-            LocaleKeys.myTerms.tr,
-            Icons.description_outlined,
-            const Color(0xFF00B894),
-            () => controller.onTerms(),
-          ),
-          SizedBox(height: 12.h),
-          _buildAboutItem(
-            LocaleKeys.myPrivacyPolicy.tr,
-            Icons.privacy_tip_outlined,
-            const Color(0xFFFF7675),
-            () => controller.onPrivacyPolicy(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 构建关于项
-  Widget _buildAboutItem(
-    String label,
-    IconData icon,
-    Color color,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Container(
-            width: 32.w,
-            height: 32.w,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  color.withOpacity(0.1),
-                  color.withOpacity(0.05),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 16.w,
-            ),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: AppColors.primaryText,
-              ),
-            ),
-          ),
-          Icon(
-            Icons.arrow_forward_ios,
-            size: 12.w,
-            color: AppColors.secondaryText,
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 构建快捷操作
-  Widget _buildQuickActions() {
-    return Builder(builder: (context) {
-      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
-      return Container(
-        margin: EdgeInsets.fromLTRB(16.w, 6.h, 16.w, 12.h),
-        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
-        decoration: BoxDecoration(
-          color: isDark
-              ? Colors.black.withOpacity(0.3)
-              : Colors.white.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(
-            color: isDark
-                ? Colors.white.withOpacity(0.1)
-                : Colors.white.withOpacity(0.2),
-            width: 1,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.2 : 0.02),
-              offset: const Offset(0, 8),
-              blurRadius: 16,
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildQuickActionItem(
-              icon: Icons.favorite_border,
-              label: LocaleKeys.myQuickFavorites.tr,
-              color: const Color(0xFFFF6B6B),
-              onTap: () => controller.onFavorites(),
-            ),
-            Container(
-              height: 30.h,
-              width: 1,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.grey.withOpacity(0),
-                    Colors.grey.withOpacity(0.1),
-                    Colors.grey.withOpacity(0),
-                  ],
-                ),
-              ),
-            ),
-            _buildQuickActionItem(
-              icon: Icons.history,
-              label: LocaleKeys.myQuickHistory.tr,
-              color: const Color(0xFF4ECDC4),
-              onTap: () => controller.onHistory(),
-            ),
-            Container(
-              height: 30.h,
-              width: 1,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.grey.withOpacity(0),
-                    Colors.grey.withOpacity(0.1),
-                    Colors.grey.withOpacity(0),
-                  ],
-                ),
-              ),
-            ),
-            _buildQuickActionItem(
-              icon: Icons.star_border,
-              label: LocaleKeys.myQuickWorks.tr,
-              color: const Color(0xFFFFBE0B),
-              onTap: () => controller.onWorks(),
-            ),
-          ],
-        ),
-      );
-    });
-  }
-
-  // 快捷操作项
-  Widget _buildQuickActionItem({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Builder(builder: (context) {
-      final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
-      return GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 60.w,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40.w,
-                height: 40.w,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      color.withOpacity(isDark ? 0.2 : 0.1),
-                      color.withOpacity(isDark ? 0.1 : 0.05),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: color.withOpacity(isDark ? 0.2 : 0.1),
-                    width: 1,
-                  ),
-                ),
-                child: Icon(
-                  icon,
-                  color: isDark ? color.withOpacity(0.9) : color,
-                  size: 20.w,
-                ),
-              ),
-              SizedBox(height: 6.h),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11.sp,
-                  fontWeight: FontWeight.w500,
-                  color: isDark
-                      ? Colors.white.withOpacity(0.9)
-                      : AppColors.primaryText,
-                  height: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
-  }
-
-  // 构建成就标签
-  Widget _buildAchievementTag({
-    required IconData icon,
-    required String label,
-    required Color color,
-  }) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 8.w,
-        vertical: 4.h,
-      ),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: color,
-            size: 12.w,
-          ),
-          SizedBox(width: 4.w),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10.sp,
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 构建创作者数据
-  Widget _buildCreatorStat(String label, String value) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.primaryText,
-          ),
-        ),
-        SizedBox(height: 2.h),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11.sp,
-            color: AppColors.secondaryText,
-          ),
-        ),
-      ],
-    );
-  }
-
-  // 添加回 _buildIconButton 方法
+  // 构建图标按钮
   Widget _buildIconButton(IconData icon, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
