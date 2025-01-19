@@ -12,8 +12,8 @@ Future<void> main() async {
   // 确保Flutter框架初始化
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 初始化全局设置
-  await Get.putAsync<ConfigService>(() => ConfigService().init());
+  // 初始化全局配置
+  await Global.init();
 
   runApp(const MyApp());
 }

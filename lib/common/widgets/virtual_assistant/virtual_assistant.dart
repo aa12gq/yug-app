@@ -27,10 +27,10 @@ class VirtualAssistant extends StatefulWidget {
 
 class _VirtualAssistantState extends State<VirtualAssistant>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _swayAnimation;
-  late Animation<double> _waveAnimation;
-  late Animation<double> _blinkAnimation;
+  late final AnimationController _controller;
+  late final Animation<double> _swayAnimation;
+  late final Animation<double> _waveAnimation;
+  late final Animation<double> _blinkAnimation;
 
   // 修改动画状态
   bool _isWaving = false;
@@ -47,12 +47,36 @@ class _VirtualAssistantState extends State<VirtualAssistant>
     super.initState();
     _moveX = widget.defaultX;
     _moveY = widget.defaultY;
+
+    // 初始化主动画控制器
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
     );
 
-    // 系统启动动画
+    // 初始化所有动画
+    _initializeAnimations();
+
+    // 启动系统
+    _startSystem();
+
+    // 添加定时器以更新时钟显示
+    Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  void _initializeAnimations() {
+    // 移除摇摆动画，将其设置为固定值
+    _swayAnimation = Tween<double>(
+      begin: 0, // 修改为0，不再摇摆
+      end: 0, // 修改为0，不再摇摆
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+
+    // 波浪动画
     _waveAnimation = TweenSequence<double>([
       TweenSequenceItem(
         tween: Tween(begin: 0.0, end: 1.0)
@@ -65,27 +89,6 @@ class _VirtualAssistantState extends State<VirtualAssistant>
       ),
     ]).animate(_controller);
 
-    // 启动系统
-    _startSystem();
-
-    // 摇摆动画
-    _swayAnimation = Tween<double>(
-      begin: -0.05,
-      end: 0.05,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    // 挥手动画
-    _waveAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
     // 眨眼动画
     _blinkAnimation = TweenSequence<double>([
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.1), weight: 1),
@@ -94,19 +97,14 @@ class _VirtualAssistantState extends State<VirtualAssistant>
       parent: _controller,
       curve: const Interval(0.8, 1.0),
     ));
-
-    // 添加定时器以更新时钟显示
-    Timer.periodic(const Duration(seconds: 1), (_) {
-      if (mounted) setState(() {});
-    });
   }
 
   void _startSystem() {
+    if (!mounted) return;
     _controller
       ..forward()
       ..repeat();
 
-    // 模拟系统启动过程
     Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
         setState(() => _isSystemBooting = true);
@@ -122,6 +120,8 @@ class _VirtualAssistantState extends State<VirtualAssistant>
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () => _openChatDialog(),
       onLongPress: () => _showOptions(),
@@ -131,7 +131,7 @@ class _VirtualAssistantState extends State<VirtualAssistant>
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          double angle = _swayAnimation.value;
+          double angle = 0; // 移除 _swayAnimation.value 的使用
           double scale = 1.0;
 
           if (_isJumping) {
@@ -162,6 +162,7 @@ class _VirtualAssistantState extends State<VirtualAssistant>
                   blinkProgress: _blinkAnimation.value,
                   isHappy: _isHappy,
                   isThinking: _isThinking,
+                  isDarkMode: isDarkMode,
                 ),
               ),
             ),
@@ -172,6 +173,8 @@ class _VirtualAssistantState extends State<VirtualAssistant>
   }
 
   void _openChatDialog() {
+    final isDarkMode = Theme.of(Get.context!).brightness == Brightness.dark;
+
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
@@ -214,8 +217,9 @@ class _VirtualAssistantState extends State<VirtualAssistant>
                       painter: AnimePainter(
                         waveProgress: _waveAnimation.value,
                         blinkProgress: _blinkAnimation.value,
-                        isHappy: true, // 显示友好表情
+                        isHappy: true,
                         isThinking: false,
+                        isDarkMode: isDarkMode,
                       ),
                     ),
                   ),

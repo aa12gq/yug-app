@@ -6,13 +6,19 @@ class AnimePainter extends CustomPainter {
   final double blinkProgress;
   final bool isHappy;
   final bool isThinking;
+  final bool isDarkMode;
 
   AnimePainter({
     this.waveProgress = 0,
     this.blinkProgress = 1,
     this.isHappy = false,
     this.isThinking = false,
+    this.isDarkMode = true,
   });
+
+  Color get primaryColor => isDarkMode
+      ? const Color(0xFF00FFFF) // 深色模式使用青色
+      : const Color(0xFF2196F3); // 浅色模式使用蓝色
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -33,8 +39,8 @@ class AnimePainter extends CustomPainter {
       center: Alignment.center,
       radius: 0.8,
       colors: [
-        const Color(0xFF00FFFF).withOpacity(0.1), // 淡青色
-        const Color(0xFF00FFFF).withOpacity(0.05),
+        primaryColor.withOpacity(0.1),
+        primaryColor.withOpacity(0.05),
         Colors.transparent, // 完全透明
       ],
       stops: const [0.0, 0.5, 1.0],
@@ -56,7 +62,7 @@ class AnimePainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 1;
     paint.shader = null;
-    paint.color = const Color(0xFF00FFFF).withOpacity(0.2);
+    paint.color = primaryColor.withOpacity(0.2);
 
     // 绘制多层环形
     for (var i = 0; i < 3; i++) {
@@ -106,8 +112,8 @@ class AnimePainter extends CustomPainter {
       center: Alignment.center,
       radius: 0.5,
       colors: [
-        const Color(0xFF00FFFF),
-        const Color(0xFF00FFFF).withOpacity(0.0),
+        primaryColor,
+        primaryColor.withOpacity(0.0),
       ],
     ).createShader(
       Rect.fromCenter(
@@ -128,7 +134,7 @@ class AnimePainter extends CustomPainter {
 
   void _drawFace(Canvas canvas, Size size, Paint paint) {
     paint.shader = null;
-    paint.color = const Color(0xFF00FFFF).withOpacity(0.3);
+    paint.color = primaryColor.withOpacity(0.3);
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 2;
 
@@ -146,7 +152,7 @@ class AnimePainter extends CustomPainter {
 
   void _drawEyes(Canvas canvas, Size size, Paint paint) {
     paint.style = PaintingStyle.fill;
-    paint.color = const Color(0xFF00FFFF);
+    paint.color = primaryColor;
 
     // 调整眼睛大小
     final double eyeSize = size.width * 0.04 * blinkProgress;
@@ -175,7 +181,7 @@ class AnimePainter extends CustomPainter {
   void _drawCircuits(Canvas canvas, Size size, Paint paint) {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 1;
-    paint.color = const Color(0xFF00FFFF).withOpacity(0.5);
+    paint.color = primaryColor.withOpacity(0.5);
     paint.maskFilter = null;
 
     // 修改电路布局，避免与标识重叠
@@ -189,7 +195,7 @@ class AnimePainter extends CustomPainter {
 
     // 数据流动画
     final double progress = (waveProgress * 2) % 1.0;
-    paint.color = const Color(0xFF00FFFF);
+    paint.color = primaryColor;
     canvas.drawCircle(
       Offset(
         size.width * (0.3 + progress * 0.4),
@@ -203,12 +209,12 @@ class AnimePainter extends CustomPainter {
   void _drawYuiLogo(Canvas canvas, Size size, Paint paint) {
     // YUI 标识
     final textStyle = TextStyle(
-      color: const Color(0xFF00FFFF),
+      color: primaryColor,
       fontSize: size.width * 0.08,
       fontWeight: FontWeight.bold,
       shadows: [
         Shadow(
-          color: const Color(0xFF00FFFF).withOpacity(0.3),
+          color: primaryColor.withOpacity(0.3),
           blurRadius: 5,
         ),
       ],
@@ -232,7 +238,7 @@ class AnimePainter extends CustomPainter {
     // 添加装饰线条
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 0.5;
-    paint.color = const Color(0xFF00FFFF).withOpacity(0.2);
+    paint.color = primaryColor.withOpacity(0.2);
 
     // 左侧装饰线
     canvas.drawLine(
@@ -247,7 +253,6 @@ class AnimePainter extends CustomPainter {
       Offset(size.width * 0.65, size.height * 0.6),
       paint,
     );
-
   }
 
   @override
@@ -255,6 +260,7 @@ class AnimePainter extends CustomPainter {
     return oldDelegate.waveProgress != waveProgress ||
         oldDelegate.blinkProgress != blinkProgress ||
         oldDelegate.isHappy != isHappy ||
-        oldDelegate.isThinking != isThinking;
+        oldDelegate.isThinking != isThinking ||
+        oldDelegate.isDarkMode != isDarkMode;
   }
 }

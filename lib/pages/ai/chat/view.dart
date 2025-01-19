@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yug_app/common/index.dart';
 
 import 'index.dart';
-import 'widgets/wave_animation.dart';
-import 'package:yug_app/common/widgets/virtual_assistant/index.dart';
 
 class AIChatPage extends GetView<AIChatController> {
   const AIChatPage({super.key});
@@ -104,16 +102,6 @@ class AIChatPage extends GetView<AIChatController> {
               ),
             ),
             actions: [
-              IconButton(
-                onPressed: () => controller.onVoiceMode(),
-                icon: Icon(
-                  controller.isVoiceMode
-                      ? Icons.keyboard_rounded
-                      : Icons.mic_rounded,
-                  color: const Color(0xFF333333),
-                  size: 24,
-                ),
-              ),
               IconButton(
                 onPressed: () => controller.onMore(),
                 icon: const Icon(
@@ -779,143 +767,77 @@ class AIChatPage extends GetView<AIChatController> {
       ),
       child: Row(
         children: [
-          if (!controller.isVoiceMode) ...[
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(20.r),
-                  border: Border.all(
-                    color: Colors.grey[200]!,
-                    width: 0.5,
-                  ),
-                ),
-                child: TextField(
-                  controller: controller.textController,
-                  maxLines: 4,
-                  minLines: 1,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: const Color(0xFF333333),
-                    letterSpacing: 0.2,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: "说点什么吧...",
-                    hintStyle: TextStyle(
-                      fontSize: 14.sp,
-                      color: const Color(0xFF999999),
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 8.w),
-            Container(
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.secondary.withOpacity(0.2),
-                    offset: const Offset(0, 2),
-                    blurRadius: 6,
-                  ),
-                ],
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(
+                  color: Colors.grey[200]!,
+                  width: 0.5,
+                ),
               ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => controller.onSend(),
-                  borderRadius: BorderRadius.circular(16.r),
-                  child: Container(
-                    width: 32.w,
-                    height: 32.w,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF88C9C9),
-                          Color(0xFF6BAFAF),
-                        ],
-                      ),
+              child: TextField(
+                controller: controller.textController,
+                maxLines: 4,
+                minLines: 1,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: const Color(0xFF333333),
+                  letterSpacing: 0.2,
+                ),
+                decoration: InputDecoration(
+                  hintText: "说点什么吧...",
+                  hintStyle: TextStyle(
+                    fontSize: 14.sp,
+                    color: const Color(0xFF999999),
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 8.w),
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.secondary.withOpacity(0.2),
+                  offset: const Offset(0, 2),
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => controller.onSend(),
+                borderRadius: BorderRadius.circular(16.r),
+                child: Container(
+                  width: 32.w,
+                  height: 32.w,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF88C9C9),
+                        Color(0xFF6BAFAF),
+                      ],
                     ),
-                    child: Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 16.w,
-                    ),
+                  ),
+                  child: Icon(
+                    Icons.send_rounded,
+                    color: Colors.white,
+                    size: 16.w,
                   ),
                 ),
               ),
             ),
-          ] else ...[
-            Expanded(
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTapDown: (_) => controller.startRecording(),
-                  onTapUp: (_) => controller.stopRecording(),
-                  onTapCancel: () => controller.cancelRecording(),
-                  borderRadius: BorderRadius.circular(20.r),
-                  child: Container(
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(
-                        color: controller.isRecording
-                            ? AppTheme.secondary
-                            : Colors.grey[200]!,
-                        width: 0.5,
-                      ),
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            controller.isRecording
-                                ? Icons.mic
-                                : Icons.mic_none_rounded,
-                            color: controller.isRecording
-                                ? AppTheme.secondary
-                                : Colors.grey[400],
-                            size: 18.w,
-                          ),
-                          SizedBox(width: 6.w),
-                          if (controller.isRecording) ...[
-                            SizedBox(
-                              height: 30.h,
-                              child: const WaveAnimation(isRecording: true),
-                            ),
-                            SizedBox(width: 6.w),
-                            Text(
-                              controller.recordDuration,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppTheme.secondary,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ] else
-                            Text(
-                              "按住说话",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: const Color(0xFF999999),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ],
       ),
     );
