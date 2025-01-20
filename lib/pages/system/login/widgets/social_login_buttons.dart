@@ -64,13 +64,13 @@ class SocialLoginButtons extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(20.w),
-        splashColor: color.withOpacity(0.1),
-        highlightColor: color.withOpacity(0.05),
+        splashColor: color.withValues(alpha: 0.1),
+        highlightColor: color.withValues(alpha: 0.05),
         child: Container(
           width: 40.w,
           height: 40.w,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(20.w),
           ),
           child: Icon(

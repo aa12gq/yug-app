@@ -43,7 +43,7 @@ class InputFormFieldWidget extends FormField<String> {
               Text(
                 labelText,
                 style: TextStyle(
-                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -59,10 +59,10 @@ class InputFormFieldWidget extends FormField<String> {
                 style: TextStyle(fontSize: 14.sp),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: theme.colorScheme.surface.withOpacity(0.6),
+                  fillColor: theme.colorScheme.surface.withValues(alpha: 0.6),
                   hintText: placeholder,
                   hintStyle: TextStyle(
-                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     fontSize: 14.sp,
                   ),
                   prefixIcon: prefix != null
@@ -84,28 +84,28 @@ class InputFormFieldWidget extends FormField<String> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.colorScheme.outline.withOpacity(0.1),
+                      color: theme.colorScheme.outline.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.colorScheme.outline.withOpacity(0.1),
+                      color: theme.colorScheme.outline.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: AppTheme.primary.withOpacity(0.6),
+                      color: AppTheme.primary.withValues(alpha: 0.6),
                       width: 1.5,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.w),
                     borderSide: BorderSide(
-                      color: theme.colorScheme.error.withOpacity(0.6),
+                      color: theme.colorScheme.error.withValues(alpha: 0.6),
                       width: 1,
                     ),
                   ),
@@ -124,7 +124,7 @@ class InputFormFieldWidget extends FormField<String> {
                 Text(
                   tipText,
                   style: TextStyle(
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                     fontSize: 12.sp,
                   ),
                 ).paddingLeft(AppSpace.card),

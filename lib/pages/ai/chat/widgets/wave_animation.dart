@@ -70,7 +70,7 @@ class _WaveAnimationState extends State<WaveAnimation>
           width: 2,
           height: _heights[index],
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.5),
+            color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

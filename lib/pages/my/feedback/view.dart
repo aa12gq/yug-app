@@ -42,7 +42,7 @@ class FeedbackPage extends GetView<FeedbackController> {
                         end: Alignment.bottomRight,
                         colors: [
                           AppTheme.secondary,
-                          AppTheme.secondary.withOpacity(0.8),
+                          AppTheme.secondary.withValues(alpha: 0.8),
                         ],
                         stops: const [0.3, 1.0],
                       ),
@@ -59,9 +59,9 @@ class FeedbackPage extends GetView<FeedbackController> {
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                  Colors.white.withOpacity(0),
+                                  Colors.white.withValues(alpha: 0.1),
+                                  Colors.white.withValues(alpha: 0.05),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                               shape: BoxShape.circle,
@@ -77,9 +77,9 @@ class FeedbackPage extends GetView<FeedbackController> {
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                  Colors.white.withOpacity(0),
+                                  Colors.white.withValues(alpha: 0.1),
+                                  Colors.white.withValues(alpha: 0.05),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                               shape: BoxShape.circle,
@@ -104,8 +104,8 @@ class FeedbackPage extends GetView<FeedbackController> {
                                           child: Container(
                                             padding: EdgeInsets.all(6.w),
                                             decoration: BoxDecoration(
-                                              color:
-                                                  Colors.white.withOpacity(0.2),
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.2),
                                               borderRadius:
                                                   BorderRadius.circular(10.r),
                                             ),
@@ -137,7 +137,8 @@ class FeedbackPage extends GetView<FeedbackController> {
                                           vertical: 6.h,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.2),
                                           borderRadius:
                                               BorderRadius.circular(16.r),
                                         ),
@@ -168,7 +169,7 @@ class FeedbackPage extends GetView<FeedbackController> {
                                   "我们随时倾听您的建议，为您解答疑惑",
                                   style: TextStyle(
                                     fontSize: 12.sp,
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Colors.white.withValues(alpha: 0.8),
                                   ),
                                 ),
                               ],
@@ -215,7 +216,7 @@ class FeedbackPage extends GetView<FeedbackController> {
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             offset: const Offset(0, 8),
             blurRadius: 24,
           ),
@@ -265,8 +266,8 @@ class FeedbackPage extends GetView<FeedbackController> {
                             boxShadow: isSelected
                                 ? [
                                     BoxShadow(
-                                      color:
-                                          AppTheme.secondary.withOpacity(0.25),
+                                      color: AppTheme.secondary
+                                          .withValues(alpha: 0.25),
                                       blurRadius: 8,
                                       offset: const Offset(0, 4),
                                       spreadRadius: -2,
@@ -280,7 +281,8 @@ class FeedbackPage extends GetView<FeedbackController> {
                               fontSize: 13.sp,
                               color: isSelected
                                   ? Colors.white
-                                  : AppColors.primaryText.withOpacity(0.8),
+                                  : AppColors.primaryText
+                                      .withValues(alpha: 0.8),
                               fontWeight: FontWeight.w500,
                               letterSpacing: 0.2,
                             ),
@@ -324,7 +326,7 @@ class FeedbackPage extends GetView<FeedbackController> {
                       hintText: "请详细描述您遇到的问题",
                       hintStyle: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.secondaryText.withOpacity(0.4),
+                        color: AppColors.secondaryText.withValues(alpha: 0.4),
                         letterSpacing: 0.2,
                       ),
                       border: InputBorder.none,
@@ -380,8 +382,8 @@ class FeedbackPage extends GetView<FeedbackController> {
                                   Container(
                                     padding: EdgeInsets.all(10.w),
                                     decoration: BoxDecoration(
-                                      color:
-                                          AppTheme.secondary.withOpacity(0.08),
+                                      color: AppTheme.secondary
+                                          .withValues(alpha: 0.08),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Icon(
@@ -426,13 +428,15 @@ class FeedbackPage extends GetView<FeedbackController> {
                                   child: Container(
                                     padding: EdgeInsets.all(6.w),
                                     decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.4),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.4),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Icon(
                                       Icons.close,
                                       size: 12.w,
-                                      color: Colors.white.withOpacity(0.9),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.9),
                                     ),
                                   ),
                                 ),
@@ -488,7 +492,7 @@ class FeedbackPage extends GetView<FeedbackController> {
                       hintText: "请留下您的联系方式，方便我们及时回复",
                       hintStyle: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.secondaryText.withOpacity(0.4),
+                        color: AppColors.secondaryText.withValues(alpha: 0.4),
                         letterSpacing: 0.2,
                       ),
                       border: InputBorder.none,
@@ -524,14 +528,14 @@ class FeedbackPage extends GetView<FeedbackController> {
                           end: Alignment.bottomRight,
                           colors: [
                             AppTheme.secondary,
-                            AppTheme.secondary.withOpacity(0.8),
+                            AppTheme.secondary.withValues(alpha: 0.8),
                           ],
                           stops: const [0.3, 1.0],
                         ),
                         borderRadius: BorderRadius.circular(32.r),
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.secondary.withOpacity(0.25),
+                            color: AppTheme.secondary.withValues(alpha: 0.25),
                             blurRadius: 12,
                             offset: const Offset(0, 6),
                             spreadRadius: -2,

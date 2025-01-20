@@ -25,8 +25,8 @@ class LoginButton extends GetView<LoginController> {
               onTap: () => controller.handleLogin(),
               borderRadius: BorderRadius.circular(22.w),
               splashColor: isDark
-                  ? Colors.white.withOpacity(0.1)
-                  : Colors.black.withOpacity(0.1),
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : Colors.black.withValues(alpha: 0.1),
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -34,9 +34,9 @@ class LoginButton extends GetView<LoginController> {
                     end: Alignment.centerRight,
                     colors: isDark
                         ? [
-                            AppTheme.primary.withOpacity(0.8),
-                            AppTheme.primary.withOpacity(0.6),
-                            AppTheme.primary.withOpacity(0.8),
+                            AppTheme.primary.withValues(alpha: 0.8),
+                            AppTheme.primary.withValues(alpha: 0.6),
+                            AppTheme.primary.withValues(alpha: 0.8),
                           ]
                         : [
                             AppTheme.primary,
@@ -50,7 +50,7 @@ class LoginButton extends GetView<LoginController> {
                       ? []
                       : [
                           BoxShadow(
-                            color: AppTheme.primary.withOpacity(0.3),
+                            color: AppTheme.primary.withValues(alpha: 0.3),
                             blurRadius: 12,
                             offset: const Offset(0, 6),
                             spreadRadius: 1,

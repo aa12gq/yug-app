@@ -72,7 +72,7 @@ class _MainViewGetX extends GetView<MainController> {
                       end: Alignment.bottomRight,
                       colors: [
                         AppTheme.primary,
-                        AppTheme.primary.withOpacity(0.8),
+                        AppTheme.primary.withValues(alpha: 0.8),
                       ],
                     ),
                   ),
@@ -111,7 +111,8 @@ class _MainViewGetX extends GetView<MainController> {
               padding: EdgeInsets.zero,
               notchMargin: 5,
               shape: const CircularNotchedRectangle(),
-              color: isDark ? Colors.black.withOpacity(0.3) : Colors.white,
+              color:
+                  isDark ? Colors.black.withValues(alpha: 0.3) : Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -174,15 +175,15 @@ class _MainViewGetX extends GetView<MainController> {
   }) {
     // 未选中状态的颜色根据深色模式调整
     final unselectedColor =
-        isDark ? Colors.white.withOpacity(0.5) : const Color(0xFF999999);
+        isDark ? Colors.white.withValues(alpha: 0.5) : const Color(0xFF999999);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         customBorder: const CircleBorder(),
-        splashColor: AppTheme.primary.withOpacity(0.2),
-        highlightColor: AppTheme.primary.withOpacity(0.1),
+        splashColor: AppTheme.primary.withValues(alpha: 0.2),
+        highlightColor: AppTheme.primary.withValues(alpha: 0.1),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Column(

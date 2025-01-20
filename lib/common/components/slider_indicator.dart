@@ -50,7 +50,9 @@ class SliderIndicatorWidget extends StatelessWidget {
             // 圆角 4
             borderRadius: const BorderRadius.all(Radius.circular(4)),
             // 非当前位置透明度 0.3
-            color: currentIndex == index ? boxColor : boxColor.withOpacity(0.3),
+            color: currentIndex == index
+                ? boxColor
+                : boxColor.withValues(alpha: 0.3),
           ),
         );
       }),

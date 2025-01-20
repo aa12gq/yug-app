@@ -26,7 +26,7 @@ class RegisterPage extends GetView<RegisterController> {
             padding: EdgeInsets.symmetric(vertical: 12.w),
             decoration: BoxDecoration(
               color: isSelected
-                  ? context.theme.primaryColor.withOpacity(0.08)
+                  ? context.theme.primaryColor.withValues(alpha: 0.08)
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(12.w),
             ),
@@ -99,7 +99,7 @@ class RegisterPage extends GetView<RegisterController> {
         borderRadius: BorderRadius.circular(12.w),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -129,7 +129,7 @@ class RegisterPage extends GetView<RegisterController> {
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -147,8 +147,8 @@ class RegisterPage extends GetView<RegisterController> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    context.theme.primaryColor.withOpacity(0.1),
-                    context.theme.primaryColor.withOpacity(0.05),
+                    context.theme.primaryColor.withValues(alpha: 0.1),
+                    context.theme.primaryColor.withValues(alpha: 0.05),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(75.w),
@@ -164,8 +164,8 @@ class RegisterPage extends GetView<RegisterController> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    context.theme.colorScheme.secondary.withOpacity(0.1),
-                    context.theme.colorScheme.secondary.withOpacity(0.05),
+                    context.theme.colorScheme.secondary.withValues(alpha: 0.1),
+                    context.theme.colorScheme.secondary.withValues(alpha: 0.05),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(50.w),
@@ -255,11 +255,11 @@ class RegisterPage extends GetView<RegisterController> {
                     color: context.theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(20.w),
                     border: Border.all(
-                      color: context.theme.primaryColor.withOpacity(0.1),
+                      color: context.theme.primaryColor.withValues(alpha: 0.1),
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
+                        color: Colors.black.withValues(alpha: 0.02),
                         blurRadius: 10,
                         offset: const Offset(0, 5),
                       ),
@@ -290,8 +290,8 @@ class RegisterPage extends GetView<RegisterController> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.w),
                             side: BorderSide(
-                              color:
-                                  context.theme.primaryColor.withOpacity(0.5),
+                              color: context.theme.primaryColor
+                                  .withValues(alpha: 0.5),
                             ),
                           ),
                         ),
@@ -323,7 +323,7 @@ class RegisterPage extends GetView<RegisterController> {
                   borderRadius: BorderRadius.circular(28.w),
                   boxShadow: [
                     BoxShadow(
-                      color: context.theme.primaryColor.withOpacity(0.3),
+                      color: context.theme.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     ),
@@ -395,7 +395,7 @@ class RegisterPage extends GetView<RegisterController> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                context.theme.primaryColor.withOpacity(0.05),
+                context.theme.primaryColor.withValues(alpha: 0.05),
                 Colors.transparent,
               ],
             ),
@@ -404,7 +404,7 @@ class RegisterPage extends GetView<RegisterController> {
 
         CustomPaint(
           painter: WavePainter(
-            color: context.theme.primaryColor.withOpacity(0.08),
+            color: context.theme.primaryColor.withValues(alpha: 0.08),
             waveHeight: 100,
           ),
           size: Size(Get.width, Get.height),
@@ -466,7 +466,7 @@ class RegisterPage extends GetView<RegisterController> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          context.theme.primaryColor.withOpacity(0.05),
+                          context.theme.primaryColor.withValues(alpha: 0.05),
                           Colors.transparent,
                         ],
                       ),
@@ -475,7 +475,7 @@ class RegisterPage extends GetView<RegisterController> {
 
                   CustomPaint(
                     painter: WavePainter(
-                      color: context.theme.primaryColor.withOpacity(0.08),
+                      color: context.theme.primaryColor.withValues(alpha: 0.08),
                       waveHeight: 100,
                     ),
                     size: Size(Get.width, Get.height),

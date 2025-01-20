@@ -16,10 +16,10 @@ class Loading {
       ..lineWidth = 2 // 进度条宽度
       ..radius = 10.0 // 圆角
       ..progressColor = Colors.white // 进度条颜色
-      ..backgroundColor = Colors.black.withOpacity(0.7) // 背景颜色
+      ..backgroundColor = Colors.black.withValues(alpha: 0.7) // 背景颜色
       ..indicatorColor = Colors.white // 指示器颜色
       ..textColor = Colors.white // 文字颜色
-      ..maskColor = Colors.black.withOpacity(0.6) // 遮罩颜色
+      ..maskColor = Colors.black.withValues(alpha: 0.6) // 遮罩颜色
       ..userInteractions = true // 用户交互
       ..dismissOnTap = false // 点击关闭
       ..indicatorWidget = Image.asset(

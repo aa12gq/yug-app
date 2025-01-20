@@ -43,7 +43,7 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                         end: Alignment.bottomRight,
                         colors: [
                           AppTheme.secondary,
-                          AppTheme.secondary.withOpacity(0.8),
+                          AppTheme.secondary.withValues(alpha: 0.8),
                         ],
                         stops: const [0.3, 1.0],
                       ),
@@ -64,7 +64,8 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                       child: Container(
                                         padding: EdgeInsets.all(6.w),
                                         decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.2),
                                           borderRadius:
                                               BorderRadius.circular(10.r),
                                         ),
@@ -96,7 +97,8 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                       vertical: 6.h,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.2),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.2),
                                       borderRadius: BorderRadius.circular(16.r),
                                     ),
                                     child: Row(
@@ -126,7 +128,7 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                   controller.title.value,
                                   style: TextStyle(
                                     fontSize: 12.sp,
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Colors.white.withValues(alpha: 0.8),
                                   ),
                                 )),
                           ],
@@ -149,7 +151,7 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                         borderRadius: BorderRadius.circular(16.r),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             offset: const Offset(0, 4),
                             blurRadius: 16,
                             spreadRadius: -2,
@@ -168,7 +170,8 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                   vertical: 4.h,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppTheme.secondary.withOpacity(0.08),
+                                  color: AppTheme.secondary
+                                      .withValues(alpha: 0.08),
                                   borderRadius: BorderRadius.circular(12.r),
                                 ),
                                 child: Row(
@@ -244,15 +247,15 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                   ),
                                   p: TextStyle(
                                     fontSize: 14.sp,
-                                    color:
-                                        AppColors.primaryText.withOpacity(0.9),
+                                    color: AppColors.primaryText
+                                        .withValues(alpha: 0.9),
                                     height: 1.6,
                                     letterSpacing: 0.2,
                                   ),
                                   listBullet: TextStyle(
                                     fontSize: 14.sp,
-                                    color:
-                                        AppColors.primaryText.withOpacity(0.9),
+                                    color: AppColors.primaryText
+                                        .withValues(alpha: 0.9),
                                     height: 1.6,
                                     letterSpacing: 0.2,
                                   ),
@@ -268,8 +271,8 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                     borderRadius: BorderRadius.circular(8.r),
                                     border: Border(
                                       left: BorderSide(
-                                        color:
-                                            AppTheme.secondary.withOpacity(0.3),
+                                        color: AppTheme.secondary
+                                            .withValues(alpha: 0.3),
                                         width: 3,
                                       ),
                                     ),
@@ -308,7 +311,7 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                         borderRadius: BorderRadius.circular(16.r),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             offset: const Offset(0, 4),
                             blurRadius: 16,
                             spreadRadius: -2,
@@ -324,7 +327,8 @@ class HelpDetailPage extends GetView<HelpDetailController> {
                                 width: 32.w,
                                 height: 32.w,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.secondary.withOpacity(0.08),
+                                  color: AppTheme.secondary
+                                      .withValues(alpha: 0.08),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
@@ -409,7 +413,7 @@ class HelpDetailPage extends GetView<HelpDetailController> {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppTheme.secondary.withOpacity(0.08)
+              ? AppTheme.secondary.withValues(alpha: 0.08)
               : const Color(0xFFF7F7F9),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
@@ -419,7 +423,7 @@ class HelpDetailPage extends GetView<HelpDetailController> {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppTheme.secondary.withOpacity(0.15),
+                    color: AppTheme.secondary.withValues(alpha: 0.15),
                     blurRadius: 6,
                     offset: const Offset(0, 2),
                     spreadRadius: -2,

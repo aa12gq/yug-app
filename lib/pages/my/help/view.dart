@@ -42,7 +42,7 @@ class HelpPage extends GetView<HelpController> {
                         end: Alignment.bottomRight,
                         colors: [
                           AppTheme.secondary,
-                          AppTheme.secondary.withOpacity(0.8),
+                          AppTheme.secondary.withValues(alpha: 0.8),
                         ],
                       ),
                     ),
@@ -58,9 +58,9 @@ class HelpPage extends GetView<HelpController> {
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                  Colors.white.withOpacity(0),
+                                  Colors.white.withValues(alpha: 0.1),
+                                  Colors.white.withValues(alpha: 0.05),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                               shape: BoxShape.circle,
@@ -76,9 +76,9 @@ class HelpPage extends GetView<HelpController> {
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                  Colors.white.withOpacity(0),
+                                  Colors.white.withValues(alpha: 0.1),
+                                  Colors.white.withValues(alpha: 0.05),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                               shape: BoxShape.circle,
@@ -101,7 +101,8 @@ class HelpPage extends GetView<HelpController> {
                                       child: Container(
                                         padding: EdgeInsets.all(8.w),
                                         decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.2),
                                           borderRadius:
                                               BorderRadius.circular(12.r),
                                         ),
@@ -121,7 +122,8 @@ class HelpPage extends GetView<HelpController> {
                                           vertical: 8.h,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.2),
                                           borderRadius:
                                               BorderRadius.circular(20.r),
                                         ),
@@ -162,7 +164,7 @@ class HelpPage extends GetView<HelpController> {
                                   "为您提供全面的使用指南和帮助文档",
                                   style: TextStyle(
                                     fontSize: 12.sp,
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Colors.white.withValues(alpha: 0.8),
                                   ),
                                 ),
                               ],
@@ -216,7 +218,7 @@ class HelpPage extends GetView<HelpController> {
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             offset: const Offset(0, 2),
             blurRadius: 8,
           ),
@@ -322,7 +324,7 @@ class HelpPage extends GetView<HelpController> {
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: Colors.black.withValues(alpha: 0.03),
               offset: const Offset(0, 2),
               blurRadius: 8,
             ),
@@ -337,7 +339,7 @@ class HelpPage extends GetView<HelpController> {
               Container(
                 padding: EdgeInsets.all(6.w),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Icon(
@@ -399,7 +401,7 @@ class HelpPage extends GetView<HelpController> {
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.03),
+                  color: Colors.black.withValues(alpha: 0.03),
                   offset: const Offset(0, 2),
                   blurRadius: 8,
                 ),
@@ -450,7 +452,7 @@ class HelpPage extends GetView<HelpController> {
           leading: Container(
             padding: EdgeInsets.all(6.w),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(
@@ -479,7 +481,7 @@ class HelpPage extends GetView<HelpController> {
             height: 1,
             indent: 56.w,
             endIndent: 16.w,
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
           ),
       ],
     );

@@ -392,22 +392,22 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   // 高亮色
   Color _highlightColor() {
     var colorScheme = context.colors.scheme;
-    Color color = colorScheme.primary.withOpacity(0.1);
+    Color color = colorScheme.primary.withValues(alpha: 0.1);
     switch (widget.variant) {
       case ButtonWidgetVariant.primary:
-        color = colorScheme.primaryContainer.withOpacity(0.1);
+        color = colorScheme.primaryContainer.withValues(alpha: 0.1);
         break;
       case ButtonWidgetVariant.secondary:
-        color = colorScheme.secondaryContainer.withOpacity(0.1);
+        color = colorScheme.secondaryContainer.withValues(alpha: 0.1);
         break;
       case ButtonWidgetVariant.destructive:
-        color = colorScheme.errorContainer.withOpacity(0.1);
+        color = colorScheme.errorContainer.withValues(alpha: 0.1);
         break;
       case ButtonWidgetVariant.outline:
       case ButtonWidgetVariant.ghost:
       case ButtonWidgetVariant.link:
       case ButtonWidgetVariant.icon:
-        color = colorScheme.surfaceContainer.withOpacity(0.1);
+        color = colorScheme.surfaceContainer.withValues(alpha: 0.1);
         break;
       default:
     }

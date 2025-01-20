@@ -29,17 +29,17 @@ class MyIndexPage extends GetView<MyIndexController> {
                     stops: const [0.0, 0.3, 0.6, 0.8, 1.0],
                     colors: isDark
                         ? [
-                            AppTheme.primary.withOpacity(0.8),
-                            AppTheme.primary.withOpacity(0.6),
-                            Colors.black.withOpacity(0.5),
-                            Colors.black.withOpacity(0.8),
+                            AppTheme.primary.withValues(alpha: 0.8),
+                            AppTheme.primary.withValues(alpha: 0.6),
+                            Colors.black.withValues(alpha: 0.5),
+                            Colors.black.withValues(alpha: 0.8),
                             Colors.black,
                           ]
                         : [
                             AppTheme.primary,
-                            AppTheme.primary.withOpacity(0.8),
-                            AppTheme.secondary.withOpacity(0.5),
-                            Colors.white.withOpacity(0.8),
+                            AppTheme.primary.withValues(alpha: 0.8),
+                            AppTheme.secondary.withValues(alpha: 0.5),
+                            Colors.white.withValues(alpha: 0.8),
                             Colors.white,
                           ],
                   ),
@@ -61,13 +61,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Colors.white.withOpacity(0.2),
-                            Colors.white.withOpacity(0.05),
+                            Colors.white.withValues(alpha: 0.2),
+                            Colors.white.withValues(alpha: 0.05),
                           ],
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.white.withOpacity(0.1),
+                            color: Colors.white.withValues(alpha: 0.1),
                             blurRadius: 20,
                             spreadRadius: 5,
                           ),
@@ -85,8 +85,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                           shape: BoxShape.circle,
                           gradient: RadialGradient(
                             colors: [
-                              Colors.white.withOpacity(0.2),
-                              Colors.white.withOpacity(0),
+                              Colors.white.withValues(alpha: 0.2),
+                              Colors.white.withValues(alpha: 0),
                             ],
                           ),
                         ),
@@ -110,13 +110,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            AppTheme.primary.withOpacity(0.2),
-                            AppTheme.primary.withOpacity(0.05),
+                            AppTheme.primary.withValues(alpha: 0.2),
+                            AppTheme.primary.withValues(alpha: 0.05),
                           ],
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.primary.withOpacity(0.1),
+                            color: AppTheme.primary.withValues(alpha: 0.1),
                             blurRadius: 15,
                             spreadRadius: 2,
                           ),
@@ -134,8 +134,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                           shape: BoxShape.circle,
                           gradient: RadialGradient(
                             colors: [
-                              AppTheme.primary.withOpacity(0.2),
-                              AppTheme.primary.withOpacity(0),
+                              AppTheme.primary.withValues(alpha: 0.2),
+                              AppTheme.primary.withValues(alpha: 0),
                             ],
                           ),
                         ),
@@ -155,13 +155,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
                       colors: [
-                        AppTheme.secondary.withOpacity(0.3),
-                        AppTheme.secondary.withOpacity(0.1),
+                        AppTheme.secondary.withValues(alpha: 0.3),
+                        AppTheme.secondary.withValues(alpha: 0.1),
                       ],
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: AppTheme.secondary.withOpacity(0.1),
+                        color: AppTheme.secondary.withValues(alpha: 0.1),
                         blurRadius: 8,
                         spreadRadius: 1,
                       ),
@@ -180,13 +180,13 @@ class MyIndexPage extends GetView<MyIndexController> {
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
                       colors: [
-                        Colors.white.withOpacity(0.3),
-                        Colors.white.withOpacity(0.1),
+                        Colors.white.withValues(alpha: 0.3),
+                        Colors.white.withValues(alpha: 0.1),
                       ],
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.white.withOpacity(0.1),
+                        color: Colors.white.withValues(alpha: 0.1),
                         blurRadius: 6,
                         spreadRadius: 1,
                       ),
@@ -235,7 +235,7 @@ class MyIndexPage extends GetView<MyIndexController> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
+                  color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Row(
@@ -285,8 +285,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Colors.white.withOpacity(0.3),
-                            Colors.white.withOpacity(0.1),
+                            Colors.white.withValues(alpha: 0.3),
+                            Colors.white.withValues(alpha: 0.1),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(16.r),
@@ -296,7 +296,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -375,7 +375,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                           gradient: LinearGradient(
                             colors: [
                               const Color(0xFFFF6B6B),
-                              const Color(0xFFFF6B6B).withOpacity(0.8),
+                              const Color(0xFFFF6B6B).withValues(alpha: 0.8),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(6.r),
@@ -417,7 +417,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 4.w, vertical: 2.h),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF00B894).withOpacity(0.2),
+                              color: const Color(0xFF00B894)
+                                  .withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             child: Row(
@@ -449,7 +450,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 6.w, vertical: 2.h),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.white.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Row(
@@ -464,7 +465,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                                   "创作者",
                                   style: TextStyle(
                                     fontSize: 10.sp,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                   ),
                                 ),
                               ],
@@ -475,7 +476,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                             "编辑资料 >",
                             style: TextStyle(
                               fontSize: 11.sp,
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                             ),
                           ),
                         ],
@@ -516,12 +517,12 @@ class MyIndexPage extends GetView<MyIndexController> {
                 ),
                 borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   width: 1,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: card.colors[0].withOpacity(0.3),
+                    color: card.colors[0].withValues(alpha: 0.3),
                     blurRadius: 15,
                     offset: const Offset(0, 5),
                   ),
@@ -541,8 +542,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Colors.white.withOpacity(0.2),
-                            Colors.white.withOpacity(0.1),
+                            Colors.white.withValues(alpha: 0.2),
+                            Colors.white.withValues(alpha: 0.1),
                           ],
                         ),
                         shape: BoxShape.circle,
@@ -560,8 +561,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Colors.white.withOpacity(0.2),
-                            Colors.white.withOpacity(0.05),
+                            Colors.white.withValues(alpha: 0.2),
+                            Colors.white.withValues(alpha: 0.05),
                           ],
                         ),
                         shape: BoxShape.circle,
@@ -587,7 +588,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                                 letterSpacing: 0.5,
                                 shadows: [
                                   Shadow(
-                                    color: Colors.black.withOpacity(0.2),
+                                    color: Colors.black.withValues(alpha: 0.2),
                                     offset: const Offset(0, 2),
                                     blurRadius: 4,
                                   ),
@@ -598,12 +599,12 @@ class MyIndexPage extends GetView<MyIndexController> {
                             Text(
                               card.subtitle,
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.9),
+                                color: Colors.white.withValues(alpha: 0.9),
                                 fontSize: 12.sp,
                                 letterSpacing: 0.3,
                                 shadows: [
                                   Shadow(
-                                    color: Colors.black.withOpacity(0.2),
+                                    color: Colors.black.withValues(alpha: 0.2),
                                     offset: const Offset(0, 1),
                                     blurRadius: 2,
                                   ),
@@ -622,12 +623,12 @@ class MyIndexPage extends GetView<MyIndexController> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25.r),
                           border: Border.all(
-                            color: Colors.white.withOpacity(0.5),
+                            color: Colors.white.withValues(alpha: 0.5),
                             width: 1,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 10,
                               offset: const Offset(0, 2),
                             ),
@@ -667,22 +668,22 @@ class MyIndexPage extends GetView<MyIndexController> {
             end: Alignment.bottomRight,
             colors: isDark
                 ? [
-                    Colors.black.withOpacity(0.3),
-                    Colors.black.withOpacity(0.2),
+                    Colors.black.withValues(alpha: 0.3),
+                    Colors.black.withValues(alpha: 0.2),
                   ]
                 : [
-                    Colors.white.withOpacity(0.8),
-                    Colors.white.withOpacity(0.6),
+                    Colors.white.withValues(alpha: 0.8),
+                    Colors.white.withValues(alpha: 0.6),
                   ],
           ),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: isDark ? Colors.white.withOpacity(0.1) : Colors.white,
+            color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.white,
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -750,7 +751,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -762,7 +763,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                 children: [
                   Icon(
                     icon,
-                    color: isDark ? color.withOpacity(0.9) : color,
+                    color: isDark ? color.withValues(alpha: 0.9) : color,
                     size: 18.w,
                   ),
                   SizedBox(height: 3.h),
@@ -771,7 +772,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
-                      color: isDark ? color.withOpacity(0.9) : color,
+                      color: isDark ? color.withValues(alpha: 0.9) : color,
                     ),
                   ),
                 ],
@@ -784,7 +785,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                 fontSize: 11.sp,
                 fontWeight: FontWeight.w500,
                 color: isDark
-                    ? Colors.white.withOpacity(0.7)
+                    ? Colors.white.withValues(alpha: 0.7)
                     : AppColors.secondaryText,
               ),
               textAlign: TextAlign.center,
@@ -803,13 +804,13 @@ class MyIndexPage extends GetView<MyIndexController> {
         margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
         decoration: BoxDecoration(
           color: isDark
-              ? Colors.white.withOpacity(0.1)
-              : Colors.white.withOpacity(0.5),
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.white.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: isDark
-                ? Colors.white.withOpacity(0.1)
-                : Colors.white.withOpacity(0.2),
+                ? Colors.white.withValues(alpha: 0.1)
+                : Colors.white.withValues(alpha: 0.2),
             width: 1,
           ),
           boxShadow: [
@@ -900,7 +901,7 @@ class MyIndexPage extends GetView<MyIndexController> {
               ),
               child: Icon(
                 icon,
-                color: isDark ? color.withOpacity(0.9) : color,
+                color: isDark ? color.withValues(alpha: 0.9) : color,
                 size: 16.w,
               ),
             ),
@@ -918,8 +919,8 @@ class MyIndexPage extends GetView<MyIndexController> {
               Icons.arrow_forward_ios,
               size: 14.w,
               color: isDark
-                  ? Colors.white.withOpacity(0.5)
-                  : Colors.black.withOpacity(0.3),
+                  ? Colors.white.withValues(alpha: 0.5)
+                  : Colors.black.withValues(alpha: 0.3),
             ),
             onTap: onTap,
           ),
@@ -931,9 +932,9 @@ class MyIndexPage extends GetView<MyIndexController> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.grey.withOpacity(0),
+                      Colors.grey.withValues(alpha: 0),
                       Colors.grey.withOpacity(isDark ? 0.2 : 0.1),
-                      Colors.grey.withOpacity(0),
+                      Colors.grey.withValues(alpha: 0),
                     ],
                   ),
                 ),
@@ -951,10 +952,10 @@ class MyIndexPage extends GetView<MyIndexController> {
       child: Container(
         padding: EdgeInsets.all(6.w),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
+          color: Colors.white.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withValues(alpha: 0.2),
             width: 1,
           ),
         ),

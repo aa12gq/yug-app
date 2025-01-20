@@ -28,7 +28,7 @@ class AboutFooter extends StatelessWidget {
                   height: 24.w,
                   padding: EdgeInsets.all(4.w),
                   decoration: BoxDecoration(
-                    color: context.theme.primaryColor.withOpacity(0.1),
+                    color: context.theme.primaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6.w),
                   ),
                   child: Image.asset(
@@ -56,7 +56,8 @@ class AboutFooter extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
                       decoration: BoxDecoration(
-                        color: context.theme.primaryColor.withOpacity(0.1),
+                        color:
+                            context.theme.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(3.w),
                       ),
                       child: Text(

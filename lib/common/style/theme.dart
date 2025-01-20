@@ -44,7 +44,7 @@ class AppTheme {
   static Color get primary =>
       themeColors[ConfigService.to.themeColor] ?? themeColors['mint']!;
   // ignore: deprecated_member_use
-  static Color get secondary => primary.withOpacity(0.8); // 辅助色
+  static Color get secondary => primary.withValues(alpha: 0.8); // 辅助色
   static const success = Color(0xFF23A757); // 成功色
   static const warning = Color(0xFFFF1843); // 警告色
   static const error = Color(0xFFDA1414); // 错误色

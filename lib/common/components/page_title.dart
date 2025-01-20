@@ -72,8 +72,8 @@ class AuthPageTitle extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    context.theme.primaryColor.withOpacity(0.1),
-                    context.theme.primaryColor.withOpacity(0.05),
+                    context.theme.primaryColor.withValues(alpha: 0.1),
+                    context.theme.primaryColor.withValues(alpha: 0.05),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(60.w),
@@ -93,8 +93,8 @@ class AuthPageTitle extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    context.theme.colorScheme.secondary.withOpacity(0.1),
-                    context.theme.colorScheme.secondary.withOpacity(0.05),
+                    context.theme.colorScheme.secondary.withValues(alpha: 0.1),
+                    context.theme.colorScheme.secondary.withValues(alpha: 0.05),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(30.w),
@@ -114,7 +114,7 @@ class AuthPageTitle extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.w),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -149,7 +149,8 @@ class AuthPageTitle extends StatelessWidget {
                       borderRadius: BorderRadius.circular(3.w),
                       boxShadow: [
                         BoxShadow(
-                          color: context.theme.primaryColor.withOpacity(0.3),
+                          color:
+                              context.theme.primaryColor.withValues(alpha: 0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -170,7 +171,7 @@ class AuthPageTitle extends StatelessWidget {
                             height: 1.1,
                             shadows: [
                               Shadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black.withValues(alpha: 0.1),
                                 offset: const Offset(0, 2),
                                 blurRadius: 4,
                               ),
@@ -186,7 +187,7 @@ class AuthPageTitle extends StatelessWidget {
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,
                                 color: context.theme.colorScheme.onBackground
-                                    .withOpacity(0.5),
+                                    .withValues(alpha: 0.5),
                                 height: 1.5,
                                 letterSpacing: 0.2,
                               ),

@@ -39,8 +39,8 @@ class AnimePainter extends CustomPainter {
       center: Alignment.center,
       radius: 0.8,
       colors: [
-        primaryColor.withOpacity(0.1),
-        primaryColor.withOpacity(0.05),
+        primaryColor.withValues(alpha: 0.1),
+        primaryColor.withValues(alpha: 0.05),
         Colors.transparent, // 完全透明
       ],
       stops: const [0.0, 0.5, 1.0],
@@ -62,7 +62,7 @@ class AnimePainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 1;
     paint.shader = null;
-    paint.color = primaryColor.withOpacity(0.2);
+    paint.color = primaryColor.withValues(alpha: 0.2);
 
     // 绘制多层环形
     for (var i = 0; i < 3; i++) {
@@ -113,7 +113,7 @@ class AnimePainter extends CustomPainter {
       radius: 0.5,
       colors: [
         primaryColor,
-        primaryColor.withOpacity(0.0),
+        primaryColor.withValues(alpha: 0.0),
       ],
     ).createShader(
       Rect.fromCenter(
@@ -134,7 +134,7 @@ class AnimePainter extends CustomPainter {
 
   void _drawFace(Canvas canvas, Size size, Paint paint) {
     paint.shader = null;
-    paint.color = primaryColor.withOpacity(0.3);
+    paint.color = primaryColor.withValues(alpha: 0.3);
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 2;
 
@@ -181,7 +181,7 @@ class AnimePainter extends CustomPainter {
   void _drawCircuits(Canvas canvas, Size size, Paint paint) {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 1;
-    paint.color = primaryColor.withOpacity(0.5);
+    paint.color = primaryColor.withValues(alpha: 0.5);
     paint.maskFilter = null;
 
     // 修改电路布局，避免与标识重叠
@@ -214,7 +214,7 @@ class AnimePainter extends CustomPainter {
       fontWeight: FontWeight.bold,
       shadows: [
         Shadow(
-          color: primaryColor.withOpacity(0.3),
+          color: primaryColor.withValues(alpha: 0.3),
           blurRadius: 5,
         ),
       ],
@@ -238,7 +238,7 @@ class AnimePainter extends CustomPainter {
     // 添加装饰线条
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 0.5;
-    paint.color = primaryColor.withOpacity(0.2);
+    paint.color = primaryColor.withValues(alpha: 0.2);
 
     // 左侧装饰线
     canvas.drawLine(

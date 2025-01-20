@@ -34,7 +34,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                         end: Alignment.bottomRight,
                         colors: [
                           AppTheme.secondary,
-                          AppTheme.secondary.withOpacity(0.8),
+                          AppTheme.secondary.withValues(alpha: 0.8),
                         ],
                       ),
                     ),
@@ -50,9 +50,9 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                  Colors.white.withOpacity(0),
+                                  Colors.white.withValues(alpha: 0.1),
+                                  Colors.white.withValues(alpha: 0.05),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                               shape: BoxShape.circle,
@@ -68,9 +68,9 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                  Colors.white.withOpacity(0),
+                                  Colors.white.withValues(alpha: 0.1),
+                                  Colors.white.withValues(alpha: 0.05),
+                                  Colors.white.withValues(alpha: 0),
                                 ],
                               ),
                               shape: BoxShape.circle,
@@ -91,7 +91,8 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                                       child: Container(
                                         padding: EdgeInsets.all(8.w),
                                         decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.2),
                                           borderRadius:
                                               BorderRadius.circular(12.r),
                                         ),
@@ -119,7 +120,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                                   "我们随时倾听您的建议，为您解答疑惑",
                                   style: TextStyle(
                                     fontSize: 14.sp,
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Colors.white.withValues(alpha: 0.8),
                                   ),
                                 ),
                               ],
@@ -169,7 +170,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             offset: const Offset(0, 2),
             blurRadius: 12,
             spreadRadius: 2,
@@ -186,7 +187,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                 Container(
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
-                    color: AppTheme.secondary.withOpacity(0.1),
+                    color: AppTheme.secondary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Icon(
@@ -241,7 +242,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
         leading: Container(
           padding: EdgeInsets.all(8.w),
           decoration: BoxDecoration(
-            color: AppTheme.secondary.withOpacity(0.05),
+            color: AppTheme.secondary.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Icon(
@@ -264,10 +265,10 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
             margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 16.h),
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
-              color: AppTheme.secondary.withOpacity(0.05),
+              color: AppTheme.secondary.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(12.r),
               border: Border.all(
-                color: AppTheme.secondary.withOpacity(0.1),
+                color: AppTheme.secondary.withValues(alpha: 0.1),
               ),
             ),
             child: Text(
@@ -293,7 +294,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             offset: const Offset(0, 2),
             blurRadius: 12,
             spreadRadius: 2,
@@ -310,7 +311,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                 Container(
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
-                    color: AppTheme.secondary.withOpacity(0.1),
+                    color: AppTheme.secondary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Icon(
@@ -360,12 +361,12 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                             decoration: BoxDecoration(
                               color: controller.selectedType.value == type
                                   ? AppTheme.secondary
-                                  : AppTheme.secondary.withOpacity(0.05),
+                                  : AppTheme.secondary.withValues(alpha: 0.05),
                               borderRadius: BorderRadius.circular(20.r),
                               border: Border.all(
                                 color: controller.selectedType.value == type
                                     ? Colors.transparent
-                                    : AppTheme.secondary.withOpacity(0.1),
+                                    : AppTheme.secondary.withValues(alpha: 0.1),
                               ),
                             ),
                             child: Text(
@@ -398,7 +399,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                     color: const Color(0xFFF8F9FA),
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey.withValues(alpha: 0.2),
                     ),
                   ),
                   child: TextField(
@@ -442,7 +443,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                                 color: const Color(0xFFF8F9FA),
                                 borderRadius: BorderRadius.circular(12.r),
                                 border: Border.all(
-                                  color: Colors.grey.withOpacity(0.2),
+                                  color: Colors.grey.withValues(alpha: 0.2),
                                 ),
                               ),
                               child: Column(
@@ -488,7 +489,8 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                                   child: Container(
                                     padding: EdgeInsets.all(4.w),
                                     decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.5),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.5),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Icon(
@@ -520,7 +522,7 @@ class HelpFeedbackPage extends GetView<HelpFeedbackController> {
                     color: const Color(0xFFF8F9FA),
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey.withValues(alpha: 0.2),
                     ),
                   ),
                   child: TextField(

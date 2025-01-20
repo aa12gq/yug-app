@@ -24,8 +24,8 @@ class OrDivider extends StatelessWidget {
                   end: Alignment.centerLeft,
                   colors: [
                     isDark
-                        ? Colors.white.withOpacity(0.2)
-                        : Colors.black.withOpacity(0.1),
+                        ? Colors.white.withValues(alpha: 0.2)
+                        : Colors.black.withValues(alpha: 0.1),
                     Colors.transparent,
                   ],
                 ),
@@ -51,7 +51,7 @@ class OrDivider extends StatelessWidget {
                   end: Alignment.centerRight,
                   colors: [
                     context.theme.dividerColor,
-                    context.theme.dividerColor.withOpacity(0),
+                    context.theme.dividerColor.withValues(alpha: 0),
                   ],
                 ),
               ),

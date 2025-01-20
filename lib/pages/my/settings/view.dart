@@ -28,7 +28,7 @@ class SettingsPage extends GetView<SettingsController> {
         border: showDivider
             ? null
             : Border.all(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withValues(alpha: 0.1),
                 width: 1,
               ),
       ),
@@ -41,7 +41,8 @@ class SettingsPage extends GetView<SettingsController> {
               width: 32.w,
               height: 32.w,
               decoration: BoxDecoration(
-                color: (iconColor ?? AppColors.primaryText).withOpacity(0.06),
+                color: (iconColor ?? AppColors.primaryText)
+                    .withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: Icon(
@@ -76,7 +77,7 @@ class SettingsPage extends GetView<SettingsController> {
                         width: 24.w,
                         height: 24.w,
                         decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.03),
+                          color: Colors.grey.withValues(alpha: 0.03),
                           borderRadius: BorderRadius.circular(6.r),
                         ),
                         child: Icon(
@@ -94,7 +95,7 @@ class SettingsPage extends GetView<SettingsController> {
               thickness: 0.5,
               indent: 56.w,
               endIndent: 12.w,
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues(alpha: 0.1),
             ),
         ],
       ),
@@ -128,7 +129,7 @@ class SettingsPage extends GetView<SettingsController> {
             borderRadius: BorderRadius.circular(12.r),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.02),
+                color: Colors.black.withValues(alpha: 0.02),
                 offset: const Offset(0, 1),
                 blurRadius: 6,
               ),
@@ -209,7 +210,7 @@ class SettingsPage extends GetView<SettingsController> {
                           vertical: 4.h,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF00B894).withOpacity(0.1),
+                          color: const Color(0xFF00B894).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Text(
@@ -235,7 +236,7 @@ class SettingsPage extends GetView<SettingsController> {
                     borderRadius: BorderRadius.circular(12.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
+                        color: Colors.black.withValues(alpha: 0.02),
                         offset: const Offset(0, 1),
                         blurRadius: 6,
                       ),

@@ -27,7 +27,7 @@ class SocialPage extends GetView<SocialController> {
                 icon: Container(
                   padding: EdgeInsets.all(6.w),
                   decoration: BoxDecoration(
-                    color: AppTheme.secondary.withOpacity(0.06),
+                    color: AppTheme.secondary.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Icon(
@@ -47,7 +47,7 @@ class SocialPage extends GetView<SocialController> {
                 stops: const [0, 0.3],
                 colors: [
                   Colors.white,
-                  AppColors.background.withOpacity(0.5),
+                  AppColors.background.withValues(alpha: 0.5),
                 ],
               ),
             ),
@@ -67,7 +67,7 @@ class SocialPage extends GetView<SocialController> {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: Colors.black.withValues(alpha: 0.02),
                           offset: const Offset(0, -2),
                           blurRadius: 10,
                         ),
@@ -118,7 +118,7 @@ class SocialPage extends GetView<SocialController> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: AppTheme.secondary.withOpacity(0.06),
+        color: AppTheme.secondary.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
@@ -163,7 +163,7 @@ class SocialPage extends GetView<SocialController> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.02),
             offset: const Offset(0, 2),
             blurRadius: 6,
           ),
@@ -250,7 +250,7 @@ class SocialPage extends GetView<SocialController> {
                   width: 40.w,
                   height: 40.w,
                   decoration: BoxDecoration(
-                    color: AppTheme.secondary.withOpacity(0.1),
+                    color: AppTheme.secondary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10.r),
                     image: message.avatar != null
                         ? DecorationImage(
@@ -375,7 +375,7 @@ class SocialPage extends GetView<SocialController> {
             width: 32.w,
             height: 32.w,
             decoration: BoxDecoration(
-              color: notification.color.withOpacity(0.1),
+              color: notification.color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(

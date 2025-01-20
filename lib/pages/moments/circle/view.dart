@@ -38,8 +38,8 @@ class CirclePage extends GetView<CircleController> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.black.withOpacity(0.1),
-                            Colors.black.withOpacity(0.7),
+                            Colors.black.withValues(alpha: 0.1),
+                            Colors.black.withValues(alpha: 0.7),
                           ],
                         ),
                       ),
@@ -68,7 +68,7 @@ class CirclePage extends GetView<CircleController> {
                         border: Border.all(color: Colors.white, width: 2),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black.withValues(alpha: 0.2),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
@@ -87,10 +87,10 @@ class CirclePage extends GetView<CircleController> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
+                        color: Colors.white.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(20.r),
-                        border:
-                            Border.all(color: Colors.white.withOpacity(0.3)),
+                        border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.3)),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -124,7 +124,7 @@ class CirclePage extends GetView<CircleController> {
                     color: Colors.white,
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         offset: const Offset(0, 2),
                         blurRadius: 4,
                       ),
@@ -136,10 +136,10 @@ class CirclePage extends GetView<CircleController> {
                   '这里是个性签名',
                   style: TextStyle(
                     fontSize: 15.sp,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         offset: const Offset(0, 1),
                         blurRadius: 2,
                       ),
@@ -163,7 +163,7 @@ class CirclePage extends GetView<CircleController> {
         borderRadius: BorderRadius.circular(8.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 4,
             offset: const Offset(0, 1),
           ),
@@ -356,7 +356,7 @@ class CirclePage extends GetView<CircleController> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.05),
+          color: color.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(14.r),
         ),
         child: Row(

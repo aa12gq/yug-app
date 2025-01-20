@@ -44,12 +44,12 @@ class LoginPage extends GetView<LoginController> {
                   end: Alignment.bottomRight,
                   colors: isDark
                       ? [
-                          AppTheme.primary.withOpacity(0.2),
-                          Colors.black.withOpacity(0.8),
+                          AppTheme.primary.withValues(alpha: 0.2),
+                          Colors.black.withValues(alpha: 0.8),
                         ]
                       : [
-                          AppTheme.primary.withOpacity(0.3),
-                          AppTheme.primary.withOpacity(0.05),
+                          AppTheme.primary.withValues(alpha: 0.3),
+                          AppTheme.primary.withValues(alpha: 0.05),
                         ],
                 ),
               ),
@@ -69,12 +69,12 @@ class LoginPage extends GetView<LoginController> {
                     end: Alignment.bottomRight,
                     colors: isDark
                         ? [
-                            AppTheme.primary.withOpacity(0.3),
-                            Colors.black.withOpacity(0.3),
+                            AppTheme.primary.withValues(alpha: 0.3),
+                            Colors.black.withValues(alpha: 0.3),
                           ]
                         : [
-                            AppTheme.primary.withOpacity(0.4),
-                            AppTheme.primary.withOpacity(0.1),
+                            AppTheme.primary.withValues(alpha: 0.4),
+                            AppTheme.primary.withValues(alpha: 0.1),
                           ],
                   ),
                 ),
@@ -94,8 +94,8 @@ class LoginPage extends GetView<LoginController> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      AppTheme.primary.withOpacity(0.4),
-                      AppTheme.primary.withOpacity(0.1),
+                      AppTheme.primary.withValues(alpha: 0.4),
+                      AppTheme.primary.withValues(alpha: 0.1),
                     ],
                   ),
                 ),
@@ -116,8 +116,8 @@ class LoginPage extends GetView<LoginController> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppTheme.primary.withOpacity(0.6),
-                        AppTheme.primary.withOpacity(0),
+                        AppTheme.primary.withValues(alpha: 0.6),
+                        AppTheme.primary.withValues(alpha: 0),
                       ],
                     ),
                   ),
@@ -139,8 +139,8 @@ class LoginPage extends GetView<LoginController> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppTheme.primary.withOpacity(0.6),
-                        AppTheme.primary.withOpacity(0),
+                        AppTheme.primary.withValues(alpha: 0.6),
+                        AppTheme.primary.withValues(alpha: 0),
                       ],
                     ),
                   ),
@@ -158,7 +158,7 @@ class LoginPage extends GetView<LoginController> {
                   width: 16,
                   height: 16,
                   decoration: BoxDecoration(
-                    color: AppTheme.primary.withOpacity(0.4),
+                    color: AppTheme.primary.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(6),
@@ -180,7 +180,7 @@ class LoginPage extends GetView<LoginController> {
                   width: 14,
                   height: 14,
                   decoration: BoxDecoration(
-                    color: AppTheme.primary.withOpacity(0.4),
+                    color: AppTheme.primary.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(7),
                       topRight: Radius.circular(5),
@@ -223,8 +223,10 @@ class LoginPage extends GetView<LoginController> {
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
                                       colors: [
-                                        AppTheme.primary.withOpacity(0.15),
-                                        AppTheme.primary.withOpacity(0.05),
+                                        AppTheme.primary
+                                            .withValues(alpha: 0.15),
+                                        AppTheme.primary
+                                            .withValues(alpha: 0.05),
                                       ],
                                     ),
                                     borderRadius: BorderRadius.only(
@@ -234,7 +236,8 @@ class LoginPage extends GetView<LoginController> {
                                       bottomRight: Radius.circular(65),
                                     ),
                                     border: Border.all(
-                                      color: AppTheme.primary.withOpacity(0.1),
+                                      color: AppTheme.primary
+                                          .withValues(alpha: 0.1),
                                       width: 1,
                                     ),
                                   ),
@@ -249,9 +252,10 @@ class LoginPage extends GetView<LoginController> {
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
                                             colors: [
-                                              AppTheme.primary.withOpacity(0.2),
                                               AppTheme.primary
-                                                  .withOpacity(0.05),
+                                                  .withValues(alpha: 0.2),
+                                              AppTheme.primary
+                                                  .withValues(alpha: 0.05),
                                             ],
                                           ),
                                           borderRadius: BorderRadius.only(
@@ -281,8 +285,8 @@ class LoginPage extends GetView<LoginController> {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       colors: [
-                                        AppTheme.primary.withOpacity(0.3),
-                                        AppTheme.primary.withOpacity(0),
+                                        AppTheme.primary.withValues(alpha: 0.3),
+                                        AppTheme.primary.withValues(alpha: 0),
                                       ],
                                     ),
                                   ),
@@ -299,7 +303,8 @@ class LoginPage extends GetView<LoginController> {
                                   width: 10,
                                   height: 10,
                                   decoration: BoxDecoration(
-                                    color: AppTheme.primary.withOpacity(0.3),
+                                    color:
+                                        AppTheme.primary.withValues(alpha: 0.3),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(5),
                                       topRight: Radius.circular(3),
@@ -347,7 +352,7 @@ class LoginPage extends GetView<LoginController> {
                                                 boxShadow: [
                                                   BoxShadow(
                                                     color: AppTheme.primary
-                                                        .withOpacity(0.3),
+                                                        .withValues(alpha: 0.3),
                                                     offset: const Offset(0, 4),
                                                     blurRadius: 15,
                                                   ),
@@ -377,7 +382,7 @@ class LoginPage extends GetView<LoginController> {
                                                 height: 10,
                                                 decoration: BoxDecoration(
                                                   color: AppTheme.primary
-                                                      .withOpacity(0.3),
+                                                      .withValues(alpha: 0.3),
                                                   borderRadius:
                                                       BorderRadius.only(
                                                     topLeft: Radius.circular(5),
@@ -403,7 +408,7 @@ class LoginPage extends GetView<LoginController> {
                                                 height: 10,
                                                 decoration: BoxDecoration(
                                                   color: AppTheme.primary
-                                                      .withOpacity(0.3),
+                                                      .withValues(alpha: 0.3),
                                                   borderRadius:
                                                       BorderRadius.only(
                                                     topLeft: Radius.circular(5),
@@ -458,7 +463,7 @@ class LoginPage extends GetView<LoginController> {
                                                       vertical: 2),
                                                   decoration: BoxDecoration(
                                                     color: AppTheme.primary
-                                                        .withOpacity(0.1),
+                                                        .withValues(alpha: 0.1),
                                                     borderRadius:
                                                         BorderRadius.only(
                                                       topLeft:
@@ -490,7 +495,7 @@ class LoginPage extends GetView<LoginController> {
                                                   horizontal: 10, vertical: 4),
                                               decoration: BoxDecoration(
                                                 color: AppTheme.primary
-                                                    .withOpacity(0.08),
+                                                    .withValues(alpha: 0.08),
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(5),
                                                   topRight: Radius.circular(3),
@@ -501,7 +506,7 @@ class LoginPage extends GetView<LoginController> {
                                                 ),
                                                 border: Border.all(
                                                   color: AppTheme.primary
-                                                      .withOpacity(0.1),
+                                                      .withValues(alpha: 0.1),
                                                   width: 1,
                                                 ),
                                               ),

@@ -42,7 +42,7 @@ class AboutPage extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.white,
-                  AppTheme.primary.withOpacity(0.03),
+                  AppTheme.primary.withValues(alpha: 0.03),
                 ],
               ),
             ),
@@ -61,8 +61,8 @@ class AboutPage extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppTheme.primary.withOpacity(0.1),
-                    AppTheme.primary.withOpacity(0.02),
+                    AppTheme.primary.withValues(alpha: 0.1),
+                    AppTheme.primary.withValues(alpha: 0.02),
                   ],
                 ),
               ),
@@ -81,8 +81,8 @@ class AboutPage extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppTheme.secondary.withOpacity(0.08),
-                    AppTheme.secondary.withOpacity(0.02),
+                    AppTheme.secondary.withValues(alpha: 0.08),
+                    AppTheme.secondary.withValues(alpha: 0.02),
                   ],
                 ),
               ),
@@ -103,8 +103,8 @@ class AboutPage extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      AppTheme.primary.withOpacity(0.5),
-                      AppTheme.primary.withOpacity(0.1),
+                      AppTheme.primary.withValues(alpha: 0.5),
+                      AppTheme.primary.withValues(alpha: 0.1),
                     ],
                   ),
                 ),
@@ -131,7 +131,7 @@ class AboutPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24.w),
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.primary.withOpacity(0.1),
+                            color: AppTheme.primary.withValues(alpha: 0.1),
                             blurRadius: 20,
                             spreadRadius: 0,
                             offset: Offset(0, 8),
@@ -178,7 +178,7 @@ class AboutPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16.w),
                         boxShadow: [
                           BoxShadow(
-                            color: AppTheme.primary.withOpacity(0.06),
+                            color: AppTheme.primary.withValues(alpha: 0.06),
                             blurRadius: 20,
                             spreadRadius: 0,
                             offset: Offset(0, 8),
@@ -270,7 +270,7 @@ class AboutPage extends StatelessWidget {
             width: 32.w,
             height: 32.w,
             decoration: BoxDecoration(
-              color: AppTheme.primary.withOpacity(0.08),
+              color: AppTheme.primary.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8.w),
             ),
             child: Icon(

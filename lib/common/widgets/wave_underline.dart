@@ -25,9 +25,9 @@ class GlowUnderlinePainter extends CustomPainter {
     final bgPaint = Paint()
       ..shader = LinearGradient(
         colors: [
-          color.withOpacity(0.08),
-          color.withOpacity(0.12),
-          color.withOpacity(0.08),
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.12),
+          color.withValues(alpha: 0.08),
         ],
         stops: const [0.0, 0.5, 1.0],
       ).createShader(Rect.fromLTWH(0, 0, width, height));
@@ -38,9 +38,9 @@ class GlowUnderlinePainter extends CustomPainter {
     final borderPaint = Paint()
       ..shader = LinearGradient(
         colors: [
-          color.withOpacity(0.1),
-          color.withOpacity(0.3),
-          color.withOpacity(0.1),
+          color.withValues(alpha: 0.1),
+          color.withValues(alpha: 0.3),
+          color.withValues(alpha: 0.1),
         ],
         stops: const [0.0, 0.5, 1.0],
         transform: GradientRotation(phase * math.pi * 2),
@@ -54,9 +54,9 @@ class GlowUnderlinePainter extends CustomPainter {
     final glowPaint = Paint()
       ..shader = LinearGradient(
         colors: [
-          color.withOpacity(0.0),
-          color.withOpacity(0.2),
-          color.withOpacity(0.0),
+          color.withValues(alpha: 0.0),
+          color.withValues(alpha: 0.2),
+          color.withValues(alpha: 0.0),
         ],
         stops: const [0.0, 0.5, 1.0],
         transform: GradientRotation(phase * math.pi * 2),

@@ -32,12 +32,12 @@ class LanguagePage extends GetView<LanguageController> {
                     end: Alignment.bottomRight,
                     colors: isDark
                         ? [
-                            AppTheme.secondary.withOpacity(0.6),
-                            AppTheme.secondary.withOpacity(0.4),
+                            AppTheme.secondary.withValues(alpha: 0.6),
+                            AppTheme.secondary.withValues(alpha: 0.4),
                           ]
                         : [
                             AppTheme.secondary,
-                            AppTheme.secondary.withOpacity(0.8),
+                            AppTheme.secondary.withValues(alpha: 0.8),
                           ],
                   ),
                 ),
@@ -54,7 +54,7 @@ class LanguagePage extends GetView<LanguageController> {
                               child: Container(
                                 padding: EdgeInsets.all(6.w),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
+                                  color: Colors.white.withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 child: Icon(
@@ -81,7 +81,7 @@ class LanguagePage extends GetView<LanguageController> {
                           LocaleKeys.settingsLanguageSelect.tr,
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                           ),
                         ),
                       ],
@@ -97,13 +97,15 @@ class LanguagePage extends GetView<LanguageController> {
               Container(
                 margin: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.black.withOpacity(0.3) : Colors.white,
+                  color: isDark
+                      ? Colors.black.withValues(alpha: 0.3)
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(16.r),
                   boxShadow: isDark
                       ? []
                       : [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             offset: const Offset(0, 4),
                             blurRadius: 16,
                             spreadRadius: -2,
@@ -124,7 +126,7 @@ class LanguagePage extends GetView<LanguageController> {
                       height: 1,
                       thickness: 1,
                       color: isDark
-                          ? Colors.white.withOpacity(0.1)
+                          ? Colors.white.withValues(alpha: 0.1)
                           : const Color(0xFFF7F7F9),
                       indent: 16.w,
                       endIndent: 16.w,
@@ -148,7 +150,7 @@ class LanguagePage extends GetView<LanguageController> {
                   style: TextStyle(
                     fontSize: 12.sp,
                     color: isDark
-                        ? Colors.white.withOpacity(0.7)
+                        ? Colors.white.withValues(alpha: 0.7)
                         : AppColors.secondaryText,
                     height: 1.5,
                   ),
@@ -190,7 +192,7 @@ class LanguagePage extends GetView<LanguageController> {
                   color: isSelected
                       ? AppTheme.secondary.withOpacity(isDark ? 0.2 : 0.1)
                       : (isDark
-                          ? Colors.white.withOpacity(0.1)
+                          ? Colors.white.withValues(alpha: 0.1)
                           : const Color(0xFFF7F7F9)),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
@@ -199,7 +201,7 @@ class LanguagePage extends GetView<LanguageController> {
                   color: isSelected
                       ? AppTheme.secondary
                       : (isDark
-                          ? Colors.white.withOpacity(0.7)
+                          ? Colors.white.withValues(alpha: 0.7)
                           : AppColors.secondaryText),
                   size: 20.w,
                 ),
@@ -225,7 +227,7 @@ class LanguagePage extends GetView<LanguageController> {
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: isDark
-                            ? Colors.white.withOpacity(0.7)
+                            ? Colors.white.withValues(alpha: 0.7)
                             : AppColors.secondaryText,
                       ),
                     ),

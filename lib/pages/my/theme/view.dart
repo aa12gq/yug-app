@@ -24,20 +24,20 @@ class ThemePage extends GetView<ThemeController> {
           width: 65.w,
           height: 75.h,
           decoration: BoxDecoration(
-            color: isDark ? Colors.black.withOpacity(0.3) : Colors.white,
+            color: isDark ? Colors.black.withValues(alpha: 0.3) : Colors.white,
             borderRadius: BorderRadius.circular(10.r),
             border: Border.all(
               color: isSelected
                   ? color
                   : (isDark
-                      ? Colors.white.withOpacity(0.1)
-                      : Colors.grey.withOpacity(0.2)),
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : Colors.grey.withValues(alpha: 0.2)),
               width: isSelected ? 2 : 1,
             ),
             boxShadow: isSelected && !isDark
                 ? [
                     BoxShadow(
-                      color: color.withOpacity(0.2),
+                      color: color.withValues(alpha: 0.2),
                       blurRadius: 6,
                       offset: const Offset(0, 2),
                     )
@@ -54,14 +54,15 @@ class ThemePage extends GetView<ThemeController> {
                   color: color,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color:
-                        isDark ? Colors.black.withOpacity(0.3) : Colors.white,
+                    color: isDark
+                        ? Colors.black.withValues(alpha: 0.3)
+                        : Colors.white,
                     width: 2,
                   ),
                   boxShadow: !isDark
                       ? [
                           BoxShadow(
-                            color: color.withOpacity(0.2),
+                            color: color.withValues(alpha: 0.2),
                             blurRadius: 4,
                             offset: const Offset(0, 2),
                           ),
@@ -82,7 +83,7 @@ class ThemePage extends GetView<ThemeController> {
                 style: TextStyle(
                   fontSize: 11.sp,
                   color: isDark
-                      ? Colors.white.withOpacity(0.9)
+                      ? Colors.white.withValues(alpha: 0.9)
                       : AppColors.primaryText,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                 ),
@@ -181,16 +182,16 @@ class ThemePage extends GetView<ThemeController> {
         decoration: BoxDecoration(
           color: isSelected
               ? (isDark
-                  ? AppTheme.primary.withOpacity(0.2)
-                  : AppTheme.primary.withOpacity(0.1))
-              : (isDark ? Colors.black.withOpacity(0.2) : Colors.white),
+                  ? AppTheme.primary.withValues(alpha: 0.2)
+                  : AppTheme.primary.withValues(alpha: 0.1))
+              : (isDark ? Colors.black.withValues(alpha: 0.2) : Colors.white),
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: isSelected
                 ? AppTheme.primary
                 : (isDark
-                    ? Colors.white.withOpacity(0.1)
-                    : Colors.grey.withOpacity(0.2)),
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : Colors.grey.withValues(alpha: 0.2)),
             width: 1,
           ),
         ),
@@ -203,15 +204,17 @@ class ThemePage extends GetView<ThemeController> {
                 color: isSelected
                     ? AppTheme.primary
                     : (isDark
-                        ? Colors.white.withOpacity(0.1)
-                        : Colors.grey.withOpacity(0.1)),
+                        ? Colors.white.withValues(alpha: 0.1)
+                        : Colors.grey.withValues(alpha: 0.1)),
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: Icon(
                 icon,
                 color: isSelected
                     ? Colors.white
-                    : (isDark ? Colors.white.withOpacity(0.7) : Colors.grey),
+                    : (isDark
+                        ? Colors.white.withValues(alpha: 0.7)
+                        : Colors.grey),
                 size: 16.w,
               ),
             ),
@@ -234,7 +237,7 @@ class ThemePage extends GetView<ThemeController> {
                     style: TextStyle(
                       fontSize: 11.sp,
                       color: isDark
-                          ? Colors.white.withOpacity(0.7)
+                          ? Colors.white.withValues(alpha: 0.7)
                           : AppColors.secondaryText,
                     ),
                   ),
@@ -269,8 +272,9 @@ class ThemePage extends GetView<ThemeController> {
               ),
             ),
             elevation: 0,
-            backgroundColor:
-                isDark ? AppTheme.primary.withOpacity(0.6) : AppTheme.primary,
+            backgroundColor: isDark
+                ? AppTheme.primary.withValues(alpha: 0.6)
+                : AppTheme.primary,
             iconTheme: IconThemeData(
               color: Colors.white,
             ),
@@ -286,7 +290,7 @@ class ThemePage extends GetView<ThemeController> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: isDark
-                          ? AppTheme.primary.withOpacity(0.4)
+                          ? AppTheme.primary.withValues(alpha: 0.4)
                           : AppTheme.primary,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(24.r),
@@ -314,7 +318,7 @@ class ThemePage extends GetView<ThemeController> {
                         Text(
                           "选择适合您的显示模式和主题颜色",
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                             fontSize: 11.sp,
                           ),
                         ),
@@ -326,8 +330,9 @@ class ThemePage extends GetView<ThemeController> {
                   Container(
                     margin: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
-                      color:
-                          isDark ? Colors.black.withOpacity(0.3) : Colors.white,
+                      color: isDark
+                          ? Colors.black.withValues(alpha: 0.3)
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(14.r),
                       boxShadow: [
                         BoxShadow(

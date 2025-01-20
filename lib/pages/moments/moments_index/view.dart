@@ -23,7 +23,7 @@ class MomentsIndexPage extends GetView<MomentsIndexController> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             width: 1,
           ),
         ),
@@ -32,7 +32,7 @@ class MomentsIndexPage extends GetView<MomentsIndexController> {
             Container(
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: Icon(

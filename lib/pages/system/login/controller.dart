@@ -189,8 +189,8 @@ class LoginController extends GetxController {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Colors.blue.withOpacity(0.8),
-                      Colors.blue.withOpacity(0.6),
+                      Colors.blue.withValues(alpha: 0.8),
+                      Colors.blue.withValues(alpha: 0.6),
                     ],
                   ),
                   borderRadius: const BorderRadius.only(
@@ -209,7 +209,7 @@ class LoginController extends GetxController {
                         height: 100,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                         ),
                       ),
                     ),
@@ -221,7 +221,7 @@ class LoginController extends GetxController {
                         height: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                         ),
                       ),
                     ),
@@ -237,7 +237,7 @@ class LoginController extends GetxController {
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withValues(alpha: .1),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
@@ -271,7 +271,7 @@ class LoginController extends GetxController {
                 child: Container(
                   height: 36,
                   decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: Obx(
@@ -290,7 +290,8 @@ class LoginController extends GetxController {
                                 boxShadow: selectedIndex.value == 0
                                     ? [
                                         BoxShadow(
-                                          color: Colors.black.withOpacity(0.05),
+                                          color: Colors.black
+                                              .withValues(alpha: 0.05),
                                           blurRadius: 4,
                                           offset: const Offset(0, 2),
                                         ),
@@ -327,7 +328,8 @@ class LoginController extends GetxController {
                                 boxShadow: selectedIndex.value == 1
                                     ? [
                                         BoxShadow(
-                                          color: Colors.black.withOpacity(0.05),
+                                          color: Colors.black
+                                              .withValues(alpha: 0.05),
                                           blurRadius: 4,
                                           offset: const Offset(0, 2),
                                         ),
@@ -396,7 +398,7 @@ class LoginController extends GetxController {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                             side: BorderSide(
-                              color: Colors.grey.withOpacity(0.3),
+                              color: Colors.grey.withValues(alpha: 0.3),
                             ),
                           ),
                         ),

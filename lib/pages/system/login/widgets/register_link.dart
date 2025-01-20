@@ -15,8 +15,8 @@ class RegisterLink extends StatelessWidget {
       child: InkWell(
         onTap: () => Get.toNamed(RouteNames.systemRegister),
         borderRadius: BorderRadius.circular(20),
-        splashColor: context.theme.primaryColor.withOpacity(0.1),
-        highlightColor: context.theme.primaryColor.withOpacity(0.05),
+        splashColor: context.theme.primaryColor.withValues(alpha: 0.1),
+        highlightColor: context.theme.primaryColor.withValues(alpha: 0.05),
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: 12.w,
@@ -57,7 +57,7 @@ class RegisterLink extends StatelessWidget {
               Icon(
                 Icons.arrow_forward_ios_rounded,
                 size: 12.w,
-                color: context.theme.primaryColor.withOpacity(0.8),
+                color: context.theme.primaryColor.withValues(alpha: 0.8),
               ),
             ],
           ),

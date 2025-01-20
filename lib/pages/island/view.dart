@@ -91,7 +91,7 @@ class IslandPage extends GetView<IslandController> {
                     width: 100.w,
                     height: 100.w,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -104,7 +104,7 @@ class IslandPage extends GetView<IslandController> {
                     width: 60.w,
                     height: 25.h,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                   ),
@@ -117,7 +117,7 @@ class IslandPage extends GetView<IslandController> {
                     width: 40.w,
                     height: 20.h,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
+                      color: Colors.white.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                   ),
@@ -130,7 +130,7 @@ class IslandPage extends GetView<IslandController> {
                     width: 80.w,
                     height: 40.h,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40.r),
                         topRight: Radius.circular(40.r),
@@ -148,7 +148,7 @@ class IslandPage extends GetView<IslandController> {
                             width: 10.w,
                             height: 15.h,
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.3),
+                              color: Colors.white.withValues(alpha: 0.3),
                               borderRadius: BorderRadius.circular(5.r),
                             ),
                           ),
@@ -161,7 +161,7 @@ class IslandPage extends GetView<IslandController> {
                             width: 8.w,
                             height: 12.h,
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.3),
+                              color: Colors.white.withValues(alpha: 0.3),
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                           ),
@@ -178,7 +178,7 @@ class IslandPage extends GetView<IslandController> {
                   child: Container(
                     height: 20.h,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30.r),
                         topRight: Radius.circular(30.r),
@@ -206,7 +206,8 @@ class IslandPage extends GetView<IslandController> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 12.w, vertical: 6.h),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.2),
+                                      color:
+                                          Colors.white.withValues(alpha: 0.2),
                                       borderRadius: BorderRadius.circular(20.r),
                                     ),
                                     child: Text(
@@ -272,7 +273,7 @@ class IslandPage extends GetView<IslandController> {
           borderRadius: BorderRadius.circular(15.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: Colors.black.withValues(alpha: 0.03),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -337,10 +338,10 @@ class IslandPage extends GetView<IslandController> {
                 width: 50.w,
                 height: 50.w,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: color.withOpacity(0.3),
+                    color: color.withValues(alpha: 0.3),
                     width: 1,
                   ),
                 ),
@@ -358,10 +359,10 @@ class IslandPage extends GetView<IslandController> {
                   width: 12.w,
                   height: 12.w,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.2),
+                    color: color.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: color.withOpacity(0.3),
+                      color: color.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),
@@ -375,10 +376,10 @@ class IslandPage extends GetView<IslandController> {
                   width: 16.w,
                   height: 16.w,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: color.withOpacity(0.2),
+                      color: color.withValues(alpha: 0.2),
                       width: 1,
                     ),
                   ),
@@ -390,7 +391,7 @@ class IslandPage extends GetView<IslandController> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Text(
@@ -466,7 +467,7 @@ class IslandPage extends GetView<IslandController> {
           borderRadius: BorderRadius.circular(15.r),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               blurRadius: 15,
               offset: const Offset(0, 5),
             ),
@@ -483,7 +484,7 @@ class IslandPage extends GetView<IslandController> {
                 width: 80.w,
                 height: 80.w,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.05),
+                  color: color.withValues(alpha: 0.05),
                   shape: BoxShape.circle,
                 ),
               ),
@@ -496,7 +497,7 @@ class IslandPage extends GetView<IslandController> {
                 width: 50.w,
                 height: 50.w,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.05),
+                  color: color.withValues(alpha: 0.05),
                   shape: BoxShape.circle,
                 ),
               ),
@@ -514,10 +515,10 @@ class IslandPage extends GetView<IslandController> {
                         width: 40.w,
                         height: 40.w,
                         decoration: BoxDecoration(
-                          color: color.withOpacity(0.1),
+                          color: color.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: color.withOpacity(0.2),
+                            color: color.withValues(alpha: 0.2),
                             width: 1,
                           ),
                         ),
@@ -535,10 +536,10 @@ class IslandPage extends GetView<IslandController> {
                           width: 16.w,
                           height: 16.w,
                           decoration: BoxDecoration(
-                            color: color.withOpacity(0.1),
+                            color: color.withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: color.withOpacity(0.2),
+                              color: color.withValues(alpha: 0.2),
                               width: 1,
                             ),
                           ),
@@ -551,7 +552,7 @@ class IslandPage extends GetView<IslandController> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
+                      color: color.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
@@ -568,7 +569,7 @@ class IslandPage extends GetView<IslandController> {
                     subtitle,
                     style: TextStyle(
                       fontSize: 12.sp,
-                      color: color.withOpacity(0.6),
+                      color: color.withValues(alpha: 0.6),
                     ),
                   ),
                 ],
@@ -627,7 +628,7 @@ class IslandPage extends GetView<IslandController> {
                     borderRadius: BorderRadius.circular(15.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -642,7 +643,8 @@ class IslandPage extends GetView<IslandController> {
                           width: 100.w,
                           height: 100.w,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF94A6B7).withOpacity(0.1),
+                            color:
+                                const Color(0xFF94A6B7).withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -739,7 +741,7 @@ class IslandPage extends GetView<IslandController> {
                     borderRadius: BorderRadius.circular(15.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -751,7 +753,7 @@ class IslandPage extends GetView<IslandController> {
                       Container(
                         height: 100.h,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF94A6B7).withOpacity(0.1),
+                          color: const Color(0xFF94A6B7).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15.r),
                             topRight: Radius.circular(15.r),
@@ -845,7 +847,7 @@ class IslandPage extends GetView<IslandController> {
                   borderRadius: BorderRadius.circular(15.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),

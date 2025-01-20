@@ -186,13 +186,13 @@ class _VirtualAssistantState extends State<VirtualAssistant>
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF00FFFF).withOpacity(0.1),
+                color: const Color(0xFF00FFFF).withValues(alpha: 0.1),
                 blurRadius: 20,
                 spreadRadius: 5,
               ),
             ],
             border: Border.all(
-              color: const Color(0xFF00FFFF).withOpacity(0.2),
+              color: const Color(0xFF00FFFF).withValues(alpha: 0.2),
               width: 1,
             ),
           ),
@@ -209,7 +209,7 @@ class _VirtualAssistantState extends State<VirtualAssistant>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF00FFFF).withOpacity(0.3),
+                        color: const Color(0xFF00FFFF).withValues(alpha: 0.3),
                         width: 1,
                       ),
                     ),
@@ -263,7 +263,7 @@ class _VirtualAssistantState extends State<VirtualAssistant>
               // 分割线
               Container(
                 height: 1,
-                color: const Color(0xFF00FFFF).withOpacity(0.1),
+                color: const Color(0xFF00FFFF).withValues(alpha: 0.1),
               ),
               SizedBox(height: 20.h),
 
@@ -271,10 +271,10 @@ class _VirtualAssistantState extends State<VirtualAssistant>
               Container(
                 padding: EdgeInsets.all(15.w),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00FFFF).withOpacity(0.05),
+                  color: const Color(0xFF00FFFF).withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(15.r),
                   border: Border.all(
-                    color: const Color(0xFF00FFFF).withOpacity(0.1),
+                    color: const Color(0xFF00FFFF).withValues(alpha: 0.1),
                     width: 1,
                   ),
                 ),

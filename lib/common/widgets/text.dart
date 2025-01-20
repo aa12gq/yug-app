@@ -234,7 +234,7 @@ class TextWidget extends StatelessWidget {
       case TextWidgetType.label:
         return context.colors.scheme.onSurface;
       case TextWidgetType.muted:
-        return context.colors.scheme.onSurface.withOpacity(0.8);
+        return context.colors.scheme.onSurface.withValues(alpha: 0.8);
       default:
         return context.colors.scheme.onSurface;
     }

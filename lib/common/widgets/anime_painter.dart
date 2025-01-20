@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AnimePainter extends CustomPainter {
   @override
@@ -53,7 +53,7 @@ class AnimePainter extends CustomPainter {
     );
 
     // 腮红
-    paint.color = const Color(0xFFFFB6C1).withOpacity(0.3);
+    paint.color = const Color(0xFFFFB6C1).withValues(alpha: 0.3);
     canvas.drawCircle(
       Offset(size.width * 0.25, size.height * 0.5),
       size.width * 0.05,

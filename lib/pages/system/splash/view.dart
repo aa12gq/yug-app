@@ -37,7 +37,7 @@ class SplashPage extends GetView<SplashController> {
             height: 200,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
             ),
           ),
         ),
@@ -50,7 +50,7 @@ class SplashPage extends GetView<SplashController> {
             height: 160,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
             ),
           ),
         ),
@@ -77,10 +77,10 @@ class SplashPage extends GetView<SplashController> {
                   height: 120,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withValues(alpha: 0.1),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         blurRadius: 20,
                         spreadRadius: 5,
                       ),
@@ -101,8 +101,8 @@ class SplashPage extends GetView<SplashController> {
                                 shape: BoxShape.circle,
                                 gradient: SweepGradient(
                                   colors: [
-                                    Colors.white.withOpacity(0.3),
-                                    Colors.white.withOpacity(0),
+                                    Colors.white.withValues(alpha: 0.3),
+                                    Colors.white.withValues(alpha: 0),
                                   ],
                                 ),
                               ),
@@ -142,7 +142,7 @@ class SplashPage extends GetView<SplashController> {
                   "让社交更有温度",
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     letterSpacing: 2,
                   ),
                 ),
@@ -167,7 +167,7 @@ class SplashPage extends GetView<SplashController> {
             height: 40,
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
-                Colors.white.withOpacity(0.8),
+                Colors.white.withValues(alpha: 0.8),
               ),
               strokeWidth: 2,
             ),
@@ -176,7 +176,7 @@ class SplashPage extends GetView<SplashController> {
           Text(
             '正在启动...',
             style: TextStyle(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               fontSize: 14,
               letterSpacing: 1,
             ),

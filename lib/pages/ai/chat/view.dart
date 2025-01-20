@@ -40,7 +40,7 @@ class AIChatPage extends GetView<AIChatController> {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF88C9C9).withOpacity(0.2),
+                          color: const Color(0xFF88C9C9).withValues(alpha: 0.2),
                           offset: const Offset(0, 2),
                           blurRadius: 6,
                         ),
@@ -174,7 +174,7 @@ class AIChatPage extends GetView<AIChatController> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),
@@ -245,10 +245,10 @@ class AIChatPage extends GetView<AIChatController> {
               margin: EdgeInsets.symmetric(horizontal: 20.w),
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppTheme.secondary.withOpacity(0.05),
+                color: AppTheme.secondary.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
-                  color: AppTheme.secondary.withOpacity(0.1),
+                  color: AppTheme.secondary.withValues(alpha: 0.1),
                   width: 0.5,
                 ),
               ),
@@ -467,7 +467,7 @@ class AIChatPage extends GetView<AIChatController> {
                 colors: isSelected
                     ? [
                         color,
-                        color.withOpacity(0.8),
+                        color.withValues(alpha: 0.8),
                       ]
                     : [
                         Colors.white,
@@ -482,8 +482,8 @@ class AIChatPage extends GetView<AIChatController> {
               boxShadow: [
                 BoxShadow(
                   color: isSelected
-                      ? color.withOpacity(0.3)
-                      : Colors.black.withOpacity(0.03),
+                      ? color.withValues(alpha: 0.3)
+                      : Colors.black.withValues(alpha: 0.03),
                   offset: const Offset(0, 2),
                   blurRadius: 8,
                 ),
@@ -497,8 +497,8 @@ class AIChatPage extends GetView<AIChatController> {
                   height: 36.w,
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? Colors.white.withOpacity(0.3)
-                        : color.withOpacity(0.1),
+                        ? Colors.white.withValues(alpha: 0.3)
+                        : color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Icon(
@@ -522,7 +522,7 @@ class AIChatPage extends GetView<AIChatController> {
                   style: TextStyle(
                     fontSize: 11.sp,
                     color: isSelected
-                        ? Colors.white.withOpacity(0.8)
+                        ? Colors.white.withValues(alpha: 0.8)
                         : Colors.grey[500],
                   ),
                 ),
@@ -531,7 +531,7 @@ class AIChatPage extends GetView<AIChatController> {
                   Container(
                     padding: EdgeInsets.all(8.w),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
+                      color: Colors.white.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
@@ -582,7 +582,7 @@ class AIChatPage extends GetView<AIChatController> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF88C9C9).withOpacity(0.2),
+                      color: const Color(0xFF88C9C9).withValues(alpha: 0.2),
                       offset: const Offset(0, 2),
                       blurRadius: 6,
                     ),
@@ -616,7 +616,7 @@ class AIChatPage extends GetView<AIChatController> {
                   boxShadow: [
                     BoxShadow(
                       color: (isUser ? AppTheme.secondary : Colors.black)
-                          .withOpacity(0.08),
+                          .withValues(alpha: 0.08),
                       offset: const Offset(0, 2),
                       blurRadius: 8,
                     ),
@@ -682,9 +682,9 @@ class AIChatPage extends GetView<AIChatController> {
                 height: 32.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppTheme.secondary.withOpacity(0.08),
+                  color: AppTheme.secondary.withValues(alpha: 0.08),
                   border: Border.all(
-                    color: AppTheme.secondary.withOpacity(0.15),
+                    color: AppTheme.secondary.withValues(alpha: 0.15),
                     width: 1,
                   ),
                 ),
@@ -715,10 +715,10 @@ class AIChatPage extends GetView<AIChatController> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
           decoration: BoxDecoration(
-            color: AppTheme.secondary.withOpacity(0.06),
+            color: AppTheme.secondary.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
-              color: AppTheme.secondary.withOpacity(0.08),
+              color: AppTheme.secondary.withValues(alpha: 0.08),
               width: 0.5,
             ),
           ),
@@ -759,7 +759,7 @@ class AIChatPage extends GetView<AIChatController> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             offset: const Offset(0, -2),
             blurRadius: 10,
           ),
@@ -804,7 +804,7 @@ class AIChatPage extends GetView<AIChatController> {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: AppTheme.secondary.withOpacity(0.2),
+                  color: AppTheme.secondary.withValues(alpha: 0.2),
                   offset: const Offset(0, 2),
                   blurRadius: 6,
                 ),

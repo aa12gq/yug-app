@@ -16,7 +16,7 @@ class WavePainter extends CustomPainter {
     final paintColor =
         color ?? (isDark ? const Color(0xFF3D8BFF) : const Color(0xFF0071CE));
     var paint = Paint()
-      ..color = paintColor.withOpacity(0.1)
+      ..color = paintColor.withValues(alpha: 0.1)
       ..style = PaintingStyle.fill;
 
     final baseHeight = size.height - waveHeight;
@@ -40,7 +40,7 @@ class WavePainter extends CustomPainter {
     path.close();
     canvas.drawPath(path, paint);
 
-    paint.color = paintColor.withOpacity(0.05);
+    paint.color = paintColor.withValues(alpha: 0.05);
     path = Path();
     path.moveTo(0, baseHeight + waveHeight * 0.2);
     path.quadraticBezierTo(
