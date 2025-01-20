@@ -72,17 +72,28 @@ class LoginFormFields extends GetView<LoginController> {
               LocaleKeys.loginTypeUsernameValue.tr)
             Hero(
               tag: 'password_field',
-              child: InputFormFieldWidget(
-                controller: controller.passwordController,
-                labelText: LocaleKeys.loginPassword.tr,
-                placeholder: LocaleKeys.loginPasswordHint.tr,
-                obscureText: true,
-                prefix: Icon(Icons.lock_outline, color: AppTheme.primary),
-                validator: Validatorless.multiple([
-                  Validatorless.required(LocaleKeys.loginPasswordRequired.tr),
-                  Validators.password(6, 18, LocaleKeys.loginPasswordLength.tr),
-                ]),
-              ),
+              child: Obx(() => InputFormFieldWidget(
+                    controller: controller.passwordController,
+                    labelText: LocaleKeys.loginPassword.tr,
+                    placeholder: LocaleKeys.loginPasswordHint.tr,
+                    obscureText: !controller.isPasswordVisible.value,
+                    prefix: Icon(Icons.lock_outline, color: AppTheme.primary),
+                    suffix: IconButton(
+                      icon: Icon(
+                        controller.isPasswordVisible.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppTheme.primary,
+                      ),
+                      onPressed: controller.togglePasswordVisibility,
+                    ),
+                    validator: Validatorless.multiple([
+                      Validatorless.required(
+                          LocaleKeys.loginPasswordRequired.tr),
+                      Validators.password(
+                          6, 18, LocaleKeys.loginPasswordLength.tr),
+                    ]),
+                  )),
             ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 验证码输入框 (用户名密码登录时显示)

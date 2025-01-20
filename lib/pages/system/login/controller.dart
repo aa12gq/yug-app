@@ -51,6 +51,9 @@ class LoginController extends GetxController {
   // 是否需要验证码
   final needCaptcha = false.obs;
 
+  // 密码可见性状态
+  final isPasswordVisible = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -514,6 +517,11 @@ class LoginController extends GetxController {
   // 跳转到注册页
   void goToRegister() {
     Get.toNamed(RouteNames.systemRegister);
+  }
+
+  // 切换密码可见性
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
   }
 
   @override
