@@ -404,7 +404,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                       Row(
                         children: [
                           Text(
-                            "用户名",
+                            "VTYUG",
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
