@@ -58,6 +58,8 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // 初始化时添加监听器
+    _addControllerListeners();
     _generateDeviceId();
   }
 
@@ -66,6 +68,15 @@ class LoginController extends GetxController {
     super.onReady();
     // 初始化时不需要立即检查,等到登录失败时再检查
     needCaptcha.value = false;
+  }
+
+  void _addControllerListeners() {
+    userNameController.addListener(() => update());
+    emailController.addListener(() => update());
+    phoneController.addListener(() => update());
+    passwordController.addListener(() => update());
+    captchaController.addListener(() => update());
+    verifyCodeController.addListener(() => update());
   }
 
   // 生成设备标识符
@@ -130,19 +141,30 @@ class LoginController extends GetxController {
 
   // 切换登录类型
   Future<void> switchLoginType(String type) async {
+    if (type == loginType.value) return;
+
+    // 清空表单
+    formKey.currentState?.reset();
+
+    // 清空所有控制器
+    userNameController.clear();
+    emailController.clear();
+    phoneController.clear();
+    passwordController.clear();
+    captchaController.clear();
+    verifyCodeController.clear();
+
     loginType.value = type;
 
     // 如果是用户名密码登录，检查是否需要验证码
     if (type == LocaleKeys.loginTypeUsernameValue.tr) {
       await _checkCaptchaCondition();
     } else {
-      // 非用户名密码登录，清空验证码相关状态
-      captchaController.clear();
       captchaImage.value = '';
       needCaptcha.value = false;
     }
 
-    update(["login"]);
+    update(); // 更新整个控制器状态
   }
 
   // 切换用户协议勾选状态
@@ -539,12 +561,28 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    userNameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    passwordController.dispose();
-    captchaController.dispose();
-    verifyCodeController.dispose();
+    // 移除所有监听器
+    userNameController.removeListener(() => update());
+    emailController.removeListener(() => update());
+    phoneController.removeListener(() => update());
+    passwordController.removeListener(() => update());
+    captchaController.removeListener(() => update());
+    verifyCodeController.removeListener(() => update());
+
+    // 安全地销毁控制器
+    try {
+      if (Get.isRegistered<LoginController>()) {
+        userNameController.dispose();
+        emailController.dispose();
+        phoneController.dispose();
+        passwordController.dispose();
+        captchaController.dispose();
+        verifyCodeController.dispose();
+      }
+    } catch (e) {
+      print('Error disposing controllers: $e');
+    }
+
     super.onClose();
   }
 }
