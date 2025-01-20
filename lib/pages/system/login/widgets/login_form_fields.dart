@@ -89,35 +89,28 @@ class LoginFormFields extends GetView<LoginController> {
           if (controller.loginType.value ==
                   LocaleKeys.loginTypeUsernameValue.tr &&
               controller.needCaptcha.value)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8).w,
-              decoration: BoxDecoration(
-                color: context.theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(20).w,
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.08),
-                  width: 0.5,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: InputFormFieldWidget(
-                      controller: controller.captchaController,
-                      labelText: LocaleKeys.loginCaptcha.tr,
-                      placeholder: LocaleKeys.loginCaptchaHint.tr,
-                      prefix: Icon(Icons.verified_user_outlined,
-                          color: AppTheme.primary),
-                      validator: Validatorless.multiple([
-                        Validatorless.required(
-                            LocaleKeys.loginCaptchaRequired.tr),
-                        Validatorless.min(4, LocaleKeys.loginCaptchaLength.tr),
-                        Validatorless.max(6, LocaleKeys.loginCaptchaLength.tr),
-                      ]),
-                    ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: InputFormFieldWidget(
+                    controller: controller.captchaController,
+                    labelText: LocaleKeys.loginCaptcha.tr,
+                    placeholder: LocaleKeys.loginCaptchaHint.tr,
+                    prefix: Icon(Icons.verified_user_outlined,
+                        color: AppTheme.primary),
+                    validator: Validatorless.multiple([
+                      Validatorless.required(
+                          LocaleKeys.loginCaptchaRequired.tr),
+                      Validatorless.min(4, LocaleKeys.loginCaptchaLength.tr),
+                      Validatorless.max(6, LocaleKeys.loginCaptchaLength.tr),
+                    ]),
                   ),
-                  SizedBox(width: 8.w),
-                  GetBuilder<LoginController>(
+                ),
+                SizedBox(width: 12.w),
+                Padding(
+                  padding: EdgeInsets.only(top: 28.w),
+                  child: GetBuilder<LoginController>(
                     id: 'captcha',
                     builder: (_) {
                       return GestureDetector(
@@ -126,15 +119,12 @@ class LoginFormFields extends GetView<LoginController> {
                           width: 100.w,
                           height: 40.w,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: context.theme.cardColor,
                             borderRadius: BorderRadius.circular(12.w),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 10,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
+                            border: Border.all(
+                              color: context.theme.dividerColor,
+                              width: 0.5,
+                            ),
                           ),
                           child: controller.captchaImage.value.isEmpty
                               ? Center(
@@ -159,8 +149,8 @@ class LoginFormFields extends GetView<LoginController> {
                       );
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             ).paddingBottom(AppSpace.listRow * 0.5),
 
           // 验证码输入框 (手机号或邮箱登录时显示)

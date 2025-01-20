@@ -60,7 +60,8 @@ class LoginController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    _checkCaptchaCondition();
+    // 初始化时不需要立即检查,等到登录失败时再检查
+    needCaptcha.value = false;
   }
 
   // 生成设备标识符
@@ -85,9 +86,15 @@ class LoginController extends GetxController {
         VerificationContext.LOGIN_ATTEMPT,
       );
 
-      needCaptcha.value = response.conditions.isNotEmpty;
+      // 检查返回的条件中是否包含需要图片验证码的条件
+      needCaptcha.value = response.conditions
+          .any((condition) => condition == VerificationCondition.CAPTCHA_IMAGE);
+
       if (needCaptcha.value) {
         _fetchCaptcha();
+        // 清空之前的验证码输入
+        captchaController.clear();
+        update(['login']); // 更新UI以显示验证码输入框
       }
     } catch (e) {
       Get.snackbar('提示', '验证码检查失败：${e.toString()}');
@@ -102,7 +109,7 @@ class LoginController extends GetxController {
         FetchImageCaptchaRequest(
           identityKey: deviceId.value,
           captchaType: ImageCaptchaType.DIGIT,
-          businessScenario: 'login',
+          businessScenario: BusinessScenario.LOGIN.name,
         ),
       );
       captchaImage.value = response.base64Image;
@@ -118,8 +125,19 @@ class LoginController extends GetxController {
   }
 
   // 切换登录类型
-  void switchLoginType(String type) {
+  Future<void> switchLoginType(String type) async {
     loginType.value = type;
+
+    // 如果是用户名密码登录，检查是否需要验证码
+    if (type == LocaleKeys.loginTypeUsernameValue.tr) {
+      await _checkCaptchaCondition();
+    } else {
+      // 非用户名密码登录，清空验证码相关状态
+      captchaController.clear();
+      captchaImage.value = '';
+      needCaptcha.value = false;
+    }
+
     update(["login"]);
   }
 
@@ -463,33 +481,21 @@ class LoginController extends GetxController {
     try {
       Loading.show();
 
-      // 如果需要验证码，先验证验证码
-      if (needCaptcha.value) {
-        final client = await GrpcClientUtil.createClient(CaptchaClient.new);
-        final validateCaptchaResponse = await client.validateImageCaptcha(
-          ValidateImageCaptchaRequest(
-            identityKey: deviceId.value,
-            answer: captchaController.text,
-          ),
-        );
-
-        if (!validateCaptchaResponse.isValid) {
-          Get.snackbar(
-              LocaleKeys.loginErrorTip.tr, LocaleKeys.loginErrorCaptcha.tr);
-          refreshCaptcha();
-          return;
-        }
-      }
-
       // 登录
       final request = LoginRequest(
+        identity: deviceId.value,
         usernamePassword: LoginRequest_UsernamePasswordLogin(
           username: userNameController.text,
           password: passwordController.text,
-          imageCaptchaAnswer: captchaController.text,
+          imageCaptchaAnswer: captchaController.text, // 直接发送验证码答案，由服务端验证
         ),
-        appId: "com.vtyug.yugapp",
+        appId: "com.vtyug.ygApp",
       );
+
+      // 打印请求
+      print('request: $request');
+      print(
+          '验证码状态: needCaptcha=${needCaptcha.value}, captchaText=${captchaController.text}');
 
       final response = await AuthApiService.to.login(request);
       await UserService.to.setToken(response.accessToken);
@@ -498,21 +504,8 @@ class LoginController extends GetxController {
     } catch (e) {
       Get.snackbar(LocaleKeys.loginErrorTip.tr, e.toString());
 
-      // 登录失败后重新检查验证码条件
+      // 登录失败后立即调用检查条件接口
       await _checkCaptchaCondition();
-
-      // 如果需要验证码，清空验证码输入框并获取新的验证码
-      if (needCaptcha.value) {
-        captchaController.clear();
-        // 显示提示信息
-        Get.snackbar(
-          LocaleKeys.loginErrorTip.tr,
-          LocaleKeys.loginErrorCaptchaRequired.tr,
-          duration: const Duration(seconds: 2),
-        );
-        // 立即获取新的验证码
-        _fetchCaptcha();
-      }
     } finally {
       Loading.dismiss();
     }

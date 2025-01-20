@@ -139,6 +139,22 @@ enum VerificationCondition {
     TEMP_JWT = 4; // 临时授权
 }
 
+// 场景
+enum BusinessScenario {
+    // 登录
+    LOGIN = 0;
+    // 注册
+    REGISTER = 1;
+    // 忘记密码
+    FORGOT_PASSWORD = 2;
+    // 修改密码
+    CHANGE_PASSWORD = 3;
+    // 修改邮箱
+    CHANGE_EMAIL = 4;
+    // 修改手机号
+    CHANGE_PHONE = 5;
+}
+
 message UpdateAvatarRequest {
     string fso_id = 1;
     string path = 2;
