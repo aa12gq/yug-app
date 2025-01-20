@@ -58,6 +58,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.0
   build_runner: ^2.4.8
+  icons_launcher: ^3.0.0
 
 # app 图标配置
 flutter_icons:
