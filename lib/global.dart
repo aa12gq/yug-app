@@ -5,6 +5,7 @@ import 'common/index.dart';
 import 'common/services/config.dart';
 import 'common/utils/storage.dart';
 import 'common/api/api_service.dart';
+import 'common/services/token_refresh_service.dart';
 
 class Global {
   static Future<void> init() async {
@@ -35,5 +36,8 @@ class Global {
     if (languageCode.isNotEmpty) {
       Get.updateLocale(Locale(languageCode));
     }
+
+    // 初始化服务
+    Get.put<TokenRefreshService>(TokenRefreshService());
   }
 }

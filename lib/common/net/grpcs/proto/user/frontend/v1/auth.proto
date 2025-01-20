@@ -43,4 +43,19 @@ service Auth {
             body: "*"
         };
     }
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+}
+
+message LogoutRequest {
+}
+
+message LogoutResponse {
+    bool success = 1;
+}
+
+message RefreshTokenRequest {}
+
+message RefreshTokenResponse {
+    string access_token = 1;
 }

@@ -11,6 +11,7 @@ import 'package:yug_app/common/net/grpcs/proto/user/shared/v1/user.pb.dart';
 import 'package:yug_app/common/net/grpcs/proto/captcha/v1/captcha.pbgrpc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:io';
+import 'package:yug_app/common/services/token_refresh_service.dart';
 
 class LoginController extends GetxController {
   LoginController();
@@ -503,9 +504,7 @@ class LoginController extends GetxController {
           '验证码状态: needCaptcha=${needCaptcha.value}, captchaText=${captchaController.text}');
 
       final response = await AuthApiService.to.login(request);
-      await UserService.to.setToken(response.accessToken);
-      await UserService.to.getMyProfile();
-      Get.offAllNamed(RouteNames.systemMain);
+      _handleLoginSuccess(response);
     } catch (e) {
       Get.snackbar(LocaleKeys.loginErrorTip.tr, e.toString());
 
@@ -514,6 +513,18 @@ class LoginController extends GetxController {
     } finally {
       Loading.dismiss();
     }
+  }
+
+  // 登录成功后的处理
+  void _handleLoginSuccess(LoginResponse response) {
+    // 保存用户token
+    UserService.to.setToken(response.accessToken);
+
+    // 启动token刷新服务
+    TokenRefreshService.to.startTokenRefresh();
+
+    // 跳转到主页
+    Get.offAllNamed(RouteNames.systemMain);
   }
 
   // 跳转到注册页

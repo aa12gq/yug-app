@@ -17,7 +17,9 @@ class UserService extends GetxService {
   final _isLogin = false.obs;
 
   // 用户令牌
-  String token = '';
+  final _token = ''.obs;
+  String get token => _token.value;
+  RxString get tokenObs => _token;
 
   // 设备码
   String _deviceId = '';
@@ -80,28 +82,48 @@ class UserService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+    print('[UserService] 服务初始化');
     // 读 token
-    token = Storage().getString(Constants.storageToken);
+    final storedToken = Storage().getString(Constants.storageToken);
+    print(
+        '[UserService] 从存储读取token: ${storedToken.isEmpty ? "空" : storedToken.substring(0, 10)}...');
+    _token.value = storedToken;
+
     // 读 profile
     var profileOffline = Storage().getString(Constants.storageProfile);
     if (profileOffline.isNotEmpty) {
       _profile(UserInfo.fromBuffer(profileOffline.codeUnits));
       _isLogin.value = true;
+      print('[UserService] 读取到离线用户信息，已设置登录状态');
     }
   }
 
   /// 设置令牌
   Future<void> setToken(String value) async {
+    print(
+        '[UserService] 准备设置新token: ${value.isEmpty ? "空" : value.substring(0, 10)}...');
+
+    // 先保存到存储
     await Storage().setString(Constants.storageToken, value);
-    token = value;
+    print('[UserService] token已保存到存储');
+
+    // 设置登录状态
     if (value.isNotEmpty) {
       _isLogin.value = true;
+      print('[UserService] 已设置登录状态');
     }
+
+    // 最后更新token值，这样会触发监听器
+    print('[UserService] 准备更新token到内存');
+    await Future.microtask(() {
+      _token.value = value;
+      print('[UserService] token已更新到内存');
+    });
   }
 
   /// 获取用户 profile
   Future<void> getMyProfile() async {
-    if (token.isEmpty) {
+    if (_token.value.isEmpty) {
       print('获取用户信息失败: token为空');
       return;
     }
@@ -123,7 +145,7 @@ class UserService extends GetxService {
       } else {
         print('获取用户信息失败: 用户信息为空');
         _isLogin.value = false;
-        token = '';
+        _token.value = '';
         await Storage().remove(Constants.storageToken);
         await Storage().remove(Constants.storageProfile);
         Get.offAllNamed(RouteNames.systemLogin);
@@ -132,7 +154,7 @@ class UserService extends GetxService {
       print('获取用户信息失败: $e');
       print('错误堆栈: $stackTrace');
       _isLogin.value = false;
-      token = '';
+      _token.value = '';
       await Storage().remove(Constants.storageToken);
       await Storage().remove(Constants.storageProfile);
       Get.offAllNamed(RouteNames.systemLogin);
@@ -154,7 +176,7 @@ class UserService extends GetxService {
     await Storage().remove(Constants.storageProfile);
     _profile(UserInfo());
     _isLogin.value = false;
-    token = '';
+    _token.value = '';
   }
 
   /// 检查是否登录
