@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         light: AppTheme.light, // 亮色主题
         dark: AppTheme.dark, // 暗色主题
         initial: AdaptiveThemeMode.light, // 初始主题
-        debugShowFloatingThemeButton: true, // 显示主题按钮
+        debugShowFloatingThemeButton: false, // 显示主题按钮
 
         // 构建
         builder: (light, dark) => GetMaterialApp(
