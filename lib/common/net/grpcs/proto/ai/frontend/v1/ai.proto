@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package com.vtyug.yug.ai.frontend.grpc.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "ai/shared/v1/ai.proto";
+
+option go_package = "github.com/vtyug/yug-server/proto/ai/frontend/v1;v1";
+
+option (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "YUG AI Frontend Service";
+        version: "1.0.0";
+        description: "YUG AI Frontend Service";
+        contact: {
+            name: "与光科技";
+            url: "https://dev.yuguang.com";
+            email: "tech@yuguang.com";
+        };
+    };
+    schemes: [HTTP, HTTPS];
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+// AI用户服务
+service AI {
+    // 创建新对话
+    rpc CreateConversation(com.vtyug.yug.ai.shared.v1.CreateConversationRequest) returns (com.vtyug.yug.ai.shared.v1.CreateConversationResponse) {
+        option (google.api.http) = {
+            post: "/v1/ai/conversation"
+            body: "*"
+        };
+    }
+
+    // 获取当前用户的对话列表
+    rpc ListConversations(com.vtyug.yug.ai.shared.v1.ListConversationsRequest) returns (com.vtyug.yug.ai.shared.v1.ListConversationsResponse) {
+        option (google.api.http) = {
+            get: "/v1/ai/conversations"
+        };
+    }
+    
+    // 获取对话历史
+    rpc GetConversation(com.vtyug.yug.ai.shared.v1.GetConversationRequest) returns (com.vtyug.yug.ai.shared.v1.GetConversationResponse) {
+        option (google.api.http) = {
+            get: "/v1/ai/conversation/{conversation_id}"
+        };
+    }
+    
+    // AI对话（流式）
+    rpc Chat(com.vtyug.yug.ai.shared.v1.ChatRequest) returns (stream com.vtyug.yug.ai.shared.v1.ChatResponse) {
+        option (google.api.http) = {
+            post: "/v1/ai/chat"
+            body: "*"
+        };
+    }
+    
+    // 删除对话
+    rpc DeleteConversation(com.vtyug.yug.ai.shared.v1.DeleteConversationRequest) returns (com.vtyug.yug.ai.shared.v1.DeleteConversationResponse) {
+        option (google.api.http) = {
+            delete: "/v1/ai/conversation/{conversation_id}"
+        };
+    }
+
+    // 知识库聊天（流式）
+    rpc ChatWithKnowledge(com.vtyug.yug.ai.shared.v1.ChatWithKnowledgeRequest) returns (stream com.vtyug.yug.ai.shared.v1.ChatResponse) {
+        option (google.api.http) = {
+            post: "/v1/ai/knowledge/chat"
+            body: "*"
+        };
+    }
+
+    // 创建知识库
+    rpc CreateKnowledgeBase(com.vtyug.yug.ai.shared.v1.CreateKnowledgeBaseRequest) returns (com.vtyug.yug.ai.shared.v1.CreateKnowledgeBaseResponse) {
+        option (google.api.http) = {
+            post: "/v1/ai/knowledge-base"
+            body: "*"
+        };
+    }
+    
+    // 获取知识库列表
+    rpc ListKnowledgeBases(com.vtyug.yug.ai.shared.v1.ListKnowledgeBasesRequest) returns (com.vtyug.yug.ai.shared.v1.ListKnowledgeBasesResponse) {
+        option (google.api.http) = {
+            get: "/v1/ai/knowledge-bases"
+        };
+    }
+    
+    // 上传文档到知识库
+    rpc UploadDocument(com.vtyug.yug.ai.shared.v1.UploadDocumentRequest) returns (stream com.vtyug.yug.ai.shared.v1.UploadDocumentResponse) {
+        option (google.api.http) = {
+            post: "/v1/ai/knowledge-base/{knowledge_base_id}/document"
+            body: "*"
+        };
+    }
+    
+    // 删除知识库文档
+    rpc DeleteDocument(com.vtyug.yug.ai.shared.v1.DeleteDocumentRequest) returns (com.vtyug.yug.ai.shared.v1.DeleteDocumentResponse) {
+        option (google.api.http) = {
+            delete: "/v1/ai/knowledge-base/{knowledge_base_id}/document/{document_id}"
+        };
+    }
+    
+    // 获取知识库详情
+    rpc GetKnowledgeBase(com.vtyug.yug.ai.shared.v1.GetKnowledgeBaseRequest) returns (com.vtyug.yug.ai.shared.v1.GetKnowledgeBaseResponse) {
+        option (google.api.http) = {
+            get: "/v1/ai/knowledge-base/{knowledge_base_id}"
+        };
+    }
+    
+    // 更新知识库
+    rpc UpdateKnowledgeBase(com.vtyug.yug.ai.shared.v1.UpdateKnowledgeBaseRequest) returns (com.vtyug.yug.ai.shared.v1.UpdateKnowledgeBaseResponse) {
+        option (google.api.http) = {
+            put: "/v1/ai/knowledge-base/{knowledge_base_id}"
+            body: "*"
+        };
+    }
+    
+    // 删除知识库
+    rpc DeleteKnowledgeBase(com.vtyug.yug.ai.shared.v1.DeleteKnowledgeBaseRequest) returns (com.vtyug.yug.ai.shared.v1.DeleteKnowledgeBaseResponse) {
+        option (google.api.http) = {
+            delete: "/v1/ai/knowledge-base/{knowledge_base_id}"
+        };
+    }
+    
+    // 获取知识库中的文档列表
+    rpc ListDocuments(com.vtyug.yug.ai.shared.v1.ListDocumentsRequest) returns (com.vtyug.yug.ai.shared.v1.ListDocumentsResponse) {
+        option (google.api.http) = {
+            get: "/v1/ai/knowledge-base/{knowledge_base_id}/documents"
+        };
+    }
+}

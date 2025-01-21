@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 远程仓库地址
-REPO_URL="https://github.com/vtyug/yug-server.git"
+REPO_URL="git@github.com:vtyug/yug-server.git"
 
 # 检查命令行参数
 if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then

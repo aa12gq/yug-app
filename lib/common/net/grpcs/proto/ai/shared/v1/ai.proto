@@ -1,0 +1,297 @@
+syntax = "proto3";
+
+package com.vtyug.yug.ai.shared.v1;
+
+option go_package = "github.com/vtyug/yug-server/proto/ai/shared/v1;v1";
+
+// AI模型类型
+enum AIModel {
+    AI_MODEL_UNSPECIFIED = 0;
+    AI_MODEL_GPT35 = 1;
+    AI_MODEL_GPT4 = 2;
+}
+
+// 对话类型
+enum ConversationType {
+    CONVERSATION_TYPE_UNSPECIFIED = 0;  // 未指定
+    CONVERSATION_TYPE_NORMAL = 1;       // 普通对话
+    CONVERSATION_TYPE_KNOWLEDGE = 2;    // 知识库对话
+}
+
+// AI对话消息
+message Message {
+    string role = 1;  // system/user/assistant
+    string content = 2;
+}
+
+// AI对话上下文
+message Conversation {
+    uint64 conversation_id = 1;
+    repeated Message messages = 2;
+    AIModel model = 3;
+    int64 created_at = 4;
+    int64 updated_at = 5;
+    ConversationType type = 6;          // 对话类型
+    uint64 knowledge_id = 7;            // 知识库ID（当type为KNOWLEDGE时有效）
+}
+
+
+message GetConversationStatsRequest {
+    int64 start_time = 1;
+    int64 end_time = 2;
+}
+
+message GetConversationStatsResponse {
+    int32 total_conversations = 1;
+    int32 total_messages = 2;
+    map<string, int32> model_usage = 3;  // 各个模型的使用次数
+    repeated UserStats top_users = 4;     // 使用最多的用户
+}
+
+message UserStats {
+    uint64 user_id = 1;
+    string username = 2;
+    int32 conversation_count = 3;
+    int32 message_count = 4;
+}
+
+message GetUserConversationsRequest {
+    uint64 user_id = 1;
+    int32 page = 2;
+    int32 page_size = 3;
+}
+
+message GetUserConversationsResponse {
+    repeated com.vtyug.yug.ai.shared.v1.Conversation conversations = 1;
+    int32 total = 2;
+}
+
+message DeleteUserConversationRequest {
+    uint64 user_id = 1;
+    string conversation_id = 2;
+}
+
+message DeleteUserConversationResponse {
+    bool success = 1;
+}
+
+// 知识库相关消息定义
+message KnowledgeBase {
+    uint64 id = 1;
+    string name = 2;
+    string description = 3;
+    string alias = 4;
+    int64 created_at = 5;
+    int64 updated_at = 6;
+    int32 document_count = 7;
+    uint64 user_id = 8;
+}
+
+message Document {
+    uint64 id = 1;
+    uint64 knowledge_base_id = 2;
+    string title = 3;
+    string content = 4;
+    string file_type = 5;  // 文件类型：pdf, doc, txt等
+    int64 created_at = 6;
+    int64 updated_at = 7;
+    string fso_id = 8;
+    string fso_url = 9;
+}
+
+message CreateKnowledgeBaseRequest {
+    string name = 1;
+    string description = 2;
+    string alias = 3;
+}
+
+message CreateKnowledgeBaseResponse {
+    KnowledgeBase knowledge_base = 1;
+}
+
+message ListKnowledgeBasesRequest {
+    int32 page = 1;
+    int32 page_size = 2;
+    string alias = 3;
+    string name = 4;
+}
+
+message ListKnowledgeBasesResponse {
+    repeated KnowledgeBase knowledge_bases = 1;
+    int32 total = 2;
+}
+
+message UploadDocumentRequest {
+    uint64 knowledge_base_id = 1;
+    string title = 2;
+    string fso_id = 3;
+    string fso_url = 4;
+}
+
+// Progress 进度信息
+message Progress {
+    int32 current = 1;  // 当前进度
+    int32 total = 2;    // 总进度
+    string status = 3;  // 状态描述
+}
+
+// UploadDocumentResponse 上传文档响应
+message UploadDocumentResponse {
+    Document document = 1;  // 文档信息
+    Progress progress = 2;  // 进度信息
+}
+
+message DeleteDocumentRequest {
+    uint64 knowledge_base_id = 1;
+    uint64 document_id = 2;
+}
+
+message DeleteDocumentResponse {
+    bool success = 1;
+}
+
+message GetKnowledgeBaseRequest {
+    uint64 knowledge_base_id = 1;
+}
+
+message GetKnowledgeBaseResponse {
+    KnowledgeBase knowledge_base = 1;
+}
+
+message UpdateKnowledgeBaseRequest {
+    uint64 knowledge_base_id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message UpdateKnowledgeBaseResponse {
+    KnowledgeBase knowledge_base = 1;
+}
+
+message DeleteKnowledgeBaseRequest {
+    uint64 knowledge_base_id = 1;
+}
+
+message DeleteKnowledgeBaseResponse {
+    bool success = 1;
+}
+
+message ListDocumentsRequest {
+    uint64 knowledge_base_id = 1;
+    int32 page = 2;
+    int32 page_size = 3;
+    string file_type = 4;  // 可选，按文件类型筛选
+    string title = 5;  // 可选，按标题筛选
+}
+
+message ListDocumentsResponse {
+    repeated Document documents = 1;
+    int32 total = 2;
+}
+
+message GetDocumentRequest {
+    uint64 knowledge_base_id = 1;
+    uint64 document_id = 2;
+}
+
+message GetDocumentResponse {
+    Document document = 1;
+    string preview_content = 2;  // 文档预览内容
+}
+
+message UpdateDocumentRequest {
+    uint64 knowledge_base_id = 1;
+    uint64 document_id = 2;
+    string title = 3;
+    bytes content = 4;  // 可选，如果不更新文件内容则不需要传
+}
+
+message UpdateDocumentResponse {
+    Document document = 1;
+}
+
+message SearchDocumentsRequest {
+    uint64 knowledge_base_id = 1;
+    string query = 2;           // 搜索关键词
+    int32 page = 3;
+    int32 page_size = 4;
+    float min_score = 5;        // 最小相似度分数
+}
+
+message SearchResult {
+    Document document = 1;
+    float score = 2;           // 相似度分数
+    string highlight = 3;      // 高亮的匹配内容
+}
+
+message SearchDocumentsResponse {
+    repeated SearchResult results = 1;
+    int32 total = 2;
+}
+
+// 聊天请求
+message ChatRequest {
+    uint64 conversation_id = 1; // 若未指定，系统自动创建，根据用户第一个消息创建
+    string message = 2;
+    com.vtyug.yug.ai.shared.v1.AIModel model = 3;
+    string role_prompt = 4;  // 对话角色，例如： "资深工程师、资深英语教师等"
+}
+
+// 聊天响应（流式）
+message ChatResponse {
+    uint64 conversation_id = 1;
+    string content = 2;        // 当前片段的内容
+    bool is_error = 3;         // 是否发生错误
+    string error_message = 4;  // 错误信息
+    bool is_end = 5;          // 是否是最后一个响应
+}
+
+message CreateConversationRequest {
+    AIModel model = 1;
+    string initial_message = 2;  // 可选的初始消息
+}
+
+message CreateConversationResponse {
+    uint64 conversation_id = 1;
+}
+
+message ListConversationsRequest {
+    int32 page = 1;
+    int32 page_size = 2;
+    ConversationType type = 3;  // 对话类型
+    uint64 knowledge_id = 4;  // 当type为KNOWLEDGE时有效
+}
+
+message ListConversationsResponse {
+    repeated Conversation conversations = 1;
+    int32 total = 2;
+}
+
+message GetConversationRequest {
+    uint64 conversation_id = 1;
+}
+
+message GetConversationResponse {
+    Conversation conversation = 1;
+}
+
+message DeleteConversationRequest {
+    uint64 conversation_id = 1;
+}
+
+message DeleteConversationResponse {
+    bool success = 1;
+}
+
+message CreateKnowledgeChatRequest {
+    repeated uint64 knowledge_ids = 1;     // 知识库ID集合
+    repeated string knowledge_aliases = 2;  // 知识库别名集合
+    string initial_message = 3;
+}
+
+message ChatWithKnowledgeRequest {
+    uint64 chat_id = 1;
+    repeated uint64 knowledge_ids = 2;     // 知识库ID集合
+    repeated string knowledge_aliases = 3;  // 知识库别名集合
+    string message = 4;
+}
