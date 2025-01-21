@@ -539,8 +539,13 @@ class LoginController extends GetxController {
 
   // 登录成功后的处理
   void _handleLoginSuccess(LoginResponse response) {
-    // 保存用户token
-    UserService.to.setToken(response.accessToken);
+    // 保存用户token和refresh token
+    UserService.to.setLoginCredentials(
+      response.accessToken,
+      response.refreshToken,
+      response.accessTokenExpiresIn.toInt(),
+      response.refreshTokenExpiresIn.toInt(),
+    );
 
     // 启动token刷新服务
     TokenRefreshService.to.startTokenRefresh();

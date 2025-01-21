@@ -112,7 +112,10 @@ message LoginRequest {
 
 message LoginResponse {
     uint64 user_id = 1;
-    string accessToken = 2;
+    string access_token = 2;
+    string refresh_token = 3;
+    int64 access_token_expires_in = 4;
+    int64 refresh_token_expires_in = 5;
 }
 
 message CheckVerificationConditionRequest {

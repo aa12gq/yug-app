@@ -8,10 +8,17 @@ import 'package:yug_app/common/services/user.dart';
 class TokenRefreshService extends GetxService {
   Timer? _refreshTimer;
   Worker? _tokenWorker;
-  static const int _refreshBeforeExpirySeconds = 30; // 在过期前30秒刷新
-  static const String _tag = "TokenRefreshService"; // 日志标签
-  static const bool _isDebug = true; // 调试模式标志
-  bool _isRefreshing = false; // 防止重复刷新
+  static const String _tag = "TokenRefreshService";
+  static const bool _isDebug = true;
+  bool _isRefreshing = false;
+  int _retryCount = 0;
+  static const int _maxRetries = 3;
+  static const Duration _retryDelay = Duration(seconds: 5);
+
+  // 刷新时间配置
+  static const Duration _minimumRefreshInterval = Duration(seconds: 30);
+  static const Duration _refreshBeforeExpiry = Duration(minutes: 5);
+  static const double _refreshThresholdPercentage = 0.8; // 在过期时间的80%时刷新
 
   // 单例模式
   static TokenRefreshService get to => Get.find();
@@ -75,33 +82,32 @@ class TokenRefreshService extends GetxService {
     print('[$_tag] 开始计算刷新间隔...');
     final payload = _parseJwt(token);
     if (!payload.containsKey('exp')) {
-      print('[$_tag] token中未找到exp字段，使用默认刷新间隔（59分30秒）');
-      return const Duration(minutes: 59, seconds: 30);
+      print('[$_tag] token中未找到exp字段，使用默认刷新间隔');
+      return const Duration(minutes: 30);
     }
 
-    // exp是Unix时间戳（秒）
     final expiry = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
     final now = DateTime.now();
-    final timeUntilExpiry = expiry.difference(now);
+    final totalDuration = expiry.difference(now);
 
-    print('[$_tag] token过期时间: $expiry');
-    print('[$_tag] 当前时间: $now');
-    print('[$_tag] 距离过期还有: ${timeUntilExpiry.inSeconds}秒');
-
-    // 计算刷新时间（过期前30秒）
-    var refreshTime =
-        timeUntilExpiry - const Duration(seconds: _refreshBeforeExpirySeconds);
-
-    // 如果在调试模式下，缩短刷新间隔为30秒，方便测试
-    if (_isDebug && refreshTime > const Duration(seconds: 30)) {
-      print('[$_tag] 调试模式：缩短刷新间隔为30秒');
-      refreshTime = const Duration(seconds: 30);
+    // 如果token已过期或即将过期
+    if (totalDuration <= _refreshBeforeExpiry) {
+      print('[$_tag] token即将过期或已过期，立即刷新');
+      return Duration.zero;
     }
 
-    // 如果已经太接近过期时间或已过期，立即刷新
-    if (refreshTime.isNegative || refreshTime < const Duration(seconds: 5)) {
-      print('[$_tag] token即将过期或已过期，将立即刷新');
-      return const Duration(seconds: 1);
+    // 计算智能刷新时间
+    var refreshTime = totalDuration * _refreshThresholdPercentage;
+
+    // 确保刷新间隔不小于最小值
+    if (refreshTime < _minimumRefreshInterval) {
+      refreshTime = _minimumRefreshInterval;
+    }
+
+    // 调试模式下缩短刷新间隔
+    if (_isDebug) {
+      refreshTime = _minimumRefreshInterval;
+      print('[$_tag] 调试模式：使用最小刷新间隔');
     }
 
     print('[$_tag] 计算完成，将在${refreshTime.inSeconds}秒后刷新token');
@@ -116,69 +122,80 @@ class TokenRefreshService extends GetxService {
     }
 
     print('[$_tag] 开始token刷新流程...');
-    stopTokenRefresh(); // 确保先停止之前的计时器
+    stopTokenRefresh();
     _isRefreshing = true;
+    _retryCount = 0;
 
     try {
       final currentToken = UserService.to.token;
-      print(
-          '[$_tag] 当前token: ${currentToken.isEmpty ? "空" : currentToken.substring(0, 10)}...');
+      final refreshToken = UserService.to.refreshToken;
 
-      if (currentToken.isEmpty) {
-        print('[$_tag] 当前token为空，取消刷新');
-        _isRefreshing = false;
+      if (currentToken.isEmpty || refreshToken.isEmpty) {
+        print('[$_tag] token无效，取消刷新');
+        _handleRefreshFailure('无效的token');
         return;
       }
 
       final refreshInterval = _calculateRefreshInterval(currentToken);
-      print('[$_tag] 设置定时器，将在${refreshInterval.inSeconds}秒后刷新token');
-
-      _refreshTimer = Timer(refreshInterval, () async {
-        print('[$_tag] 定时器触发，开始刷新token...');
-        try {
-          final response = await AuthApiService.to.refreshToken();
-          print('[$_tag] 收到刷新响应');
-          if (response.accessToken.isNotEmpty) {
-            print(
-                '[$_tag] token刷新成功，获得新token: ${response.accessToken.substring(0, 10)}...');
-            // 更新用户服务中的token
-            await UserService.to.setToken(response.accessToken);
-            // 重新开始计时器，使用新token的过期时间
-            print('[$_tag] 使用新token重新开始刷新计时');
-          } else {
-            print('[$_tag] 刷新失败：收到空token');
-            _handleRefreshFailure('收到空token');
-          }
-        } catch (e) {
-          print('[$_tag] token刷新失败: $e');
-          _handleRefreshFailure(e.toString());
-        } finally {
-          _isRefreshing = false;
-        }
-      });
+      _scheduleRefresh(refreshInterval, refreshToken);
     } catch (e) {
-      print('[$_tag] token解析失败: $e');
-      _isRefreshing = false;
-      // 如果解析token失败，使用默认的刷新间隔
-      const defaultInterval = Duration(minutes: 59, seconds: 30);
-      print('[$_tag] 使用默认刷新间隔：${defaultInterval.inMinutes}分钟');
-      _refreshTimer = Timer(defaultInterval, () => startTokenRefresh());
+      print('[$_tag] 启动刷新服务失败: $e');
+      _handleRefreshFailure(e.toString());
     }
   }
 
-  // 处理刷新失败的情况
+  // 调度刷新任务
+  void _scheduleRefresh(Duration interval, String refreshToken) {
+    print('[$_tag] 调度刷新任务，间隔: ${interval.inSeconds}秒');
+    _refreshTimer = Timer(interval, () => _performRefresh(refreshToken));
+  }
+
+  // 执行刷新
+  Future<void> _performRefresh(String refreshToken) async {
+    try {
+      final response = await AuthApiService.to.refreshToken(refreshToken);
+
+      if (response.accessToken.isNotEmpty && response.refreshToken.isNotEmpty) {
+        print('[$_tag] token刷新成功');
+        await UserService.to.setLoginCredentials(
+          response.accessToken,
+          response.refreshToken,
+          response.accessTokenExpiresIn.toInt(),
+          response.refreshTokenExpiresIn.toInt(),
+        );
+        _retryCount = 0;
+        _isRefreshing = false;
+        startTokenRefresh(); // 使用新token重新开始计时
+      } else {
+        _handleRefreshRetry('收到空token');
+      }
+    } catch (e) {
+      _handleRefreshRetry(e.toString());
+    }
+  }
+
+  // 处理刷新重试
+  void _handleRefreshRetry(String error) {
+    print('[$_tag] 刷新失败: $error');
+    if (_retryCount < _maxRetries) {
+      _retryCount++;
+      print('[$_tag] 尝试第$_retryCount次重试，${_retryDelay.inSeconds}秒后重试');
+      _refreshTimer = Timer(_retryDelay, () {
+        _performRefresh(UserService.to.refreshToken);
+      });
+    } else {
+      _handleRefreshFailure('重试次数已达上限: $error');
+    }
+  }
+
+  // 处理刷新失败
   void _handleRefreshFailure(String error) {
-    print('[$_tag] 处理刷新失败：$error');
-    // 停止计时器
+    print('[$_tag] 刷新失败，无法恢复: $error');
     stopTokenRefresh();
-    // 通知用户
-    Get.snackbar(
-      '提示',
-      '登录已过期，请重新登录',
-      duration: const Duration(seconds: 3),
-    );
-    // 跳转到登录页
-    print('[$_tag] 跳转到登录页');
+    _isRefreshing = false;
+    _retryCount = 0;
+    UserService.to.logout();
+    Get.snackbar('提示', '登录已过期，请重新登录', duration: const Duration(seconds: 3));
     Get.offAllNamed(RouteNames.systemLogin);
   }
 

@@ -37,10 +37,12 @@ class AuthApiService extends GetxService {
   }
 
   // 刷新token
-  Future<RefreshTokenResponse> refreshToken() async {
+  Future<RefreshTokenResponse> refreshToken(String refreshToken) async {
     try {
       final client = await GrpcClientUtil.createClient(AuthClient.new);
-      return await client.refreshToken(RefreshTokenRequest());
+      return await client.refreshToken(RefreshTokenRequest(
+        refreshToken: refreshToken,
+      ));
     } catch (e) {
       if (e is GrpcError) {
         throw e.message ?? '未知错误';

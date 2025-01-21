@@ -54,8 +54,13 @@ message LogoutResponse {
     bool success = 1;
 }
 
-message RefreshTokenRequest {}
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
 
 message RefreshTokenResponse {
     string access_token = 1;
+    string refresh_token = 2;
+    int64 access_token_expires_in = 3;
+    int64 refresh_token_expires_in = 4;
 }

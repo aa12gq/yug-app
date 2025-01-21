@@ -14,6 +14,9 @@ class Constants {
   // storage token
   static const storageToken = 'token';
 
+  // storage refresh token
+  static const storageRefreshToken = 'refresh_token';
+
   // storage profile
   static const storageProfile = 'profile';
 

@@ -21,6 +21,11 @@ class UserService extends GetxService {
   String get token => _token.value;
   RxString get tokenObs => _token;
 
+  // 刷新令牌
+  final _refreshToken = ''.obs;
+  String get refreshToken => _refreshToken.value;
+  RxString get refreshTokenObs => _refreshToken;
+
   // 设备码
   String _deviceId = '';
 
@@ -38,6 +43,9 @@ class UserService extends GetxService {
 
   /// 是否有令牌 token
   bool get hasToken => token.isNotEmpty;
+
+  /// 是否有刷新令牌
+  bool get hasRefreshToken => refreshToken.isNotEmpty;
 
   /// 获取设备码
   String get deviceId => _deviceId;
@@ -89,6 +97,13 @@ class UserService extends GetxService {
         '[UserService] 从存储读取token: ${storedToken.isEmpty ? "空" : storedToken.substring(0, 10)}...');
     _token.value = storedToken;
 
+    // 读 refresh token
+    final storedRefreshToken =
+        Storage().getString(Constants.storageRefreshToken);
+    print(
+        '[UserService] 从存储读取refresh token: ${storedRefreshToken.isEmpty ? "空" : storedRefreshToken.substring(0, 10)}...');
+    _refreshToken.value = storedRefreshToken;
+
     // 读 profile
     var profileOffline = Storage().getString(Constants.storageProfile);
     if (profileOffline.isNotEmpty) {
@@ -119,6 +134,29 @@ class UserService extends GetxService {
       _token.value = value;
       print('[UserService] token已更新到内存');
     });
+  }
+
+  /// 设置刷新令牌
+  Future<void> setRefreshToken(String value) async {
+    print(
+        '[UserService] 准备设置新refresh token: ${value.isEmpty ? "空" : value.substring(0, 10)}...');
+
+    // 先保存到存储
+    await Storage().setString(Constants.storageRefreshToken, value);
+    print('[UserService] refresh token已保存到存储');
+
+    // 最后更新refresh token值
+    await Future.microtask(() {
+      _refreshToken.value = value;
+      print('[UserService] refresh token已更新到内存');
+    });
+  }
+
+  /// 设置登录凭证（同时设置access token和refresh token）
+  Future<void> setLoginCredentials(String accessToken, String refreshToken,
+      int accessTokenExpiresIn, int refreshTokenExpiresIn) async {
+    await setToken(accessToken);
+    await setRefreshToken(refreshToken);
   }
 
   /// 获取用户 profile
@@ -173,10 +211,12 @@ class UserService extends GetxService {
   /// 注销
   Future<void> logout() async {
     await Storage().remove(Constants.storageToken);
+    await Storage().remove(Constants.storageRefreshToken);
     await Storage().remove(Constants.storageProfile);
     _profile(UserInfo());
     _isLogin.value = false;
     _token.value = '';
+    _refreshToken.value = '';
   }
 
   /// 检查是否登录
