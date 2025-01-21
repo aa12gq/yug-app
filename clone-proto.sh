@@ -52,6 +52,7 @@ echo "开始从 $REPO_URL 克隆到 $TARGET_DIR..."
 mkdir "$TARGET_DIR" && \
 cd "$TARGET_DIR" && \
 git clone --no-checkout --depth 1 $REPO_URL . && \
+
 git sparse-checkout init --cone && \
 if [ -z "$SUB_DIR" ]; then
     git sparse-checkout set proto
@@ -260,6 +261,29 @@ if [ $? -eq 0 ]; then
             if [ ! -z "$BACKUP_DIR" ]; then
                 echo "原文件已备份到 $BACKUP_DIR 目录"
                 echo "如果需要恢复某个文件，可以从备份目录中复制回来"
+            fi
+
+            # 询问是否要编译proto文件
+            echo "是否要立即编译生成dart文件? [y/N]"
+            read -r compile_response
+            if [[ "$compile_response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+                echo "开始编译proto文件..."
+                # 保存当前目录
+                current_dir=$(pwd)
+                # 回到项目根目录
+                cd "$(pwd)" || exit 1
+                if [ -f "Makefile" ]; then
+                    make proto m="$SUB_DIR"
+                    make_result=$?
+                    if [ $make_result -eq 0 ]; then
+                        echo "✅ proto文件编译完成"
+                    else
+                        echo "❌ proto文件编译失败"
+                    fi
+                else
+                    echo "❌ 在目录 $(pwd) 下没有找到 Makefile"
+                    ls -la
+                fi
             fi
         else
             echo "未进行替换，克隆的文件保留在 $TARGET_DIR 目录中"
