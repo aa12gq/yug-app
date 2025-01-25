@@ -1,0 +1,214 @@
+syntax = "proto3";
+
+package com.vtyug.yug.mfs.grpc.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "proto/mfs/v1;v1";
+
+option (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "YUG MFS Service";
+        version: "1.0.0";
+        description: "The YUG MFS Service provides a set of APIs to manage MinIO File System.";
+        contact: {
+            name: "与光科技";
+            url: "https://dev.yuguang.com";
+            email: "tech@yuguang.com";
+        };
+    };
+    schemes: [HTTP, HTTPS];
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+message FsoInfo {
+	// 唯一ID标识. 调用create时请设置为空.
+	string fso_id = 1;
+	// 文件大小 
+	uint64 size = 2;
+	// 文件名称
+	string filename = 3;
+	// 对象名, 用于minio的object name 查询文件
+	string object_name = 4;
+	// 桶名(相当于根目录).
+	string bucket = 5;
+	// 文件目录.
+	string dir = 6;
+	// 文件路径. 调用create时请设置为空.
+	string path = 7;
+	// 其它自定义信息
+	map<string, string> meta = 8;
+    Permission permission = 9;
+	google.protobuf.Timestamp created_at = 10;
+	google.protobuf.Timestamp updated_at = 11;
+}
+
+enum Permission {
+    PUBLIC = 0;
+    PRIVATE = 1;
+}
+
+message GetFsoRequest {
+    string fso_id = 1;  // File ID
+}
+
+message GetFsoResponse {
+    FsoInfo fso = 1;  // File info
+}
+
+message DeleteFsoRequest {
+    string fso_id = 1;  // File ID
+}
+
+message ListFsoRequest {
+    int32 page_size = 1;
+    int32 page_num = 2; 
+    string bucket_name = 3; 
+}
+
+message ListFsoResponse {
+    repeated FsoInfo fsos = 1;
+    uint32 total = 2;
+}
+
+message GetPreviewRequest {
+    string fso_id = 1;
+    uint32 size = 2;       // preview size, 0 means original size
+    int64 expiry_second = 3; // URL有效期(秒),0表示永久有效
+}
+
+message GetPreviewResponse {
+    string url = 1;        // 预览图URL
+    uint32 width = 2;      // 预览图宽度
+    uint32 height = 3;     // 预览图高度
+    string content_type = 4; // 预览图内容类型
+}
+
+message UploadFsoRequest {
+    int64 expiry_second = 8; // URL有效期(秒),0表示永久有效
+}
+
+message CreateBucketRequest {
+    string bucket_name = 1;
+    Permission permission = 2;
+}
+
+enum ThumbnailMode {
+    FIT = 0;
+    FILL = 1;
+    CROP = 2;
+}
+
+// 标准缩略图尺寸
+enum ThumbnailSize {
+    // 头像尺寸
+    AVATAR_SMALL = 0;    // 50x50
+    AVATAR_MEDIUM = 1;   // 100x100
+    AVATAR_LARGE = 2;    // 200x200
+
+    // 列表预览尺寸
+    LIST_SMALL = 10;     // 160x120
+    LIST_MEDIUM = 11;    // 320x240
+    LIST_LARGE = 12;     // 640x480
+
+    // 详情页预览尺寸
+    DETAIL_SMALL = 20;   // 400x300
+    DETAIL_MEDIUM = 21;  // 800x600
+    DETAIL_LARGE = 22;   // 1200x900
+}
+
+message GetThumbnailRequest {
+    string fso_id = 1;
+    ThumbnailSize size = 2;
+    ThumbnailMode mode = 3;
+    uint32 quality = 4;
+}
+
+message GetThumbnailResponse {
+    string url = 1; // 缩略图URL
+    uint32 width = 2; // 缩略图宽度
+    uint32 height = 3; // 缩略图高度
+    uint32 size = 4; // 缩略图大小(字节)
+    string format = 5; // 缩略图格式, 可选值: "jpeg", "png"
+}
+
+message ClearThumbnailRequest {
+    string fso_id = 1;
+}
+
+message BatchGetThumbnailRequest {
+    repeated string fso_ids = 1;
+    ThumbnailSize size = 2;
+    ThumbnailMode mode = 3;
+    uint32 quality = 4;
+}
+
+message BatchGetThumbnailResponse {
+    message ThumbnailResult {
+        string fso_id = 1;
+        string url = 2;
+        uint32 width = 3;
+        uint32 height = 4;
+        uint32 size = 5;
+        string format = 6;
+        bool success = 7;
+        string error = 8;
+    }
+    repeated ThumbnailResult results = 1;
+}
+
+service MFS {
+    rpc GetFso(GetFsoRequest) returns (GetFsoResponse) {
+        option (google.api.http) = {
+            get: "/v1/mfs/fso/{fso_id}"
+        };
+    }
+
+    rpc DeleteFso(DeleteFsoRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/v1/mfs/fso/{fso_id}"
+        };
+    }
+
+    rpc ListFso(ListFsoRequest) returns (ListFsoResponse) {
+        option (google.api.http) = {
+            get: "/v1/mfs/fsos"
+        };
+    }
+
+    rpc GetPreview(GetPreviewRequest) returns (GetPreviewResponse) {
+        option (google.api.http) = {
+            get: "/v1/mfs/fso/{fso_id}/preview"
+        };
+    }
+
+    rpc CreateBucket(CreateBucketRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/v1/mfs/bucket"
+            body: "*"
+        };
+    }
+
+    rpc GetThumbnail(GetThumbnailRequest) returns (GetThumbnailResponse) {
+        option (google.api.http) = {
+            get: "/v1/mfs/thumbnail/{fso_id}"
+        };
+    }
+
+    rpc ClearThumbnail(ClearThumbnailRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/v1/mfs/thumbnail/{fso_id}"
+        };
+    }
+
+    rpc BatchGetThumbnail(BatchGetThumbnailRequest) returns (BatchGetThumbnailResponse) {
+        option (google.api.http) = {
+            post: "/v1/mfs/thumbnails"
+            body: "*"
+        };
+    }
+}

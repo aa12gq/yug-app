@@ -1,12 +1,16 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yug_app/common/services/mfs.dart';
 import 'package:yug_app/common/services/user.dart';
 import 'package:yug_app/common/utils/loading.dart';
 import 'package:yug_app/common/net/grpcs/proto/user/shared/v1/user.pb.dart';
 import 'package:yug_app/common/api/api_service.dart';
 import 'package:yug_app/config/mfs.dart';
 import 'package:intl/intl.dart';
+import 'package:yug_app/common/index.dart';
 
 class ProfileEditController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -19,7 +23,8 @@ class ProfileEditController extends GetxController {
   Gender gender = Gender.GENDER_MALE;
   DateTime? birthday;
 
-  final ImagePicker _picker = ImagePicker();
+  final _mfsService = MfsService();
+  final _imagePicker = ImagePicker();
 
   @override
   void onInit() {
@@ -54,28 +59,40 @@ class ProfileEditController extends GetxController {
   // 选择头像
   Future<void> pickImage() async {
     try {
-      final XFile? image = await _picker.pickImage(
+      final XFile? image = await _imagePicker.pickImage(
         source: ImageSource.gallery,
-        maxWidth: 800,
-        maxHeight: 800,
+        maxWidth: 1024,
+        maxHeight: 1024,
         imageQuality: 85,
       );
+
       if (image != null) {
-        // TODO: 上传头像到服务器
-        final request = UpdateAvatarRequest()..path = image.path;
+        Loading.show('上传中...');
+        final file = File(image.path);
+        final fileRef = await _mfsService.uploadFile(
+          file: file,
+          bucket: 'vtyugapp',
+          dir: '/avatars',
+          uid: UserService.to.profile.userId.toString(),
+        );
+
+        // 调用更新头像接口
+        final request = UpdateAvatarRequest()
+          ..fsoId = fileRef.fsoId
+          ..path = fileRef.path;
         await UserApiService.to.updateAvatar(request);
 
-        // 刷新用户信息以获取新的头像URL
+        // 刷新用户信息
         await UserService.to.getMyProfile();
-        final newAvatarPath = UserService.to.profile.avatarPath;
-        avatarUrl = newAvatarPath.isNotEmpty
-            ? "${MfsConfig.previewFileUrl}/${newAvatarPath}"
-            : null;
+        avatarUrl = "${MfsConfig.previewFileUrl}/${fileRef.path}";
         update();
-        Loading.success('头像更新成功');
+        Loading.success('更新成功');
       }
     } catch (e) {
-      Loading.error('更新头像失败：${e.toString()}');
+      Loading.error('头像更新失败');
+      if (kDebugMode) {
+        print('头像更新失败: $e');
+      }
     }
   }
 
