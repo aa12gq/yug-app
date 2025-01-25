@@ -7,6 +7,7 @@ import 'package:yug_app/common/i18n/index.dart';
 import 'package:yug_app/common/net/grpcs/api/delegating_response_future.dart';
 import 'package:yug_app/common/services/token_refresh_service.dart';
 import 'package:yug_app/common/services/user.dart';
+import 'package:yug_app/common/values/constants.dart';
 
 typedef GrpcErrorCreator = GrpcError Function(
     [String? message, List<GeneratedMessage>? details, Object? rawResponser]);
@@ -108,5 +109,41 @@ class TokenRefreshInterceptor extends ClientInterceptor {
   ) {
     // 流式请求暂不处理token刷新
     return invoker(method, requests, options);
+  }
+}
+
+/// 语言设置拦截器
+class LanguageInterceptor implements ClientInterceptor {
+  @override
+  ResponseStream<R> interceptStreaming<Q, R>(
+      ClientMethod<Q, R> method,
+      Stream<Q> requests,
+      CallOptions options,
+      ClientStreamingInvoker<Q, R> invoker) {
+    final newOptions = options.mergedWith(
+      CallOptions(metadata: {
+        Constants.apiLangKey: Get.locale?.languageCode == 'zh'
+            ? Constants.apiLangZh
+            : Constants.apiLangEn,
+      }),
+    );
+    return invoker(method, requests, newOptions);
+  }
+
+  @override
+  ResponseFuture<R> interceptUnary<Q, R>(
+    ClientMethod<Q, R> method,
+    Q request,
+    CallOptions options,
+    ClientUnaryInvoker<Q, R> invoker,
+  ) {
+    final newOptions = options.mergedWith(
+      CallOptions(metadata: {
+        Constants.apiLangKey: Get.locale?.languageCode == 'zh'
+            ? Constants.apiLangZh
+            : Constants.apiLangEn,
+      }),
+    );
+    return invoker(method, request, newOptions);
   }
 }

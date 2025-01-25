@@ -1,4 +1,4 @@
-/// constants
+/// constants 常量
 class Constants {
   // service api
   static const apiUrl = 'https://api.example.com';
@@ -16,6 +16,11 @@ class Constants {
 
   // storage refresh token
   static const storageRefreshToken = 'refresh_token';
+
+  // API language codes
+  static const apiLangZh = 'zh';
+  static const apiLangEn = 'en';
+  static const apiLangKey = 'lang';
 
   // storage profile
   static const storageProfile = 'profile';

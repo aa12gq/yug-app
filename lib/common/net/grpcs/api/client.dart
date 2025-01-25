@@ -34,6 +34,7 @@ class GrpcClientUtil {
       interceptors: [
         TokenRefreshInterceptor(),
         ResponseL10n(),
+        LanguageInterceptor(),
       ],
       options: $grpc.CallOptions(
         metadata: {"yug-x-authorization": token},
