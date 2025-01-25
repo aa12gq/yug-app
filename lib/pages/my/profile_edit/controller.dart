@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:yug_app/common/services/mfs.dart';
 import 'package:yug_app/common/services/user.dart';
 import 'package:yug_app/common/utils/loading.dart';
@@ -61,32 +62,59 @@ class ProfileEditController extends GetxController {
     try {
       final XFile? image = await _imagePicker.pickImage(
         source: ImageSource.gallery,
-        maxWidth: 1024,
-        maxHeight: 1024,
-        imageQuality: 85,
       );
 
       if (image != null) {
-        Loading.show('上传中...');
-        final file = File(image.path);
-        final fileRef = await _mfsService.uploadFile(
-          file: file,
-          bucket: 'vtyugapp',
-          dir: '/avatars',
-          uid: UserService.to.profile.userId.toString(),
+        // 打开裁剪界面
+        final croppedFile = await ImageCropper().cropImage(
+          sourcePath: image.path,
+          aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+          uiSettings: [
+            AndroidUiSettings(
+              toolbarTitle: '裁剪头像',
+              toolbarColor: AppTheme.primary,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: true,
+              hideBottomControls: false,
+            ),
+            IOSUiSettings(
+              title: '裁剪头像',
+              doneButtonTitle: '完成',
+              cancelButtonTitle: '取消',
+              aspectRatioLockEnabled: true,
+              aspectRatioPickerButtonHidden: true,
+              resetAspectRatioEnabled: false,
+              minimumAspectRatio: 1.0,
+            ),
+          ],
+          maxWidth: 1024,
+          maxHeight: 1024,
+          compressQuality: 85,
         );
 
-        // 调用更新头像接口
-        final request = UpdateAvatarRequest()
-          ..fsoId = fileRef.fsoId
-          ..path = fileRef.path;
-        await UserApiService.to.updateAvatar(request);
+        if (croppedFile != null) {
+          Loading.show('上传中...');
+          final file = File(croppedFile.path);
+          final fileRef = await _mfsService.uploadFile(
+            file: file,
+            bucket: 'vtyugapp',
+            dir: '/avatars',
+            uid: UserService.to.profile.userId.toString(),
+          );
 
-        // 刷新用户信息
-        await UserService.to.getMyProfile();
-        avatarUrl = "${MfsConfig.previewFileUrl}/${fileRef.path}";
-        update();
-        Loading.success('更新成功');
+          // 调用更新头像接口
+          final request = UpdateAvatarRequest()
+            ..fsoId = fileRef.fsoId
+            ..path = fileRef.path;
+          await UserApiService.to.updateAvatar(request);
+
+          // 刷新用户信息
+          await UserService.to.getMyProfile();
+          avatarUrl = "${MfsConfig.previewFileUrl}/${fileRef.path}";
+          update();
+          Loading.success('更新成功');
+        }
       }
     } catch (e) {
       Loading.error('头像更新失败');

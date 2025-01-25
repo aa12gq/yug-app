@@ -277,10 +277,12 @@ class MyIndexPage extends GetView<MyIndexController> {
                 // 头像部分
                 Stack(
                   children: [
+                    // 外层装饰
                     Container(
-                      width: 48.w,
-                      height: 48.w,
+                      width: 54.w,
+                      height: 54.w,
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -289,114 +291,120 @@ class MyIndexPage extends GetView<MyIndexController> {
                             Colors.white.withValues(alpha: 0.1),
                           ],
                         ),
-                        borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.5,
-                        ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
+                            color: Colors.black.withValues(alpha: 0.15),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                          BoxShadow(
+                            color: Colors.white.withValues(alpha: 0.2),
                             blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          // 头像
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16.r),
-                            child: Obx(() => controller.avatarPath.value.isEmpty
-                                ? Icon(
-                                    Icons.person_rounded,
-                                    color: Colors.white,
-                                    size: 26.w,
-                                  )
-                                : Image.network(
-                                    controller.avatarPath.value,
-                                    width: 48.w,
-                                    height: 48.w,
-                                    fit: BoxFit.cover,
-                                    // 加载时显示占位
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Center(
-                                        child: Icon(
-                                          Icons.person_rounded,
-                                          color: Colors.white,
-                                          size: 26.w,
-                                        ),
-                                      );
-                                    },
-                                    // 加载失败时显示默认头像
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Center(
-                                        child: Icon(
-                                          Icons.person_rounded,
-                                          color: Colors.white,
-                                          size: 26.w,
-                                        ),
-                                      );
-                                    },
-                                  )),
-                          ),
-                          // 右下角的等级标记
-                          Positioned(
-                            right: -1,
-                            bottom: -1,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 4.w, vertical: 2.h),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFFBE0B),
-                                borderRadius: BorderRadius.circular(6.r),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Text(
-                                "Lv.5",
-                                style: TextStyle(
-                                  fontSize: 8.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                            offset: const Offset(0, -2),
                           ),
                         ],
                       ),
                     ),
-                    // 左上角的VIP标记
+                    // 头像主容器
+                    Container(
+                      width: 54.w,
+                      height: 54.w,
+                      padding: EdgeInsets.all(2.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.8),
+                          width: 1.2,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14.r),
+                        child: Obx(() => controller.avatarPath.value.isEmpty
+                            ? Icon(
+                                Icons.person_rounded,
+                                color: Colors.white,
+                                size: 28.w,
+                              )
+                            : Image.network(
+                                controller.avatarPath.value,
+                                width: 54.w,
+                                height: 54.w,
+                                fit: BoxFit.cover,
+                                // 加载时显示占位
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: Icon(
+                                      Icons.person_rounded,
+                                      color: Colors.white,
+                                      size: 28.w,
+                                    ),
+                                  );
+                                },
+                                // 加载失败时显示默认头像
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Center(
+                                    child: Icon(
+                                      Icons.person_rounded,
+                                      color: Colors.white,
+                                      size: 28.w,
+                                    ),
+                                  );
+                                },
+                              )),
+                      ),
+                    ),
+                    // VIP标记
                     Positioned(
                       left: -2,
                       top: -2,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 4.w, vertical: 2.h),
+                          horizontal: 5.w,
+                          vertical: 2.h,
+                        ),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                             colors: [
                               const Color(0xFFFF6B6B),
                               const Color(0xFFFF6B6B).withValues(alpha: 0.8),
                             ],
                           ),
-                          borderRadius: BorderRadius.circular(6.r),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 1.5,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12.r),
+                            bottomRight: Radius.circular(12.r),
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFFFF6B6B)
+                                  .withValues(alpha: 0.3),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          "VIP",
-                          style: TextStyle(
-                            fontSize: 8.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.workspace_premium,
+                              color: Colors.white,
+                              size: 10.w,
+                            ),
+                            SizedBox(width: 2.w),
+                            Text(
+                              "VIP",
+                              style: TextStyle(
+                                fontSize: 8.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -419,6 +427,54 @@ class MyIndexPage extends GetView<MyIndexController> {
                                   color: Colors.white,
                                 ),
                               )),
+                          SizedBox(width: 6.w),
+                          // 等级标记
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6.w,
+                              vertical: 2.h,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  const Color(0xFFFFBE0B),
+                                  const Color(0xFFFFBE0B)
+                                      .withValues(alpha: 0.8),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFFFBE0B)
+                                      .withValues(alpha: 0.3),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.auto_awesome,
+                                  color: Colors.white,
+                                  size: 10.w,
+                                ),
+                                SizedBox(width: 2.w),
+                                Text(
+                                  "Lv.5",
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           SizedBox(width: 6.w),
                           // 认证标记
                           Container(

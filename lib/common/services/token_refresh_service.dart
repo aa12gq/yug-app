@@ -7,14 +7,11 @@ import 'package:yug_app/common/services/user.dart';
 
 class TokenRefreshService extends GetxService {
   Worker? _tokenWorker;
+  Timer? _refreshTimer;
   static const String _tag = "TokenRefreshService";
   bool _isRefreshing = false;
-  int _retryCount = 0;
-  static const int _maxRetries = 3;
-  static const Duration _retryDelay = Duration(seconds: 5);
-
-  // 标记是否是由刷新服务触发的token更新
-  bool _isInternalUpdate = false;
+  static const Duration _checkInterval = Duration(minutes: 1); // 每1分钟检查一次
+  static const int _refreshThresholdSeconds = 600; // 剩余10分钟时开始刷新
 
   // 单例模式
   static TokenRefreshService get to => Get.find();
@@ -24,6 +21,12 @@ class TokenRefreshService extends GetxService {
     super.onInit();
     print('[$_tag] 服务初始化');
     _setupTokenWorker();
+    // 如果已经有token，立即开始检查
+    if (UserService.to.hasToken) {
+      _startRefreshTimer();
+      // 立即检查一次
+      _checkAndRefreshToken();
+    }
   }
 
   void _setupTokenWorker() {
@@ -32,8 +35,51 @@ class TokenRefreshService extends GetxService {
       if (token.isEmpty) {
         print('[$_tag] token已清空');
         _isRefreshing = false;
+        _stopRefreshTimer();
+      } else {
+        print('[$_tag] 检测到新token，开始监控');
+        _startRefreshTimer();
+        // 立即检查一次
+        _checkAndRefreshToken();
       }
     });
+  }
+
+  void _startRefreshTimer() {
+    _refreshTimer?.cancel();
+    _refreshTimer = Timer.periodic(_checkInterval, (timer) {
+      print('[$_tag] 定时检查token状态');
+      _checkAndRefreshToken();
+    });
+    print('[$_tag] 启动token刷新定时器');
+  }
+
+  void _stopRefreshTimer() {
+    _refreshTimer?.cancel();
+    _refreshTimer = null;
+    print('[$_tag] 停止token刷新定时器');
+  }
+
+  Future<void> _checkAndRefreshToken() async {
+    final token = UserService.to.token;
+    if (token.isEmpty) return;
+
+    try {
+      final payload = _parseJwt(token);
+      if (!payload.containsKey('exp')) return;
+
+      final expiry = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
+      final now = DateTime.now();
+      final remainingSeconds = expiry.difference(now).inSeconds;
+
+      // 如果token剩余有效期小于阈值，则刷新
+      if (remainingSeconds < _refreshThresholdSeconds) {
+        print('[$_tag] token即将过期，剩余${remainingSeconds}秒，开始刷新');
+        await refreshToken();
+      }
+    } catch (e) {
+      print('[$_tag] 检查token状态失败: $e');
+    }
   }
 
   // 检查token是否过期
@@ -79,14 +125,12 @@ class TokenRefreshService extends GetxService {
 
       if (response.accessToken.isNotEmpty && response.refreshToken.isNotEmpty) {
         print('[$_tag] token刷新成功');
-        _isInternalUpdate = true;
         await UserService.to.setLoginCredentials(
           response.accessToken,
           response.refreshToken,
           response.accessTokenExpiresIn.toInt(),
           response.refreshTokenExpiresIn.toInt(),
         );
-        _isInternalUpdate = false;
         _isRefreshing = false;
         return true;
       }
@@ -111,6 +155,7 @@ class TokenRefreshService extends GetxService {
   @override
   void onClose() {
     _tokenWorker?.dispose();
+    _stopRefreshTimer();
     super.onClose();
   }
 }
