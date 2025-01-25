@@ -5,6 +5,7 @@ import 'package:yug_app/common/services/user.dart';
 import 'package:yug_app/common/style/theme.dart';
 import 'package:yug_app/common/utils/loading.dart';
 import 'package:yug_app/common/routers/name.dart';
+import 'package:yug_app/config/mfs.dart';
 import 'package:rive/rive.dart';
 import 'dart:async';
 
@@ -21,6 +22,11 @@ class MyIndexController extends GetxController {
   int currentPage = 0;
   // 定时器
   Timer? _timer;
+
+  // 用户信息
+  final userService = Get.find<UserService>();
+  var nickname = ''.obs;
+  var avatarPath = ''.obs;
 
   // 卡片数据
   final List<CardData> cardList = [
@@ -78,7 +84,7 @@ class MyIndexController extends GetxController {
 
   // 编辑个人资料
   void onEditProfile() {
-    Get.toNamed('/my/profile/edit');
+    Get.toNamed(RouteNames.myProfileEdit);
   }
 
   // 收藏
@@ -202,6 +208,21 @@ class MyIndexController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _loadLocalUserInfo();
+  }
+
+  // 加载本地用户信息
+  void _loadLocalUserInfo() {
+    final localUserInfo = userService.profile;
+    if (localUserInfo != null) {
+      nickname.value = localUserInfo.nickname;
+      // 拼接完整的头像URL
+      if (localUserInfo.avatarPath.isNotEmpty) {
+        avatarPath.value =
+            "${MfsConfig.previewFileUrl}/${localUserInfo.avatarPath}";
+        print("完整头像地址:${avatarPath.value}");
+      }
+    }
   }
 
   @override

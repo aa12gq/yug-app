@@ -307,34 +307,40 @@ class MyIndexPage extends GetView<MyIndexController> {
                           // 头像
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.r),
-                            child: Image.network(
-                              "https://avatars.githubusercontent.com/u/24516654",
-                              width: 48.w,
-                              height: 48.w,
-                              fit: BoxFit.cover,
-                              // 加载时显示占位
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: Icon(
+                            child: Obx(() => controller.avatarPath.value.isEmpty
+                                ? Icon(
                                     Icons.person_rounded,
                                     color: Colors.white,
                                     size: 26.w,
-                                  ),
-                                );
-                              },
-                              // 加载失败时显示默认头像
-                              errorBuilder: (context, error, stackTrace) {
-                                return Center(
-                                  child: Icon(
-                                    Icons.person_rounded,
-                                    color: Colors.white,
-                                    size: 26.w,
-                                  ),
-                                );
-                              },
-                            ),
+                                  )
+                                : Image.network(
+                                    controller.avatarPath.value,
+                                    width: 48.w,
+                                    height: 48.w,
+                                    fit: BoxFit.cover,
+                                    // 加载时显示占位
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Center(
+                                        child: Icon(
+                                          Icons.person_rounded,
+                                          color: Colors.white,
+                                          size: 26.w,
+                                        ),
+                                      );
+                                    },
+                                    // 加载失败时显示默认头像
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Center(
+                                        child: Icon(
+                                          Icons.person_rounded,
+                                          color: Colors.white,
+                                          size: 26.w,
+                                        ),
+                                      );
+                                    },
+                                  )),
                           ),
                           // 右下角的等级标记
                           Positioned(
@@ -403,14 +409,16 @@ class MyIndexPage extends GetView<MyIndexController> {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            "VTYUG",
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+                          Obx(() => Text(
+                                controller.nickname.value.isEmpty
+                                    ? "未设置昵称"
+                                    : controller.nickname.value,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              )),
                           SizedBox(width: 6.w),
                           // 认证标记
                           Container(

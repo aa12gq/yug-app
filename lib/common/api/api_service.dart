@@ -136,6 +136,42 @@ class UserApiService extends GetxService {
       throw e.toString();
     }
   }
+
+  Future<void> updateAvatar(UpdateAvatarRequest request) async {
+    try {
+      final client = await GrpcClientUtil.createClient(UserClient.new);
+      await client.updateAvatar(request);
+    } catch (e) {
+      if (e is GrpcError) {
+        throw e.message ?? '未知错误';
+      }
+      throw e.toString();
+    }
+  }
+
+  Future<void> updateNickname(UpdateNicknameRequest request) async {
+    try {
+      final client = await GrpcClientUtil.createClient(UserClient.new);
+      await client.updateNickname(request);
+    } catch (e) {
+      if (e is GrpcError) {
+        throw e.message ?? '未知错误';
+      }
+      throw e.toString();
+    }
+  }
+
+  Future<void> updateGender(UpdateGenderRequest request) async {
+    try {
+      final client = await GrpcClientUtil.createClient(UserClient.new);
+      await client.updateGender(request);
+    } catch (e) {
+      if (e is GrpcError) {
+        throw e.message ?? '未知错误';
+      }
+      throw e.toString();
+    }
+  }
 }
 
 class CaptchaApiService extends GetxService {

@@ -16,10 +16,11 @@ message UserInfo {
     string nickname = 3;
     string email = 4;
     string phone = 5;
-    string avatar = 6;
-    string bio = 7;
-    Gender gender = 8;
-    string birthday = 9;
+    string avatar_fso_id = 6;
+    string avatar_path = 7;
+    string bio = 8;
+    Gender gender = 9;
+    string birthday = 10;
 }
 
 message GetUserInfoRequest {

@@ -61,6 +61,7 @@ class RoutePages {
     GetPage(
       name: RouteNames.myProfileEdit,
       page: () => const ProfileEditPage(),
+      binding: ProfileEditBinding(),
     ),
     GetPage(
       name: RouteNames.myTheme,
