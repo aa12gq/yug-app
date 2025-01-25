@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package com.vtyug.yug.user.backend.grpc.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "user/shared/v1/user.proto";
+
+option go_package = "github.com/vtyug/yug-server/proto/user/backend/v1;v1";
+
+option (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "YUG user Service";
+        version: "1.0.0";
+        description: "YUG user Service";
+        contact: {
+            name: "与光科技";
+            url: "https://dev.yuguang.com";
+            email: "tech@yuguang.com";
+        };
+    };
+    schemes: [HTTP, HTTPS];
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service User {
+    rpc GetUserInfo(com.vtyug.yug.shared.v1.GetUserInfoRequest) returns (com.vtyug.yug.shared.v1.GetUserInfoResponse) {
+        option (google.api.http) = {
+            get: "/v1/user/info"
+        };
+    }
+}

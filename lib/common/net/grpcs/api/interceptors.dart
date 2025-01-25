@@ -5,6 +5,8 @@ import 'dart:async';
 
 import 'package:yug_app/common/i18n/index.dart';
 import 'package:yug_app/common/net/grpcs/api/delegating_response_future.dart';
+import 'package:yug_app/common/services/token_refresh_service.dart';
+import 'package:yug_app/common/services/user.dart';
 
 typedef GrpcErrorCreator = GrpcError Function(
     [String? message, List<GeneratedMessage>? details, Object? rawResponser]);
@@ -21,8 +23,12 @@ class ResponseL10n implements ClientInterceptor {
   }
 
   @override
-  ResponseFuture<R> interceptUnary<Q, R>(ClientMethod<Q, R> method, Q request,
-      CallOptions options, ClientUnaryInvoker<Q, R> invoker) {
+  ResponseFuture<R> interceptUnary<Q, R>(
+    ClientMethod<Q, R> method,
+    Q request,
+    CallOptions options,
+    ClientUnaryInvoker<Q, R> invoker,
+  ) {
     final r = invoker(method, request, options);
     return DelegatingResponseFuture(r).catchError((e) {
       if (e is GrpcError) {
@@ -58,5 +64,49 @@ class ResponseL10n implements ClientInterceptor {
       }
       throw e;
     });
+  }
+}
+
+/// Token 刷新拦截器
+class TokenRefreshInterceptor extends ClientInterceptor {
+  static const _tag = "TokenRefreshInterceptor";
+  static const _unauthenticatedCode = 16; // gRPC UNAUTHENTICATED 状态码
+
+  @override
+  ResponseFuture<R> interceptUnary<Q, R>(
+    ClientMethod<Q, R> method,
+    Q request,
+    CallOptions options,
+    ClientUnaryInvoker<Q, R> invoker,
+  ) {
+    final call = invoker(method, request, options);
+    return DelegatingResponseFuture(call).catchError((error) async {
+      if (error is GrpcError && error.code == _unauthenticatedCode) {
+        print('[$_tag] 检测到401错误，尝试刷新token');
+
+        final refreshed = await TokenRefreshService.to.refreshToken();
+        if (refreshed) {
+          print('[$_tag] token刷新成功，重试请求');
+          final newOptions = options.mergedWith(
+            CallOptions(metadata: {
+              'yug-x-authorization': UserService.to.token,
+            }),
+          );
+          return invoker(method, request, newOptions);
+        }
+      }
+      throw error;
+    });
+  }
+
+  @override
+  ResponseStream<R> interceptStreaming<Q, R>(
+    ClientMethod<Q, R> method,
+    Stream<Q> requests,
+    CallOptions options,
+    ClientStreamingInvoker<Q, R> invoker,
+  ) {
+    // 流式请求暂不处理token刷新
+    return invoker(method, requests, options);
   }
 }

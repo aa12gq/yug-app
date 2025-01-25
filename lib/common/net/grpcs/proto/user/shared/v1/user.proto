@@ -142,7 +142,6 @@ enum VerificationCondition {
     TEMP_JWT = 4; // 临时授权
 }
 
-// 场景
 enum BusinessScenario {
     // 登录
     LOGIN = 0;

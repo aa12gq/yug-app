@@ -10,7 +10,10 @@ class LoginBinding implements Bindings {
       Get.put<CaptchaApiService>(CaptchaApiService());
     }
 
-    // 注入登录控制器
-    Get.put(LoginController());
+    // 注入登录控制器 - 使用 lazyPut 延迟加载并确保单例
+    Get.lazyPut<LoginController>(
+      () => LoginController(),
+      fenix: true,
+    );
   }
 }

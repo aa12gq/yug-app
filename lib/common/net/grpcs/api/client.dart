@@ -31,7 +31,10 @@ class GrpcClientUtil {
 
     return creator(
       config.channel(channel),
-      interceptors: [ResponseL10n()],
+      interceptors: [
+        TokenRefreshInterceptor(),
+        ResponseL10n(),
+      ],
       options: $grpc.CallOptions(
         metadata: {"yug-x-authorization": token},
         timeout: const Duration(milliseconds: 5000),

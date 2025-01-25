@@ -21,12 +21,12 @@ class LoginForm extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
-    return Form(
-      key: controller.formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Container(
-        child: GetBuilder<LoginController>(
-          builder: (_) => SingleChildScrollView(
+    return GetBuilder<LoginController>(
+      builder: (controller) => Form(
+        key: controller.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Container(
+          child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(
               children: [

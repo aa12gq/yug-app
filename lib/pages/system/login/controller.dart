@@ -16,7 +16,7 @@ import 'package:yug_app/common/services/token_refresh_service.dart';
 class LoginController extends GetxController {
   LoginController();
 
-  // 表单key
+  // 表单key - 修改为懒加载形式
   final formKey = GlobalKey<FormState>();
 
   // 登录类型
@@ -526,7 +526,7 @@ class LoginController extends GetxController {
           '验证码状态: needCaptcha=${needCaptcha.value}, captchaText=${captchaController.text}');
 
       final response = await AuthApiService.to.login(request);
-      _handleLoginSuccess(response);
+      await _handleLoginSuccess(response);
     } catch (e) {
       Get.snackbar(LocaleKeys.loginErrorTip.tr, e.toString());
 
@@ -538,20 +538,27 @@ class LoginController extends GetxController {
   }
 
   // 登录成功后的处理
-  void _handleLoginSuccess(LoginResponse response) {
-    // 保存用户token和refresh token
-    UserService.to.setLoginCredentials(
-      response.accessToken,
-      response.refreshToken,
-      response.accessTokenExpiresIn.toInt(),
-      response.refreshTokenExpiresIn.toInt(),
-    );
+  Future<void> _handleLoginSuccess(LoginResponse response) async {
+    try {
+      // 保存用户token和refresh token
+      await UserService.to.setLoginCredentials(
+        response.accessToken,
+        response.refreshToken,
+        response.accessTokenExpiresIn.toInt(),
+        response.refreshTokenExpiresIn.toInt(),
+      );
 
-    // 启动token刷新服务
-    TokenRefreshService.to.startTokenRefresh();
-
-    // 跳转到主页
-    Get.offAllNamed(RouteNames.systemMain);
+      // 确保token已经设置成功后再跳转
+      if (UserService.to.isLogin && UserService.to.hasToken) {
+        Get.offAllNamed(RouteNames.systemMain);
+      } else {
+        throw '登录状态验证失败';
+      }
+    } catch (e) {
+      print('登录后处理失败: $e');
+      Get.snackbar('错误', '登录失败，请重试');
+      await UserService.to.logout();
+    }
   }
 
   // 跳转到注册页
@@ -566,28 +573,13 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    // 移除所有监听器
-    userNameController.removeListener(() => update());
-    emailController.removeListener(() => update());
-    phoneController.removeListener(() => update());
-    passwordController.removeListener(() => update());
-    captchaController.removeListener(() => update());
-    verifyCodeController.removeListener(() => update());
-
-    // 安全地销毁控制器
-    try {
-      if (Get.isRegistered<LoginController>()) {
-        userNameController.dispose();
-        emailController.dispose();
-        phoneController.dispose();
-        passwordController.dispose();
-        captchaController.dispose();
-        verifyCodeController.dispose();
-      }
-    } catch (e) {
-      print('Error disposing controllers: $e');
-    }
-
+    // 在控制器销毁时清理资源
+    userNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    captchaController.dispose();
+    verifyCodeController.dispose();
     super.onClose();
   }
 }
