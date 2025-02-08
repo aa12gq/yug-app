@@ -101,7 +101,7 @@ Map<String, String> localeZh = {
 
   LocaleKeys.myMenuRecentActivity: '最近活动',
   LocaleKeys.myMenuLanguage: '语言设置',
-  LocaleKeys.myMenuTheme: '主题设置',
+  LocaleKeys.myMenuTheme: '主题换肤',
   LocaleKeys.myMenuNotifications: '消息通知',
   LocaleKeys.myMenuHelpFeedback: '帮助与反馈',
   LocaleKeys.myMenuPrivacy: '隐私设置',

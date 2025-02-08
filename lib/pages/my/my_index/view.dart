@@ -225,50 +225,21 @@ class MyIndexPage extends GetView<MyIndexController> {
   // 构建用户信息
   Widget _buildUserInfo() {
     return Container(
-      padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 12.h),
+      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
       child: Column(
         children: [
           // 顶部操作栏
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.auto_awesome,
-                      color: Colors.white,
-                      size: 14.w,
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      LocaleKeys.myTitle.tr,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  _buildIconButton(Icons.notifications_outlined,
-                      () => controller.onNotifications()),
-                  SizedBox(width: 6.w),
-                  _buildIconButton(
-                      Icons.settings_outlined, () => controller.onSettings()),
-                ],
-              ),
+              _buildIconButton(Icons.notifications_outlined,
+                  () => controller.onNotifications()),
+              SizedBox(width: 6.w),
+              _buildIconButton(
+                  Icons.settings_outlined, () => controller.onSettings()),
             ],
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 8.h),
           // 个人资料卡片
           GestureDetector(
             onTap: () => controller.onEditProfile(),
@@ -561,8 +532,8 @@ class MyIndexPage extends GetView<MyIndexController> {
     return Builder(builder: (context) {
       final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
       return Container(
-        height: 80.h,
-        margin: EdgeInsets.symmetric(vertical: 8.h),
+        height: 60.h,
+        margin: EdgeInsets.symmetric(vertical: 6.h),
         child: PageView.builder(
           controller: controller.pageController,
           itemCount: null,
@@ -571,7 +542,7 @@ class MyIndexPage extends GetView<MyIndexController> {
             final card = controller.getCard(index);
             return Container(
               margin: EdgeInsets.symmetric(horizontal: 8.w),
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -647,7 +618,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                               card.title,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 0.5,
                                 shadows: [
@@ -664,7 +635,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                               card.subtitle,
                               style: TextStyle(
                                 color: Colors.white.withValues(alpha: 0.9),
-                                fontSize: 12.sp,
+                                fontSize: 10.sp,
                                 letterSpacing: 0.3,
                                 shadows: [
                                   Shadow(
@@ -680,8 +651,8 @@ class MyIndexPage extends GetView<MyIndexController> {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 6.h,
+                          horizontal: 10.w,
+                          vertical: 5.h,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -724,8 +695,9 @@ class MyIndexPage extends GetView<MyIndexController> {
     return Builder(builder: (context) {
       final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
       return Container(
-        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 8.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        height: 60.h,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -792,13 +764,14 @@ class MyIndexPage extends GetView<MyIndexController> {
     return Builder(builder: (context) {
       final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
       return Container(
-        width: 68.w,
+        width: 32.w,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 46.w,
-              height: 46.w,
+              width: 28.w,
+              height: 28.w,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -808,7 +781,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                     color.withOpacity(isDark ? 0.1 : 0.05),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(14.r),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: color.withOpacity(isDark ? 0.3 : 0.2),
                   width: 1,
@@ -821,28 +794,29 @@ class MyIndexPage extends GetView<MyIndexController> {
                   ),
                 ],
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    icon,
-                    color: isDark ? color.withValues(alpha: 0.9) : color,
-                    size: 18.w,
-                  ),
-                  SizedBox(height: 3.h),
-                  Text(
-                    value,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon,
                       color: isDark ? color.withValues(alpha: 0.9) : color,
+                      size: 12.w,
                     ),
-                  ),
-                ],
+                    SizedBox(height: 1.h),
+                    Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w600,
+                        color: isDark ? color.withValues(alpha: 0.9) : color,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 5.h),
+            SizedBox(height: 1.h),
             Text(
               label,
               style: TextStyle(
@@ -851,6 +825,7 @@ class MyIndexPage extends GetView<MyIndexController> {
                 color: isDark
                     ? Colors.white.withValues(alpha: 0.7)
                     : AppColors.secondaryText,
+                letterSpacing: 0.3,
               ),
               textAlign: TextAlign.center,
             ),
@@ -865,7 +840,7 @@ class MyIndexPage extends GetView<MyIndexController> {
     return Builder(builder: (context) {
       final isDark = AdaptiveTheme.of(context).brightness == Brightness.dark;
       return Container(
-        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 8.h),
         decoration: BoxDecoration(
           color: isDark
               ? Colors.white.withValues(alpha: 0.1)
@@ -943,11 +918,11 @@ class MyIndexPage extends GetView<MyIndexController> {
       return Column(
         children: [
           ListTile(
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+            contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 0),
+            minLeadingWidth: 28.w,
             leading: Container(
-              width: 32.w,
-              height: 32.w,
+              width: 28.w,
+              height: 28.w,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -966,13 +941,13 @@ class MyIndexPage extends GetView<MyIndexController> {
               child: Icon(
                 icon,
                 color: isDark ? color.withValues(alpha: 0.9) : color,
-                size: 16.w,
+                size: 14.w,
               ),
             ),
             title: Text(
               label,
               style: TextStyle(
-                fontSize: 13.sp,
+                fontSize: 11.sp,
                 fontWeight: FontWeight.w500,
                 color: isDark ? Colors.white : AppColors.primaryText,
                 letterSpacing: 0.3,
@@ -981,7 +956,7 @@ class MyIndexPage extends GetView<MyIndexController> {
             // 简化箭头样式
             trailing: Icon(
               Icons.arrow_forward_ios,
-              size: 14.w,
+              size: 10.w,
               color: isDark
                   ? Colors.white.withValues(alpha: 0.5)
                   : Colors.black.withValues(alpha: 0.3),
