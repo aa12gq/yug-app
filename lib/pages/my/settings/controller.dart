@@ -224,4 +224,19 @@ class SettingsController extends GetxController {
       }
     }
   }
+
+  // 语言设置
+  void onLanguage() {
+    Get.toNamed(RouteNames.myLanguage);
+  }
+
+  // 主题设置
+  void onTheme() {
+    Get.toNamed(RouteNames.myTheme);
+  }
+
+  // 帮助反馈
+  void onHelpAndFeedback() {
+    Get.toNamed(RouteNames.myHelp);
+  }
 }

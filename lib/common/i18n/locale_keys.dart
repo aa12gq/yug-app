@@ -146,6 +146,8 @@ class LocaleKeys {
   static const settingsLogoutTitle = 'settings_logout_title';
   static const settingsLogoutConfirm = 'settings_logout_confirm';
   static const settingsLogoutFailed = 'settings_logout_failed';
+  static const settingsPersonalization = 'settings_personalization';
+  static const settingsActivityHelp = 'settings_activity_help';
 
   /// 登录
   static const loginSlogan = "login_slogan";

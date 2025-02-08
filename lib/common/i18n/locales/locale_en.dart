@@ -134,6 +134,9 @@ Map<String, String> localeEn = {
   // Settings
   LocaleKeys.settingsTitle: 'Settings',
   LocaleKeys.settingsAccountSecurity: 'Account & Security',
+  LocaleKeys.settingsAccountSecurityDesc:
+      'Manage your account security settings',
+  LocaleKeys.settingsPrivacyDesc: 'Manage your privacy settings',
   LocaleKeys.settingsNotificationCache: 'Notifications & Cache',
   LocaleKeys.settingsNotification: 'Notifications',
   LocaleKeys.settingsNotificationDesc: 'Manage app notifications',
@@ -148,6 +151,8 @@ Map<String, String> localeEn = {
   LocaleKeys.settingsLogoutTitle: 'Logout',
   LocaleKeys.settingsLogoutConfirm: 'Are you sure to logout?',
   LocaleKeys.settingsLogoutFailed: 'Failed to logout',
+  LocaleKeys.settingsPersonalization: 'Personalization',
+  LocaleKeys.settingsActivityHelp: 'Activity & Help',
 
   // Login
   LocaleKeys.loginSlogan: "Make life better",

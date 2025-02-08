@@ -87,49 +87,9 @@ class MyIndexController extends GetxController {
     Get.toNamed(RouteNames.myProfileEdit);
   }
 
-  // 收藏
-  void onFavorites() {
-    Get.toNamed('/my/favorites');
-  }
-
-  // 历史记录
-  void onHistory() {
-    Get.toNamed('/my/history');
-  }
-
-  // 我的作品
-  void onWorks() {
-    Get.toNamed('/my/works');
-  }
-
-  // 帮助反馈
-  void onHelpAndFeedback() {
-    Get.toNamed(RouteNames.myHelp);
-  }
-
-  // 语言设置
-  void onLanguage() {
-    Get.toNamed(RouteNames.myLanguage);
-  }
-
-  // 主题设置
-  void onTheme() {
-    Get.toNamed(RouteNames.myTheme);
-  }
-
   // 消息通知
   void onNotifications() {
     Get.toNamed('/my/notifications');
-  }
-
-  // 隐私设置
-  void onPrivacy() {
-    Get.toNamed('/my/privacy');
-  }
-
-  // 查看所有活动
-  void onViewAllActivities() {
-    Get.toNamed('/my/activities');
   }
 
   // 退出登录
