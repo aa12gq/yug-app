@@ -78,12 +78,29 @@ import UserNotifications
        let body = String(data: message.body, encoding: .utf8) {
       print("Receive message title: \(title), content: \(body)")
       
-      let messageData: [String: Any] = [
-        "title": title,
-        "body": body,
-        "type": "message"
-      ]
-      channel?.invokeMethod("onMessage", arguments: messageData)
+      // 显示本地通知
+      if #available(iOS 10.0, *) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                          content: content,
+                                          trigger: nil)
+        
+        UNUserNotificationCenter.current().add(request)
+      }
+      
+      // 确保在主线程调用 Flutter channel
+      DispatchQueue.main.async { [weak self] in
+        let messageData: [String: Any] = [
+          "title": title,
+          "body": body,
+          "type": "message"
+        ]
+        self?.channel?.invokeMethod("onMessage", arguments: messageData)
+      }
     }
   }
   
@@ -132,15 +149,18 @@ import UserNotifications
     // 上报阿里云
     CloudPushSDK.sendNotificationAck(userInfo)
     
-    // 透传数据到Flutter
-    let payload: [String: Any] = [
-      "content": content,
-      "badge": badge,
-      "sound": sound,
-      "extras": extras,
-      "rawData": userInfo
-    ]
-    channel?.invokeMethod("onNotification", arguments: payload)
+    // 确保在主线程调用 Flutter channel
+    DispatchQueue.main.async { [weak self] in
+      // 透传数据到Flutter
+      let payload: [String: Any] = [
+        "content": content,
+        "badge": badge,
+        "sound": sound,
+        "extras": extras,
+        "rawData": userInfo
+      ]
+      self?.channel?.invokeMethod("onNotification", arguments: payload)
+    }
   }
 }
 
