@@ -5,7 +5,7 @@ import UserNotifications
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
-  private let CHANNEL_NAME = "com.vtyug.yugApp/push"
+  private let CHANNEL_NAME = "com.vtyug.ygApp/push"
   private var channel: FlutterMethodChannel?
   
   override func application(
@@ -43,12 +43,15 @@ import UserNotifications
   
   // MARK: - 注册APNs
   func registerAPNs(_ application: UIApplication) {
+    print("开始注册 APNs...")
     if #available(iOS 10.0, *) {
       let center = UNUserNotificationCenter.current()
       center.delegate = self
       center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+        print("请求通知权限结果: granted=\(granted), error=\(String(describing: error))")
         if granted {
           DispatchQueue.main.async {
+            print("用户允许通知权限，开始注册远程通知...")
             application.registerForRemoteNotifications()
           }
         }
@@ -106,22 +109,26 @@ import UserNotifications
   
   // MARK: - APNs注册成功回调
   override func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+    let token = tokenParts.joined()
+    print("收到 APNs deviceToken: \(token)")
+    
     CloudPushSDK.registerDevice(deviceToken) { [weak self] (result: CloudPushCallbackResult?) in
       guard let res = result else {
         print("注册deviceToken回调结果为nil")
         return
       }
       if res.success {
-        print("Register deviceToken success.")
+        print("注册 deviceToken 到阿里云成功，deviceId: \(CloudPushSDK.getDeviceId() ?? "unknown")")
       } else {
-        print("Register deviceToken failed, error: \(res.error?.localizedDescription ?? "unknown error")")
+        print("注册 deviceToken 到阿里云失败，错误: \(res.error?.localizedDescription ?? "unknown error")")
       }
     }
   }
   
   // MARK: - APNs注册失败回调
   override func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-    print("didFailToRegisterForRemoteNotificationsWithError: \(error)")
+    print("注册远程通知失败，错误: \(error.localizedDescription)")
   }
   
   // MARK: - 统一处理静默推送
