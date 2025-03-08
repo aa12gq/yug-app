@@ -57,7 +57,28 @@
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>App需要您的同意，才能访问媒体资料库</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>App需要您的同意，才能访问日历</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App需要您的同意，才能使用相机</string>
+	<key>NSContactsUsageDescription</key>
+	<string>App需要您的同意，才能访问通讯录</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App需要您的同意，才能始终访问位置</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App需要您的同意，才能始终访问位置</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App需要您的同意，才能在使用期间访问位置</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App需要您的同意，才能访问麦克风</string>
+	<key>NSMotionUsageDescription</key>
+	<string>App需要您的同意，才能访问运动与健身</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>App需要您的同意，才能访问提醒事项</string>
 </dict>
 </plist>

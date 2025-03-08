@@ -50,24 +50,33 @@ Future<void> initAliyunPush() async {
         return;
       }
 
-      await aliyunPush
-          .initPush(appKey: appKey, appSecret: appSecret)
-          .then((m) async {
-        _log("初始化结果: $m");
+      // 初始化推送
+      final result =
+          await aliyunPush.initPush(appKey: appKey, appSecret: appSecret);
+      _log("初始化结果: $result");
 
-        if (m['code'] == '10000') {
-          _initialized = true;
-          final deviceId = await aliyunPush.getDeviceId();
-          if (deviceId != null && deviceId.isNotEmpty) {
-            await StoreCache.set(StoreCache.keyPushRegId, deviceId);
-          }
+      if (result['code'] == '10000' ||
+          (Platform.isIOS && result['code'] == '10002')) {
+        _initialized = true;
 
-          if (Platform.isAndroid) {
-            await _createNotificationChannel();
-            await _checkAndRequestPermissions();
-          }
+        // 获取设备ID
+        final deviceId = await aliyunPush.getDeviceId();
+        _log("获取到设备ID: $deviceId");
+
+        if (deviceId != null && deviceId.isNotEmpty) {
+          await StoreCache.set(StoreCache.keyPushRegId, deviceId);
+          _log("设备ID已保存");
         }
-      });
+
+        if (Platform.isAndroid) {
+          await _createNotificationChannel();
+          await _checkAndRequestPermissions();
+        } else if (Platform.isIOS) {
+          // iOS特定初始化
+          await aliyunPush.turnOnIOSDebug();
+          await aliyunPush.showIOSNoticeWhenForeground(true);
+        }
+      }
     } catch (e) {
       _log("初始化失败: $e");
       return;
@@ -78,6 +87,18 @@ Future<void> initAliyunPush() async {
       onMessage: _handleMessage,
       onNotification: _handleNotification,
       onNotificationOpened: _handleNotificationOpened,
+      onIOSRegisterDeviceTokenSuccess: (result) async {
+        _log("iOS注册deviceToken成功: $result");
+        return {};
+      },
+      onIOSRegisterDeviceTokenFailed: (result) async {
+        _log("iOS注册deviceToken失败: $result");
+        return {};
+      },
+      onIOSChannelOpened: (result) async {
+        _log("iOS通道打开: $result");
+        return {};
+      },
     );
   });
 }
@@ -124,6 +145,30 @@ Future<void> _handleMessage(Map<dynamic, dynamic> message) async {
     String content = "您有一条新消息";
     Map<String, dynamic>? extraData;
 
+    // 处理标题
+    if (message.containsKey('title')) {
+      if (message['title'] is List<int>) {
+        title = utf8.decode(message['title'] as List<int>);
+      } else if (message['title'] is String) {
+        title = message['title'];
+      }
+    }
+
+    // 处理内容
+    if (message.containsKey('body')) {
+      if (message['body'] is List<int>) {
+        content = utf8.decode(message['body'] as List<int>);
+      } else if (message['body'] is String) {
+        content = message['body'];
+      }
+    } else if (message.containsKey('content')) {
+      if (message['content'] is List<int>) {
+        content = utf8.decode(message['content'] as List<int>);
+      } else if (message['content'] is String) {
+        content = message['content'];
+      }
+    }
+
     if (message.containsKey('ext')) {
       final extStr = message['ext'] as String;
       final extData = jsonDecode(extStr);
@@ -151,14 +196,6 @@ Future<void> _handleMessage(Map<dynamic, dynamic> message) async {
       }
     }
 
-    // 如果消息本身包含标题和内容，也要考虑
-    if (message.containsKey('title')) {
-      title = message['title'];
-    }
-    if (message.containsKey('content')) {
-      content = message['content'];
-    }
-
     await _showNotification(
       title: title,
       content: content,
@@ -172,12 +209,36 @@ Future<void> _handleMessage(Map<dynamic, dynamic> message) async {
 Future<void> _handleNotification(Map<dynamic, dynamic> message) async {
   try {
     _log("收到通知: $message");
-    String title = message['title'] ?? message['notifyTitle'] ?? "语光通知";
-    String content = message['body'] ??
-        message['content'] ??
-        message['notifyContent'] ??
-        message['summary'] ??
-        "您有一条新消息";
+    String title = "语光通知";
+    String content = "您有一条新消息";
+
+    // 处理标题
+    if (message.containsKey('title')) {
+      if (message['title'] is List<int>) {
+        title = utf8.decode(message['title'] as List<int>);
+      } else if (message['title'] is String) {
+        title = message['title'];
+      }
+    } else if (message.containsKey('notifyTitle')) {
+      if (message['notifyTitle'] is List<int>) {
+        title = utf8.decode(message['notifyTitle'] as List<int>);
+      } else if (message['notifyTitle'] is String) {
+        title = message['notifyTitle'];
+      }
+    }
+
+    // 处理内容
+    for (final key in ['body', 'content', 'notifyContent', 'summary']) {
+      if (message.containsKey(key)) {
+        if (message[key] is List<int>) {
+          content = utf8.decode(message[key] as List<int>);
+          break;
+        } else if (message[key] is String) {
+          content = message[key];
+          break;
+        }
+      }
+    }
 
     Map<String, dynamic>? extraData;
     if (message.containsKey('extraMap')) {

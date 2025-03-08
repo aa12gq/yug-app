@@ -1,7 +1,27 @@
 PODS:
+  - AlicloudPush (1.9.9.8):
+    - AlicloudSender
+    - AlicloudUT
+    - AlicloudUtils
+  - AlicloudSender (1.0.0.3):
+    - AlicloudUTDID
+    - EMASRest
+  - AlicloudUT (5.2.0.16):
+    - AlicloudUTDID
+  - AlicloudUTDID (1.6.1)
+  - AlicloudUtils (2.0.1):
+    - AlicloudUTDID
+  - aliyun_push_flutter (0.0.1):
+    - AlicloudPush
+    - Flutter
+  - app_links (0.0.2):
+    - Flutter
   - device_info_plus (0.0.1):
     - Flutter
+  - EMASRest (11.1.1.2)
   - Flutter (1.0.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_native_splash (2.4.3):
     - Flutter
   - image_cropper (0.0.4):
@@ -25,8 +45,12 @@ PODS:
   - TOCropViewController (2.6.1)
 
 DEPENDENCIES:
+  - AlicloudPush (~> 1.9.9)
+  - aliyun_push_flutter (from `.symlinks/plugins/aliyun_push_flutter/ios`)
+  - app_links (from `.symlinks/plugins/app_links/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -37,14 +61,27 @@ DEPENDENCIES:
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
 
 SPEC REPOS:
+  https://github.com/aliyun/aliyun-specs.git:
+    - AlicloudPush
+    - AlicloudSender
+    - AlicloudUT
+    - AlicloudUTDID
+    - AlicloudUtils
+    - EMASRest
   trunk:
     - TOCropViewController
 
 EXTERNAL SOURCES:
+  aliyun_push_flutter:
+    :path: ".symlinks/plugins/aliyun_push_flutter/ios"
+  app_links:
+    :path: ".symlinks/plugins/app_links/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
     :path: Flutter
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   image_cropper:
@@ -63,8 +100,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite_darwin/darwin"
 
 SPEC CHECKSUMS:
-  device_info_plus: 335f3ce08d2e174b9fdc3db3db0f4e3b1f66bd89
+  AlicloudPush: 88529c9b796e4ece0601de0867b30359f55b61f7
+  AlicloudSender: 1f468b6bd962a099ffc19d45e3608b0fe98f259d
+  AlicloudUT: 6d1cf30d57d096b7e9bb4b069dd0ba6ad59a3338
+  AlicloudUTDID: 5d2f22d50e11eecd38f30bc7a48c71925ea90976
+  AlicloudUtils: ef4436f52b828b1182b002373758ecb88068e679
+  aliyun_push_flutter: 88462ff89a39bc1be20bfedd30843ba52a0730e4
+  app_links: 76b66b60cc809390ca1ad69bfd66b998d2387ac7
+  device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
+  EMASRest: 8df6f87836767a9415ad5cc4af739bc9d215b475
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
   flutter_native_splash: 6cad9122ea0fad137d23137dd14b937f3e90b145
   image_cropper: 655b3ba703c9e15e3111e79151624d6154288774
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
@@ -75,6 +121,6 @@ SPEC CHECKSUMS:
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
 
-PODFILE CHECKSUM: e9a23ed5c87b1b024993a5c63f6a28dc8c9ca59e
+PODFILE CHECKSUM: 1beb33e1a398b7d64675d88ff1c53514ca3e0ce2
 
 COCOAPODS: 1.16.2
