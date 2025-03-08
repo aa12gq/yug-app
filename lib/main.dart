@@ -21,8 +21,7 @@ Future<void> main() async {
   // 初始化全局配置
   await Global.init();
 
-  // 初始化阿里云推送 (禁用详细日志模式)
-  setVerboseLogging(false);
+  // 初始化阿里云推送
   await initAliyunPush();
 
   // 监听通知跳转
