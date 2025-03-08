@@ -43,6 +43,9 @@ class RouteNames {
   static const systemWelcome = '/system_welcome';
   static const systemAbout = '/system_about';
 
+  // 调试页面
+  static const notificationTest = '/notification_test'; // 通知测试页面
+
   // 首页
   static const homeHome = '/home_home';
   static const socialSocial = '/social_social';

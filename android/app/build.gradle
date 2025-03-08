@@ -28,6 +28,27 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+        
+        manifestPlaceholders = [
+                applicationName: "io.flutter.app.FlutterApplication",
+                ALIYUN_APPKEY   : "335440547",
+                ALIYUN_APPSECRET: "98ac434257fe44fdbb52b28298567cd3",
+                // 厂商通道配置
+                MEIZU_APPKEY    : "",
+                MEIZU_APPID     : "",
+                XIAOMI_APPID    : "",
+                XIAOMI_APPKEY   : "",
+                OPPO_APPKEY     : "",
+                OPPO_APPID      : "",
+                OPPO_APPSECRET  : "",
+                VIVO_APPKEY     : "",
+                VIVO_APPID      : "",
+                HONOR_APPID     : "",
+                FCM_APPID       : "",
+                FCM_SENDID      : "",
+                FCM_PROJECT_ID  : "",
+                FCM_API_KEY     : ""
+        ]
     }
 
     buildTypes {
@@ -41,4 +62,21 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.github.yalantis:ucrop:2.2.8'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    
+    // 阿里云推送相关依赖
+    implementation 'com.aliyun.ams:alicloud-android-push:3.8.0'
+    // 厂商通道相关依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push:3.8.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-huawei:3.8.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.8.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-vivo:3.8.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-oppo:3.8.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-meizu:3.8.0'
+    
+    // 强制指定此依赖版本
+    implementation 'com.huawei.hmf:tasks:1.5.2.300'
+    
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'commons-codec:commons-codec:1.6'
 }

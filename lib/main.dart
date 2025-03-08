@@ -4,9 +4,15 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:yug_app/global.dart';
+import 'package:app_links/app_links.dart';
+import 'package:yug_app/common/index.dart';
+import 'package:yug_app/common/style/theme.dart';
+import 'plugins/app_link.dart';
+import 'plugins/aliyun_push.dart';
 
-import 'common/index.dart';
-import 'common/style/theme.dart';
+// 全局导航键引用
+final GlobalKey<NavigatorState> globalNavigatorKey =
+    GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   // 确保Flutter框架初始化
@@ -14,6 +20,22 @@ Future<void> main() async {
 
   // 初始化全局配置
   await Global.init();
+
+  // 初始化阿里云推送 (禁用详细日志模式)
+  setVerboseLogging(false);
+  await initAliyunPush();
+
+  // 监听通知跳转
+  try {
+    final appLinks = AppLinks();
+    appLinks.uriLinkStream.listen((uri) {
+      if (globalNavigatorKey.currentContext != null) {
+        schemeJump(uri.toString());
+      }
+    });
+  } catch (e) {
+    print('AppLinks初始化失败: $e');
+  }
 
   runApp(const MyApp());
 }

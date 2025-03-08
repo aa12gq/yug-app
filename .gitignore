@@ -63,3 +63,4 @@ lib/config/*
 
 # iOS build related
 ios/build/
+android/app/build/

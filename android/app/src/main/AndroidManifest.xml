@@ -4,9 +4,25 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
+    <!-- MIUI特有权限，确保通知在小米设备上显示 -->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
     <application
-        android:label="语光世界"
+        android:label="语光"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -39,6 +55,69 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            
+        <!-- 阿里云push sdk配置 - 使用固定值而非占位符确保配置正确 -->
+        <meta-data android:name="com.alibaba.app.appkey" android:value="335440547" />
+        <meta-data android:name="com.alibaba.app.appsecret" android:value="98ac434257fe44fdbb52b28298567cd3" />
+        
+        <!-- 华为通道的参数appid - 注意格式是appid=xxx -->
+        <meta-data android:name="com.huawei.hms.client.appid" android:value="appid=xxxxx" />
+        
+        <!-- vivo通道的参数 -->
+        <meta-data android:name="com.vivo.push.api_key" android:value="${VIVO_APPKEY}" />
+        <meta-data android:name="com.vivo.push.app_id" android:value="${VIVO_APPID}" />
+        
+        <!-- honor通道的参数 -->
+        <meta-data android:name="com.hihonor.push.app_id" android:value="${HONOR_APPID}" />
+        
+        <!-- oppo -->
+        <meta-data android:name="com.oppo.push.key" android:value="${OPPO_APPKEY}" />
+        <meta-data android:name="com.oppo.push.secret" android:value="${OPPO_APPSECRET}" />
+        
+        <!-- 小米 - 注意格式是id=xxx -->
+        <meta-data android:name="com.xiaomi.push.id" android:value="id=${XIAOMI_APPID}" />
+        <meta-data android:name="com.xiaomi.push.key" android:value="id=${XIAOMI_APPKEY}" />
+        
+        <!-- 魅族 -->
+        <meta-data android:name="com.meizu.push.id" android:value="${MEIZU_APPID}" />
+        <meta-data android:name="com.meizu.push.key" android:value="${MEIZU_APPKEY}" />
+        
+        <!-- fcm - 注意格式是id=xxx -->
+        <meta-data android:name="com.gcm.push.sendid" android:value="id=${FCM_SENDID}" />
+        <meta-data android:name="com.gcm.push.applicationid" android:value="${FCM_APPID}" />
+        <meta-data android:name="com.gcm.push.projectid" android:value="${FCM_PROJECT_ID}" />
+        <meta-data android:name="com.gcm.push.api.key" android:value="${FCM_API_KEY}" />
+        
+        <!-- 阿里云推送消息接收器配置 -->
+        <receiver
+            android:name="com.aliyun.ams.push.AliyunPushMessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- 辅助弹窗Activity -->
+        <activity
+            android:name="com.aliyun.ams.push.PushPopupActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="com.vtyug.ygApp"
+                    android:path="/thirdpush"
+                    android:scheme="agoo" />
+            </intent-filter>
+        </activity>
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
