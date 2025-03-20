@@ -27,6 +27,24 @@
 
 YUG App 是一个使用 Flutter 和 gRPC 技术栈构建的移动应用开发框架，旨在提供高效的网络通信、优雅的用户界面及高质量的开发体验。
 
+## 📸 应用预览
+
+<p align="center">
+<table>
+<tr>
+<td align="center"><img src="./lib/docs/images/yug_en_login.jpg" width="260" alt="英文登录界面"/><br/>英文登录界面</td>
+<td align="center"><img src="./lib/docs/images/yug_zh_login.jpg" width="260" alt="中文登录界面"/><br/>中文登录界面</td>
+</tr>
+<tr>
+<td align="center"><img src="./lib/docs/images/yug_mutil_language.jpg" width="260" alt="多语言设置"/><br/>多语言设置</td>
+<td align="center"><img src="./lib/docs/images/yug_theme_mode.jpg" width="260" alt="主题设置"/><br/>主题设置</td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="./lib/docs/images/yug_main.jpg" width="260" alt="主界面"/><br/>AI助手界面</td>
+</tr>
+</table>
+</p>
+
 ## 🚀 快速开始
 
 ### 🛠️ 环境准备
