@@ -27,6 +27,46 @@ A mobile application development framework based on Flutter and gRPC.
 
 YUG App is a mobile application development framework built with Flutter and gRPC technology stack, designed to provide efficient network communication, elegant user interface, and high-quality development experience.
 
+## 🏗️ Architecture
+
+The system architecture consists of the following main components:
+
+1. **Business Logic & Services**
+
+   - Navigation and Routing
+   - Utilities
+   - Service Classes
+
+2. **Configuration & Global Setup**
+
+   - Config Files Management
+   - Global Initialization
+
+3. **Multi-Platform Launchers**
+   Supporting multiple platforms:
+
+   - Android
+   - iOS
+   - Linux
+   - macOS
+   - Windows
+   - Web
+
+4. **Client Layer (UI Module)**
+
+   - Pages and Views
+   - Reusable UI Components
+   - Widgets
+   - Style and Theme
+
+5. **Networking Layer**
+   - gRPC Client
+   - External Backend Communication
+
+<p align="center">
+    <img src="./lib/docs/images/architecture.png" width="100%" alt="System Architecture Diagram">
+</p>
+
 ## 📸 App Preview
 
 <p align="center">
